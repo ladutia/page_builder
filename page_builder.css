@@ -69,6 +69,7 @@ textarea.txt-field {
 
 #pb-template {
   height: 100%;
+  overflow-y: auto;
 }
 
 .page-builder {
@@ -208,8 +209,8 @@ textarea.txt-field {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.pb-top-header .btn-clock,
-.pb-top-header .btn-view {
+.pb-top-header .pb-btn-clock,
+.pb-top-header .pb-btn-view {
   position: relative;
   width: 32px;
   height: 32px;
@@ -217,21 +218,21 @@ textarea.txt-field {
   min-width: auto;
 }
 
-.pb-top-header .btn-clock .icn,
-.pb-top-header .btn-view .icn {
+.pb-top-header .pb-btn-clock .icn,
+.pb-top-header .pb-btn-view .icn {
   position: absolute;
   top: 50%;
   left: 50%;
 }
 
-.pb-top-header .btn-view .icn {
+.pb-top-header .pb-btn-view .icn {
   width: 20px;
   height: 15px;
   margin: -7.5px 0 0 -10px;
   background: url("imgs/page_builder/eye.svg") no-repeat 0 0;
 }
 
-.pb-top-header .btn-clock .icn {
+.pb-top-header .pb-btn-clock .icn {
   width: 20px;
   height: 19px;
   margin: -9.5px 0 0 -10px;
@@ -1453,6 +1454,7 @@ textarea.txt-field {
   list-style-type: none;
   -webkit-box-shadow: none !important;
           box-shadow: none !important;
+  margin: 10px 0 !important;
 }
 
 .pb-blocks .pb-placeholder-element:before {
@@ -1464,6 +1466,8 @@ textarea.txt-field {
 }
 
 .pb-blocks {
+  margin: -70px 0;
+  position: relative;
   background: #fff;
   min-height: 100%;
   margin: 0 auto;
@@ -1494,7 +1498,7 @@ textarea.txt-field {
 }
 
 .pb-widget--container .pb-container-grid {
-  min-height: 192px;
+  min-height: 172px;
 }
 
 .pb-widget--container.pb-container-contains-widget > .pb-container-grid {
@@ -2370,6 +2374,10 @@ textarea.txt-field {
   margin-top: 15px;
 }
 
+.pb-tabs-panel__content .pb-field--vertical.pb-field-grid-size-columns {
+  margin-bottom: 40px;
+}
+
 .pb-grid-size {
   position: relative;
   height: 10px;
@@ -2409,7 +2417,7 @@ textarea.txt-field {
 
 .pb-grid-size__item {
   position: absolute;
-  font-size: 13px;
+  font-size: 10px;
   color: #333;
   line-height: 18px;
   text-align: center;
@@ -2423,10 +2431,6 @@ textarea.txt-field {
 .pb-grid-size__item:nth-child(2n+2) {
   left: 50%;
   width: 50%;
-}
-
-.pb-grid-size__item--error {
-  color: red;
 }
 
 .pb-widget--slideshow .pb-load-image--none {
@@ -2986,6 +2990,14 @@ li.dib.ui-draggable.ui-draggable-dragging {
   background-image: url("imgs/page_builder/covers/cover_16.png");
 }
 
+.list-ready-made__item-cover--17 {
+  background-image: url("imgs/page_builder/covers/cover_17.jpg");
+}
+
+.list-ready-made__item-cover--18 {
+  background-image: url("imgs/page_builder/covers/cover_18.jpg");
+}
+
 .pb-btn-open-menu {
   width: 100%;
   cursor: pointer;
@@ -3021,4 +3033,98 @@ li.dib.ui-draggable.ui-draggable-dragging {
   display: block;
   padding: 0 10px;
   text-align: center;
+}
+
+.noUi-horizontal .noUi-handle {
+  height: 16px;
+  width: 16px;
+  border: 1px solid rgba(151, 151, 151, 0.3);
+  background-color: #FFFFFF;
+  -webkit-box-shadow: -1px 0 1px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: -1px 0 1px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  top: -4px;
+  right: -8px;
+  background: #fff;
+}
+
+.noUi-horizontal .noUi-handle:before {
+  content: '';
+  display: none;
+}
+
+.noUi-horizontal .noUi-handle:after {
+  content: '';
+  display: none;
+}
+
+html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
+  right: -8px;
+}
+
+.wrap-pb-template {
+  height: 100%;
+}
+
+.pb-preview-box {
+  position: fixed;
+  top: 52px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: #f2f2f2 url("imgs/page_builder/pttrn.png") repeat 0 0;
+  display: none;
+}
+
+.pb-preview-box .pb-media-screen {
+  top: 0;
+  right: 0;
+}
+
+.pb-preview-box .pb-preview-box__wrap-iframe {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.pb-preview-box .pb-preview-box__inner {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.pb-preview-box .pb-preview-box__iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #fff;
+}
+
+.pb-widget--bg-video-yt:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+  background: url("imgs/page_builder/bg_video_youtube.svg") no-repeat center center;
+}
+
+.pb-widget--bg-video-vimeo:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+  background: url("imgs/page_builder/bg_video_vimeo.svg") no-repeat center center;
+}
+
+.pb-btn-upload-image-computer {
+  display: none;
 }

@@ -3103,7 +3103,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
   background: #fff;
 }
 
-.pb-widget--bg-video-yt:before {
+#page-builder-editor .pb-widget--bg-video-yt:before {
   content: '';
   position: absolute;
   top: 0;
@@ -3111,10 +3111,13 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
   bottom: 0;
   right: 0;
   z-index: 0;
+  width: auto;
+  height: auto;
+  margin: 0;
   background: url("imgs/page_builder/bg_video_youtube.svg") no-repeat center center;
 }
 
-.pb-widget--bg-video-vimeo:before {
+#page-builder-editor .pb-widget--bg-video-vimeo:before {
   content: '';
   position: absolute;
   top: 0;
@@ -3122,6 +3125,9 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
   bottom: 0;
   right: 0;
   z-index: 0;
+  width: auto;
+  height: auto;
+  margin: 0;
   background: url("imgs/page_builder/bg_video_vimeo.svg") no-repeat center center;
 }
 

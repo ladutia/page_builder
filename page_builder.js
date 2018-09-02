@@ -1024,8 +1024,8 @@ var pageBuilder = {
                 pageBuilder.getWidgetHTMLLabel('field') +
                 '</div>' +
 
-                "<div class='pb-widget pb-widget--init pb-widget--button' data-type='button' data-json='" + dataJsonBtn + "' style='max-width: 100%;'>" +
-                '<div class="pb-widget__content" style="padding: 0; max-width: 100%;">' +
+                "<div class='pb-widget pb-widget--init pb-widget--button' data-type='button' data-json='" + dataJsonBtn + "' style='max-width: 100%; padding: 0;'>" +
+                '<div class="pb-widget__content">' +
                 '<a href="javascript:void(0);" class="pb-btn pb-btn--full-width" style="padding: 9px 10px; border-width: 1px; border-color: #CC7A23; border-style: solid;">Subscribe Now</a>' +
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
@@ -1067,8 +1067,8 @@ var pageBuilder = {
                 pageBuilder.getWidgetHTMLLabel('field') +
                 '</div>';
 
-            var htmlBtton = "<div class='pb-widget pb-widget--init pb-widget--button' data-type='button' data-json='" + dataJsonBtn + "' style='max-width: 100%;'>" +
-                '<div class="pb-widget__content" style="padding: 0;">' +
+            var htmlBtton = "<div class='pb-widget pb-widget--init pb-widget--button' data-type='button' data-json='" + dataJsonBtn + "' style='max-width: 100%; padding: 0;'>" +
+                '<div class="pb-widget__content">' +
                 '<a href="javascript:void(0);" class="pb-btn pb-btn--full-width" style="padding: 9px 10px; border-width: 1px; border-color: #CC7A23; border-style: solid;">Subscribe Now</a>' +
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
@@ -2137,7 +2137,6 @@ var pageBuilder = {
             $('#imageAlign').find('li').removeClass('pb-text-align--selected').eq(opt.textAlign).addClass('pb-text-align--selected');
             pageBuilder.setOptionsImage();
             setSettingCssWidget($('#pb-panel__image'));
-            setSettingsBackgroundImage($('#pb-panel__image'));
         } else if (type === 'image-group') {
             $('#imageGroupBackground').colpickSetColor(opt.backgroundColor, true).css('background-color', opt.backgroundColor);
             pageBuilder.setOptionsLayoutImageGroup();
@@ -2540,10 +2539,10 @@ var pageBuilder = {
 
             if (opt.bgVideoYT) {
                 $('.pb-bg-video-yt').show().find('#bgVideoYT').val(opt.bgVideoYT);
-                if ($widget.hasClass('pb-widget--bg-video-yt')){
+                if ($widget.hasClass('pb-widget--bg-video-yt')) {
                     $('#bgVideoYT').attr('data-default-id', 'bSXQ5Etde2o');
                     $('.pb-bg-video-yt > label').text('Background Video (YouTube Video ID)');
-                } else{
+                } else {
                     $('#bgVideoYT').attr('data-default-id', '199167955');
                     $('.pb-bg-video-yt > label').text('Background Video (Vimeo Video ID)');
                 }
@@ -3425,8 +3424,8 @@ var pageBuilder = {
             getTplOpt();
             var $input = $(this);
             var val = $.trim($input.val());
-           
-            if(val == ''){
+
+            if (val == '') {
                 val = $input.attr('data-default-id');
                 $input.val(val);
             }
@@ -4908,6 +4907,9 @@ var pageBuilder = {
 
         if ($tpl.hasClass('pb-widget--calendar') || $tpl.hasClass('pb-widget--social-share') || $tpl.hasClass('pb-widget--social-follow')) {
             $tpl.children('.pb-widget__content').children('.pb-social-btns').css('background-image', 'url(' + opt.backgroundImageUrl + ')');
+        } else if ($tpl.hasClass('pb-widget--image')) {
+            $tpl.find('.pb-load-image').removeClass('pb-load-image--none').find('img').attr('src', url);
+            return false;
         } else {
             $tpl.css('background-image', 'url(' + opt.backgroundImageUrl + ')');
         }
@@ -5380,18 +5382,18 @@ var pageBuilder = {
         $html.find('.mce-content-body').removeAttr('id contenteditable').removeClass('mce-content-body');
         $html.find('.pb-widget__placeholder, .pb-widget__shadow-label, .pb-helper-drag-drop').remove();
     },
-    openUploaderInit: function(){
-        $('.pb-btn-upload-image-computer').find('input').on('click', function(){
+    openUploaderInit: function () {
+        $('.pb-btn-upload-image-computer').find('input').on('click', function () {
             $(this).val('');
             console.log('click uploader');
         });
-        $('.pb-btn-upload-image-computer').find('input').on('change', function(){
+        $('.pb-btn-upload-image-computer').find('input').on('change', function () {
             var val = $(this).val();
             console.log('change uploader');
             console.log(val);
         });
     },
-    openUploader: function(){
+    openUploader: function () {
         console.log('open uploader');
         $('.pb-btn-upload-image-computer').find('input').trigger('click');
     }

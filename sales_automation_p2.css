@@ -254,7 +254,9 @@ svg {
   padding-top: 9px;
   color: #333;
 }
-.plan-list-item-head .t span {
+.plan-list-item-head .t span.day-edit,
+.plan-list-item-head .t span.time-edit,
+.plan-list-item-head .t span.after-time-edit {
   color: #fb8800;
 }
 .plan-list-item-head .ll-actions-small-dropdown {
@@ -1989,6 +1991,56 @@ svg {
 }
 .sales-automation-page .t-btn-gray:hover{
   background:#fafafa
+}
+.plan-list-item-head .dropdown-at-after{
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0;
+  padding: 0;
+}
+.dropdown-at-after .t-toggle-btn{
+  display: block;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 30px;
+  width: auto;
+  color: #333;
+  text-align: center;
+  text-decoration: none;
+}
+.dropdown-at-after .ll-actions-dropdown{
+  min-width: 100px;
+}
+.plan-list-item-head .show-after-time .time-edit{
+  display: none;
+}
+.plan-list-item-head .after-time-edit{
+  display: none;
+}
+.plan-list-item-head .show-after-time .after-time-edit{
+  display: inline-block;
+  vertical-align: top;
+}
+.wrap-edit-after-time .txt-field{
+  vertical-align: top;
+  width: 60px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.wrap-edit-after-time select{
+  width: 100px;
+}
+.wrap-edit-after-time > .chzn-container,
+.wrap-edit-after-time > .btn-save-after-time{
+  margin-left: 5px;
+}
+.wrap-edit-after-time > .chzn-container{
+  color: #333;
+  font-weight: normal;
+}
+.wrap-edit-after-time .chzn-container .chzn-results .highlighted {
+  background: #fb8800;
 }
 @media screen and (max-width: 767px) {
   .sales-automation-page .title-center{

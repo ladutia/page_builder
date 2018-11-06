@@ -124,7 +124,7 @@ var saP2 = {
       type +
       '"></div>' +
       '<div class="t">' +
-      'Day <span class="day-edit">1</span> at <span class="time-edit">4:30 PM</span>' +
+      'Day <span class="day-edit">1</span> <div class="ll-actions-small-dropdown dropdown-at-after ll-actions-small-dropdown-orange ll-default-dd"> <a href="#" class="t-toggle-btn">at</a> <div class="ll-actions-dropdown"> <ul> <li> <a href="#" value="at">At</a> </li> <li> <a href="#" value="after">After</a> </li> </ul> </div> </div> <span class="time-edit">4:30 PM</span> <span class="after-time-edit"> <span class="after-text-1">2</span> <span class="after-text-2">days</span> </span>' +
       "</div>" +
       '<div class="ll-actions-small-dropdown ll-actions-small-dropdown-orange ll-default-dd ll-fr">' +
       '<a href="#" class="t-btn-gray t-toggle-btn">' +
@@ -268,6 +268,44 @@ var saP2 = {
         e.stopPropagation();
         saP2.editTime($(this));
       });
+
+    $('.dropdown-at-after').off('mouseenter').on('mouseenter', function (e) {
+      e.stopPropagation();
+      var $this = $(this);
+
+      if (!$this.hasClass('ll-opened'))
+        $this.addClass('ll-opened');
+    });
+    $('.dropdown-at-after .ll-actions-dropdown').off('mouseleave').on('mouseleave', function () {
+      var $parent = $(this).parent();
+
+      if ($parent.hasClass('ll-opened')) {
+        $parent.removeClass('ll-opened');
+      }
+    });
+    $('.dropdown-at-after .ll-actions-dropdown li a').off('click').on('click', function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+      var $this = $(this);
+      var val = $this.attr('value');
+      var $dropdown = $this.parents('.dropdown-at-after');
+      var $btn = $dropdown.find('.t-toggle-btn');
+      var $wrapText = $this.parents('.t');
+
+      $dropdown.removeClass('ll-opened');
+      $btn.text(val);
+
+      if (val == 'at')
+        $wrapText.removeClass('show-after-time');
+      else
+        $wrapText.addClass('show-after-time');
+    });
+    $(".plan-list .after-time-edit")
+      .off("click.after-time-edit")
+      .on("click.after-time-editt", function (e) {
+        e.stopPropagation();
+        saP2.editAfterTime($(this));
+      });
   },
   editDay: function ($this) {
     var day = $this.text();
@@ -312,6 +350,33 @@ var saP2 = {
     });
     $this.find(".txt-field").on("keyup", function (e) {
       if (e.keyCode === 13) saP2.addNewDayTimeItem($(this), true);
+    });
+  },
+  editAfterTime: function ($this) {
+    var number = $this.find('.after-text-1').text();
+    var dropdownVal = $this.find('.after-text-2').text();
+    $this.html(
+      '<div class="wrap-edit-after-time"><input type="text" class="txt-field" value="' + number + '"><select><option value="minutes">minutes</option><option value="hours">hours</option></select><a href="#" class="t-btn-orange btn-save-after-time">Save</a></div>'
+    );
+
+    $this.find("select").chosen();
+    $this.find("select").find('option[value="' + dropdownVal + '"]').attr('selected', true);
+    $this.find("select").trigger('liszt:updated');
+
+    $this.find(".wrap-edit-after-time").on("click", function (e) {
+      e.stopPropagation();
+    });
+
+    $this.find('.btn-save-after-time').on('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var $box = $(this).parents('.after-time-edit');
+      var valNumber = parseInt($box.find('.txt-field').val());
+      var valDropdown = $box.find('select').val();
+
+      if (valNumber === "" || isNaN(valNumber)) valNumber = '10';
+
+      $box.html('<span class="after-text-1">' + valNumber + '</span> <span class="after-text-2">' + valDropdown + '<span>');
     });
   },
   addNewDayTimeItem: function ($input, isTime) {

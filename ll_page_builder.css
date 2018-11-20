@@ -216,6 +216,8 @@ body {
 
 .pb-widget--field {
   margin-bottom: 10px;
+  line-height: initial;
+  font-size: initial;
 }
 
 .pb-widget--horizontal-form, .pb-widget--vertical-form {
@@ -938,6 +940,16 @@ body {
 .inline-YTPlayer .YTPOverlay {
   cursor: default;
   pointer-events: none;
+}
+
+.pb-bg-video.vimeo_player {
+  max-width: 100% !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  overflow: hidden !important;
 }
 
 .pb-widget--bg-video-loading:before {

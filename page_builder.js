@@ -5786,11 +5786,120 @@ var pageBuilder = {
             isNewHistory = true;
 
         return isNewHistory;
+    },
+    versionsHTML: function () {
+        var maxVersionsHTML = 10;
+        var startCharCode = 65;
+
+        $('body').on('click.dropdown-versions', function () {
+            hideDropdownForVersionsHTML();
+        });
+        $('.pb-versions__btns').on('click', '.t-btn', function (e) {
+            e.preventDefault();
+            var $btn = $(this);
+
+            if ($btn.hasClass('pb-btn-add-new-version')) {
+                if (!$btn.hasClass('disabled'))
+                    addNewBtnVersionHTML($btn);
+            } else {
+                e.stopPropagation();
+                $btn.addClass('selected').siblings('.t-btn').removeClass('selected');
+            }
+        });
+
+        $('.pb-versions__btns').on('mouseenter', '.t-btn:not(.pb-btn-add-new-version)', function () {
+            var $btn = $(this);
+            showDropdownForVersionsHTML($btn);
+        });
+
+        $('.pb-versions__dropdown').on('mouseleave', function () {
+            hideDropdownForVersionsHTML();
+        });
+
+        $('.pb-version__delete').on('click', function () {
+            var $btn = $(this).parents('.pb-versions').find('.open-dropdown');
+            removeVersionHTML($btn);
+        });
+
+        function showDropdownForVersionsHTML($btn) {
+            var posLeft = $btn.position().left;
+            var $dropdown = $btn.parents('.pb-versions').find('.pb-versions__dropdown');
+
+            $btn.addClass('open-dropdown').siblings('.t-btn').removeClass('open-dropdown');
+            $dropdown.css('left', posLeft + 'px').show();
+        }
+
+        function hideDropdownForVersionsHTML() {
+            $('.open-dropdown').removeClass('.open-dropdown');
+            $('.pb-versions__dropdown').hide();
+        }
+
+        function addNewBtnVersionHTML($btn) {
+            var letter = generateLetter($btn);
+            var countCurrentBtns = getCountCurrentBtns($btn);
+
+            if (countCurrentBtns < maxVersionsHTML) {
+                $btn.before('<a href="#" class="t-btn t-btn-gray">' + String.fromCharCode(letter) + '</a>');
+            }
+
+            isLockedBtn($btn);
+        }
+
+        function isLockedBtn($btn) {
+            if (getCountCurrentBtns($btn) >= maxVersionsHTML)
+                disabledBtnNewVersion($btn);
+            else
+                enabledBtnNewVersion($btn);
+        }
+
+        function getCountCurrentBtns($btn) {
+            return $btn.parent().find('.t-btn:not(.pb-btn-add-new-version)').length;
+        }
+
+        function generateLetter($btn) {
+            var countCurrentBtns = getCountCurrentBtns($btn);
+
+            return startCharCode + countCurrentBtns;
+        }
+
+        function refreshAllLetters($btns) {
+            $btns.each(function (i) {
+                $(this).text(String.fromCharCode(startCharCode + i));
+            });
+        }
+
+        function removeVersionHTML($btn) {
+            var isSelected = false;
+            var $box = $btn.parents('.pb-versions');
+            var countBtns = getCountCurrentBtns($btn);
+
+            if ($btn.hasClass('selected'))
+                isSelected = true;
+
+            if (countBtns > 1) {
+                $btn.remove();
+
+                if (isSelected)
+                    $box.find('.t-btn:first').addClass('selected');
+
+                refreshAllLetters($box.find('.t-btn:not(.pb-btn-add-new-version)'));
+                isLockedBtn($box.find('.pb-btn-add-new-version'));
+            }
+        }
+
+        function disabledBtnNewVersion($btn) {
+            $btn.addClass('disabled');
+        }
+
+        function enabledBtnNewVersion($btn) {
+            $btn.removeClass('disabled');
+        }
     }
 }
 
 $(function () {
     pageBuilder.init();
+    pageBuilder.versionsHTML();
 
     var _supportsLocalStorage = !!window.localStorage
         && $.isFunction(localStorage.getItem)

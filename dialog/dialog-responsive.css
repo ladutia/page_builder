@@ -1,0 +1,387 @@
+/*css responsive dialogs*/
+@media (max-width: 767px) {
+    div.container-ll-dialog div.builder-popup{
+        max-width: 100%!important;
+        width: auto!important;
+        margin-top: 10px;
+    	margin-left: 10px!important;
+        margin-right: 10px!important;
+        margin-bottom: 10px!important;
+        position: fixed!important;
+        top:0;
+        left:0;
+        right: auto!important;
+        bottom: auto!important;
+        display: block;
+        min-width: 300px;
+        z-index: 9999 !important;
+    	min-height: 0 !important;
+    }
+    
+    div.container-ll-dialog div.builder-popup.db-footer-popup{
+        left: 0!important;
+        bottom: 0!important;
+        top: auto!important;
+        width: 100%!important;
+        margin: 0!important;
+    }
+    div.container-ll-dialog div.builder-popup.db-ribbon-popup{
+        left: 0!important;
+        top: 0!important;
+        width: 100%!important;
+        margin: 0!important;
+    }
+    .ll-fade{
+        z-index: 999!important;
+    }
+    .builder-popup.db-modal-popup .db-popup-content-inner{
+        padding: 10px!important;
+    }
+    .db-outer-content .db-outer-content-inner{
+        padding: 6px 10px;
+    }
+    .fields-modal-popup{
+        height: auto!important;
+        padding-right: 10px!important;
+        padding-bottom: 10px!important;
+        margin: 0 0 0 210px!important;
+    }
+    .db-outer-button{
+        width: 100%!important;
+        position:relative!important;
+        top:auto!important;
+        left:auto!important;
+        right: auto!important;
+        bottom: auto!important;
+        clear:both;
+    }
+    .fields-modal-popup .db-btn-customize{
+        width: 100%!important;
+        display: block!important;
+        border-radius: 4px;
+        -moz-border-radius: 4px; 
+        -webkit-border-radius: 4px;
+    }
+    .fields-modal-popup .field{
+        margin: 0 0 10px;
+    }
+    .fields-modal-popup .field .txt_field{
+        border-width: 1px;
+        border-radius: 4px;
+        -moz-border-radius: 4px; 
+        -webkit-border-radius: 4px; 
+    }
+    .builder-popup.db-popup-canvas .db-popup-content-inner{
+        padding: 10px 15px;
+        min-height: 0!important;
+    }
+    .builder-popup.db-popup-canvas .db-popup-header,
+    .builder-popup.db-popup-slider .db-popup-header{
+        padding: 5px 20px;
+        min-height: 30px;
+    }
+    .builder-popup.db-popup-canvas .db-popup-footer{
+        padding: 15px 20px;
+    }
+    .db-left-box{
+        width: 100%;
+        float: none;
+    }
+    .db-right-box{
+        width: 100%;
+        float: none;
+    }
+    .builder-popup.db-footer-popup .db-popup-content-inner,
+    .builder-popup.db-ribbon-popup .db-popup-content-inner{
+        padding: 15px 15px 0;
+        min-height: 0!important;
+    }
+    .db-footer-popup .fields-modal-popup,
+    .db-ribbon-popup .fields-modal-popup{
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        margin: 0!important;
+        padding: 0 0 15px!important;
+    }
+    .db-modal-popup.db-theme-2 .fields-modal-popup{
+        margin: 0!important;
+        padding: 10px;
+    }
+    .builder-popup.db-modal-popup.db-theme-2 .db-popup-content-inner{
+        min-height: 0!important;
+    }
+    .db-modal-popup.db-theme-2{
+        min-height: 0!important;
+    }
+    .fields-modal-popup.db-show-field-name .db-email-field,
+    .db-theme-7 .fields-modal-popup.db-show-field-name .db-email-field,
+    .db-theme-6 .fields-modal-popup.db-show-field-name .db-email-field,
+    .db-theme-3 .fields-modal-popup.db-show-field-name .db-email-field,
+    .db-theme-4 .fields-modal-popup.db-show-field-name .db-email-field,
+    .db-theme-2 .fields-modal-popup.db-show-field-name .db-email-field,
+    .fields-modal-popup.db-show-field-name .db-name-field{
+        padding: 0;
+        float: none;
+        width: 100%;
+    }
+    .db-modal-popup.db-theme-3,
+    .builder-popup.db-modal-popup.db-theme-3 .db-template-popup-content .db-popup-content-inner{
+        min-height: 0!important;
+    }
+    .db-modal-popup .db-header-top{
+        padding-top: 15px;
+    }
+    .builder-popup.db-modal-popup.db-theme-3 .db-template-popup-content .db-popup-content-inner{
+        padding-bottom: 5px!important;
+    }
+    .db-modal-popup.db-theme-3 .fields-modal-popup{
+        padding: 0!important;
+        margin: 0!important;
+    }
+    .db-theme-3 .db-wrap-content-inner{
+        display: block;
+        height: auto;
+        width: auto;
+    }
+    .builder-popup.db-modal-popup.db-theme-4 .db-popup-footer{
+        padding: 10px;
+    }
+    .db-modal-popup.db-theme-4 .fields-modal-popup{
+        margin: 0!important;
+        padding: 0!important;
+    }
+    .builder-popup.db-modal-popup.db-theme-4 .db-popup-content-inner{
+        min-height: 0!important;
+    }
+    .db-theme-4 ul li{
+        margin-top: 10px;
+    }
+    .db-theme-5 .td-right-col-popup,
+    .db-theme-5 .td-left-col-popup{
+        float: none;
+        width: 100%;
+        padding: 0;
+    }
+    .db-modal-popup.db-theme-7 .fields-modal-popup,
+    .db-modal-popup.db-theme-6 .fields-modal-popup,
+    .db-modal-popup.db-theme-5 .fields-modal-popup{
+        margin: 0!important;
+        padding: 0!important;
+    }
+    .builder-popup.db-modal-popup.db-theme-5 .db-vertical-content,
+    .builder-popup.db-modal-popup.db-theme-5 .db-wrap-vertical-content{
+        display: block;
+    }
+    .db-theme-5 .db-line-v{
+        display: none;
+    }
+    .builder-popup.db-modal-popup .db-template-popup-content .db-image-content img{
+        min-height: 0!important;
+    }
+    .builder-popup.db-modal-popup.db-theme-5 .db-template-popup-content .db-image-content{
+        min-height: 0!important;
+    }
+    .builder-popup.db-modal-popup.db-theme-5 .db-template-popup-content > .db-popup-content-inner{
+        padding: 28px 10px!important;
+    }
+    .builder-popup.db-modal-popup,
+    .builder-popup.db-modal-popup.db-theme-6 .db-popup-content-inner{
+        min-height: 0!important;
+    }
+    .builder-popup.db-modal-popup.db-theme-6 .db-template-popup-content .db-popup-content-inner{
+        padding: 20px 10px!important;
+    }
+    .builder-popup.db-modal-popup.db-theme-7 .db-popup-footer{
+        padding: 15px 10px 10px;
+    }
+    .builder-popup.db-modal-popup.db-theme-7 .db-popup-content-inner{
+        min-height: 0!important;
+    }
+    .db-theme-7.db-modal-popup .db-header-top{
+        padding-top: 5px;
+    }
+    .db-modal-popup.db-theme-8 .fields-modal-popup{
+        padding: 10px!important;
+        margin: 0!important;
+    }
+    .builder-popup.db-modal-popup.db-theme-8 .db-template-popup-content .db-image-content{
+        position: relative!important;
+        left: auto!important;
+        right: auto!important;
+        bottom: auto!important;
+        top: auto!important;
+        min-height: 150px;
+        float: none;
+        width: 100%;
+        border-radius: 4px 4px 0 0;
+        -moz-border-radius: 4px 4px 0 0;
+        -webkit-border-radius: 4px 4px 0 0;
+    }
+    .builder-popup.db-modal-popup.db-theme-8 .db-template-popup-content .db-popup-content-inner{
+        min-height: 0!important;
+        margin: 0!important;
+    }
+    .builder-popup.db-modal-popup.db-theme-8 .db-popup-footer{
+        padding: 10px;
+        margin: 0;
+    }
+    .builder-popup.db-modal-popup.db-modal-popup.db-theme-8 .db-popup-footer{
+        height: auto;
+        text-align: center;
+    }
+    .builder-popup.db-modal-popup.db-modal-popup.db-theme-8 .footer-text{
+        padding: 0;
+    }
+    .builder-popup.db-modal-popup.db-theme-8 .db-social-btn{
+        display: inline-block;
+        vertical-align: top;
+        width: auto!important;
+        position:relative!important;
+        top:auto!important;
+        left:auto!important;
+        right: auto!important;
+        bottom: auto!important;
+        text-align: center;
+        margin: 0;
+    }
+    .db-modal-popup.db-theme-8 .db-outer-content .db-outer-content-inner{
+        padding-bottom: 0;
+    }
+    .db-modal-popup.db-theme-9 .fields-modal-popup{
+        margin: 0!important;
+        padding: 0!important;
+    }
+    .db-theme-9 .db-content-col-2{
+        padding-left: 10px;
+    }
+    .builder-popup.db-popup-slider{
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+    }
+    .builder-popup.db-popup-slider .db-popup-header{
+        padding: 5px 10px;
+    }
+    .builder-popup.db-popup-slider .db-popup-footer{
+        padding: 10px;
+        border-radius: 0 0 4px 4px;
+        -moz-border-radius: 0 0 4px 4px;
+        -webkit-border-radius: 0 0 4px 4px;
+    }
+    .builder-popup.db-popup-slider .db-popup-content-inner{
+        padding: 10px;
+    }
+    .container-ll-dialog .db-popup-header,
+    .container-ll-dialog .db-popup-header span{
+        font-size: 22px!important;
+    }
+    .container-ll-dialog .db-popup-content .db-outer-content,
+    .container-ll-dialog .db-popup-content .db-outer-content  span{
+        font-size: 16px!important;
+    }
+    .container-ll-dialog .db-popup-footer  .db-outer-content,
+    .container-ll-dialog .db-popup-footer  .db-outer-content span{
+        font-size: 16px!important;
+    }
+    .field >span{
+        display: none!important;
+    }
+    input{
+        -webkit-appearance: none;
+    }
+}
+@media (max-width: 639px) {
+    .db-theme-9 .db-video-box{
+        width: 100%;
+        float: none;
+    }
+    .db-theme-9 .db-content-col-2{
+        padding: 10px 0 0 0;
+        width: 100%;
+        float: none;
+    }
+    .db-theme-9 .db-popup-header{
+        padding: 8px 10px;
+        line-height: normal;
+    }
+}
+@media (max-width: 479px) {
+    .db-modal-popup .db-image-content{
+        width: 100%!important;
+        position:relative!important;
+        top:auto!important;
+        left:auto!important;
+        right: auto!important;
+        bottom: auto!important;
+        height: 150px!important;
+        border-radius: 4px 4px 0 0;
+        -moz-border-radius: 4px 4px 0 0; 
+        -webkit-border-radius: 4px 4px 0 0;
+    }
+    .builder-popup.db-modal-popup.db-theme-5 .db-image-content{
+        height: auto!important;
+    }
+
+    .builder-popup.db-modal-popup .db-template-popup-content .db-image-content{
+        border-radius: 4px 4px 0 0;
+        -moz-border-radius: 4px 4px 0 0; 
+        -webkit-border-radius: 4px 4px 0 0;
+    }
+    .builder-popup.db-modal-popup .db-template-popup-content .db-popup-content-inner{
+        margin-left: 0;
+    }
+    .db-modal-popup .fields-modal-popup{
+        margin: 0!important;
+        padding: 0 10px 10px!important;
+    }
+    .builder-popup.db-modal-popup .db-popup-content-inner{
+        min-height: 0;
+    }
+    .builder-popup.db-modal-popup .db-popup-footer{
+        height: auto;
+        padding: 10px;
+        text-align: center;
+    }
+    .db-social-btn{
+        display: inline-block;
+        vertical-align: top;
+        width: auto!important;
+        position:relative!important;
+        top:auto!important;
+        left:auto!important;
+        right: auto!important;
+        bottom: auto!important;
+        text-align: center;
+        margin: 4px 0 0 0;
+    }
+    .db-two-columns .db-col-1{
+        width: 100%;
+        float: none;
+        padding: 0;
+    }
+    .db-two-columns .db-col-2{
+        width: 100%;
+        float: none;
+        padding: 10px 0 0;
+    }
+    .builder-popup.db-popup-canvas .db-popup-content-inner{
+        padding: 10px;
+    }
+    .builder-popup.db-popup-canvas .db-popup-footer{
+        padding: 10px;
+    }
+    .builder-popup.db-footer-popup .db-popup-content-inner,
+    .builder-popup.db-ribbon-popup .db-popup-content-inner{
+        padding: 10px 10px 0;
+    }
+    .db-footer-popup .fields-modal-popup,
+    .db-ribbon-popup .fields-modal-popup{
+        padding: 0 0 10px!important;
+    }
+    .builder-popup.db-footer-popup .db-right-box .db-popup-content-inner {
+        padding-top: 0;
+    }
+}

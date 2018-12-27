@@ -66,6 +66,7 @@ if(ll_is_empty(ll_dialog_manager)){
 		loaded_dialog_style: false,
 		current_z_index_incrementer: 0,
 		ll_trk_no_ck: 0,
+		bodyPaddingRight: parseInt($('body').css('paddingRight')),
 		
 		init: function(llps){
 			//console.log(llps);
@@ -338,7 +339,9 @@ if(ll_is_empty(ll_dialog_manager)){
 			}
 			this.log_dialog_view(llp);
 			
-			ll_page_mobile_dialog_manager.init();
+			//ll_page_mobile_dialog_manager.init();
+			if(llp.ll_dialog.ll_dialog_type_alias == LL_DIALOG_TYPE_MODAL_ALIAS || llp.ll_dialog.ll_dialog_type_alias == LL_DIALOG_TYPE_CANVAS_ALIAS)
+				ll_dialog_manager.setBodyScroll(true);
 		},
 		close_dialog: function(_dialog_close){
 			var _container_dialog = _ll_track_form_submission.ll_jQuery(_dialog_close).parents('.container-ll-dialog');
@@ -361,6 +364,9 @@ if(ll_is_empty(ll_dialog_manager)){
 					//console.log(_response_data)
 				});
 			}
+			
+			if ($('body').hasClass('ll-popup-open'))
+				ll_dialog_manager.setBodyScroll(false);
 		},
 		position_ribbon: function(ll_dialog_type_alias, _dialog_container, llp, change_count){
 			if ( llp.ll_dialog.ll_dialog_settings.appearance_type == LL_DIALOG_APPEARANCE_TYPE_PUSH_OVER ) {
@@ -491,10 +497,27 @@ if(ll_is_empty(ll_dialog_manager)){
 					});
 				}
 			}
+		},
+		setBodyScroll:function(showPopup){
+			var innerWidth = window.innerWidth,
+				clientWidth = document.documentElement.clientWidth,
+				newWidth = ll_dialog_manager.bodyPaddingRight,
+				newPadding = ((showPopup) ? (newWidth+ innerWidth - clientWidth) : newWidth) + "px",
+				$body = $('body');
+
+			$body.css('paddingRight', newPadding);
+			
+			if(showPopup){
+				$('html').css('overflow', 'hidden');
+				$body.addClass('ll-popup-open');
+			}else{
+				$('html').css('overflow', '');
+				$body.removeClass('ll-popup-open');
+			}
 		}
 	}
 	
-	if(typeof ll_page_mobile_dialog_manager == 'undefined')
+	/*if(typeof ll_page_mobile_dialog_manager == 'undefined')
 	var ll_page_mobile_dialog_manager = {
 		is_done_attaching_resize_event: false,
 		
@@ -542,7 +565,7 @@ if(ll_is_empty(ll_dialog_manager)){
 				}
 			}
 		}
-	};
+	};*/
 	
 	if(typeof llps != 'undefined')
 		ll_dialog_manager.init(llps);

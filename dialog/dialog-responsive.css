@@ -3,20 +3,20 @@
     div.container-ll-dialog div.builder-popup{
         max-width: 100%!important;
         width: auto!important;
-        margin-top: 10px;
-    	margin-left: 10px!important;
-        margin-right: 10px!important;
-        margin-bottom: 10px!important;
-        position: fixed!important;
-        top:0;
-        left:0;
-        right: auto!important;
-        bottom: auto!important;
+        margin-top: 0!important;
+    	margin-left: 0!important;
+        margin-right: 0!important;
+        margin-bottom: 0!important;
         display: block;
         min-width: 300px;
         z-index: 9999 !important;
     	min-height: 0 !important;
     }
+	
+	div.container-ll-dialog .db-wrap-modal-popup .db-table-cell-modal-popup{
+		text-align: center;
+		vertical-align: middle;
+	}
     
     div.container-ll-dialog div.builder-popup.db-footer-popup{
         left: 0!important;

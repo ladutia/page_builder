@@ -1567,7 +1567,7 @@ var page = {
 			} else if (type == 'button'){
 				elementDrag = '<a href="#" class="db-btn-customize" style-font="Arial" style-font-size="18px" colorBg="e89c4c" colorBorder="cc7a23" colorFont="ffffff">Button</a>';
 			} else if (type == 'text'){
-				elementDrag = '<p><span style="font-size: 10pt;">Enter text here</span></p>';
+				elementDrag = '<p><span style="font-size: 14px;">Enter text here</span></p>';
 			} else if (type == 'spacing'){
 				elementDrag = '<div class="db-el-spacing db-el-spacing-h"></div>';
 			} else if (type == 'spacingV'){
@@ -1829,98 +1829,49 @@ var page = {
 	positionPopupCanvas: function(isCustom){
 		var $posPopup = $('#db-position-popup');
 		var $popup = $('.builder-popup.db-popup-canvas');
+		var $wrapPopup = $popup.closest('.db-wrap-modal-popup');
+		
+		var cssClass = 'db-pos-left-top db-pos-center-top db-pos-right-top db-pos-left-center db-pos-center-center db-pos-right-center db-pos-left-bottom db-pos-center-bottom db-pos-right-bottom';
+		
+		$wrapPopup.removeClass(cssClass);
+		
 		if (isCustom){
 			var posLeft = $posPopup.find('.db-pos-left').val();
 			var posTop = $posPopup.find('.db-pos-top').val();
+			var wrapBoxPaddingLeft = 15;
+			var wrapBoxPaddingTop = 15;
+			
+			$wrapPopup.addClass('db-pos-left-top');
 			$popup.css({
-				left: posLeft+"px",
-				top: posTop+"px",
-				right: 'auto',
-				bottom: 'auto',
-				margin: 0
+				marginLeft: (posLeft - wrapBoxPaddingLeft) +"px",
+				marginTop: (posTop - wrapBoxPaddingTop) +"px"
 			});
 		} else {
 			var position = $posPopup.attr('data-position');
-			var marginTop = -$popup.outerHeight()/2;
-			var marginLeft = -$popup.outerWidth()/2;
+			
+			$popup.css({
+				marginLeft: '',
+				marginTop: ''
+			});
+			
 			if ( position == LL_DIALOG_CANVAS_POSITION_LEFT_TOP ){
-				$popup.css({
-					left: '15px',
-					top: '15px',
-					right: 'auto',
-					bottom: 'auto',
-					margin: 0
-				});
+				$wrapPopup.addClass('db-pos-left-top');
 			} else if ( position == LL_DIALOG_CANVAS_POSITION_CENTER_TOP ){
-				$popup.css({
-					left: '50%',
-					top: '15px',
-					right: 'auto',
-					bottom: 'auto',
-					margin: 0,
-					marginLeft: marginLeft
-				});
+				$wrapPopup.addClass('db-pos-center-top');
 			} else if ( position == LL_DIALOG_CANVAS_POSITION_RIGHT_TOP ){
-				$popup.css({
-					left: 'auto',
-					top: '15px',
-					right: '15px',
-					bottom: 'auto',
-					margin: 0
-				});
+				$wrapPopup.addClass('db-pos-right-top');
 			} else if ( position == LL_DIALOG_CANVAS_POSITION_LEFT_CENTER ){
-				$popup.css({
-					left: '15px',
-					top: '50%',
-					right: 'auto',
-					bottom: 'auto',
-					margin: 0,
-					marginTop: marginTop
-				});
+				$wrapPopup.addClass('db-pos-left-center');
 			} else if ( position == LL_DIALOG_CANVAS_POSITION_CENTER_CENTER ){
-				$popup.css({
-					left: '50%',
-					top: '50%',
-					right: 'auto',
-					bottom: 'auto',
-					margin: 0,
-					marginTop: marginTop,
-					marginLeft: marginLeft
-				});
+				$wrapPopup.addClass('db-pos-center-center');
 			} else if ( position == LL_DIALOG_CANVAS_POSITION_RIGHT_CENTER ){
-				$popup.css({
-					left: 'auto',
-					top: '50%',
-					right: '15px',
-					bottom: 'auto',
-					margin: 0,
-					marginTop: marginTop
-				});
+				$wrapPopup.addClass('db-pos-right-center');
 			} else if ( position == LL_DIALOG_CANVAS_POSITION_LEFT_BOTTOM ){
-				$popup.css({
-					left: '15px',
-					top: 'auto',
-					right: 'auto',
-					bottom: '15px',
-					margin: 0
-				});
+				$wrapPopup.addClass('db-pos-left-bottom');
 			} else if ( position == LL_DIALOG_CANVAS_POSITION_CENTER_BOTTOM ){
-				$popup.css({
-					left: '50%',
-					top: 'auto',
-					right: 'auto',
-					bottom: '15px',
-					margin: 0,
-					marginLeft: marginLeft
-				});
+				$wrapPopup.addClass('db-pos-center-bottom');
 			} else if ( position == LL_DIALOG_CANVAS_POSITION_RIGHT_BOTTOM ){
-				$popup.css({
-					left: 'auto',
-					top: 'auto',
-					right: '15px',
-					bottom: '15px',
-					margin: 0
-				});
+				$wrapPopup.addClass('db-pos-right-bottom');
 			}
 		}
 		

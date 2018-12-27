@@ -424,71 +424,77 @@ EOT;
 	}
 	public static function get_dialog_default_html_canvas() {
 		$dialog_default_html = <<<EOT
-<div class="builder-popup db-popup-canvas db-two-columns">
-	<div class="db-popup-header">
-		<a href="javascript:void(0)" class="db-popup-close"></a>
-		<div class="db-outer-content" data-outer="text">
-			<div class="db-outer-content-inner">
-				<div class="db-clear-el">Clear</div>
-				<div class="db-html-el">
-					<p style="text-align: center;"><span style="font-size: 14pt;">Header text goes here</span></p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="db-popup-content">
-		<div class="db-popup-content-inner clearfix">
-			<div class="db-col-1 droppable-box db-connected-sortable">
-				<div class="db-outer-content" data-outer="text">
-					<div class="db-outer-content-inner">
-						<div class="db-html-el">
-							<p><span style="font-size: 10pt;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeuismod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</span></p>
+<div class="db-wrap-modal-popup">
+	<div class="db-table-modal-popup">
+		<div class="db-table-cell-modal-popup">
+			<div class="builder-popup db-popup-canvas db-two-columns">
+				<div class="db-popup-header">
+					<a href="javascript:void(0)" class="db-popup-close"></a>
+					<div class="db-outer-content" data-outer="text">
+						<div class="db-outer-content-inner">
+							<div class="db-clear-el">Clear</div>
+							<div class="db-html-el">
+								<p style="text-align: center;"><span style="font-size: 14pt;">Header text goes here</span></p>
+							</div>
 						</div>
 					</div>
-					<div class="db-el-move"></div>
-					<div class="db-el-delete"></div>
 				</div>
-			</div>
-			<div class="db-col-2 droppable-box db-connected-sortable">
-				<div class="db-outer-element db-outer-element-image">
-					<div class="db-outer-element-inner">
-						<div class="db-image-content">
-							<div class="db-change-image">
-								<div class="db-change-image-inner">
-									<img src="https://app.leadliaison.com/dialog_builder/images/photo_icon.png">
-									<p>Change Image</p>
+				<div class="db-popup-content">
+					<div class="db-popup-content-inner clearfix">
+						<div class="db-col-1 droppable-box db-connected-sortable">
+							<div class="db-outer-content" data-outer="text">
+								<div class="db-outer-content-inner">
+									<div class="db-html-el">
+										<p><span style="font-size: 10pt;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeuismod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</span></p>
+									</div>
+								</div>
+								<div class="db-el-move"></div>
+								<div class="db-el-delete"></div>
+							</div>
+						</div>
+						<div class="db-col-2 droppable-box db-connected-sortable">
+							<div class="db-outer-element db-outer-element-image">
+								<div class="db-outer-element-inner">
+									<div class="db-image-content">
+										<div class="db-change-image">
+											<div class="db-change-image-inner">
+												<img src="https://app.leadliaison.com/dialog_builder/images/photo_icon.png">
+												<p>Change Image</p>
+											</div>
+										</div>
+										<img class="image-shown" src="https://app.leadliaison.com/dialog_builder/images/img.png" />
+									</div>
+								</div>
+								<div class="db-el-move"></div>
+								<div class="db-el-delete"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="db-popup-footer clearfix">
+					<div class="db-col-1 droppable-box db-connected-sortable">
+						<div class="db-outer-element">
+							<div class="db-outer-element-inner">
+								<div class="field db-email-field">
+									<input type="text" class="txt_field db-field-customize" style-font="Arial" colorBorder="cccccc" colorFont="333333" placeholder="Enter your email address here..."/>
 								</div>
 							</div>
-							<img class="image-shown" src="https://app.leadliaison.com/dialog_builder/images/img.png" />
+							<div class="db-el-copy" data-element="field"></div>
+							<div class="db-el-move"></div>
+							<div class="db-el-delete"></div>
 						</div>
 					</div>
-					<div class="db-el-move"></div>
-					<div class="db-el-delete"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="db-popup-footer clearfix">
-		<div class="db-col-1 droppable-box db-connected-sortable">
-			<div class="db-outer-element">
-				<div class="db-outer-element-inner">
-					<div class="field db-email-field">
-						<input type="text" class="txt_field db-field-customize" style-font="Arial" colorBorder="cccccc" colorFont="333333" placeholder="Enter your email address here..."/>
+					<div class="db-col-2 droppable-box db-connected-sortable">
+						<div class="db-outer-element">
+							<div class="db-outer-element-inner">
+								<a href="#" style-font="Arial" style-font-size="18px" colorBg="e89c4c" colorBorder="cc7a23" colorFont="ffffff" class="db-btn-customize">Sign Up</a>
+							</div>
+							<div class="db-el-copy" data-element="button"></div>
+							<div class="db-el-move"></div>
+							<div class="db-el-delete"></div>
+						</div>
 					</div>
 				</div>
-				<div class="db-el-copy" data-element="field"></div>
-				<div class="db-el-move"></div>
-				<div class="db-el-delete"></div>
-			</div>
-		</div>
-		<div class="db-col-2 droppable-box db-connected-sortable">
-			<div class="db-outer-element">
-				<div class="db-outer-element-inner">
-					<a href="#" style-font="Arial" style-font-size="18px" colorBg="e89c4c" colorBorder="cc7a23" colorFont="ffffff" class="db-btn-customize">Sign Up</a>
-				</div>
-				<div class="db-el-copy" data-element="button"></div>
-				<div class="db-el-move"></div>
-				<div class="db-el-delete"></div>
 			</div>
 		</div>
 	</div>

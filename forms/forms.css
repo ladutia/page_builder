@@ -945,9 +945,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#df801b', end
     display: block;
     padding-bottom: 4px; 
     white-space: nowrap;
-    height: 12px;
+    height: 16px;
     overflow: hidden;
     text-overflow: ellipsis;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 }
 .tpl-block .txt-field{
 	line-height: 1.4em;
@@ -1101,6 +1104,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#df801b', end
     line-height: 30px;
     margin-top: 16px;
     width: 15px;
+	margin-left: -15px!important;
+	position: relative;
+	left: 15px;
 }
 .tpl-price .price-separator{
     height: 30px;
@@ -1109,6 +1115,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#df801b', end
     font-size: 14px;
     width: 16px;
     text-align: center;
+	margin-left: -16px;
+	position: relative;
+	left: 16px;
 }
 .fb-inside-label .tpl-price .price-separator,
 .fb-inside-label .tpl-price .price-type{
@@ -2186,11 +2195,12 @@ select.fb-w160{
 .eb-inner-field{
 	margin-top: 0px !important;
 }
-.tpl-block select, .tpl-block .txt-field {
+#ll-form-box .tpl-block select, #ll-form-box .tpl-block .txt-field {
     width: 100%;
     padding: 5px 10px;
     background: #ffffff;
     border: 1px solid #c9c9c9;
+	margin: 0;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -2200,12 +2210,16 @@ select.fb-w160{
 }
 .tpl-price .t-field{
     width: 10%;
+	padding-left: 16px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 .tpl-price .t-field.size-medium {
     width: 22.7%;
 }
 .tpl-price .t-field.size-large {
-    width: 47.65%;
+    width: 50%;
 }
 .element_error_message_container{
     display: none;

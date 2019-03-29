@@ -32,6 +32,7 @@
 <script src="js/tooltipster/js/jquery.tooltipster.min.js"></script>
 <script src="js/intl-tel-input/js/intlTelInput.js"></script>
 <script src="js/dropzone.js"></script>
+<script src="js/modernizr-custom.js"></script>
 <script src="js/ll_theme.js" type="text/javascript"></script>
 <script src="js/crm_popups.js" type="text/javascript"></script>
 <script src="js/inbound_call.js" type="text/javascript"></script>
@@ -39,7 +40,7 @@
 <title>LeadLiailson</title>
 </head>
 
-<body class="theme">
+<body class="theme close-nav-admin">
 	<div id="mainWrapper">
 	
             <div class="header-white">
@@ -1314,7 +1315,7 @@
 									</svg>
                                     </i>
                                 </a>
-                                <a href="#" class="t-btn-gray ll-view-big-blocks"><i class="icn">
+                                <a href="#" class="t-btn-gray ll-view-big-blocks ll-active"><i class="icn">
                                     <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 										<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 											<g id="Dial-Management-d&amp;d" transform="translate(-186.000000, -152.000000)" fill="#333333">
@@ -1334,7 +1335,7 @@
 									</svg>
                                     </i>
                                 </a>
-                                <a href="#" class="t-btn-gray ll-view-table ll-active"><i class="icn">
+                                <a href="#" class="t-btn-gray ll-view-table"><i class="icn">
                                    <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 										<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 											<g id="Dial-Management-d&amp;d" transform="translate(-248.000000, -152.000000)" fill="#333333">
@@ -1419,654 +1420,931 @@
 								<option>Pipeline 2</option>
 							</select>
 						</div>
-						<div class="wrap-deals gray-style">
-							<div class="scrollbar-inner scrollbar-inner-x individual-scroll">
-							
-								<div class="col">
-									<div class="col-head">
-										<div class="col-head-inner">
-											<div class="table-cell-col">
-												<div class="t">Awareness <span class="count"></span></div>
-												<div class="t-total hide"></div>
-											</div>
-										</div>
-									</div>
-									<div class="col-content">
-										<ul class="wrap-widget-deal">
-											
-										</ul>
-									</div>
-								</div>
-								<div class="col">
-									<div class="col-head">
-										<div class="col-head-inner">
-											<div class="table-cell-col">
-												<div class="t">Discovery <span class="count"></span></div>
-												<div class="t-total hide"></div>
-											</div>
-										</div>
-									</div>
-									<div class="col-content">
-										<ul class="wrap-widget-deal clearfix">
-											
-										</ul>
-									</div>
-								</div>
-								<div class="col">
-									<div class="col-head">
-										<div class="col-head-inner">
-											<div class="table-cell-col">
-												<div class="t">Engaged <span class="count">(3)</span></div>
-												<div class="t-total">$15000</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-content">
-										<ul class="wrap-widget-deal clearfix">
-											<li class="widget-deal clearfix">
-												<div class="deal-box">
-													<div class="line-red"></div>
-													<a href="#" class="btn-task ll-show-popup" data-show-popup="popup-deal-mng-add-tasks">Today</a>
-													<div class="title">
-                                                        <div class="edit-name-deal">
-                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
-                                                            <div class="pencil">
-                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
-                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
-                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
-                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
-                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
-                                                                                            <g id="Group-21">
-                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
-                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
-                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
-                                                                                                    </g>
-                                                                                                </g>
-                                                                                            </g>
-                                                                                        </g>
-                                                                                    </g>
-                                                                                </g>
-                                                                            </g>
-                                                                        </g>
-                                                                    </g>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-													<div class="inf">
-														<a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
-														<div class="inf-content">
-															<div class="amount"><span class="t-edit">$5700</span></div>
-															<div class="date"><span class="t-edit">12/21/2015</span></div>
-															<div class="company"><a href="#" target="_blank">Motorola</a></div>
-															<div class="name">
-                                                                <span class="t-edit-owner">Chris Eklund</span>
-                                                            </div>
-														</div>
-													</div>
-												</div>
-											</li>
-											<li class="widget-deal">
-												<div class="deal-box">
-													<div class="line-green"></div>
-													<a href="#" class="btn-task ll-show-popup" data-show-popup="popup-deal-mng-add-tasks">20d</a>
-													<div class="title">
-                                                        <div class="edit-name-deal">
-                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
-                                                            <div class="pencil">
-                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
-                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
-                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
-                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
-                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
-                                                                                            <g id="Group-21">
-                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
-                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
-                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
-                                                                                                    </g>
-                                                                                                </g>
-                                                                                            </g>
-                                                                                        </g>
-                                                                                    </g>
-                                                                                </g>
-                                                                            </g>
-                                                                        </g>
-                                                                    </g>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-													<div class="inf">
-														<a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
-														<div class="inf-content">
-															<div class="amount"><span class="t-edit">$4300</span></div>
-															<div class="date"><span class="t-edit">09/21/2015</span></div>
-															<div class="company"><a href="#" target="_blank">Motorola</a></div>
-															<div class="name">
-                                                                <span class="t-edit-owner">Chris Eklund</span>
-                                                            </div>
-														</div>
-													</div>
-												</div>
-											</li>
-											<li class="widget-deal">
-												<div class="deal-box">
-													<div class="title">
-                                                        <div class="edit-name-deal">
-                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
-                                                            <div class="pencil">
-                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
-                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
-                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
-                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
-                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
-                                                                                            <g id="Group-21">
-                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
-                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
-                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
-                                                                                                    </g>
-                                                                                                </g>
-                                                                                            </g>
-                                                                                        </g>
-                                                                                    </g>
-                                                                                </g>
-                                                                            </g>
-                                                                        </g>
-                                                                    </g>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-													<div class="inf">
-														<a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
-														<div class="inf-content">
-															<div class="amount"><span class="t-edit">$5000</span></div>
-															<div class="date"><span class="t-edit">09/21/2015</span></div>
-															<div class="company"><a href="#" target="_blank">Motorola</a></div>
-															<div class="name">
-                                                                <span class="t-edit-owner">Chris Eklund</span>
-                                                            </div>
-														</div>
-													</div>
-												</div>
-											</li>
-										</ul>
-										
-									</div>
-								</div>
-								<div class="col">
-									<div class="col-head">
-										<div class="col-head-inner">
-											<div class="table-cell-col">
-												<div class="t">Purchase <span class="count">(3)</span></div>
-												<div class="t-total">$15000</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-content">
-										<ul class="wrap-widget-deal clearfix">
-											<li class="widget-deal">
-												<div class="deal-box">
-													<div class="line-orange"></div>
-													<a href="#" class="btn-task ll-show-popup" data-show-popup="popup-deal-mng-add-tasks">20d</a>
-													<div class="title">
-                                                        <div class="edit-name-deal">
-                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
-                                                            <div class="pencil">
-                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
-                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
-                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
-                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
-                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
-                                                                                            <g id="Group-21">
-                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
-                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
-                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
-                                                                                                    </g>
-                                                                                                </g>
-                                                                                            </g>
-                                                                                        </g>
-                                                                                    </g>
-                                                                                </g>
-                                                                            </g>
-                                                                        </g>
-                                                                    </g>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-													<div class="inf">
-														<a href="#" class="ava no-img">JS</a>
-														<div class="inf-content">
-															<div class="amount"><span class="t-edit">$5000</span></div>
-															<div class="date"><span class="t-edit">11/21/2015</span></div>
-															<div class="company"><a href="#" target="_blank">Motorola</a></div>
-															<div class="name">
-                                                                <span class="t-edit-owner">Chris Eklund</span>
-                                                            </div>
-														</div>
-													</div>
-												</div>
-											</li>
-											<li class="widget-deal clearfix">
-												<div class="deal-box">
-													<div class="title">
-                                                        <div class="edit-name-deal">
-                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
-                                                            <div class="pencil">
-                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
-                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
-                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
-                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
-                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
-                                                                                            <g id="Group-21">
-                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
-                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
-                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
-                                                                                                    </g>
-                                                                                                </g>
-                                                                                            </g>
-                                                                                        </g>
-                                                                                    </g>
-                                                                                </g>
-                                                                            </g>
-                                                                        </g>
-                                                                    </g>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-													<div class="inf">
-														<a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
-														<div class="inf-content">
-															<div class="amount"><span class="t-edit">$6000</span></div>
-															<div class="date"><span class="t-edit">09/21/2015</span></div>
-															<div class="company"><a href="#" target="_blank">Motorola</a></div>
-															<div class="name">
-                                                                <span class="t-edit-owner">Chris Eklund</span>
-                                                            </div>
-														</div>
-													</div>
-												</div>
-											</li>
-											<li class="widget-deal">
-												<div class="deal-box">
-													<div class="title">
-                                                        <div class="edit-name-deal">
-                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
-                                                            <div class="pencil">
-                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
-                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
-                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
-                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
-                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
-                                                                                            <g id="Group-21">
-                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
-                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
-                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
-                                                                                                    </g>
-                                                                                                </g>
-                                                                                            </g>
-                                                                                        </g>
-                                                                                    </g>
-                                                                                </g>
-                                                                            </g>
-                                                                        </g>
-                                                                    </g>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-													<div class="inf">
-														<a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
-														<div class="inf-content">
-															<div class="amount"><span class="t-edit">$5000</span></div>
-															<div class="date"><span class="t-edit">02/21/2015</span></div>
-															<div class="company"><a href="#" target="_blank">Motorola</a></div>
-															<div class="name">
-                                                                <span class="t-edit-owner">Chris Eklund</span>
-                                                            </div>
-														</div>
-													</div>
-												</div>
-											</li>
-                                            <li class="widget-deal">
-                                                <div class="deal-box">
-                                                    <div class="title">
-                                                        <div class="edit-name-deal">
-                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
-                                                            <div class="pencil">
-                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
-                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
-                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
-                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
-                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
-                                                                                            <g id="Group-21">
-                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
-                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
-                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
-                                                                                                    </g>
-                                                                                                </g>
-                                                                                            </g>
-                                                                                        </g>
-                                                                                    </g>
-                                                                                </g>
-                                                                            </g>
-                                                                        </g>
-                                                                    </g>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inf">
-                                                        <a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
-                                                        <div class="inf-content">
-                                                            <div class="amount"><span class="t-edit">$5000</span></div>
-                                                            <div class="date"><span class="t-edit">02/21/2015</span></div>
-                                                            <div class="company"><a href="#" target="_blank">Motorola</a></div>
-                                                            <div class="name">
-                                                                <span class="t-edit-owner">Chris Eklund</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="widget-deal">
-                                                <div class="deal-box">
-                                                    <div class="title">
-                                                        <div class="edit-name-deal">
-                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
-                                                            <div class="pencil">
-                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
-                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
-                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
-                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
-                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
-                                                                                            <g id="Group-21">
-                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
-                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
-                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
-                                                                                                    </g>
-                                                                                                </g>
-                                                                                            </g>
-                                                                                        </g>
-                                                                                    </g>
-                                                                                </g>
-                                                                            </g>
-                                                                        </g>
-                                                                    </g>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inf">
-                                                        <a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
-                                                        <div class="inf-content">
-                                                            <div class="amount"><span class="t-edit">$5000</span></div>
-                                                            <div class="date"><span class="t-edit">02/21/2015</span></div>
-                                                            <div class="company"><a href="#" target="_blank">Motorola</a></div>
-                                                            <div class="name">
-                                                                <span class="t-edit-owner">Chris Eklund</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="widget-deal">
-                                                <div class="deal-box">
-                                                    <div class="title">
-                                                        <div class="edit-name-deal">
-                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
-                                                            <div class="pencil">
-                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
-                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
-                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
-                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
-                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
-                                                                                            <g id="Group-21">
-                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
-                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
-                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
-                                                                                                    </g>
-                                                                                                </g>
-                                                                                            </g>
-                                                                                        </g>
-                                                                                    </g>
-                                                                                </g>
-                                                                            </g>
-                                                                        </g>
-                                                                    </g>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inf">
-                                                        <a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
-                                                        <div class="inf-content">
-                                                            <div class="amount"><span class="t-edit">$5000</span></div>
-                                                            <div class="date"><span class="t-edit">02/21/2015</span></div>
-                                                            <div class="company"><a href="#" target="_blank">Motorola</a></div>
-                                                            <div class="name">
-                                                                <span class="t-edit-owner">Chris Eklund</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="widget-deal">
-                                                <div class="deal-box">
-                                                    <div class="title">
-                                                        <div class="edit-name-deal">
-                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
-                                                            <div class="pencil">
-                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
-                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
-                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
-                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
-                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
-                                                                                            <g id="Group-21">
-                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
-                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
-                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
-                                                                                                    </g>
-                                                                                                </g>
-                                                                                            </g>
-                                                                                        </g>
-                                                                                    </g>
-                                                                                </g>
-                                                                            </g>
-                                                                        </g>
-                                                                    </g>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inf">
-                                                        <a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
-                                                        <div class="inf-content">
-                                                            <div class="amount"><span class="t-edit">$5000</span></div>
-                                                            <div class="date"><span class="t-edit">02/21/2015</span></div>
-                                                            <div class="company"><a href="#" target="_blank">Motorola</a></div>
-                                                            <div class="name">
-                                                                <span class="t-edit-owner">Chris Eklund</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="widget-deal">
-                                                <div class="deal-box">
-                                                    <div class="title">
-                                                        <div class="edit-name-deal">
-                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
-                                                            <div class="pencil">
-                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
-                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
-                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
-                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
-                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
-                                                                                            <g id="Group-21">
-                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
-                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
-                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
-                                                                                                    </g>
-                                                                                                </g>
-                                                                                            </g>
-                                                                                        </g>
-                                                                                    </g>
-                                                                                </g>
-                                                                            </g>
-                                                                        </g>
-                                                                    </g>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inf">
-                                                        <a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
-                                                        <div class="inf-content">
-                                                            <div class="amount"><span class="t-edit">$5000</span></div>
-                                                            <div class="date"><span class="t-edit">02/21/2015</span></div>
-                                                            <div class="company"><a href="#" target="_blank">Motorola</a></div>
-                                                            <div class="name">
-                                                                <span class="t-edit-owner">Chris Eklund</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-										</ul>
-									</div>
-								</div>
-								<div class="col">
-									<div class="col-head">
-										<div class="col-head-inner">
-											<div class="table-cell-col">
-												<div class="t">Stage 5 <span class="count"></span></div>
-												<div class="t-total hide"></div>
-											</div>
-										</div>
-									</div>
-									<div class="col-content">
-										<ul class="wrap-widget-deal">
-											
-										</ul>
-									</div>
-								</div>
-								<div class="col">
-									<div class="col-head">
-										<div class="col-head-inner">
-											<div class="table-cell-col">
-												<div class="t">Stage 6 <span class="count"></span></div>
-												<div class="t-total hide"></div>
-											</div>
-										</div>
-									</div>
-									<div class="col-content">
-										<ul class="wrap-widget-deal">
-											
-										</ul>
-									</div>
-								</div>
-								<div class="col">
-									<div class="col-head">
-										<div class="col-head-inner">
-											<div class="table-cell-col">
-												<div class="t">Stage 7 <span class="count"></span></div>
-												<div class="t-total hide"></div>
-											</div>
-										</div>
-									</div>
-									<div class="col-content">
-										<ul class="wrap-widget-deal">
-											
-										</ul>
-									</div>
-								</div>
-								<div class="drop-deal clearfix">
-									<div class="deal-trash">
-										<i class="icn">
-											<svg width="20px" height="24px" viewBox="0 0 20 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-												<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-													<g id="Dial-Management-d&amp;d" transform="translate(-197.000000, -840.000000)" fill="#333333">
-														<g id="Group-13" transform="translate(-10.000000, 0.000000)">
-															<g id="Group-6" transform="translate(207.000000, 838.000000)">
-																<g id="trash" transform="translate(0.000000, 2.000000)">
-																	<path d="M7.58734225,3.19047619 C7.58734225,2.61153126 7.57949058,2.61922619 8.18181818,2.61922619 L11.8181818,2.61922619 C12.4205094,2.61922619 12.4126578,2.61153126 12.4126578,3.19047619 L7.58734225,3.19047619 Z M14.8600695,3.19047619 C14.8600695,1.22572465 13.7549631,0.142678571 11.8181818,0.142678571 L8.18181818,0.142678571 C6.24503689,0.142678571 5.13993048,1.22572465 5.13993048,3.19047619 L1.81818182,3.19047619 C1.31727273,3.19047619 0.909090909,3.59671429 0.909090909,4.0952381 L0,4.0952381 L0,5.9047619 L20,5.9047619 L20,4.0952381 L19.0909091,4.0952381 C19.0909091,3.59671429 18.6827273,3.19047619 18.1818182,3.19047619 L14.8600695,3.19047619 Z M1.81818182,6.80952381 L1.81818182,21.2857143 C1.81818182,22.7821905 3.04181818,24 4.54545455,24 L15.4545455,24 C16.9581818,24 18.1818182,22.7821905 18.1818182,21.2857143 L18.1818182,6.80952381 L1.81818182,6.80952381 Z M7.27272727,20.3809524 L5.45454545,20.3809524 L5.45454545,9.52380952 L7.27272727,9.52380952 L7.27272727,20.3809524 L7.27272727,20.3809524 Z M10.9090909,20.3809524 L9.09090909,20.3809524 L9.09090909,9.52380952 L10.9090909,9.52380952 L10.9090909,20.3809524 L10.9090909,20.3809524 Z M14.5454545,20.3809524 L12.7272727,20.3809524 L12.7272727,9.52380952 L14.5454545,9.52380952 L14.5454545,20.3809524 L14.5454545,20.3809524 Z" id="Combined-Shape"></path>
-																</g>
-															</g>
-														</g>
-													</g>
-												</g>
-											</svg>
-										</i>
-										Trash
-									</div>
-									<div class="deal-lost">
-										<i class="icn">
-											<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-												<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-													<g id="Dial-Management-d&amp;d" transform="translate(-580.000000, -840.000000)" fill="#F93F3F">
-														<g id="Group-13" transform="translate(-10.000000, 0.000000)">
-															<g id="cancel" transform="translate(590.000000, 840.000000)">
-																<path d="M12,0.173538462 C5.46830769,0.173538462 0.173538462,5.46830769 0.173538462,12 C0.173538462,18.5316923 5.46830769,23.8273846 12,23.8273846 C18.5316923,23.8273846 23.8273846,18.5316923 23.8273846,12 C23.8273846,5.46830769 18.5316923,0.173538462 12,0.173538462 L12,0.173538462 Z M17.3353846,16.056 L16.0541538,17.3363077 C15.8196923,17.5716923 15.4356923,17.5716923 15.2012308,17.3363077 L12,14.1350769 L8.79969231,17.3353846 C8.56430769,17.5707692 8.18123077,17.5707692 7.94584615,17.3335385 L6.66461538,16.056 C6.43107692,15.8196923 6.43107692,15.4384615 6.66461538,15.2012308 L9.86584615,12.0009231 L6.66553846,8.80061538 C6.43107692,8.56430769 6.43107692,8.18030769 6.66553846,7.94676923 L7.94676923,6.66553846 C8.18215385,6.42830769 8.56615385,6.42830769 8.80061538,6.66553846 L12,9.86676923 L15.2012308,6.66553846 C15.4366154,6.42830769 15.8206154,6.42830769 16.0541538,6.66553846 L17.3353846,7.94492308 C17.5698462,8.18030769 17.5698462,8.56430769 17.3363077,8.80061538 L14.1350769,12.0009231 L17.3363077,15.2012308 C17.5689231,15.4384615 17.5689231,15.8196923 17.3353846,16.056 L17.3353846,16.056 Z" id="Shape"></path>
-															</g>
-														</g>
-													</g>
-												</g>
-											</svg>
-										</i>
-										Lost
-									</div>
-									<div class="deal-won">
-										<i class="icn">
-											<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-												<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-													<g id="Dial-Management-d&amp;d" transform="translate(-964.000000, -840.000000)" fill="#6EB555">
-														<g id="Group-13" transform="translate(-10.000000, 0.000000)">
-															<path d="M981.485171,842 L990.514829,842 C991.193993,840.793416 992.482466,840 994,840 C996.252285,840 998,841.747715 998,844 C998,846.666461 996.827227,848.233127 993.698207,850.90695 C993.575002,851.012178 993.575002,851.012178 993.452291,851.116944 C992.29285,852.107139 991.519838,852.824362 990.969027,853.483179 C990.095857,855.736328 988.988636,857.510896 987.74286,858.391689 C985.21968,861.473481 992,861.088746 992,864 L979.9,864 C979.9,861.016589 987.020593,861.494577 983.952133,858.156046 C982.830527,857.21527 981.832212,855.550714 981.030973,853.483179 C980.480162,852.824362 979.70715,852.107139 978.547709,851.116944 C978.424998,851.012178 978.424998,851.012178 978.301793,850.90695 C975.172773,848.233127 974,846.666461 974,844 C974,841.747715 975.747715,840 978,840 C979.517534,840 980.806007,840.793416 981.485171,842 Z M979.000988,842.248035 C979.020601,844.715188 979.33136,847.267216 979.866299,849.612957 C979.85973,849.607343 979.85315,849.601721 979.846559,849.596092 C979.723447,849.490985 979.723447,849.490985 979.601079,849.386471 C976.899443,847.077859 976,845.876324 976,844 C976,842.852285 976.852285,842 978,842 C978.370747,842 978.710667,842.088935 979.000988,842.248035 Z M992.999012,842.248035 C992.979399,844.715188 992.66864,847.267216 992.133701,849.612957 C992.14027,849.607343 992.14685,849.601721 992.153441,849.596092 C992.276553,849.490985 992.276553,849.490985 992.398921,849.386471 C995.100557,847.077859 996,845.876324 996,844 C996,842.852285 995.147715,842 994,842 C993.629253,842 993.289333,842.088935 992.999012,842.248035 Z" id="Combined-Shape"></path>
-														</g>
-													</g>
-												</g>
-											</svg>
-										</i>
-										Won
-									</div>
-								</div>
-							</div>
-						    <div class="tooltip-help">
-                                <a href="#" class="tooltip-help-close"></a>
-                                <div class="tooltip-help-icn"></div>
-                                <div class="tooltip-help-text">
-                                    Use horizontal scroll for seeing all columns
-                                </div>                  
+                        <div class="deals-scroll">
+    						<div class="wrap-deals wrap-deals-header deals-7 gray-style">
+                                <div class="col">
+                                    <div class="col-head">
+                                        <div class="col-head-inner">
+                                            <div class="table-cell-col">
+                                                <div class="t">Awareness <span class="count">(1)</span></div>
+                                                <div class="t-total">$15000</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="col-head">
+                                        <div class="col-head-inner">
+                                            <div class="table-cell-col">
+                                                <div class="t">Discovery  <span class="count">(1)</span></div>
+                                                <div class="t-total">$15000</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="col-head">
+                                        <div class="col-head-inner">
+                                            <div class="table-cell-col">
+                                                <div class="t">Engaged <span class="count">(1)</span></div>
+                                                <div class="t-total">$15000</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="col-head">
+                                        <div class="col-head-inner">
+                                            <div class="table-cell-col">
+                                                <div class="t">Purchase <span class="count">(1)</span></div>
+                                                <div class="t-total">$15000</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="col-head">
+                                        <div class="col-head-inner">
+                                            <div class="table-cell-col">
+                                                <div class="t">Stage 5 <span class="count">(1)</span></div>
+                                                <div class="t-total">$15000</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="col-head">
+                                        <div class="col-head-inner">
+                                            <div class="table-cell-col">
+                                                <div class="t">Stage 6 <span class="count">(1)</span></div>
+                                                <div class="t-total">$15000</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="col-head">
+                                        <div class="col-head-inner">
+                                            <div class="table-cell-col">
+                                                <div class="t">Stage 7 <span class="count"></span></div>
+                                                <div class="t-total hide">$15000</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="wrap-deals wrap-deals-content deals-7 gray-style" data-row="10" data-row-all="50">
+    							<div class="col">
+    								<div class="col-content">
+    									<ul class="wrap-widget-deal">
+    										<li class="widget-deal clearfix">
+                                                <div class="deal-box">
+                                                    <div class="line-red"></div>
+                                                    <a href="#" class="btn-task ll-show-popup" data-show-popup="popup-deal-mng-add-tasks">Today</a>
+                                                    <div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="inf">
+                                                        <a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+                                                        <div class="inf-content">
+                                                            <div class="amount"><span class="t-edit">$5700</span></div>
+                                                            <div class="date"><span class="t-edit">12/21/2015</span></div>
+                                                            <div class="company"><a href="#" target="_blank">Motorola</a></div>
+                                                            <div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+    									</ul>
+    								</div>
+    							</div>
+    							<div class="col">
+    								<div class="col-content">
+    									<ul class="wrap-widget-deal clearfix">
+    										<li class="widget-deal clearfix">
+                                                <div class="deal-box">
+                                                    <div class="line-red"></div>
+                                                    <a href="#" class="btn-task ll-show-popup" data-show-popup="popup-deal-mng-add-tasks">Today</a>
+                                                    <div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="inf">
+                                                        <a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+                                                        <div class="inf-content">
+                                                            <div class="amount"><span class="t-edit">$5700</span></div>
+                                                            <div class="date"><span class="t-edit">12/21/2015</span></div>
+                                                            <div class="company"><a href="#" target="_blank">Motorola</a></div>
+                                                            <div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+    									</ul>
+    								</div>
+    							</div>
+    							<div class="col">
+    								<div class="col-content">
+    									<ul class="wrap-widget-deal clearfix">
+    										<li class="widget-deal clearfix">
+    											<div class="deal-box">
+    												<div class="line-red"></div>
+    												<a href="#" class="btn-task ll-show-popup" data-show-popup="popup-deal-mng-add-tasks">Today</a>
+    												<div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+    												<div class="inf">
+    													<a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+    													<div class="inf-content">
+    														<div class="amount"><span class="t-edit">$5700</span></div>
+    														<div class="date"><span class="t-edit">12/21/2015</span></div>
+    														<div class="company"><a href="#" target="_blank">Motorola</a></div>
+    														<div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+    													</div>
+    												</div>
+    											</div>
+    										</li>
+    										<li class="widget-deal">
+    											<div class="deal-box">
+    												<div class="line-green"></div>
+    												<a href="#" class="btn-task ll-show-popup" data-show-popup="popup-deal-mng-add-tasks">20d</a>
+    												<div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+    												<div class="inf">
+    													<a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+    													<div class="inf-content">
+    														<div class="amount"><span class="t-edit">$4300</span></div>
+    														<div class="date"><span class="t-edit">09/21/2015</span></div>
+    														<div class="company"><a href="#" target="_blank">Motorola</a></div>
+    														<div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+    													</div>
+    												</div>
+    											</div>
+    										</li>
+    										<li class="widget-deal">
+    											<div class="deal-box">
+    												<div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+    												<div class="inf">
+    													<a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+    													<div class="inf-content">
+    														<div class="amount"><span class="t-edit">$5000</span></div>
+    														<div class="date"><span class="t-edit">09/21/2015</span></div>
+    														<div class="company"><a href="#" target="_blank">Motorola</a></div>
+    														<div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+    													</div>
+    												</div>
+    											</div>
+    										</li>
+    									</ul>
+    									
+    								</div>
+    							</div>
+    							<div class="col">
+    								<div class="col-content">
+    									<ul class="wrap-widget-deal clearfix">
+    										<li class="widget-deal">
+    											<div class="deal-box">
+    												<div class="line-orange"></div>
+    												<a href="#" class="btn-task ll-show-popup" data-show-popup="popup-deal-mng-add-tasks">20d</a>
+    												<div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+    												<div class="inf">
+    													<a href="#" class="ava no-img">JS</a>
+    													<div class="inf-content">
+    														<div class="amount"><span class="t-edit">$5000</span></div>
+    														<div class="date"><span class="t-edit">11/21/2015</span></div>
+    														<div class="company"><a href="#" target="_blank">Motorola</a></div>
+    														<div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+    													</div>
+    												</div>
+    											</div>
+    										</li>
+    										<li class="widget-deal clearfix">
+    											<div class="deal-box">
+    												<div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+    												<div class="inf">
+    													<a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+    													<div class="inf-content">
+    														<div class="amount"><span class="t-edit">$6000</span></div>
+    														<div class="date"><span class="t-edit">09/21/2015</span></div>
+    														<div class="company"><a href="#" target="_blank">Motorola</a></div>
+    														<div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+    													</div>
+    												</div>
+    											</div>
+    										</li>
+    										<li class="widget-deal">
+    											<div class="deal-box">
+    												<div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+    												<div class="inf">
+    													<a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+    													<div class="inf-content">
+    														<div class="amount"><span class="t-edit">$5000</span></div>
+    														<div class="date"><span class="t-edit">02/21/2015</span></div>
+    														<div class="company"><a href="#" target="_blank">Motorola</a></div>
+    														<div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+    													</div>
+    												</div>
+    											</div>
+    										</li>
+                                            <li class="widget-deal">
+                                                <div class="deal-box">
+                                                    <div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="inf">
+                                                        <a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+                                                        <div class="inf-content">
+                                                            <div class="amount"><span class="t-edit">$5000</span></div>
+                                                            <div class="date"><span class="t-edit">02/21/2015</span></div>
+                                                            <div class="company"><a href="#" target="_blank">Motorola</a></div>
+                                                            <div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="widget-deal">
+                                                <div class="deal-box">
+                                                    <div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="inf">
+                                                        <a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+                                                        <div class="inf-content">
+                                                            <div class="amount"><span class="t-edit">$5000</span></div>
+                                                            <div class="date"><span class="t-edit">02/21/2015</span></div>
+                                                            <div class="company"><a href="#" target="_blank">Motorola</a></div>
+                                                            <div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="widget-deal">
+                                                <div class="deal-box">
+                                                    <div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="inf">
+                                                        <a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+                                                        <div class="inf-content">
+                                                            <div class="amount"><span class="t-edit">$5000</span></div>
+                                                            <div class="date"><span class="t-edit">02/21/2015</span></div>
+                                                            <div class="company"><a href="#" target="_blank">Motorola</a></div>
+                                                            <div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="widget-deal">
+                                                <div class="deal-box">
+                                                    <div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="inf">
+                                                        <a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+                                                        <div class="inf-content">
+                                                            <div class="amount"><span class="t-edit">$5000</span></div>
+                                                            <div class="date"><span class="t-edit">02/21/2015</span></div>
+                                                            <div class="company"><a href="#" target="_blank">Motorola</a></div>
+                                                            <div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="widget-deal">
+                                                <div class="deal-box">
+                                                    <div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="inf">
+                                                        <a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+                                                        <div class="inf-content">
+                                                            <div class="amount"><span class="t-edit">$5000</span></div>
+                                                            <div class="date"><span class="t-edit">02/21/2015</span></div>
+                                                            <div class="company"><a href="#" target="_blank">Motorola</a></div>
+                                                            <div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="widget-deal">
+                                                <div class="deal-box">
+                                                    <div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="inf">
+                                                        <a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+                                                        <div class="inf-content">
+                                                            <div class="amount"><span class="t-edit">$5000</span></div>
+                                                            <div class="date"><span class="t-edit">02/21/2015</span></div>
+                                                            <div class="company"><a href="#" target="_blank">Motorola</a></div>
+                                                            <div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="widget-deal">
+                                                <div class="deal-box">
+                                                    <div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="inf">
+                                                        <a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+                                                        <div class="inf-content">
+                                                            <div class="amount"><span class="t-edit">$5000</span></div>
+                                                            <div class="date"><span class="t-edit">02/21/2015</span></div>
+                                                            <div class="company"><a href="#" target="_blank">Motorola</a></div>
+                                                            <div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+    									</ul>
+    								</div>
+    							</div>
+    							<div class="col">
+    								<div class="col-content">
+    									<ul class="wrap-widget-deal">
+    										<li class="widget-deal clearfix">
+                                                <div class="deal-box">
+                                                    <div class="line-red"></div>
+                                                    <a href="#" class="btn-task ll-show-popup" data-show-popup="popup-deal-mng-add-tasks">Today</a>
+                                                    <div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="inf">
+                                                        <a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+                                                        <div class="inf-content">
+                                                            <div class="amount"><span class="t-edit">$5700</span></div>
+                                                            <div class="date"><span class="t-edit">12/21/2015</span></div>
+                                                            <div class="company"><a href="#" target="_blank">Motorola</a></div>
+                                                            <div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+    									</ul>
+    								</div>
+    							</div>
+    							<div class="col">
+    								<div class="col-content">
+    									<ul class="wrap-widget-deal">
+    										<li class="widget-deal clearfix">
+                                                <div class="deal-box">
+                                                    <div class="line-red"></div>
+                                                    <a href="#" class="btn-task ll-show-popup" data-show-popup="popup-deal-mng-add-tasks">Today</a>
+                                                    <div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="inf">
+                                                        <a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+                                                        <div class="inf-content">
+                                                            <div class="amount"><span class="t-edit">$5700</span></div>
+                                                            <div class="date"><span class="t-edit">12/21/2015</span></div>
+                                                            <div class="company"><a href="#" target="_blank">Motorola</a></div>
+                                                            <div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+    									</ul>
+    								</div>
+    							</div>
+    							<div class="col">
+    								<div class="col-content">
+    									<ul class="wrap-widget-deal">
+    										
+    									</ul>
+    								</div>
+    							</div>
+    							<div class="drop-deal clearfix">
+    								<div class="deal-trash">
+    									<i class="icn">
+    										<svg width="20px" height="24px" viewBox="0 0 20 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    											<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    												<g id="Dial-Management-d&amp;d" transform="translate(-197.000000, -840.000000)" fill="#333333">
+    													<g id="Group-13" transform="translate(-10.000000, 0.000000)">
+    														<g id="Group-6" transform="translate(207.000000, 838.000000)">
+    															<g id="trash" transform="translate(0.000000, 2.000000)">
+    																<path d="M7.58734225,3.19047619 C7.58734225,2.61153126 7.57949058,2.61922619 8.18181818,2.61922619 L11.8181818,2.61922619 C12.4205094,2.61922619 12.4126578,2.61153126 12.4126578,3.19047619 L7.58734225,3.19047619 Z M14.8600695,3.19047619 C14.8600695,1.22572465 13.7549631,0.142678571 11.8181818,0.142678571 L8.18181818,0.142678571 C6.24503689,0.142678571 5.13993048,1.22572465 5.13993048,3.19047619 L1.81818182,3.19047619 C1.31727273,3.19047619 0.909090909,3.59671429 0.909090909,4.0952381 L0,4.0952381 L0,5.9047619 L20,5.9047619 L20,4.0952381 L19.0909091,4.0952381 C19.0909091,3.59671429 18.6827273,3.19047619 18.1818182,3.19047619 L14.8600695,3.19047619 Z M1.81818182,6.80952381 L1.81818182,21.2857143 C1.81818182,22.7821905 3.04181818,24 4.54545455,24 L15.4545455,24 C16.9581818,24 18.1818182,22.7821905 18.1818182,21.2857143 L18.1818182,6.80952381 L1.81818182,6.80952381 Z M7.27272727,20.3809524 L5.45454545,20.3809524 L5.45454545,9.52380952 L7.27272727,9.52380952 L7.27272727,20.3809524 L7.27272727,20.3809524 Z M10.9090909,20.3809524 L9.09090909,20.3809524 L9.09090909,9.52380952 L10.9090909,9.52380952 L10.9090909,20.3809524 L10.9090909,20.3809524 Z M14.5454545,20.3809524 L12.7272727,20.3809524 L12.7272727,9.52380952 L14.5454545,9.52380952 L14.5454545,20.3809524 L14.5454545,20.3809524 Z" id="Combined-Shape"></path>
+    															</g>
+    														</g>
+    													</g>
+    												</g>
+    											</g>
+    										</svg>
+    									</i>
+    									Trash
+    								</div>
+    								<div class="deal-lost">
+    									<i class="icn">
+    										<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    											<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    												<g id="Dial-Management-d&amp;d" transform="translate(-580.000000, -840.000000)" fill="#F93F3F">
+    													<g id="Group-13" transform="translate(-10.000000, 0.000000)">
+    														<g id="cancel" transform="translate(590.000000, 840.000000)">
+    															<path d="M12,0.173538462 C5.46830769,0.173538462 0.173538462,5.46830769 0.173538462,12 C0.173538462,18.5316923 5.46830769,23.8273846 12,23.8273846 C18.5316923,23.8273846 23.8273846,18.5316923 23.8273846,12 C23.8273846,5.46830769 18.5316923,0.173538462 12,0.173538462 L12,0.173538462 Z M17.3353846,16.056 L16.0541538,17.3363077 C15.8196923,17.5716923 15.4356923,17.5716923 15.2012308,17.3363077 L12,14.1350769 L8.79969231,17.3353846 C8.56430769,17.5707692 8.18123077,17.5707692 7.94584615,17.3335385 L6.66461538,16.056 C6.43107692,15.8196923 6.43107692,15.4384615 6.66461538,15.2012308 L9.86584615,12.0009231 L6.66553846,8.80061538 C6.43107692,8.56430769 6.43107692,8.18030769 6.66553846,7.94676923 L7.94676923,6.66553846 C8.18215385,6.42830769 8.56615385,6.42830769 8.80061538,6.66553846 L12,9.86676923 L15.2012308,6.66553846 C15.4366154,6.42830769 15.8206154,6.42830769 16.0541538,6.66553846 L17.3353846,7.94492308 C17.5698462,8.18030769 17.5698462,8.56430769 17.3363077,8.80061538 L14.1350769,12.0009231 L17.3363077,15.2012308 C17.5689231,15.4384615 17.5689231,15.8196923 17.3353846,16.056 L17.3353846,16.056 Z" id="Shape"></path>
+    														</g>
+    													</g>
+    												</g>
+    											</g>
+    										</svg>
+    									</i>
+    									Lost
+    								</div>
+    								<div class="deal-won">
+    									<i class="icn">
+    										<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    											<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    												<g id="Dial-Management-d&amp;d" transform="translate(-964.000000, -840.000000)" fill="#6EB555">
+    													<g id="Group-13" transform="translate(-10.000000, 0.000000)">
+    														<path d="M981.485171,842 L990.514829,842 C991.193993,840.793416 992.482466,840 994,840 C996.252285,840 998,841.747715 998,844 C998,846.666461 996.827227,848.233127 993.698207,850.90695 C993.575002,851.012178 993.575002,851.012178 993.452291,851.116944 C992.29285,852.107139 991.519838,852.824362 990.969027,853.483179 C990.095857,855.736328 988.988636,857.510896 987.74286,858.391689 C985.21968,861.473481 992,861.088746 992,864 L979.9,864 C979.9,861.016589 987.020593,861.494577 983.952133,858.156046 C982.830527,857.21527 981.832212,855.550714 981.030973,853.483179 C980.480162,852.824362 979.70715,852.107139 978.547709,851.116944 C978.424998,851.012178 978.424998,851.012178 978.301793,850.90695 C975.172773,848.233127 974,846.666461 974,844 C974,841.747715 975.747715,840 978,840 C979.517534,840 980.806007,840.793416 981.485171,842 Z M979.000988,842.248035 C979.020601,844.715188 979.33136,847.267216 979.866299,849.612957 C979.85973,849.607343 979.85315,849.601721 979.846559,849.596092 C979.723447,849.490985 979.723447,849.490985 979.601079,849.386471 C976.899443,847.077859 976,845.876324 976,844 C976,842.852285 976.852285,842 978,842 C978.370747,842 978.710667,842.088935 979.000988,842.248035 Z M992.999012,842.248035 C992.979399,844.715188 992.66864,847.267216 992.133701,849.612957 C992.14027,849.607343 992.14685,849.601721 992.153441,849.596092 C992.276553,849.490985 992.276553,849.490985 992.398921,849.386471 C995.100557,847.077859 996,845.876324 996,844 C996,842.852285 995.147715,842 994,842 C993.629253,842 993.289333,842.088935 992.999012,842.248035 Z" id="Combined-Shape"></path>
+    													</g>
+    												</g>
+    											</g>
+    										</svg>
+    									</i>
+    									Won
+    								</div>
+    							</div>
+                                <div class="tooltip-help">
+                                    <a href="#" class="tooltip-help-close"></a>
+                                    <div class="tooltip-help-icn"></div>
+                                    <div class="tooltip-help-text">
+                                        Use horizontal scroll for seeing all columns
+                                    </div>                  
+                                </div>
 
-                        </div>
-						
-						
+                            </div>
+						  
+                            <div class="loading-more-deals">Loading more deals...</div>
+						</div>
 						
                     </div>
                 </div>

@@ -37,8 +37,8 @@ var deal_management = {
 			} else if ( idx == '2' ){
 				deal_management.sortableDeal('date');
 			} else if ( idx == '3' ){
-				$('.wrap-deals').toggleClass('show-date');
-				if ( $('.wrap-deals').hasClass('show-date') ){
+				$('.wrap-deals-content').toggleClass('show-date');
+				if ( $('.wrap-deals-content').hasClass('show-date') ){
 					$(this).text('Hide Close Date');
 				} else{
 					$(this).text('Show Close Date');
@@ -129,9 +129,10 @@ var deal_management = {
 		}
 	},
 	heightDeal: function(){
-		var height = $('body').outerHeight() - $('.wrap-deals').offset().top;// - $('.drop-deal:visible').outerHeight();
-		$('.wrap-deals').height(height).find('.col-content').css('height', height - 84- $('.drop-deal:visible').outerHeight());
-		$('.wrap-deals').find('.scroll-content').css('min-height',height + parseInt($('.wrap-deals').find('.scroll-content').css('margin-bottom')) * (-1));
+		var height = $('body').outerHeight() - $('.wrap-deals-header').offset().top;// - $('.drop-deal:visible').outerHeight();
+		var heightHead = $('.wrap-deals-header').outerHeight();
+		$('.wrap-deals-content .col:first .col-content').css('min-height', height - heightHead - $('.drop-deal:visible').outerHeight());
+		$('.deals-scroll').css('height', height); //+ parseInt($('.wrap-deals').find('.scroll-content').css('margin-bottom')) * (-1)
 	},
 	widgetsDealSortable: function(){
 		$(".wrap-widget-deal").sortable('destroy');
@@ -147,16 +148,16 @@ var deal_management = {
 				
 			},
 			start: function(event, ui) {
-				if ( $('.wrap-deals').hasClass('small-deals') ){
+				if ( $('.wrap-deals-content').hasClass('small-deals') ){
 					ui.helper.css({
 						width: $(".wrap-widget-deal").width()/2
 					});
 				}
-				$('.wrap-deals').addClass('sort-start-deal');
+				$('.wrap-deals-content').addClass('sort-start-deal');
 				deal_management.heightDeal();
 			},
 			stop: function(event, ui) {
-				$('.wrap-deals').removeClass('sort-start-deal');
+				$('.wrap-deals-content').removeClass('sort-start-deal');
 				deal_management.heightDeal();
 				deal_management.updateColumnDeal();
 			},
@@ -182,7 +183,7 @@ var deal_management = {
 				}, 1000);
 				
 				ui.draggable.remove();
-				$('.wrap-deals').removeClass('sort-start-deal');
+				$('.wrap-deals-content').removeClass('sort-start-deal');
 				deal_management.heightDeal();
 				deal_management.updateColumnDeal();
 			},
@@ -213,17 +214,18 @@ var deal_management = {
 				allTotal +=  Number(str.replace(/\D+/g,""));
 			});
 		} else{
-			$('.wrap-deals .col').each(function(){
+			$('.wrap-deals-content .col').each(function(){
 				var $col = $(this);
+				var index = $col.parent().find('.col').index($col);
 				var $box = $col.find('.deal-box');
 				var count = $box.length;
-				var $totalBox = $col.find('.t-total');
+				var $totalBox = $('.wrap-deals-header').find('.col').eq(index).find('.t-total');
 				var total = 0;
 				
 				countDeal += count;
 				
 				if (count > 0){
-					$col.find('.col-head .count').text('('+ count +')');
+					$('.wrap-deals-header').find('.col').eq(index).find('.col-head .count').text('('+ count +')');
 					$box.each(function(){
 						var str = $(this).find('.amount').text();
 						total +=  Number(str.replace(/\D+/g,""));
@@ -416,15 +418,96 @@ var deal_management = {
 		var $wrap = $el.parents('.show-edit-owner');
 		$wrap.find('.wrap-select').remove();
 		$wrap.find('.t-edit-owner').show().text(val);
-		$wrap.removeClass('.show-edit-owner');
+		$wrap.removeClass('show-edit-owner');
 		console.log(val);
+	},
+	setCountColumnDeals: function(){
+		var $box = $('.wrap-deals');
+		var $boxContent = $('.wrap-deals-content');
+		var count = $boxContent.find('.col').length;
+
+		$box.removeClass('deals-2 deals-3 deals-4 deals-5 deals-6 deals-7 deals-8 deals-9 deals-10');
+
+		if (count > 9)
+			$box.addClass('deals-more');
+		else
+			$box.addClass('deals-' + count);
+	},
+	setSmallDealsFull: function(){
+		var $box = $('.wrap-deals-content');
+		var $boxs = $('.wrap-deals');
+		var countDealsColumn = $box.find('.col').length;
+
+		var queryMaxWidth1149 = Modernizr.mq('(max-width: 1149px)');
+		var queryMaxWidth1399 = Modernizr.mq('(max-width: 1399px)');
+		var queryMaxWidth1649 = Modernizr.mq('(max-width: 1649px)');
+
+		if (countDealsColumn > 5 && queryMaxWidth1399) {
+		   	$boxs.addClass('small-deals-full');
+		} else if (countDealsColumn > 7 && queryMaxWidth1649) {
+			$boxs.addClass('small-deals-full');
+		} else if (countDealsColumn > 8) {
+			$boxs.addClass('small-deals-full');
+		} else if (queryMaxWidth1149){
+			$boxs.addClass('small-deals-full');
+		} else {
+			$boxs.removeClass('small-deals-full');
+		}
+		deal_management.heightDeal();
+	},
+	scrollLoadDeals: function(){
+		$('.deals-scroll').scroll(function(){
+ 
+			var position = $('.deals-scroll').scrollTop();
+			var bottom = $('.wrap-deals-content').height() + $('.wrap-deals-header').height() - $('.deals-scroll').height();
+
+			if( position == bottom ){
+				var row = Number($('.wrap-deals-content').attr('data-row'));
+				var allcount = Number($('.wrap-deals-content').attr('data-row-all'));
+				var rowperpage = 10;
+				var $loading = $('.loading-more-deals');
+				
+				row = row + rowperpage;
+
+				if(row <= allcount){
+					$('.wrap-deals-content').attr('data-row', row);
+					$loading.show();
+					/*$.ajax({
+						url: '',
+						type: 'post',
+						data: {row:row},
+						success: function(response){
+							response = '<li class="widget-deal clearfix"><div class="deal-box"><div class="line-red"></div><a href="#" class="btn-task ll-show-popup" data-show-popup="popup-deal-mng-add-tasks">Today</a><div class="title"><div class="edit-name-deal"><a href="#" target="_blank">LMA Annual Subscription</a><div class="pencil"><svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333"><g id="Group-31" transform="translate(417.000000, 771.000000)"><g id="Group" transform="translate(23.000000, 81.000000)"><g id="Line-text" transform="translate(0.000000, 81.523810)"><g id="Group-2" transform="translate(564.000000, 10.000000)"><g id="Group-21"><g id="Group-22" transform="translate(34.000000, 0.000000)"><g id="edit" transform="translate(6.933333, 6.933333)"><path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path></g></g></g></g></g></g></g></g></g></svg></div></div></div><div class="inf"><a href="#" class="ava"><img src="imgs/ava_70.png"/></a><div class="inf-content"><div class="amount"><span class="t-edit">$5700</span></div><div class="date"><span class="t-edit">12/21/2015</span></div><div class="company"><a href="#" target="_blank">Motorola</a></div><div class="name"><span class="t-edit-owner">Chris Eklund</span></div></div></div></div></li>';
+							$(".wrap-widget-deal:last").append(response).show().fadeIn("slow");
+						}
+					});*/
+
+					setTimeout(function(){
+						var response = '<li class="widget-deal clearfix widget-deal--loading"><div class="deal-box"><div class="line-red"></div><a href="#" class="btn-task ll-show-popup" data-show-popup="popup-deal-mng-add-tasks">Today</a><div class="title"><div class="edit-name-deal"><a href="#" target="_blank">LMA Annual Subscription</a><div class="pencil"><svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333"><g id="Group-31" transform="translate(417.000000, 771.000000)"><g id="Group" transform="translate(23.000000, 81.000000)"><g id="Line-text" transform="translate(0.000000, 81.523810)"><g id="Group-2" transform="translate(564.000000, 10.000000)"><g id="Group-21"><g id="Group-22" transform="translate(34.000000, 0.000000)"><g id="edit" transform="translate(6.933333, 6.933333)"><path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path></g></g></g></g></g></g></g></g></g></svg></div></div></div><div class="inf"><a href="#" class="ava"><img src="imgs/ava_70.png"/></a><div class="inf-content"><div class="amount"><span class="t-edit">$5700</span></div><div class="date"><span class="t-edit">12/21/2015</span></div><div class="company"><a href="#" target="_blank">Motorola</a></div><div class="name"><span class="t-edit-owner">Chris Eklund</span></div></div></div></div></li>';
+						
+
+						$('.loading-more-deals').hide();
+
+						for (var i = 0; i < 10; i++){
+							$(".wrap-widget-deal").eq(3).append(response);
+							$('.widget-deal--loading').animate({'opacity': '1'}, 2500, function(){
+								$(this).removeClass('widget-deal--loading');
+							});
+							
+						}
+
+					}, 600);	
+				}
+			}
+
+	 	});
 	}
 };
 $(document).ready(function() {
     deal_management.init();
 	deal_management.dropDownActionCustom();
 	deal_management.pipilenePower.init();
-	if( $('.wrap-deals').length )
+	if( $('.wrap-deals-content').length )
 		deal_management.heightDeal();
 	deal_management.widgetsDealSortable();
 	deal_management.dealDrop();
@@ -434,8 +517,8 @@ $(document).ready(function() {
 	deal_management.showMoreTableDeals();
 	
 	$(window).resize(function(){
-		if( $('.wrap-deals').length )
-			deal_management.heightDeal();
+		if( $('.wrap-deals-content').length )
+			deal_management.setSmallDealsFull();
 	});
 
 	if ($('.scrollbar-inner.individual-scroll').length){
@@ -449,4 +532,7 @@ $(document).ready(function() {
     deal_management.hideHint();
     deal_management.editNameDeal();
     deal_management.editOwnerDeal();
+    deal_management.setCountColumnDeals();
+    deal_management.setSmallDealsFull();
+    deal_management.scrollLoadDeals();
 });

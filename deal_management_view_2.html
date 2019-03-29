@@ -1,0 +1,2729 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="js/jquery-1.7.1.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700' rel='stylesheet' type='text/css'>
+<link type="text/css" href="js/jquery-ui-1.8.5.custom/css/ui-lightness/jquery-ui-1.8.5.custom.css" rel="stylesheet" />
+<link href="js/context_menu/src/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<link rel="stylesheet" type="text/css" href="js/chosen/chosen.css"/>
+<link rel="stylesheet" type="text/css" href="js/datetimepicker/jquery.datetimepicker.css"/>
+<link rel="stylesheet" type="text/css" href="js/jquery.scrollbar/jquery.scrollbar.css"/>
+<link rel="stylesheet" type="text/css" href="js/tooltipster/css/tooltipster.css"/>
+<link rel="stylesheet" type="text/css" href="js/intl-tel-input/css/intlTelInput.css"/>
+<link rel="stylesheet" type="text/css" href="theme.css"/>
+<link rel="stylesheet" type="text/css" href="inbound_call.css"/>
+<link rel="stylesheet" type="text/css" href="crm_popups.css"/>
+<link rel="stylesheet" type="text/css" href="sales_shortcut.css"/>
+<link rel="stylesheet" type="text/css" href="deal_management.css"/>
+
+<script type="text/javascript" src="js/jquery-ui-1.8.5.custom.min.js"></script>
+<script src="js/context_menu/src/jquery.ui.position.js" type="text/javascript"></script>
+<script src="js/context_menu/src/jquery.contextMenu.js" type="text/javascript"></script>
+<script src="js/chosen/chosen.jquery.min.js" type="text/javascript"></script>
+<script src="js/tablesorter/js/jquery.tablesorter.js" type="text/javascript"></script>
+<script src="js/tablesorter/js/jquery.tablesorter.widgets.js" type="text/javascript"></script>
+<script src="js/Highcharts-4.1.6/js/highcharts.js" type="text/javascript"></script>
+<!--<script src="js/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js" type="text/javascript"></script>-->
+<script src="js/jquery.scrollbar/jquery.scrollbar.js" type="text/javascript"></script>
+<script src="js/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script src="js/datetimepicker/jquery.datetimepicker.js" type="text/javascript"></script>
+<script src="js/tooltipster/js/jquery.tooltipster.min.js"></script>
+<script src="js/intl-tel-input/js/intlTelInput.js"></script>
+<script src="js/dropzone.js"></script>
+<script src="js/ll_theme.js" type="text/javascript"></script>
+<script src="js/crm_popups.js" type="text/javascript"></script>
+<script src="js/inbound_call.js" type="text/javascript"></script>
+<script src="js/deal_management.js" type="text/javascript"></script>
+<title>LeadLiailson</title>
+</head>
+
+<body class="theme">
+	<div id="mainWrapper">
+	
+            <div class="header-white">
+                <div class="logo">
+                    <a href="#"><img src="imgs/logo_new.png"/></a>
+                </div>
+                <div class="search">
+                    <div class="dropdown-search">
+                        <span class="stext">Prospect's Email</span> 
+                        <span class="cr"></span>
+                        <ul class="drop-down-search">
+                            <li><a href="#">Prospect's Email</a></li>
+                            <li><a href="#">Prospect's Name</a></li>
+                            <li><a href="#">Company</a></li>
+                            <li><a href="#">People </a></li>
+                        </ul>
+                    </div>
+                    <input type="text"/>
+                    <label class="label">Search...</label>
+                    <button class='s-btn-search btn-warning-msg'></button>
+                </div>
+                <a href="#" class="t-btn-green t-btn-add-big"></a>
+                <div class="nav-tooltip">
+                    <ul class="clearfix">
+                        <li class="active icn-create">
+                            <a href="#">
+                                <span>
+                                    <span data-svg-id="icon_create_svg"></span>
+								</span>
+                                Create
+                            </a>
+                            <div class="tooltip-menu">
+                                <div class="cr"></div>
+                                <div class="t-b">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-emails">
+                                                        <span data-svg-id="svg_icn_emails"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Emails</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-new-content">
+                                                        <span data-svg-id="svg_icn_new_content"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">New Content</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-trackable-content">
+                                                        <span data-svg-id="svg_icn_trackable_content"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Trackable Content</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-contact-lists">
+                                                        <span data-svg-id="svg_icn_contact_lists"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Contact Lists</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-landing-pages">
+                                                        <span data-svg-id="svg_icn_landing_page"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Landing Pages</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-tracking-urls">
+                                                        <span data-svg-id="svg_icn_tracking_urls"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Tracking URLs</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-referrers">
+                                                        <span data-svg-id="svg_icn_referrers"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Referrers</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-web-forms">
+                                                        <span data-svg-id="svg_icn_web_forms"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Web Forms</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-surveys">
+                                                        <span data-svg-id="svg_icn_surveys"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Surveys</i>
+                                            </a>
+                                        </li>
+                                        <li class="show-elements-tooltip disabled-item">
+                                            <ul class="dropdown-elements-header">
+                                             
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="t-bottom">
+                                    <button class="t-bottom-text">
+                                        Design Studio
+                                    </button>
+                                    <div class="tm-btn-settings">
+                                        <div class="settings-edit">
+											<span data-svg-id="svg_btn_settings"></span>
+                                        </div>
+                                        <div class="settings-save">
+                                            <span data-svg-id="svg_btn_save"></span>
+                                        </div>
+                                    </div>
+                                    <div class="tm-btn-view">
+                                        <div class="view-line">
+                                            <span data-svg-id="svg_btn_list_view"></span>
+                                        </div>
+                                        <div class="view-table">
+                                            <span data-svg-id="svg_btn_tile_view"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="icn-learn">
+                            <a href="#">
+                                <span>
+                                    <span data-svg-id="icon_learn_svg"></span>
+                                </span>
+                                Learn
+                            </a>
+                            <div class="tooltip-menu line-menu scroll-content pull-right-block-learn">
+                                <div class="cr"></div>
+                                <!--<div class="t-h">Learn</div>-->
+                                <div class="t-b">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-segmentation">
+                                                        <span data-svg-id="svg_icn_segmentation"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Segmentation</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-programs">
+                                                      <span data-svg-id="svg_icn_programs"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Programs</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-campaigns">
+                                                        <span data-svg-id="svg_icn_campaigns"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Campaigns</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-lists">
+                                                        <span data-svg-id="svg_icn_lists"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Lists</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-social-media">
+                                                        <span data-svg-id="svg_icn_social_posts_media"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Social Media</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-lead-nurturing">
+                                                        <span data-svg-id="svg_icn_lead_nurtring"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Lead Nurturing</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-content-creation">
+                                                        <span data-svg-id="svg_icn_content_creation"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Content Creation</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-email-marketing">
+                                                        <span data-svg-id="svg_icn_email_marketing"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Email Marketing</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-web-forms">
+                                                        <span data-svg-id="svg_icn_web_forms"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Web Forms</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-landing-pages">
+                                                        <span data-svg-id="svg_icn_landing_page"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Landing Pages</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-tracking-urls">
+                                                        <span data-svg-id="svg_icn_tracking_urls"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Tracking URLs</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-website-visitors">
+                                                        <span data-svg-id="svg_icn_website_visitors"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Website Visitors</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-1-1-emails">
+                                                        <span data-svg-id="svg_icn_1to1_emails"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">1:1 Emails</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-lead-distributions">
+                                                        <span data-svg-id="svg_icn_lead_distributions"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Lead Distributions</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-lead-granding">
+                                                        <span data-svg-id="svg_icn_lead_grading"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Lead Granding</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-lead-scoring">
+                                                        <span data-svg-id="svg_icn_lead_scoring"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Lead Scoring</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-sales-prospecting">
+                                                        <span data-svg-id="svg_icn_sales_prospecting"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Sales Prospecting</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-buy-signals">
+                                                        <span data-svg-id="svg_icn_buy_signals"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Buy Signals</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-favorites">
+                                                        <span data-svg-id="svg_icn_favorites"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Favorites</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-hot-lead-dashboard">
+                                                        <span data-svg-id="svg_icn_hot_lead_dashboard"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Hot Lead Dashboard</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-surveys">
+                                                        <span data-svg-id="svg_icn_surveys"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Surveys</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-criteria">
+                                                        <span data-svg-id="svg_icn_criteria"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">ROI</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-journey">
+                                                        <span data-svg-id="svg_icn_journey"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Journey</i>
+                                            </a>
+                                        </li>
+                                        <li class="show-elements-tooltip disabled-item">
+                                            <ul class="dropdown-elements-header">
+                                             
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="t-bottom">
+                                    <div class="t-bottom-text">
+                                        
+                                    </div>
+                                    <div class="tm-btn-settings">
+                                        <div class="settings-edit">
+											<span data-svg-id="svg_btn_settings"></span>
+                                        </div>
+                                        <div class="settings-save">
+                                            <span data-svg-id="svg_btn_save"></span>
+                                        </div>
+                                    </div>
+                                    <div class="tm-btn-view">
+                                        <div class="view-line">
+                                            <span data-svg-id="svg_btn_list_view"></span>
+                                        </div>
+                                        <div class="view-table">
+                                            <span data-svg-id="svg_btn_tile_view"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="icn-report">
+                            <a href="#">
+                                <span>
+									<span data-svg-id="icon_report_svg"></span>
+                                </span>
+                                Report
+                            </a>
+                            <div class="tooltip-menu">
+                                <div class="cr"></div>
+                                <div class="t-b">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-visitors">
+                                                        <span data-svg-id="svg_icn_website_visitors"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Visitors</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-standard-reports">
+                                                        <span data-svg-id="svg_icn_standard_reports"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Standard Reports</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-premium-reports">
+                                                        <span data-svg-id="svg_icn_premium_reports"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Premium Reports</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-lead-source">
+                                                        <span data-svg-id="svg_icn_lead_source"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Lead Source</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-programs">
+                                                       <span data-svg-id="svg_icn_programs"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Programs</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-campaigns">
+                                                        <span data-svg-id="svg_icn_campaigns"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Campaigns</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-hot-leads">
+                                                        <span data-svg-id="svg_icn_hot_leads"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Hot Leads</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-emails">
+                                                        <span data-svg-id="svg_icn_emails"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Emails</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-surveys">
+                                                        <span data-svg-id="svg_icn_surveys"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Surveys</i>
+                                            </a>
+                                        </li>
+                                        <li class="show-elements-tooltip disabled-item">
+                                            <ul class="dropdown-elements-header">
+                                             
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="t-bottom">
+                                    <div class="t-bottom-text">
+                                    </div>
+                                    <div class="tm-btn-settings">
+                                        <div class="settings-edit">
+											<span data-svg-id="svg_btn_settings"></span>
+                                        </div>
+                                        <div class="settings-save">
+                                            <span data-svg-id="svg_btn_save"></span>
+                                        </div>
+                                    </div>
+                                    <div class="tm-btn-view">
+                                        <div class="view-line">
+                                            <span data-svg-id="svg_btn_list_view"></span>
+                                        </div>
+                                        <div class="view-table">
+                                            <span data-svg-id="svg_btn_tile_view"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="settings-user">
+                    <div class="count">
+                        <span>2</span>
+                        <div class="alert-center-tooltip">
+                            <div class="ac-caret"></div>
+                            <div class="h">Alert Center</div>
+                            <div class="ac-content">
+                                <ul>
+                                    <li class="inbox">
+										<div class="icn">
+											<span data-svg-id="svg_ac_icn_inbox"></span>
+										</div>
+                                        Inbox
+                                        <div class="total">2</div>
+                                    </li>
+                                    <li class="signals">
+										<div class="icn">
+											<span data-svg-id="svg_ac_icn_buy_signals"></span>
+										</div>
+									
+                                        Buy Signals
+                                        <div class="total green">0</div>
+                                    </li>
+                                    <li class="favorites">
+										<div class="icn">
+											<span data-svg-id="svg_ac_icn_favorites"></span>
+										</div>
+                                        Favorites
+                                        <div class="total blue">0</div>
+                                    </li>
+                                    <li class="hopper">
+										<div class="icn">
+											<span data-svg-id="svg_ac_icn_hopper"></span>
+										</div>
+                                        Hopper
+                                        <div class="total blue2">0</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <a href='#'><img src='imgs/ava_ryan.png'/></a>
+                    <div class="settings-user-tooltip">
+                        <div class="sut-t">
+                            <div class="ava">
+                                <img src="imgs/ava96.png"/>
+                            </div>
+                            <div class="right">
+                                <h3>Ryan Schefke</h3>
+                                <a href="#">rrschefke@leadliaison.com</a>
+                                <div class="lb">Team:</div>
+                                <strong>
+                                    Sales,
+                                    Marketing, 
+                                    System Administrator
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="sut-c">
+                            <a href="#">
+                                <div class="ava"><img src="imgs/ava_50_1.png"/></div>
+                                <div class="name">Jade Schefke</div>
+                                <div class="email">linjade8@gmail.com</div>
+                                <div style="clear: both"></div>
+                            </a>
+                        </div>
+                        <div class="sut-b">
+                            <a href="#" class="add_account">Add account</a>
+                            <a href="#" class="fr">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-tooltip fr">
+                    <ul class="clearfix">
+                        <li class="icn-settings">
+                            <a href="#">
+                                <span>
+                                    <span data-svg-id="icon_settings_svg"></span>
+                                </span>
+                                Settings
+                            </a>
+                            <div class="tooltip-menu pull-right-block-settings">
+                                <div class="cr"></div>
+                                <div class="t-b">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-app-cloud">
+                                                        <span data-svg-id="svg_icn_app_cloud"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">App Cloud</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-home">
+                                                        <span data-svg-id="svg_icn_home"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Home</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-support">
+                                                        <span data-svg-id="svg_icn_support"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Support</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-setup">
+                                                        <span data-svg-id="svg_icn_setup"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Setup</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-webhooks">
+                                                        <span data-svg-id="svg_icn_webhooks"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Webhooks</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-connectors">
+                                                        <span data-svg-id="svg_icn_connectors"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Connectors</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-fields">
+                                                        <span data-svg-id="svg_icn_fields"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Fields</i>
+                                            </a>
+                                        </li><li>
+                                            <a href="#">
+                                                <i class="icn-wrap">
+                                                    <i class="icn icn-svg-users">
+                                                        <span data-svg-id="svg_icn_users"></span>
+                                                    </i>
+                                                </i>
+                                                <i class="n">Users</i>
+                                            </a>
+                                        </li>
+                                        <li class="show-elements-tooltip disabled-item">
+                                            <ul class="dropdown-elements-header">
+                                             
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="t-bottom">
+                                    <button class="t-bottom-text">
+                                        Administration
+                                    </button>
+                                    <div class="tm-btn-settings">
+                                        <div class="settings-edit">
+											<span data-svg-id="svg_btn_settings"></span>
+                                        </div>
+                                        <div class="settings-save">
+                                            <span data-svg-id="svg_btn_save"></span>
+                                        </div>
+                                    </div>
+                                    <div class="tm-btn-view">
+                                        <div class="view-line">
+                                            <span data-svg-id="svg_btn_list_view"></span>
+                                        </div>
+                                        <div class="view-table">
+                                            <span data-svg-id="svg_btn_tile_view"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+            <div class="main-page clearfix">
+                <div class="wrap-nav-admin">
+                    <div class="toggle-nav-admin">
+                        <svg version="1.1" id="theme-icn-menu" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                 width="20px" height="17px" viewBox="0 0 20 17" enable-background="new 0 0 20 17" xml:space="preserve">
+                                <rect x="0" fill="#FFFFFF" width="19.997" height="3.5"/>
+                                <rect x="0" y="6.75" fill="#FFFFFF" width="19.997" height="3.5"/>
+                                <rect x="0" y="13.498" fill="#FFFFFF" width="19.997" height="3.5"/>
+                        </svg>
+                        <svg version="1.1" id="theme-prev-icn-nav" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                width="17px" height="16px" viewBox="0 0 17 16" enable-background="new 0 0 17 16" xml:space="preserve">
+                       <g enable-background="new    ">
+                               <g>
+                                       <g>
+                                               <defs>
+                                                       <path id="SVGID_1_" d="M0,8.033L7.897,0L9.6,1.689L3.381,8.033L9.6,14.309L7.897,16L0,8.033z M7,8.033L14.897,0L16.6,1.689
+                                                               l-6.219,6.345l6.219,6.276L14.897,16L7,8.033z"/>
+                                               </defs>
+                                               <use xlink:href="#SVGID_1_"  overflow="visible" fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF"/>
+                                               <clipPath id="SVGID_2_">
+                                                       <use xlink:href="#SVGID_1_"  overflow="visible"/>
+                                               </clipPath>
+                                       </g>
+                               </g>
+                       </g>
+                       </svg>
+                    </div>
+                    <div class="search-box-left">
+                        <input type="text" class="txt-field" placeholder="Search..."/>
+                        <div class="ll-actions-dropdown">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li><a href="#">Visitors</a></li>
+                                <li><a href="#">Filters</a></li>
+                                <li><a href="#">Referrer Domains</a></li>
+                                <li><a href="#">Prospects</a></li>
+                                <li><a href="#">Import</a></li>
+                                <li><a href="#">Lists</a></li>
+                                <li><a href="#">Segmentation</a></li>
+                                <li><a href="#">Content</a></li>
+                                <li><a href="#">Emails</a></li>
+                                <li><a href="#">Events</a></li>
+                                <li><a href="#">Landing Pages</a></li>
+                                <li><a href="#">Marketing Content</a></li>
+                                <li><a href="#">Media</a></li>
+                                <li><a href="#">Social Posts</a></li>
+                                <li><a href="#">Surveys</a></li>
+                                <li><a href="#">Trackable</a></li>
+                                <li><a href="#">Tracking URLs</a></li>
+                                <li><a href="#">Videos</a></li>
+                                <li><a href="#">Web Forms</a></li>
+                                <li><a href="#">Automation</a></li>
+                                <li><a href="#">General Purpose</a></li>
+                                <li><a href="#">Lead Distribution</a></li>
+                                <li><a href="#">Lead Grading</a></li>
+                                <li><a href="#">Lead Nurturing</a></li>
+                                <li><a href="#">Lead Scoring</a></li>
+                                <li><a href="#">Spark</a></li>
+                                <li><a href="#">Marketing</a></li>
+                                <li><a href="#">Campaigns</a></li>
+                                <li><a href="#">Conversions</a></li>
+                                <li><a href="#">Programs</a></li>
+                                <li><a href="#">ROI</a></li>
+                                <li><a href="#">Tags</a></li>
+                                <li><a href="#">Sales</a></li>
+                                <li><a href="#">Hot Leads</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrap-inner-nav-admin scrollbar-inner">
+                        <ul class="nav-admin">
+                            <li>
+                                <a href="#">
+                                    <i class="icn-home">
+                                        <svg width="20px" height="18px" viewBox="0 0 20 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                            <g id="LAST-UPDATES" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                                <g id="Left-penal" sketch:type="MSArtboardGroup" transform="translate(-17.000000, -147.000000)" fill="#FFFFFF">
+                                                    <g sketch:type="MSLayerGroup" transform="translate(0.000000, 128.000000)" id="icons">
+                                                        <g transform="translate(14.000000, 19.000000)" sketch:type="MSShapeGroup">
+                                                            <g id="home" transform="translate(3.000000, 0.000000)">
+                                                                <path d="M16.5,6.627 L19.11,9.237 C19.40325,9.53025 19.40325,10.005 19.11,10.2975 C18.96375,10.44375 18.77175,10.51725 18.57975,10.51725 C18.38775,10.51725 18.19575,10.44375 18.0495,10.2975 L9.75,1.998 L1.47375,10.27425 C1.1805,10.5675 0.7065,10.5675 0.41325,10.27425 C0.12,9.981 0.12,9.507 0.41325,9.21375 L9.21975,0.40725 C9.513,0.114 9.987,0.114 10.28025,0.40725 L14.25,4.377 L14.25,0.762 C14.25,0.34875 14.586,0.012 15,0.012 L15.75,0.012 C16.16325,0.012 16.5,0.34875 16.5,0.762 L16.5,6.627 L16.5,6.627 Z M9.75,3.375 L1.5,11.625 L1.5,15.75 C1.5,16.992 2.508,18 3.75,18 L15.75,18 C16.992,18 18,16.992 18,15.75 L18,11.625 L9.75,3.375 L9.75,3.375 Z M12,15.75 C12,16.16325 11.66325,16.5 11.25,16.5 L8.25,16.5 C7.83675,16.5 7.5,16.16325 7.5,15.75 L7.5,11.25 C7.5,10.83675 7.83675,10.5 8.25,10.5 L11.25,10.5 C11.66325,10.5 12,10.83675 12,11.25 L12,15.75 L12,15.75 L12,15.75 Z" id="Shape"></path>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <span>Home</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icn-dashboard">
+                                        <svg width="22px" height="21px" viewBox="0 0 22 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                            <g id="LAST-UPDATES" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                                <g id="Left-penal" sketch:type="MSArtboardGroup" transform="translate(-16.000000, -208.000000)" fill="#FFFFFF">
+                                                    <g sketch:type="MSLayerGroup" transform="translate(0.000000, 128.000000)" id="icons">
+                                                        <g transform="translate(14.000000, 19.000000)" sketch:type="MSShapeGroup">
+                                                            <g id="speedometer" transform="translate(2.000000, 61.000000)">
+                                                                <path d="M16.1884215,3.65855583 C18.2847606,5.14754383 19.7242373,7.50882796 19.9644433,10.2 L18.9166667,10.2 L18.9166667,11.8 L19.9679082,11.8 C19.8413535,13.3616431 19.3425513,14.7989587 18.5080261,16.0186494 L20.1586406,17.1480172 C21.3649273,15.3849829 22,13.2680738 22,11 C22,4.94771525 17.0522847,0 11,0 C4.94771525,0 0,4.94771525 0,11 C0,13.2680738 0.635072738,15.3849829 1.84135941,17.1480172 L3.49197393,16.0186494 C2.65744873,14.7989587 2.15864653,13.3616431 2.03209184,11.8 L3.08333333,11.8 L3.08333333,10.2 L2.03555667,10.2 C2.1715437,8.6764556 2.69189636,7.25864009 3.49819828,6.04496982 L2.8669183,7.20231646 L3.78358496,7.70231646 L4.54974837,6.29768354 L3.65855583,5.81157852 C4.24995202,4.97895461 4.97895461,4.24995202 5.81157852,3.65855583 L6.29768354,4.54974837 L7.70231646,3.78358496 L7.20231646,2.8669183 L6.04496982,3.49819828 C7.25864009,2.69189636 8.6764556,2.1715437 10.2,2.03555667 L10.2,3.08333333 L11.8,3.08333333 L11.8,2.03555667 C13.3235444,2.1715437 14.7413599,2.69189636 15.9550302,3.49819828 L14.7976835,2.8669183 L14.2976835,3.78358496 L15.7023165,4.54974837 L16.1884215,3.65855583 L16.1884215,3.65855583 Z M11.5888687,9.61842312 L17.9166667,6.91666667 L18,7 L12.4909566,11.167097 C12.4088052,11.920695 11.7768157,12.5 11,12.5 C10.1666667,12.5 9.5,11.8333333 9.5,11 C9.5,10.1666667 10.1666667,9.5 11,9.5 C11.2094668,9.5 11.4084032,9.54212128 11.5888687,9.61842312 L11.5888687,9.61842312 Z M3.6330817,16.2023165 L4.54974837,15.7023165 L3.78358496,14.2976835 L2.8669183,14.7976835 L3.6330817,16.2023165 L3.6330817,16.2023165 Z M19.1330817,14.7976835 L18.216415,14.2976835 L17.4502516,15.7023165 L18.3669183,16.2023165 L19.1330817,14.7976835 L19.1330817,14.7976835 Z M7.66666667,16.6666667 L6.66666667,16.6666667 L6.66666667,17.6666667 L6.66666667,19.3333333 L6.66666667,20.3333333 L7.66666667,20.3333333 L11.1666667,20.3333333 L14.3333333,20.3333333 L15.3333333,20.3333333 L15.3333333,19.3333333 L15.3333333,17.6666667 L15.3333333,16.6666667 L14.3333333,16.6666667 L7.66666667,16.6666667 L7.66666667,16.6666667 Z" id="Shape"></path>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icn-visitors">
+                                        <svg width="23px" height="14px" viewBox="0 0 23 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                            <g id="LAST-UPDATES" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                                <g id="Left-penal" sketch:type="MSArtboardGroup" transform="translate(-14.000000, -274.000000)" fill="#FFFFFF">
+                                                    <g sketch:type="MSLayerGroup" transform="translate(0.000000, 128.000000)" id="icons">
+                                                        <g transform="translate(14.000000, 19.000000)" sketch:type="MSShapeGroup">
+                                                            <path d="M8.00799082,130.755787 C6.53258243,131.284637 5.18857684,132.144934 4.08312618,133.279686 C4.89877987,136.616961 7.91448485,139.101538 11.5,139.101538 C15.0862384,139.101538 18.1024368,136.615958 18.9173672,133.277666 C17.8118541,132.142242 16.4671182,131.281968 14.9905358,130.75368 C15.4739921,131.444392 15.7576538,132.285223 15.7576538,133.192308 C15.7576538,135.543745 13.8514373,137.449962 11.5,137.449962 C9.14856271,137.449962 7.24234615,135.543745 7.24234615,133.192308 C7.24234615,132.286145 7.5254316,131.446101 8.00799082,130.755787 L8.00799082,130.755787 Z M3.21310246,134.296054 C4.38960834,137.742831 7.65628673,140.222346 11.5008846,140.222346 C15.3461938,140.222346 18.6119028,137.742261 19.7879739,134.295689 C19.8885506,134.42991 19.9861898,134.566958 20.0807692,134.706769 C20.5451923,135.395 21.482,135.574577 22.172,135.109269 C22.8611154,134.643077 23.0415769,133.706269 22.5753846,133.018038 C20.0825385,129.3345 15.9425385,127.137115 11.5008846,127.137115 C7.06011538,127.137115 2.91923077,129.3345 0.4255,133.016269 C-0.0415769231,133.706269 0.138884615,134.643077 0.827115385,135.108385 C1.08630769,135.284423 1.38,135.369346 1.67103846,135.369346 C2.15403846,135.369346 2.62907692,135.135808 2.92011538,134.706769 C3.01476661,134.567087 3.11246967,134.43016 3.21310246,134.296054 L3.21310246,134.296054 Z" id="Shape"></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <span>Visitors</span>
+                                </a>
+                                <ul class="sub-nav">
+                                    <li>
+                                        <a href="#">
+                                            Filters
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Referrer Domains
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icn-prospects">
+                                        <svg width="16px" height="20px" viewBox="0 0 16 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                            <g id="LAST-UPDATES" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                                <g id="Left-penal" sketch:type="MSArtboardGroup" transform="translate(-19.000000, -333.000000)" fill="#FFFFFF">
+                                                    <g sketch:type="MSLayerGroup" transform="translate(0.000000, 128.000000)" id="icons">
+                                                        <g transform="translate(14.000000, 19.000000)" sketch:type="MSShapeGroup">
+                                                            <path d="M5,203.615997 L5,202.32292 C5,200.653689 7.53028571,199.110612 10.2830476,198.575997 C10.2830476,198.575997 11.1142857,198.129843 10.9131429,197.284458 C10.0392381,196.218304 9.85485714,195.088304 9.85485714,195.088304 C9.7047619,195.02215 9.49066667,194.89215 9.35657143,194.714458 C9.0487619,194.29292 8.76533333,193.383689 8.82704762,192.748304 C8.89180952,192.089843 9.06704762,192.299843 9.08761905,192.193689 C8.53447619,190.769843 8.79809524,189.024458 9.50666667,187.745997 C10.927619,185.18215 13.9752381,185.936766 14.4613333,186.899074 C17.3779048,186.351381 17.2499048,190.939074 16.8544762,192.161381 C16.8544762,192.161381 17.119619,192.213689 17.0609524,193.334458 C17.0068571,194.458304 16.064381,195.206766 16.064381,195.206766 C16.0346667,195.514458 15.6628571,196.455227 15.0510476,197.284458 C14.5558095,198.337535 15.6019048,198.575997 15.6019048,198.575997 C18.3531429,199.110612 20.8537143,200.653689 20.8537143,202.32292 L20.8537143,203.615997 C20.8537143,204.724458 16.7028571,205.815997 12.9413333,205.815997 C9.17904762,205.815997 5,205.427535 5,203.615997 L5,203.615997 Z" id="Shape"></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <span>Prospects</span>
+                                </a>
+                                <ul class="sub-nav">
+                                    <li>
+                                        <a href="#">
+                                            Import
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Lists
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Segmentation
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icn-content">
+                                        <svg width="22px" height="23px" viewBox="0 0 22 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                            <g id="LAST-UPDATES" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                                <g id="Left-penal" sketch:type="MSArtboardGroup" transform="translate(-16.000000, -393.000000)" fill="#FFFFFF">
+                                                    <g sketch:type="MSLayerGroup" transform="translate(0.000000, 128.000000)" id="icons">
+                                                        <g transform="translate(14.000000, 19.000000)" sketch:type="MSShapeGroup">
+                                                            <g id="Group" transform="translate(2.000000, 246.000000)">
+                                                                <path d="M1.875,22 L1.875,22 L1.875,22 L19.375,22 C19.857125,22 20.25,21.607125 20.25,21.125 L20.25,1.875 C20.25,1.392875 19.857125,1 19.375,1 L1.875,1 C1.392875,1 1,1.392875 1,1.875 L1,21.125 C1,21.607125 1.392875,22 1.875,22 L1.875,22 Z M1.875,23 C0.84059025,23 0,22.1594097 0,21.125 L0,1.875 C0,0.84059025 0.84059025,0 1.875,0 L19.375,0 C20.4094097,0 21.25,0.84059025 21.25,1.875 L21.25,21.125 C21.25,22.1594097 20.4094097,23 19.375,23 L1.875,23 Z M8,6 L16.75,6 L16.75,7.75 L8,7.75 L8,6 L8,6 L8,6 Z M8,10.625 L16.75,10.625 L16.75,12.375 L8,12.375 L8,10.625 L8,10.625 L8,10.625 Z M8,15 L16.75,15 L16.75,16.75 L8,16.75 L8,15 L8,15 L8,15 Z M5,11 L6.75,11 L6.75,12.75 L5,12.75 L5,11 L5,11 L5,11 Z M5,15 L6.75,15 L6.75,16.75 L5,16.75 L5,15 L5,15 L5,15 Z M5,6 L6.75,6 L6.75,7.75 L5,7.75 L5,6 L5,6 L5,6 Z" id="Shape"></path>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <span>Content</span>
+                                </a>
+                                <ul class="sub-nav">
+                                    <li>
+                                        <a href="#">
+                                            Emails
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Events
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Landing Pages
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                           Marketing Content 
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Media
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Social Posts
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Surveys
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Trackable Content
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Tracking URLs
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Videos
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                           Web Forms
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icn-automation">
+                                        <svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                            <g id="LAST-UPDATES" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                                <g id="Left-penal" sketch:type="MSArtboardGroup" transform="translate(-17.000000, -454.000000)" fill="#FFFFFF">
+                                                    <g sketch:type="MSLayerGroup" transform="translate(0.000000, 128.000000)" id="icons">
+                                                        <g transform="translate(14.000000, 19.000000)" sketch:type="MSShapeGroup">
+                                                            <path d="M17.6234815,322.146593 L17.6234815,320.416741 L15.5652593,320.080222 C15.4438519,319.592963 15.2523704,319.135037 14.9997778,318.714593 L16.2,317.003481 L14.976963,315.781259 L13.2894815,316.995333 C12.8674074,316.740296 12.407037,316.545556 11.9157037,316.424148 L11.5571852,314.374889 L9.8257037,314.374889 L9.49325926,316.41763 C9.00111111,316.537407 8.5382963,316.729704 8.11622222,316.982296 L6.43362963,315.780444 L5.20977778,317.002667 L6.3937037,318.695852 C6.13866667,319.12037 5.94311111,319.58237 5.82007407,320.076963 L3.78711111,320.415111 L3.78711111,322.144963 L5.81762963,322.504296 C5.93985185,322.998074 6.13540741,323.461704 6.39207407,323.886222 L5.19103704,325.564741 L6.41407407,326.788593 L8.1097037,325.601407 C8.53422222,325.856444 8.99540741,326.048741 9.48674074,326.169333 L9.8257037,328.212889 L11.5563704,328.212889 L11.9197778,326.16363 C12.4086667,326.040593 12.8698519,325.845037 13.2894815,325.59 L14.9965185,326.788593 L16.2195556,325.564741 L15.0014074,323.873185 C15.254,323.451926 15.4454815,322.994 15.5652593,322.505111 L17.6234815,322.146593 L17.6234815,322.146593 L17.6234815,322.146593 Z M10.7057037,323.707778 C9.37266667,323.707778 8.29303704,322.628148 8.29303704,321.295111 C8.29303704,319.962889 9.37266667,318.883259 10.7057037,318.883259 C12.0379259,318.883259 13.1175556,319.962889 13.1175556,321.295111 C13.1175556,322.628148 12.0379259,323.707778 10.7057037,323.707778 L10.7057037,323.707778 Z M24.3302222,314.950963 L24.8394815,313.731185 L23.4868889,312.885407 C23.5455556,312.504889 23.5455556,312.126 23.4917778,311.75363 L24.8427407,310.902963 L24.34,309.678296 L22.791037,310.03763 C22.5702222,309.732074 22.3005185,309.460741 21.9908889,309.227704 L22.3428889,307.677926 L21.1214815,307.167037 L20.2846667,308.509037 C19.9017037,308.448741 19.5195556,308.447111 19.1455556,308.500889 L18.3136296,307.157259 L17.088963,307.656741 L17.4246667,309.20163 C17.1191111,309.424074 16.8453333,309.694593 16.6114815,310.006667 L15.0771852,309.644074 L14.5671111,310.863852 L15.8936296,311.720222 C15.8341481,312.103185 15.834963,312.486148 15.8903704,312.863407 L14.5491852,313.692074 L15.0502963,314.91837 L16.596,314.581037 C16.8200741,314.884963 17.0881481,315.156296 17.4002222,315.387704 L17.0376296,316.930148 L18.2574074,317.439407 L19.1194815,316.101481 C19.5,316.158519 19.8837778,316.156889 20.2553333,316.099852 L21.106,317.45 L22.329037,316.947259 L21.9697037,315.395852 C22.2711852,315.173407 22.5417037,314.905333 22.7706667,314.598148 L24.3302222,314.950963 L24.3302222,314.950963 Z M18.9874815,314.009852 C18.0488148,313.617111 17.6047407,312.536667 17.9974815,311.594741 C18.3902222,310.656074 19.4722963,310.21363 20.4117778,310.60637 C21.3512593,310.999926 21.7945185,312.08037 21.4017778,313.020667 C21.009037,313.960148 19.9277778,314.402593 18.9874815,314.009852 L18.9874815,314.009852 L18.9874815,314.009852 Z" id="Shape"></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <span>Automation</span>
+                                </a>
+                                <ul class="sub-nav">
+                                    <li>
+                                        <a href="#">
+                                            General Purpose
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Lead Distribution
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Lead Grading
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Lead Nurturing
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Lead Scoring
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Spark
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icn-marketing">
+                                        <svg width="20px" height="21px" viewBox="0 0 20 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                            <g id="LAST-UPDATES" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                                <g id="Left-penal" sketch:type="MSArtboardGroup" transform="translate(-17.000000, -516.000000)" fill="#FFFFFF">
+                                                    <g sketch:type="MSLayerGroup" transform="translate(0.000000, 128.000000)" id="icons">
+                                                        <g transform="translate(14.000000, 19.000000)" sketch:type="MSShapeGroup">
+                                                            <path d="M5.32299469,377.707898 L7.32271893,376.533809 C7.3365877,375.704805 8.00760161,375.03708 8.83333333,375.03708 C9.01616253,375.03708 9.19140677,375.069815 9.35361232,375.129787 L11.5038156,373.41292 C11.4941592,373.343343 11.4891667,373.272259 11.4891667,373.2 C11.4891667,372.358915 12.1655898,371.67708 13,371.67708 C13.6640007,371.67708 14.2279555,372.108854 14.4306109,372.70906 L16.0388346,373.026642 C16.3155303,372.713963 16.7182887,372.51708 17.1666667,372.51708 C17.3531124,372.51708 17.5316701,372.551123 17.6965561,372.613378 L19.830887,370.841426 C19.8253427,370.788382 19.8225,370.734525 19.8225,370.68 C19.8225,369.838915 20.4989231,369.15708 21.3333333,369.15708 C22.1677435,369.15708 22.8441667,369.838915 22.8441667,370.68 C22.8441667,371.521085 22.1677435,372.20292 21.3333333,372.20292 C21.1490479,372.20292 20.9724688,372.169662 20.809181,372.108775 L18.6697658,373.884948 C18.6748803,373.935931 18.6775,373.987657 18.6775,374.04 C18.6775,374.881085 18.0010769,375.56292 17.1666667,375.56292 C16.5295338,375.56292 15.9845142,375.165381 15.7624136,374.602955 L14.0752938,374.269792 C13.8013539,374.549541 13.4207637,374.72292 13,374.72292 C12.8336914,374.72292 12.6736589,374.695834 12.5240075,374.645799 L10.3352367,376.393461 C10.3411382,376.448157 10.3441667,376.503722 10.3441667,376.56 C10.3441667,377.401085 9.66774354,378.08292 8.83333333,378.08292 C8.58192368,378.08292 8.34485657,378.021021 8.13631285,377.911517 L6.17739258,379.06165 C6.17746413,379.067758 6.1775,379.073875 6.1775,379.08 C6.1775,379.921085 5.50107688,380.60292 4.66666667,380.60292 C3.83225646,380.60292 3.15583333,379.921085 3.15583333,379.08 C3.15583333,378.238915 3.83225646,377.55708 4.66666667,377.55708 C4.90186551,377.55708 5.12451178,377.611254 5.32299469,377.707898 L5.32299469,377.707898 Z M3.83333333,390 C3.37333333,390 3,389.62284 3,389.16 L3,384.12 C3,383.65716 3.37333333,383.28 3.83333333,383.28 L5.5,383.28 C5.95916667,383.28 6.33333333,383.65716 6.33333333,384.12 L6.33333333,389.16 C6.33333333,389.62284 5.95916667,390 5.5,390 L3.83333333,390 L3.83333333,390 Z M8,390 C7.54,390 7.16666667,389.62284 7.16666667,389.16 L7.16666667,382.44 C7.16666667,381.97716 7.54,381.6 8,381.6 L9.66666667,381.6 C10.1258333,381.6 10.5,381.97716 10.5,382.44 L10.5,389.16 C10.5,389.62284 10.1258333,390 9.66666667,390 L8,390 L8,390 Z M12.1666667,390 C11.7066667,390 11.3333333,389.62284 11.3333333,389.16 L11.3333333,379.92 C11.3333333,379.45716 11.7066667,379.08 12.1666667,379.08 L13.8333333,379.08 C14.2925,379.08 14.6666667,379.45716 14.6666667,379.92 L14.6666667,389.16 C14.6666667,389.62284 14.2925,390 13.8333333,390 L12.1666667,390 L12.1666667,390 Z M16.3333333,390 C15.8733333,390 15.5,389.62284 15.5,389.16 L15.5,381.6 C15.5,381.13716 15.8733333,380.76 16.3333333,380.76 L18,380.76 C18.4591667,380.76 18.8333333,381.13716 18.8333333,381.6 L18.8333333,389.16 C18.8333333,389.62284 18.4591667,390 18,390 L16.3333333,390 L16.3333333,390 Z M20.5,390 C20.04,390 19.6666667,389.62284 19.6666667,389.16 L19.6666667,378.24 C19.6666667,377.77716 20.04,377.4 20.5,377.4 L22.1666667,377.4 C22.6258333,377.4 23,377.77716 23,378.24 L23,389.16 C23,389.62284 22.6258333,390 22.1666667,390 L20.5,390 L20.5,390 Z" id="Shape"></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <span>Marketing</span>
+                                </a>
+                                <ul class="sub-nav">
+                                    <li>
+                                        <a href="#">
+                                            Campaigns
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Conversions
+                                        </a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="#">
+                                            Programs
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ROI
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Tags
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icn-sales">
+                                        <svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                            <g id="LAST-UPDATES" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                                <g id="Left-penal" sketch:type="MSArtboardGroup" transform="translate(-18.000000, -578.000000)" fill="#FFFFFF">
+                                                    <g sketch:type="MSLayerGroup" transform="translate(0.000000, 128.000000)" id="icons">
+                                                        <g transform="translate(14.000000, 19.000000)" sketch:type="MSShapeGroup">
+                                                            <path d="M20.9242374,440.360799 C21.0940913,440.082145 21.3335603,439.599602 21.5693429,438.947886 C21.959599,437.869197 22.1938692,436.695254 22.1938692,435.461538 C22.1938692,433.399169 20.7719463,431.792977 18.7710769,431.792977 C16.8804193,431.792977 15.3482846,433.325112 15.3482846,435.215769 C15.3482846,435.492305 15.3912155,435.876493 15.4669837,436.360728 C15.486968,436.488447 15.5089842,436.621101 15.5327017,436.7575 C15.5715586,436.980966 15.6130874,437.203867 15.6546226,437.416182 C15.6796151,437.543935 15.6991747,437.640344 15.7106148,437.695165 L17.2124622,437.381758 C17.1707996,437.182111 17.1074312,436.858193 17.0442213,436.494673 C17.0219272,436.366459 17.001318,436.242284 16.9827408,436.123557 C16.9186188,435.713753 16.8824846,435.390388 16.8824846,435.215769 C16.8824846,434.172427 17.7277346,433.327177 18.7710769,433.327177 C19.8801854,433.327177 20.6596692,434.207675 20.6596692,435.461538 C20.6596692,436.503698 20.4598626,437.504942 20.1266571,438.425941 C20.010292,438.74758 19.8861124,439.035013 19.7629576,439.283176 C19.6917712,439.42662 19.6391983,439.521307 19.6142242,439.562278 L20.9242374,440.360799 L20.9242374,440.360799 Z M18.8617692,436.297154 C18.7371538,435.262846 18.7267692,435.264923 17.707,435.139615 C17.5346154,435.118154 17.3525385,435.098077 17.1676923,435.078692 C17.1635385,435.125077 17.1538462,435.168692 17.1538462,435.215769 C17.1538462,435.433846 17.2161538,435.879692 17.2936923,436.341462 C17.6723846,436.604538 17.9209231,437.042077 17.9209231,437.538462 C17.9209231,438.344308 17.2673846,438.997846 16.4615385,438.997846 C15.6556923,438.997846 15.0021538,438.344308 15.0021538,437.538462 C15.0021538,437.235923 15.0942308,436.955538 15.2513846,436.722231 C15.1620769,436.197462 15.0769231,435.600692 15.0769231,435.215769 C15.0769231,435.114692 15.0983846,435.021231 15.1066923,434.922231 C13.6057692,434.844 12.271,434.849538 12.1484615,434.972077 L4.43130769,442.688538 C3.95638462,443.163462 3.95638462,443.934 4.43130769,444.408231 L9.59107692,449.567308 C10.066,450.042923 10.8365385,450.042923 11.3107692,449.568 L19.0272308,441.850846 C19.3789231,441.500538 19.0729231,438.061846 18.8617692,436.297154 L18.8617692,436.297154 Z" id="Shape"></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <span>Sales</span>
+                                </a>
+                                <ul class="sub-nav">
+                                    <li>
+                                        <a href="#">
+                                            Hot Leads
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div id="footer-theme">
+                            <div class="fl">
+                            Version 2.5.1.6563<br>
+                            Copyright 2015 | 
+                            <a href="http://www.leadliaison.com/about/privacy-policy/" target="_blank">Privacy Policy</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-content-main">
+					<div class="pipeline-power">
+						<div class="pp-head">
+							<a href="#" class="t-btn-gray close-pipeline"></a>
+							Pipeline Power
+						</div>
+						<div class="deal-stage">
+								<div class="lb">Select Deal Stage:</div>
+								<div class="wrap-select">
+									<select>
+										<option>Awareness</option>
+										<option>Discovery</option>
+										<option>Engaged</option>
+										<option selected="selected">Purchased</option>
+									</select>
+								</div>
+							</div>
+						<div class="pp-content">
+							
+							<div class="tabs-pipeline">
+								<ul>
+									<li class="selected">
+										<a href="#">Automation</a>
+									</li>
+									<li>
+										<a href="#">Content</a>
+									</li>
+									<li>
+										<a href="#">Scoring</a>
+									</li>
+									<li>
+										<a href="#">Notifications</a>
+									</li>
+								</ul>
+								<div class="wrap-tabs-content">
+									<div class="tab-content selected">
+										<div class="wrap-automation">
+											<div class="automation-box">
+												<select>
+													<option>Automation #1</option>
+													<option>Automation #2</option>
+													<option>Automation #3</option>
+												</select>
+												<a href="#" class="add-line"></a>
+												<a href="#" class="remove-line"></a>
+											</div>
+											<div class="automation-box">
+												<select>
+													<option>Automation #1</option>
+													<option>Automation #2</option>
+													<option>Automation #3</option>
+												</select>
+												<a href="#" class="add-line"></a>
+												<a href="#" class="remove-line"></a>
+											</div>
+										</div>
+										<div class="t-checkbox">
+                                            <label><i class="icn-checkbox checked"></i><input type="checkbox" checked /> Add Automation</label>
+                                        </div>
+										<div class="btn-bottom">
+											<a href="#" class="t-btn-orange t-btn-big">Save</a>
+										</div>
+									</div>
+									<div class="tab-content">
+										<div class="attachments-box">
+											<h3>Attachments</h3>
+											<div class="file-box">
+												<div class="t-checkbox">
+													<label><i class="icn-checkbox checked"></i><input type="checkbox" checked /></label>
+													<span class="file-name">Mutual NDA.xls</span>
+												</div>
+												<span class="wrap-link"><a href="#">Download</a></span>
+											</div>
+											<div class="file-box">
+												<div class="t-checkbox">
+													<label><i class="icn-checkbox"></i><input type="checkbox" /></label>
+													<span class="file-name">Calculating.pdf</span>
+												</div>
+												<span class="wrap-link"><a href="#">Download</a></span>
+											</div>
+										</div>
+										<div class="content-box">
+											<div class="t-field">
+												<select>
+													<option>Default Signature</option>
+												</select>
+											</div>
+											<div class="">
+												<textarea id="pipeline-editor-content"></textarea>
+											</div>
+										</div>
+										<div class="t-checkbox">
+                                            <label><i class="icn-checkbox checked"></i><input type="checkbox" checked /> Send Automatically</label>
+                                        </div>
+										<div class="btn-bottom">
+											<a href="#" class="t-btn-gray t-btn-big">Manage</a>
+											<a href="#" class="t-btn-orange t-btn-big">Save</a>
+										</div>
+									</div>
+									<div class="tab-content">
+										<div class="scoring-box">
+											<input type="text" class="txt-field" value="Change Lead Score (+20, -5, =50, etc.)"/>
+											<div class="t-checkbox">
+												<label><i class="icn-checkbox checked"></i><input type="checkbox" checked /> Enable</label>
+											</div>
+										</div>
+										<div class="btn-bottom">
+											<a href="#" class="t-btn-orange t-btn-big">Save</a>
+										</div>
+									</div>
+									<div class="tab-content">
+										<div class="field-checkbox t-field">
+											<div class="t-checkbox">
+												<label><i class="icn-checkbox checked"></i><input type="checkbox" checked /> Teams</label>
+											</div>
+											<select multiple data-placeholder="Select Team">
+												<option selected="selected">Colleague</option>
+												<option>Business</option>
+												<option>Team 1</option>
+												<option>Team 2</option>
+											</select>
+										</div>
+										<div class="field-checkbox t-field">
+											<div class="t-checkbox">
+												<label><i class="icn-checkbox checked"></i><input type="checkbox" checked/> Users</label>
+											</div>
+											<select multiple data-placeholder="Select User">
+												<option selected="selected">Ryan Schefke</option>
+												<option>Jamie Sanders</option>
+												<option>Bob Salaraz</option>
+											</select>
+										</div>
+										<div class="t-field">
+											<select>
+												<option>Default Signature</option>
+											</select>
+										</div>
+										<div class="t-field">
+											<textarea id="pipeline-editor-notifications"></textarea>
+										</div>
+										<div class="t-checkbox">
+                                            <label><i class="icn-checkbox checked"></i><input type="checkbox" checked /> Send Automatically</label>
+                                        </div>
+										<div class="btn-bottom">
+											<a href="#" class="t-btn-gray t-btn-big">Manage</a>
+											<a href="#" class="t-btn-orange t-btn-big">Save</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+                    <div class="main-content deal-management">
+                        <div class="top-settings">
+							<a href="#" class="t-btn-orange">Add Deal</a>
+							<div class="ll-btn-group clearfix">
+                                <a href="#" class="t-btn-gray ll-view-small-blocks"><i class="icn">
+                                    <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+										<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+											<g id="Dial-Management-d&amp;d" transform="translate(-217.000000, -152.000000)" fill="#333333">
+												<g id="Subheader-" transform="translate(-1.000000, 78.000000)">
+													<g id="Group-3" transform="translate(1.000000, 49.000000)">
+														<g id="Group-2" transform="translate(67.000000, 16.000000)">
+															<g id="Group-11" transform="translate(110.000000, 0.000000)">
+																<g id="Group-8" transform="translate(31.000000, 0.000000)">
+																	<path d="M16.7777778,9 L23,9 L23,15.2222222 L16.7777778,15.2222222 L16.7777778,9 Z M9,9 L15.2222222,9 L15.2222222,15.2222222 L9,15.2222222 L9,9 Z M16.7777778,16.7777778 L23,16.7777778 L23,23 L16.7777778,23 L16.7777778,16.7777778 Z M9,16.713406 L15.2222222,16.713406 L15.2222222,22.9356282 L9,22.9356282 L9,16.713406 Z" id="Small-box"></path>
+																</g>
+															</g>
+														</g>
+													</g>
+												</g>
+											</g>
+										</g>
+									</svg>
+                                    </i>
+                                </a>
+                                <a href="#" class="t-btn-gray ll-view-big-blocks"><i class="icn">
+                                    <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+										<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+											<g id="Dial-Management-d&amp;d" transform="translate(-186.000000, -152.000000)" fill="#333333">
+												<g id="Subheader-" transform="translate(-1.000000, 78.000000)">
+													<g id="Group-3" transform="translate(1.000000, 49.000000)">
+														<g id="Group-2" transform="translate(67.000000, 16.000000)">
+															<g id="Group-11" transform="translate(110.000000, 0.000000)">
+																<g id="Group-7">
+																	<path d="M9,9 L23,9 L23,15 L9,15 L9,9 Z M9,17 L23,17 L23,23 L9,23 L9,17 Z" id="Big-blocks"></path>
+																</g>
+															</g>
+														</g>
+													</g>
+												</g>
+											</g>
+										</g>
+									</svg>
+                                    </i>
+                                </a>
+                                <a href="#" class="t-btn-gray ll-view-table ll-active"><i class="icn">
+                                   <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+										<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+											<g id="Dial-Management-d&amp;d" transform="translate(-248.000000, -152.000000)" fill="#333333">
+												<g id="Subheader-" transform="translate(-1.000000, 78.000000)">
+													<g id="Group-3" transform="translate(1.000000, 49.000000)">
+														<g id="Group-2" transform="translate(67.000000, 16.000000)">
+															<g id="Group-11" transform="translate(110.000000, 0.000000)">
+																<g id="Group-9" transform="translate(62.000000, 0.000000)">
+																	<path d="M9,9 L23,9 L23,11 L9,11 L9,9 Z M9,13 L23,13 L23,15 L9,15 L9,13 Z M9,17 L23,17 L23,19 L9,19 L9,17 Z M9,21 L23,21 L23,23 L9,23 L9,21 Z" id="Table"></path>
+																</g>
+															</g>
+														</g>
+													</g>
+												</g>
+											</g>
+										</g>
+									</svg>
+                                    </i>
+                                </a>
+                            </div>
+							<div class="inf-box">
+								<div class="inf-1"><strong class="count-deals">6</strong> Deals / <strong class="all-total-deals">$160,000</strong> Total</div>
+								<div class="inf-2">Sorted by Task</div>
+							</div>
+							<div class="dropdown-action-custom" id="deal-actions">
+								<a href="#" class="t-btn-gray">
+									<i class="icn clearfix">
+										<span></span>
+									</i>
+								</a>
+								<div class="drop-list">
+									<ul>
+										<li idx="0">
+											Sort by Task
+										</li>
+										<li idx="1">
+											Sort by Deal Amount
+										</li>
+										<li idx="2">
+											Sort by Close Date
+										</li>
+										<li idx="3">
+											Show Close Date
+										</li>
+										<li idx="4">
+											Deal Stage Rot Reminder
+										</li>
+										<li idx="5">
+											Pipline Power
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="select-toggle dropdown-filter">
+                                <a href="#" class="">
+                                    Filter
+                                    <span></span>
+                                </a>
+                                <div class="st-tooltip">
+									<div class="st-tooltip-search">
+										<input type="text"/>
+									</div>
+									<div class="st-tooltip-result">
+										<div class="divider-text">My Filters</div>
+										<ul>
+											<li><a href="#">Filter #1</a><div class="btn-edit-filter">Edit</div></li>
+											<li><a href="#">Filter #2</a><div class="btn-edit-filter">Edit</div></li>
+										</ul>
+										<div class="divider-text">Shared</div>
+										<ul>
+											<li><a href="#">My Deals<div class="btn-edit-filter">Edit</div></a></li>
+											<li><a href="#">Everyone<div class="btn-edit-filter">Edit</div></a></li>
+										</ul>
+										<div class="wrap-btn">
+											<a href="#" class="t-btn-orange">Add Filter</a>
+										</div>
+									</div>
+                                </div>
+                            </div>
+							<select>
+								<option>Pipeline</option>
+								<option>Pipeline 2</option>
+							</select>
+						</div>
+						<div class="wrap-deals small-deals gray-style">
+							<div class="scrollbar-inner scrollbar-inner-x individual-scroll">
+								<div class="col">
+									<div class="col-head">
+										<div class="col-head-inner">
+											<div class="table-cell-col">
+												<div class="t">Awareness <span class="count"></span></div>
+												<div class="t-total hide"></div>
+											</div>
+										</div>
+									</div>
+									<div class="col-content">
+										<ul class="wrap-widget-deal">
+											
+										</ul>
+									</div>
+								</div>
+								<div class="col">
+									<div class="col-head">
+										<div class="col-head-inner">
+											<div class="table-cell-col">
+												<div class="t">Discovery <span class="count"></span></div>
+												<div class="t-total hide"></div>
+											</div>
+										</div>
+									</div>
+									<div class="col-content">
+										<ul class="wrap-widget-deal clearfix">
+											
+										</ul>
+									</div>
+								</div>
+								<div class="col">
+									<div class="col-head">
+										<div class="col-head-inner">
+											<div class="table-cell-col">
+												<div class="t">Engaged <span class="count">(3)</span></div>
+												<div class="t-total">$15000</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-content">
+										<ul class="wrap-widget-deal clearfix">
+											<li class="widget-deal clearfix">
+                                                <div class="deal-box">
+                                                    <div class="line-red"></div>
+                                                    <a href="#" class="btn-task ll-show-popup" data-show-popup="popup-deal-mng-add-tasks">Today</a>
+                                                    <div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="inf">
+                                                        <a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+                                                        <div class="inf-content">
+                                                            <div class="amount"><span class="t-edit">$5700</span></div>
+                                                            <div class="date"><span class="t-edit">12/21/2015</span></div>
+                                                            <div class="company"><a href="#" target="_blank">Motorola</a></div>
+                                                            <div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+											</li>
+											<li class="widget-deal">
+												<div class="deal-box">
+													<div class="line-green"></div>
+													<a href="#" class="btn-task ll-show-popup" data-show-popup="popup-deal-mng-add-tasks">20d</a>
+													<div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+													<div class="inf">
+														<a href="#" class="ava no-img"><span>JS</span></a>
+														<div class="inf-content">
+															<div class="amount"><span class="t-edit">$4300</span></div>
+															<div class="date"><span class="t-edit">09/21/2015</span></div>
+															<div class="company"><a href="#" target="_blank">Motorola</a></div>
+															<div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+														</div>
+													</div>
+												</div>
+											</li>
+											<li class="widget-deal">
+												<div class="deal-box">
+													<div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+													<div class="inf">
+														<a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+														<div class="inf-content">
+															<div class="amount"><span class="t-edit">$5,000</span></div>
+															<div class="date"><span class="t-edit">09/21/2015</span></div>
+															<div class="company"><a href="#" target="_blank">Motorola</a></div>
+															<div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+														</div>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="col">
+									<div class="col-head">
+										<div class="col-head-inner">
+											<div class="table-cell-col">
+												<div class="t">Purchase <span class="count">(4)</span></div>
+												<div class="t-total">$20000</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-content">
+										<ul class="wrap-widget-deal clearfix">
+											<li class="widget-deal">
+												<div class="deal-box">
+													<div class="line-orange"></div>
+													<a href="#" class="btn-task ll-show-popup" data-show-popup="popup-deal-mng-add-tasks">20d</a>
+													<div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+													<div class="inf">
+														<a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+														<div class="inf-content">
+															<div class="amount"><span class="t-edit">$5000</span></div>
+															<div class="date"><span class="t-edit">02/21/2015</span></div>
+															<div class="company"><a href="#" target="_blank">Motorola</a></div>
+															<div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+														</div>
+													</div>
+												</div>
+											</li>
+											<li class="widget-deal clearfix">
+												<div class="deal-box">
+													<div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+													<div class="inf">
+														<a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+														<div class="inf-content">
+															<div class="amount"><span class="t-edit">$5000</span></div>
+															<div class="date"><span class="t-edit">11/21/2015</span></div>
+															<div class="company"><a href="#" target="_blank">Motorola</a></div>
+															<div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+														</div>
+													</div>
+												</div>
+											</li>
+											<li class="widget-deal">
+												<div class="deal-box">
+													<div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+													<div class="inf">
+														<a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+														<div class="inf-content">
+															<div class="amount"><span class="t-edit">$6000</span></div>
+															<div class="date"><span class="t-edit">09/21/2015</span></div>
+															<div class="company"><a href="#" target="_blank">Motorola</a></div>
+															<div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>
+														</div>
+													</div>
+												</div>
+											</li>
+											<li class="widget-deal">
+												<div class="deal-box">
+													<div class="line-orange"></div>
+													<a href="#" class="btn-task ll-show-popup" data-show-popup="popup-deal-mng-add-tasks">20d</a>
+													<div class="title">
+                                                        <div class="edit-name-deal">
+                                                            <a href="#" target="_blank">LMA Annual Subscription</a>
+                                                            <div class="pencil">
+                                                                <svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Account-page" transform="translate(-1045.000000, -950.000000)" fill="#333333">
+                                                                            <g id="Group-31" transform="translate(417.000000, 771.000000)">
+                                                                                <g id="Group" transform="translate(23.000000, 81.000000)">
+                                                                                    <g id="Line-text" transform="translate(0.000000, 81.523810)">
+                                                                                        <g id="Group-2" transform="translate(564.000000, 10.000000)">
+                                                                                            <g id="Group-21">
+                                                                                                <g id="Group-22" transform="translate(34.000000, 0.000000)">
+                                                                                                    <g id="edit" transform="translate(6.933333, 6.933333)">
+                                                                                                        <path d="M2.36629304,7.88602956 L1.75635836,9.96388429 L2.1694882,10.3770141 L4.16020661,9.79273193 L9.07842963,4.87894815 L9.73767407,5.53819259 L4.58557722,10.5671759 L4.58936463,10.5800801 L1.06171031,11.6154579 L0.291916192,11.8413949 L0.51787972,11.0716085 L1.5532575,7.54440361 L1.57270403,7.55011196 L6.63918025,2.44014815 L7.22832099,3.02839012 L2.36629304,7.88602956 L2.36629304,7.88602956 Z M2.77493827,8.46277531 L3.49260247,8.62365432 L3.59596049,9.28334815 L8.53647407,4.3473284 L7.71590123,3.52585679 L2.77493827,8.46277531 L2.77493827,8.46277531 Z M10.1857086,5.04611852 L7.08721481,1.94762469 L7.79634074,1.28298765 L10.8943852,4.38148148 L10.1857086,5.04611852 L10.1857086,5.04611852 Z M11.2619802,3.84132346 L8.29290864,0.871802469 L8.74858272,0.411185185 C9.15392593,0.00584197531 9.8149679,0.00898765432 10.2248049,0.419274074 L11.7100148,1.90403457 C12.1198519,2.31432099 12.1234469,2.97536296 11.7181037,3.38070617 L11.2619802,3.84132346 L11.2619802,3.84132346 Z" id="Combined-Shape"></path>
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+													<div class="inf">
+														<a href="#" class="ava"><img src="imgs/ava_70.png"/></a>
+														<div class="inf-content">
+															<div class="amount"><span class="t-edit">$5000</span></div>
+															<div class="date"><span class="t-edit">03/21/2015</span></div>
+															<div class="company"><a href="#" target="_blank">Motorola</a></div>
+															<div class="name">
+                                                                <span class="t-edit-owner">Chris Eklund</span>
+                                                            </div>  
+														</div>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="col">
+									<div class="col-head">
+										<div class="col-head-inner">
+											<div class="table-cell-col">
+												<div class="t">Stage 5 <span class="count"></span></div>
+												<div class="t-total hide"></div>
+											</div>
+										</div>
+									</div>
+									<div class="col-content">
+										<ul class="wrap-widget-deal">
+											
+										</ul>
+									</div>
+								</div>
+								<div class="col">
+									<div class="col-head">
+										<div class="col-head-inner">
+											<div class="table-cell-col">
+												<div class="t">Stage 6 <span class="count"></span></div>
+												<div class="t-total hide"></div>
+											</div>
+										</div>
+									</div>
+									<div class="col-content">
+										<ul class="wrap-widget-deal">
+											
+										</ul>
+									</div>
+								</div>
+								<div class="col">
+									<div class="col-head">
+										<div class="col-head-inner">
+											<div class="table-cell-col">
+												<div class="t">Stage 7 <span class="count"></span></div>
+												<div class="t-total hide"></div>
+											</div>
+										</div>
+									</div>
+									<div class="col-content">
+										<ul class="wrap-widget-deal">
+											
+										</ul>
+									</div>
+								</div>
+								<div class="drop-deal clearfix">
+									<div class="deal-trash">
+										<i class="icn">
+											<svg width="20px" height="24px" viewBox="0 0 20 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+												<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<g id="Dial-Management-d&amp;d" transform="translate(-197.000000, -840.000000)" fill="#333333">
+														<g id="Group-13" transform="translate(-10.000000, 0.000000)">
+															<g id="Group-6" transform="translate(207.000000, 838.000000)">
+																<g id="trash" transform="translate(0.000000, 2.000000)">
+																	<path d="M7.58734225,3.19047619 C7.58734225,2.61153126 7.57949058,2.61922619 8.18181818,2.61922619 L11.8181818,2.61922619 C12.4205094,2.61922619 12.4126578,2.61153126 12.4126578,3.19047619 L7.58734225,3.19047619 Z M14.8600695,3.19047619 C14.8600695,1.22572465 13.7549631,0.142678571 11.8181818,0.142678571 L8.18181818,0.142678571 C6.24503689,0.142678571 5.13993048,1.22572465 5.13993048,3.19047619 L1.81818182,3.19047619 C1.31727273,3.19047619 0.909090909,3.59671429 0.909090909,4.0952381 L0,4.0952381 L0,5.9047619 L20,5.9047619 L20,4.0952381 L19.0909091,4.0952381 C19.0909091,3.59671429 18.6827273,3.19047619 18.1818182,3.19047619 L14.8600695,3.19047619 Z M1.81818182,6.80952381 L1.81818182,21.2857143 C1.81818182,22.7821905 3.04181818,24 4.54545455,24 L15.4545455,24 C16.9581818,24 18.1818182,22.7821905 18.1818182,21.2857143 L18.1818182,6.80952381 L1.81818182,6.80952381 Z M7.27272727,20.3809524 L5.45454545,20.3809524 L5.45454545,9.52380952 L7.27272727,9.52380952 L7.27272727,20.3809524 L7.27272727,20.3809524 Z M10.9090909,20.3809524 L9.09090909,20.3809524 L9.09090909,9.52380952 L10.9090909,9.52380952 L10.9090909,20.3809524 L10.9090909,20.3809524 Z M14.5454545,20.3809524 L12.7272727,20.3809524 L12.7272727,9.52380952 L14.5454545,9.52380952 L14.5454545,20.3809524 L14.5454545,20.3809524 Z" id="Combined-Shape"></path>
+																</g>
+															</g>
+														</g>
+													</g>
+												</g>
+											</svg>
+										</i>
+										Trash
+									</div>
+									<div class="deal-lost">
+										<i class="icn">
+											<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+												<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<g id="Dial-Management-d&amp;d" transform="translate(-580.000000, -840.000000)" fill="#F93F3F">
+														<g id="Group-13" transform="translate(-10.000000, 0.000000)">
+															<g id="cancel" transform="translate(590.000000, 840.000000)">
+																<path d="M12,0.173538462 C5.46830769,0.173538462 0.173538462,5.46830769 0.173538462,12 C0.173538462,18.5316923 5.46830769,23.8273846 12,23.8273846 C18.5316923,23.8273846 23.8273846,18.5316923 23.8273846,12 C23.8273846,5.46830769 18.5316923,0.173538462 12,0.173538462 L12,0.173538462 Z M17.3353846,16.056 L16.0541538,17.3363077 C15.8196923,17.5716923 15.4356923,17.5716923 15.2012308,17.3363077 L12,14.1350769 L8.79969231,17.3353846 C8.56430769,17.5707692 8.18123077,17.5707692 7.94584615,17.3335385 L6.66461538,16.056 C6.43107692,15.8196923 6.43107692,15.4384615 6.66461538,15.2012308 L9.86584615,12.0009231 L6.66553846,8.80061538 C6.43107692,8.56430769 6.43107692,8.18030769 6.66553846,7.94676923 L7.94676923,6.66553846 C8.18215385,6.42830769 8.56615385,6.42830769 8.80061538,6.66553846 L12,9.86676923 L15.2012308,6.66553846 C15.4366154,6.42830769 15.8206154,6.42830769 16.0541538,6.66553846 L17.3353846,7.94492308 C17.5698462,8.18030769 17.5698462,8.56430769 17.3363077,8.80061538 L14.1350769,12.0009231 L17.3363077,15.2012308 C17.5689231,15.4384615 17.5689231,15.8196923 17.3353846,16.056 L17.3353846,16.056 Z" id="Shape"></path>
+															</g>
+														</g>
+													</g>
+												</g>
+											</svg>
+										</i>
+										Lost
+									</div>
+									<div class="deal-won">
+										<i class="icn">
+											<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+												<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<g id="Dial-Management-d&amp;d" transform="translate(-964.000000, -840.000000)" fill="#6EB555">
+														<g id="Group-13" transform="translate(-10.000000, 0.000000)">
+															<path d="M981.485171,842 L990.514829,842 C991.193993,840.793416 992.482466,840 994,840 C996.252285,840 998,841.747715 998,844 C998,846.666461 996.827227,848.233127 993.698207,850.90695 C993.575002,851.012178 993.575002,851.012178 993.452291,851.116944 C992.29285,852.107139 991.519838,852.824362 990.969027,853.483179 C990.095857,855.736328 988.988636,857.510896 987.74286,858.391689 C985.21968,861.473481 992,861.088746 992,864 L979.9,864 C979.9,861.016589 987.020593,861.494577 983.952133,858.156046 C982.830527,857.21527 981.832212,855.550714 981.030973,853.483179 C980.480162,852.824362 979.70715,852.107139 978.547709,851.116944 C978.424998,851.012178 978.424998,851.012178 978.301793,850.90695 C975.172773,848.233127 974,846.666461 974,844 C974,841.747715 975.747715,840 978,840 C979.517534,840 980.806007,840.793416 981.485171,842 Z M979.000988,842.248035 C979.020601,844.715188 979.33136,847.267216 979.866299,849.612957 C979.85973,849.607343 979.85315,849.601721 979.846559,849.596092 C979.723447,849.490985 979.723447,849.490985 979.601079,849.386471 C976.899443,847.077859 976,845.876324 976,844 C976,842.852285 976.852285,842 978,842 C978.370747,842 978.710667,842.088935 979.000988,842.248035 Z M992.999012,842.248035 C992.979399,844.715188 992.66864,847.267216 992.133701,849.612957 C992.14027,849.607343 992.14685,849.601721 992.153441,849.596092 C992.276553,849.490985 992.276553,849.490985 992.398921,849.386471 C995.100557,847.077859 996,845.876324 996,844 C996,842.852285 995.147715,842 994,842 C993.629253,842 993.289333,842.088935 992.999012,842.248035 Z" id="Combined-Shape"></path>
+														</g>
+													</g>
+												</g>
+											</svg>
+										</i>
+										Won
+									</div>
+								</div>
+							</div>
+						</div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    
+
+    <div id="ll-fade"></div>
+    <div class="ll-popup popup-deal-mng-add-tasks" id="popup-deal-mng-add-tasks">
+        <div class="ll-popup-head">Tasks</div>
+        <div class="ll-popup-content">
+            <div class="slide-task open">
+				<div class="sld-head">
+					Overdue <span class="red-text">(2)</span>
+				</div>
+				<div class="sld-content">
+					<div class="mng-task-box">
+						<a href="#" class="t-btn-gray btn-complte">Complete</a>
+						<div class="icn icn-fork-knife">
+							<svg width="17px" height="28px" viewBox="0 0 17 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+								<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+									<g id="Deal-Management-Tasks-popup" transform="translate(-290.000000, -330.000000)" fill="#F1BD36">
+										<g id="popup">
+											<g transform="translate(275.000000, 216.000000)" id="Group">
+												<g>
+													<g id="Group-16" transform="translate(-11.000000, 50.000000)">
+														<g id="Group-13" transform="translate(11.000000, 60.000000)">
+															<g id="Group-12" transform="translate(15.000000, 0.000000)">
+																<path d="M17,10.3198154 C17,6.90098462 13.923,4.04916923 12.75,4.04916923 C11.87025,4.04916923 11.6875,4.76892308 11.6875,5.60166154 L11.6875,29.4602462 C11.6875,30.6152 12.6395,31.2 13.8125,31.2 C14.9855,31.2 15.9205,30.6141538 15.9205,29.4602462 C15.9205,24.1384615 14.858,21.2971077 14.858,18.6346462 C14.858,17.4336615 17,15.9094154 17,10.3198154 Z M7.4375,4 L6.375,4 L6.375,10.8 C6.375,11.0887385 6.137,11.3230769 5.84375,11.3230769 C5.5505,11.3230769 5.3125,11.0887385 5.3125,10.8 C5.3125,10.7027077 4.940625,4 4.940625,4 L3.559375,4 C3.559375,4 3.1875,10.7027077 3.1875,10.8 C3.1875,11.0887385 2.9495,11.3230769 2.65625,11.3230769 C2.363,11.3230769 2.125,11.0887385 2.125,10.8 L2.125,4 L1.0625,4 C1.0625,4 0,11.3230769 0,12.3692308 C0,13.4153846 2.390625,15.5076923 2.390625,15.5076923 L2.125,29.4602462 C2.125,30.6152 3.077,31.2 4.25,31.2 C5.423,31.2 6.375,30.6152 6.375,29.4602462 L6.109375,15.5076923 C6.109375,15.5076923 8.5,13.3714462 8.5,12.3692308 C8.5,11.3670154 7.4375,4 7.4375,4 Z" id="Combined-Shape"></path>
+															</g>
+														</g>
+													</g>
+												</g>
+											</g>
+										</g>
+									</g>
+								</g>
+							</svg>
+						</div>
+						<div class="t">Have lunch with Bob at Mel’s diner in Chicago</div>
+						<div class="inf">
+							<span class="date-inf red-text">3 days overdue</span> <span class="text-gray">Bob Salazar | Salazar Inc.</span>
+						</div>
+					</div>
+					<div class="mng-task-box">
+						<a href="#" class="t-btn-gray btn-complte">Complete</a>
+						<div class="icn icn-notification">
+							<svg width="23px" height="24px" viewBox="0 0 23 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+								<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+									<g id="Deal-Management-Tasks-popup" transform="translate(-287.000000, -393.000000)" fill="#F1BD36">
+										<g id="popup">
+											<g transform="translate(275.000000, 216.000000)" id="Group">
+												<g>
+													<g id="Group-16" transform="translate(-11.000000, 50.000000)">
+														<g id="Group-17" transform="translate(11.000000, 122.000000)">
+															<g id="appointment_reminders" transform="translate(12.000000, 5.000000)">
+																<ellipse id="Oval" cx="11.25" cy="2" rx="2.04545455" ry="2"></ellipse>
+																<path d="M11.2735227,4 C8.10930919,4 7.11363636,4.52702612 7.11363636,6.023 C7.11363636,10.7088167 6.14746864,13.346758 4.08296953,15.7842433 C3.895832,16.0051903 3.28674305,16.6959122 3.30698339,16.6726459 C2.29872307,17.8316414 2.24005061,18.3805045 2.24005061,18.3805045 C2.24005061,18.3805045 2.86351696,18.4723522 3.20443582,18.5167387 C5.52066631,18.8183044 8.2158723,19 11.2571591,19 C14.2983257,19 16.9906817,18.8183212 19.3022491,18.5168005 C20.1024029,18.4124285 20.299407,18.42604 20.299407,18.42604 C20.299407,18.42604 19.7726508,17.368928 19.2102507,16.724624 C19.2349157,16.7528811 18.6099856,16.0468952 18.4181938,15.8208656 C16.3544985,13.3887685 15.3863636,10.7342862 15.3863636,6.023 C15.3863636,4.51612457 14.421575,4 11.2735227,4 Z M22.5,20 C22.5,20 18.4101136,21 11.2571591,21 C4.10420455,21 0,20 0,20 C0,14.034 5.11363636,15.936 5.11363636,6.023 C5.11363636,2.697 7.87090909,2 11.2735227,2 C14.6761364,2 17.3863636,2.697 17.3863636,6.023 C17.3863636,15.994 22.5,14.07 22.5,20 Z" id="Shape"></path>
+																<path d="M11.2571591,22 C10.2211364,22 9.25670455,21.977 8.35159091,21.941 C8.75659091,23.134 9.89386364,24 11.25,24 C12.6061364,24 13.7434091,23.134 14.1484091,21.942 C13.2473864,21.977 12.2880682,22 11.2571591,22 L11.2571591,22 Z" id="Shape"></path>
+															</g>
+														</g>
+													</g>
+												</g>
+											</g>
+										</g>
+									</g>
+								</g>
+							</svg>
+						</div>
+						<div class="t">Setup meeting with Bob’s manager at the hotels marine</div>
+						<div class="inf">
+							<span class="date-inf red-text">1 days overdue</span> <span class="text-gray">Bob Salazar | Salazar Inc.</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="slide-task open">
+				<div class="sld-head">
+					Scheduled <span>(1)</span>
+				</div>
+				<div class="sld-content">
+					<div class="mng-task-box">
+						<a href="#" class="t-btn-gray btn-complte">Complete</a>
+						<div class="icn icn-msg">
+							<svg width="25px" height="18px" viewBox="0 0 25 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+								<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+									<g id="Deal-Management-Tasks-popup" transform="translate(-287.000000, -503.000000)" fill="#4A90E2">
+										<g id="popup">
+											<g transform="translate(275.000000, 216.000000)" id="Group">
+												<g>
+													<g id="Group-16" transform="translate(-11.000000, 223.000000)">
+														<g id="Group-13" transform="translate(23.000000, 60.000000)">
+															<g id="Group-12">
+																<path d="M22.1153846,5.92307692 C22.6451923,5.92307692 23.0769231,6.35480769 23.0769231,6.88461538 L23.0769231,18.4230769 C23.0769231,18.9528846 22.6451923,19.3846154 22.1153846,19.3846154 L2.88461538,19.3846154 C2.35480769,19.3846154 1.92307692,18.9528846 1.92307692,18.4230769 L1.92307692,6.88461538 C1.92307692,6.35480769 2.35480769,5.92307692 2.88461538,5.92307692 L22.1153846,5.92307692 L22.1153846,5.92307692 Z M22.1153846,4 L2.88461538,4 C1.29230769,4 0,5.29230769 0,6.88461538 L0,18.4230769 C0,20.0153846 1.29230769,21.3076923 2.88461538,21.3076923 L22.1153846,21.3076923 C23.7076923,21.3076923 25,20.0153846 25,18.4230769 L25,6.88461538 C25,5.29230769 23.7076923,4 22.1153846,4 L22.1153846,4 L22.1153846,4 Z M16.7971154,12.5451923 L22.9567308,18.8509615 L15.4432692,13.4836538 L12.5,15.4009615 L9.55576923,13.4836538 L2.04230769,18.8509615 L8.20288462,12.5451923 L0.753846154,6.73846154 L12.5,13.0730769 L24.2451923,6.73846154 L16.7971154,12.5451923 Z" id="Combined-Shape"></path>
+															</g>
+														</g>
+													</g>
+												</g>
+											</g>
+										</g>
+									</g>
+								</g>
+							</svg>
+						</div>
+						<div class="t">Email Bob about the deal with Motorola</div>
+						<div class="inf">
+							<span class="date-inf orange-text">Today</span> <span class="text-gray">Bob Salazar | Salazar Inc.</span>
+						</div>
+						<div class="msg-field">
+							<textarea class="txt-field">Told Bob I would send him an email about hanging out with us for lunch. He is such a cool guy that I don’t know what we are doing with this thing. Is this deal going to close or is Bob going to sit here and pick his butt.</textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="slide-task">
+				<div class="sld-head">
+					Done <span>(1)</span>
+				</div>
+				<div class="sld-content">
+					<div class="mng-task-box">
+						<a href="#" class="t-btn-gray btn-complte">Complete</a>
+						<div class="icn icn-msg">
+							<svg width="25px" height="18px" viewBox="0 0 25 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+								<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+									<g id="Deal-Management-Tasks-popup" transform="translate(-287.000000, -503.000000)" fill="#4A90E2">
+										<g id="popup">
+											<g transform="translate(275.000000, 216.000000)" id="Group">
+												<g>
+													<g id="Group-16" transform="translate(-11.000000, 223.000000)">
+														<g id="Group-13" transform="translate(23.000000, 60.000000)">
+															<g id="Group-12">
+																<path d="M22.1153846,5.92307692 C22.6451923,5.92307692 23.0769231,6.35480769 23.0769231,6.88461538 L23.0769231,18.4230769 C23.0769231,18.9528846 22.6451923,19.3846154 22.1153846,19.3846154 L2.88461538,19.3846154 C2.35480769,19.3846154 1.92307692,18.9528846 1.92307692,18.4230769 L1.92307692,6.88461538 C1.92307692,6.35480769 2.35480769,5.92307692 2.88461538,5.92307692 L22.1153846,5.92307692 L22.1153846,5.92307692 Z M22.1153846,4 L2.88461538,4 C1.29230769,4 0,5.29230769 0,6.88461538 L0,18.4230769 C0,20.0153846 1.29230769,21.3076923 2.88461538,21.3076923 L22.1153846,21.3076923 C23.7076923,21.3076923 25,20.0153846 25,18.4230769 L25,6.88461538 C25,5.29230769 23.7076923,4 22.1153846,4 L22.1153846,4 L22.1153846,4 Z M16.7971154,12.5451923 L22.9567308,18.8509615 L15.4432692,13.4836538 L12.5,15.4009615 L9.55576923,13.4836538 L2.04230769,18.8509615 L8.20288462,12.5451923 L0.753846154,6.73846154 L12.5,13.0730769 L24.2451923,6.73846154 L16.7971154,12.5451923 Z" id="Combined-Shape"></path>
+															</g>
+														</g>
+													</g>
+												</g>
+											</g>
+										</g>
+									</g>
+								</g>
+							</svg>
+						</div>
+						<div class="t">Email Bob about the deal with Motorola</div>
+						<div class="inf">
+							<span class="date-inf orange-text">Today</span> <span class="text-gray">Bob Salazar | Salazar Inc.</span>
+						</div>
+						<div class="msg-field">
+							<textarea class="txt-field">Told Bob I would send him an email about hanging out with us for lunch. He is such a cool guy that I don’t know what we are doing with this thing. Is this deal going to close or is Bob going to sit here and pick his butt.</textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+        <div class="ll-popup-footer clearfix">
+            <a href="#" class="t-btn-gray ll-close-popup">Cancel</a>
+            <a href="#" class="t-btn-orange ll-close-popup">Add Task</a>
+        </div>
+    </div>
+    
+	<div class="sales-shortcut">
+		<a href="#" class="btn-toggle">
+			<i class="icn">
+				<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+					<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+						<g id="Sales-Shortcut-open" transform="translate(-1127.000000, -822.000000)" fill="#FFFFFF">
+							<g id="Group-2" transform="translate(1113.000000, 808.000000)">
+								<path d="M28.741664,21.0744805 L28.741664,14.625 L23.054164,14.625 L23.054164,21.0744805 L17.46875,17.8497403 L14.625,22.7752597 L20.210414,26 L14.625,29.2247403 L17.46875,34.1502597 L23.054164,30.9255195 L23.054164,37.375 L28.741664,37.375 L28.741664,30.9255195 L34.3270779,34.1502597 L37.1708279,29.2247403 L31.585414,26 L37.1708279,22.7752597 L34.3270779,17.8497403 L28.741664,21.0744805 L28.741664,21.0744805 Z" id="Combined-Shape" transform="translate(25.897914, 26.000000) rotate(-330.000000) translate(-25.897914, -26.000000) "></path>
+							</g>
+						</g>
+					</g>
+				</svg>
+			</i>
+		</a>
+		<div class="list-shortcuts">
+			<div class="wrap-shortcut">
+				<span class="hover-text">New Contract</span>
+				<a href="#" class="ll-show-popup" data-show-popup="new-contract-popup">
+					<i class="icn icn-new-contract">
+					<svg width="28px" height="22px" viewBox="0 0 28 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+						<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+							<g id="Sales-Shortcut-open" transform="translate(-1126.000000, -532.000000)" fill="#FB8F04">
+								<g id="Group-2" transform="translate(1113.000000, 516.000000)">
+									<g id="handshake" transform="translate(13.000000, 16.250000)">
+										<g id="Layer_1">
+											<path d="M11.5625143,7.20266963 C12.2947011,6.82501106 14.0100625,5.87993612 15.166125,5.23430556 C16.436875,4.52427083 17.2276406,5.344625 17.2276406,5.344625 C17.2276406,5.344625 21.8156927,10.1693403 23.1060104,11.4790903 C23.9451198,12.3287847 25.0984635,11.935625 25.4667969,11.8863333 C25.8351302,11.8370417 27.625,11.4650069 27.625,11.4650069 L27.625,2.61832639 C27.625,2.61832639 24.3341719,3.46684722 23.289026,3.62411111 C22.789474,3.69804861 22.1713646,3.39643056 22.1713646,3.39643056 C22.1713646,3.39643056 20.8511198,2.19347917 19.366276,0.870819444 C18.1611354,-0.2006875 17.5280625,-0.1584375 16.6498177,0.334479167 C15.2142342,1.14130575 11.7745796,3.18352655 10.1155445,4.24439605 C9.50030438,4.4760802 9.05984896,5.09769478 9.05984896,5.82815278 C9.05984896,6.75632866 9.77101665,7.50876389 10.6482865,7.50876389 C10.9886411,7.50876389 11.3039939,7.39550659 11.5625143,7.20266963 L11.5625143,7.20266963 L11.5625143,7.20266963 Z M10.9740312,17.9726806 C10.5596562,17.5231875 9.94039583,17.4187361 9.36947917,17.6076875 C9.59163021,17.0044514 9.5168125,16.3284514 9.09092708,15.8660486 C8.70763021,15.4494167 8.15052604,15.3402708 7.61759375,15.4693681 C7.76607812,14.9119028 7.68435417,14.3180556 7.29875521,13.8979028 C6.91430729,13.4824444 6.35835417,13.3732986 5.82542187,13.5023958 C5.97275521,12.9449306 5.89103125,12.3510833 5.50658333,11.9309306 C4.9034375,11.2760556 3.86059375,11.3042222 3.17572396,11.9954792 C2.49430729,12.6879097 2.05691146,13.9401528 2.6658125,14.6748333 C3.2735625,15.4095139 3.96994271,14.9635417 4.502875,14.8344444 C4.35554167,15.3919097 3.91123958,15.9118194 4.45683333,16.6418056 C5.00127604,17.3741389 5.76096354,16.9305139 6.29389583,16.8002431 C6.14541146,17.3577083 5.72067708,17.9292569 6.24670312,18.6076042 C6.77618229,19.2859514 7.64406771,18.9244792 8.21613542,18.7367014 C7.99513542,19.3387639 7.52205729,19.9854236 8.12980729,20.7154097 C8.73640625,21.4453958 10.139526,21.1050486 10.8255469,20.4137917 C11.5104167,19.7225347 11.574875,18.6275556 10.9740312,17.9726806 L10.9740312,17.9726806 Z M15.6293981,18.560372 C15.6660165,18.6159578 15.7076194,18.6687066 15.7543073,18.7179236 C16.2262344,19.2190556 16.9974323,19.2178819 17.4705104,18.7179236 C17.9424375,18.2179653 17.9435885,17.4034792 17.4705104,16.9023472 C17.4391136,16.8691693 17.4066371,16.8379616 17.3732245,16.8087537 C17.3554083,16.7876435 17.3364353,16.7664186 17.3162708,16.7450833 C15.6886979,15.0245694 15.5033802,14.6971319 15.6276927,14.5656875 C15.7692708,14.4154653 16.5278073,15.2956736 18.1473229,17.0079722 C18.1489037,17.0079722 18.1504853,17.0079675 18.1520675,17.0079581 C18.6265706,17.4687662 19.3688214,17.4543898 19.8289948,16.9680694 C20.2730074,16.4976836 20.3002896,15.7488782 19.9079656,15.2445779 C19.9000466,15.2158157 19.8869052,15.191153 19.8681302,15.1712708 C17.818125,13.0012639 17.9056042,12.9684028 18.0299167,12.8369583 C18.1530725,12.706737 18.1621264,12.6963103 20.1164232,14.7627579 C20.1361356,14.7873859 20.1569616,14.8113055 20.1789115,14.8344444 C20.6508385,15.3355764 21.4220365,15.3344028 21.8951146,14.8344444 C22.3670417,14.3344861 22.3681927,13.52 21.8951146,13.0188681 C21.8683422,12.9905769 21.8407885,12.9637183 21.8125418,12.9383107 C16.9369083,7.78142669 19.2396826,10.2168362 16.5853594,7.4043125 C16.5853594,7.4043125 15.7830833,6.5593125 14.7275781,7.04988194 C13.9863073,7.39375 13.0320937,7.86202083 12.3126927,8.21879861 C11.5219271,8.65538194 10.8324531,8.78917361 10.6885729,8.78917361 C9.16344271,8.78917361 7.92607292,7.48177083 7.92607292,5.86922917 C7.92607292,4.82354167 8.45094792,3.91281944 9.23365625,3.39643056 C10.3340521,2.59133333 12.8686458,1.16422222 12.8686458,1.16422222 C12.8686458,1.16422222 12.0974479,0.129097222 10.4054167,0.129097222 C8.71453646,0.129097222 5.18314062,2.57842361 5.18314062,2.57842361 C5.18314062,2.57842361 4.18058333,3.25794444 2.75214063,2.64649306 L0,1.63249306 L0,11.7537153 C0,11.7537153 0.785010417,11.9954792 1.49175,12.2994444 C1.65289583,11.8194375 1.90727604,11.3734653 2.26640104,11.0072986 C3.43816146,9.82664583 5.37881771,9.81373611 6.44583333,10.9744375 C6.76582292,11.3253472 6.99027604,11.7501944 7.10538021,12.2125972 C7.53586979,12.3534306 7.92261979,12.6010625 8.23685417,12.9425833 C8.55799479,13.2911458 8.78129687,13.7159931 8.89755208,14.1795694 C9.32804167,14.3204028 9.71364063,14.5680347 10.029026,14.9107292 C10.3823958,15.2945 10.6172083,15.7615972 10.7288594,16.2674236 C11.1766146,16.4059097 11.5840833,16.6605833 11.9109792,17.0173611 C12.5494556,17.7117564 12.7786122,18.6558556 12.6398182,19.5672855 C12.6397417,19.5673963 12.6396651,19.5675072 12.6395885,19.5676181 C12.6395885,19.5676181 12.6396391,19.5676782 12.6397393,19.5677976 C12.6396896,19.5681296 12.6396391,19.5684606 12.6395885,19.5687917 C12.6523615,19.5878033 12.6670894,19.6047784 12.6836191,19.6198106 C12.7935215,19.7496932 13.0851113,20.0918441 13.2807187,20.2987778 C13.7537969,20.7999097 14.5238437,20.7987361 14.9969219,20.2987778 C15.468849,19.7988194 15.47,18.9843333 14.9969219,18.4832014 C14.9812885,18.4666811 14.9653348,18.4507067 14.9490821,18.435278 C14.949318,18.433252 14.9495338,18.4312311 14.9497292,18.4292153 C13.3555365,16.7427361 13.2726615,16.6206806 13.4303542,16.4540278 C13.5880469,16.287375 13.8217083,16.6547153 15.6058229,18.5430556 C15.6120285,18.5496021 15.6199257,18.5553695 15.6293981,18.560372 L15.6293981,18.560372 Z" id="Combined-Shape"></path>
+										</g>
+									</g>
+								</g>
+							</g>
+						</g>
+					</svg>
+					</i>
+					
+				</a>
+			</div>
+			<div class="wrap-shortcut">
+				<span class="hover-text">New Prospect</span>
+				<a href="#" class="ll-show-popup" data-show-popup="new-prospect-popup">
+					<i class="icn icn-new_prospect">
+					<svg width="22px" height="26px" viewBox="0 0 22 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+						<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+							<g id="Sales-Shortcut-open" transform="translate(-1128.000000, -587.000000)" fill="#FB8F04">
+								<g id="contacts" transform="translate(1128.000000, 587.000000)">
+									<g id="Layer_1">
+										<g id="Group">
+											<path d="M14.563,15.9 C14.404,15.848 13.399,15.395 14.027,13.486 L14.018,13.486 C15.655,11.8 16.906,9.087 16.906,6.416 C16.906,2.309 14.175,0.156 11.001,0.156 C7.825,0.156 5.109,2.308 5.109,6.416 C5.109,9.098 6.353,11.822 8,13.504 C8.642,15.188 7.494,15.813 7.254,15.9 C3.93,17.103 0.03,19.294 0.03,21.457 L0.03,22.268 C0.03,25.215 5.744,25.885 11.032,25.885 C16.328,25.885 21.97,25.215 21.97,22.268 L21.97,21.457 C21.97,19.229 18.051,17.055 14.563,15.9 L14.563,15.9 Z" id="Shape"></path>
+										</g>
+									</g>
+								</g>
+							</g>
+						</g>
+					</svg>
+					</i>
+				</a>
+			</div>
+			<div class="wrap-shortcut">
+				<span class="hover-text">New Company</span>
+				<a href="#" class="ll-show-popup" data-show-popup="new-company-popup">
+					<i class="icn icn-new-company">
+					<svg width="23px" height="26px" viewBox="0 0 23 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+						<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+							<g id="Sales-Shortcut-open" transform="translate(-1127.000000, -645.000000)" fill="#FB8F04">
+								<g id="Group-4" transform="translate(1016.000000, 632.000000)">
+									<g id="1447267742_City" transform="translate(111.625000, 13.000000)">
+										<path d="M20.625,26 L1.71875,26 C0.768710938,26 0,25.2732187 0,24.375 L0,6.5 C0,5.60178125 0.768710937,4.875 1.71875,4.875 L6.875,4.875 L6.875,1.625 C6.875,0.72678125 7.64371094,0 8.59375,0 L20.625,0 C21.5750391,0 22.34375,0.72678125 22.34375,1.625 L22.34375,11.375 L22.34375,24.375 C22.34375,24.375 22.34375,26 20.625,26 L20.625,26 Z M6.875,6.5 L1.71875,6.5 L1.71875,24.375 L6.875,24.375 L6.875,6.5 L6.875,6.5 L6.875,6.5 Z M20.625,1.625 L8.59375,1.625 L8.59375,24.375 L13.75,24.375 L13.75,19.5 L15.46875,19.5 L15.46875,24.375 L20.625,24.375 L20.625,1.625 Z M3.4375,9.75 L5.15625,9.75 L5.15625,8.125 L3.4375,8.125 L3.4375,9.75 Z M10.3125,8.125 L12.03125,8.125 L12.03125,6.5 L10.3125,6.5 L10.3125,8.125 Z M13.75,8.125 L15.46875,8.125 L15.46875,6.5 L13.75,6.5 L13.75,8.125 Z M17.1875,8.125 L18.90625,8.125 L18.90625,6.5 L17.1875,6.5 L17.1875,8.125 Z M10.3125,4.875 L12.03125,4.875 L12.03125,3.25 L10.3125,3.25 L10.3125,4.875 Z M13.75,4.875 L15.46875,4.875 L15.46875,3.25 L13.75,3.25 L13.75,4.875 Z M17.1875,4.875 L18.90625,4.875 L18.90625,3.25 L17.1875,3.25 L17.1875,4.875 Z M10.3125,14.625 L12.03125,14.625 L12.03125,13 L10.3125,13 L10.3125,14.625 Z M13.75,14.625 L15.46875,14.625 L15.46875,13 L13.75,13 L13.75,14.625 Z M17.1875,14.625 L18.90625,14.625 L18.90625,13 L17.1875,13 L17.1875,14.625 Z M10.3125,17.875 L12.03125,17.875 L12.03125,16.25 L10.3125,16.25 L10.3125,17.875 Z M17.1875,17.875 L18.90625,17.875 L18.90625,16.25 L17.1875,16.25 L17.1875,17.875 Z M10.3125,21.125 L12.03125,21.125 L12.03125,19.5 L10.3125,19.5 L10.3125,21.125 Z M17.1875,21.125 L18.90625,21.125 L18.90625,19.5 L17.1875,19.5 L17.1875,21.125 Z M10.3125,11.375 L12.03125,11.375 L12.03125,9.75 L10.3125,9.75 L10.3125,11.375 Z M13.75,11.375 L15.46875,11.375 L15.46875,9.75 L13.75,9.75 L13.75,11.375 Z M17.1875,11.375 L18.90625,11.375 L18.90625,9.75 L17.1875,9.75 L17.1875,11.375 Z M3.4375,13 L5.15625,13 L5.15625,11.375 L3.4375,11.375 L3.4375,13 Z M3.4375,16.25 L5.15625,16.25 L5.15625,14.625 L3.4375,14.625 L3.4375,16.25 Z M3.4375,19.5 L5.15625,19.5 L5.15625,17.875 L3.4375,17.875 L3.4375,19.5 Z M3.4375,22.75 L5.15625,22.75 L5.15625,21.125 L3.4375,21.125 L3.4375,22.75 Z M13.75,17.875 L15.46875,17.875 L15.46875,16.25 L13.75,16.25 L13.75,17.875 Z" id="Shape"></path>
+									</g>
+								</g>
+							</g>
+						</g>
+					</svg>
+					</i>
+				</a>
+			</div>
+			<div class="wrap-shortcut">
+				<span class="hover-text">New Task</span>
+				<a href="#" class="ll-show-popup" data-show-popup="new-task-popup">
+					<i class="icn icn-new-task">
+					<svg width="26px" height="27px" viewBox="0 0 26 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+						<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+							<g id="Sales-Shortcut-open" transform="translate(-1126.000000, -703.000000)" fill="#FB8F04">
+								<g id="Group-5" transform="translate(1113.000000, 690.000000)">
+									<g id="clock_white" transform="translate(13.000000, 13.000000)">
+										<path d="M13,2.98512578 C18.541,2.98512578 23.048,7.54544645 23.048,13.152 C23.048,18.7585535 18.541,23.3188742 13,23.3188742 C7.459,23.3188742 2.952,18.7585535 2.952,13.152 C2.952,7.54544645 7.459,2.98512578 13,2.98512578 L13,2.98512578 Z M13,0.152 C5.904,0.152 0.152,5.97204981 0.152,13.152 C0.152,20.3319502 5.904,26.152 13,26.152 C20.096,26.152 25.848,20.3319502 25.848,13.152 C25.848,5.97204981 20.096,0.152 13,0.152 Z M13.1553245,14.8887334 C13.1041001,14.8928842 13.0522983,14.895 13,14.895 C11.953,14.895 11.105,14.047 11.105,13 C11.105,12.3117405 11.4714435,11.7094741 12.0199726,11.3775588 L12.288,6.133 C12.304,5.883 12.505,5.434 12.997,5.434 C13.487,5.434 13.692,5.883 13.705,6.133 L13.9348186,11.3510508 C14.5083292,11.6767398 14.895,12.2929999 14.895,13 C14.895,13.0096981 14.8949272,13.0193791 14.8947822,13.0290425 L18.718,17.379 C18.887,17.576 19.032,18.093 18.576,18.548 C18.121,19.003 17.601,18.861 17.405,18.69 L13.1553245,14.8887334 L13.1553245,14.8887334 Z" id="Task"></path>
+									</g>
+								</g>
+							</g>
+						</g>
+					</svg>
+					</i>				
+				</a>
+			</div>
+			<div class="wrap-shortcut">
+				<span class="hover-text">New Deal</span>
+				<a href="#" class="ll-show-popup" data-show-popup="new-deal-popup">
+					<i class="icn icn-new-deal">
+					<svg width="14px" height="26px" viewBox="0 0 14 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+						<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+							<g id="Sales-Shortcut-open" transform="translate(-1132.000000, -762.000000)" fill="#FB8F04">
+								<g id="Group-6" transform="translate(1113.000000, 748.000000)">
+									<path d="M27.5120257,36.0433686 L27.5120257,38.7329721 C27.5120257,38.9322909 27.3453514,39.0955882 27.1419107,39.0955882 L24.6761111,39.0955882 C24.4702193,39.0955882 24.303545,38.9322909 24.303545,38.7329721 L24.303545,36.2618989 C22.5583668,36.1562359 20.773971,35.6591396 19.6709792,34.9723301 C19.5312669,34.8858786 19.4699896,34.7225813 19.5141092,34.5664882 L20.3131656,31.8048418 C20.3450298,31.6967774 20.4283669,31.6079244 20.5337639,31.5646987 C20.6489653,31.5262758 20.7641667,31.5334801 20.8646615,31.5935158 C21.6441091,32.0497879 23.2593794,32.8206474 25.3011398,32.8206474 C27.0046495,32.8206474 28.1051902,32.0714007 28.1051902,30.9163121 C28.1051902,29.8164564 27.2595631,29.0888227 25.0903458,28.3251674 C22.433361,27.3742005 19.7126478,25.9717644 19.7126478,22.7778604 C19.7126478,20.1290813 21.5338099,18.1310902 24.487377,17.5091194 L24.487377,14.9900176 C24.487377,14.7882974 24.6540513,14.625 24.8599431,14.625 L27.2914274,14.625 C27.4948681,14.625 27.6615424,14.7882974 27.6615424,14.9900176 L27.6615424,17.3170048 C29.5243731,17.4298721 30.7646261,17.9413771 31.551427,18.3256061 C31.7107481,18.4048534 31.7916341,18.5849607 31.7401612,18.7554624 L30.9386538,21.4258544 C30.9092406,21.5291159 30.8308057,21.613166 30.7303108,21.6611947 C30.629816,21.7044204 30.5170658,21.6996176 30.4165709,21.6515889 C29.6371234,21.2673599 28.4238323,20.6718048 26.5487462,20.6718048 C25.0143619,20.6718048 24.1025553,21.2985785 24.1025553,22.3432012 C24.1025553,23.2701538 24.9555357,23.9017304 27.4826126,24.8526973 C30.9999311,26.1446675 32.5,27.8616911 32.5,30.5993232 C32.4975489,33.324948 30.54893,35.4358064 27.5120257,36.0433686 L27.5120257,36.0433686 Z" id="Deal"></path>
+								</g>
+							</g>
+						</g>
+					</svg>
+					</i>
+				</a>
+			</div>
+		</div>
+	</div>
+    <div class="inbound-call-popup">
+        <div class="ic-left-menu">
+            <a href="#" data-idx="0" class="ic-tab-answer inactive"></a>
+            <a href="#" data-idx="1" class="ic-tab-information"></a>
+            <a href="#" data-idx="2" class="ic-tab-edit"></a>
+            <a href="#" data-idx="3" class="ic-tab-call active"></a>
+            <a href="#" data-idx="4" class="ic-tab-time inactive"></a>
+            <a href="#" data-idx="5" class="ic-tab-date inactive"></a>
+            <a href="#" data-idx="6" class="ic-tab-settings inactive"></a>
+        </div>
+        <div class="ic-content">
+            <div class="ic-content-inner">
+                <a href="#" class="ic-close-popup"></a>
+                <div class="call-time-h"></div>
+                <div class="ic-content-tab ic-answer-content">
+                    <div class="inf-top">
+                        <div class="tel">+1 (214) 491-0807</div>
+                        <div class="con"><span>98%</span> confidence it's <span>Telemarketer</span></div>
+                    </div>
+                    <div class="ic-status">
+                        Commercial
+                    </div>
+                    <div class="wrap-ic-user-inf">
+                        <div class="ic-ava"><img src="imgs/inbound_call/ava.png"/></div>
+                        <h2>Katie Lynn</h2>
+                        <div class="ic-loc">Portland, OR</div>
+                        <div class="ic-company">Microsoft</div>
+                    </div>
+                    <div class="ic-fire-alarm">
+                        <span>A+ 587</span>
+                        <div class="ic-fire">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span class="off"></span>
+                        </div>
+                        <a href="#" class="ic-btn-add"></a>
+                        <a href="#" class="ic-btn-cloud"></a>
+                    </div>
+                    <div class="ic-btns-call">
+                        <a href="#" class="ic-btn-answer"><i></i>Answer</a>
+                        <a href="#" class="ic-btn-ignore"><i></i>Ignore</a>
+                        <div class="wrap-hang-up">
+                            <a href="#" class="ic-btn-hang-up"><i></i>Hang up</a>
+                            <div class="wrap-ic-btn-additional">
+                                <a href="#">Transfer</a>
+                                <a href="#">Record</a>
+                                <a href="#">Hold</a>
+                                <a href="#">Conf</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ic-content-tab ic-information-content">
+                    <div class="inf-top">
+                        <div class="tel">+1 (214) 491-0807</div>
+                    </div>
+                    <div class="ic-information-content-scroll scrollbar-inner">
+                        <div class="ic-box-inf">
+                            <div class="ic-icn-inf-female">
+                                4 M
+                            </div>
+                            <p>Katie Lynn</p>
+                            <p>Female, 38 y.o.</p>
+                        </div>
+                        <div class="ic-box-inf">
+                            <div class="ic-icn-inf-home">
+                                1.5 Y
+                            </div>
+                            <p>8804 Milano Drive</p>
+                            <p>Female, 38 y.o.</p>
+                        </div>
+                        <div class="ic-box-inf ic-icn-associated">
+                            <p><strong>Associated People:</strong></p>
+                            <ul>
+                                <li>- Jade Lynn</li>
+                                <li>- Chris Lynn</li>
+                            </ul>
+                        </div>
+                        <div class="ic-box-inf ic-icn-loc">
+                            <p><strong>Prior Address:</strong></p>
+                            <p>8804 Milano Drive</p>
+                            <p>McKinney, TX 75071</p>
+                        </div>
+                        <div class="ic-box-inf">
+                            <p>8804 Milano Drive</p>
+                            <p>McKinney, TX 75071</p>
+                        </div>
+                        <div class="ic-box-inf ic-icn-phone">
+                            <p>Version Mobile</p>
+                            <p>Prepaid Phone</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="ic-content-tab ic-edit-content">
+                    <div class="inf-top">
+                        <div class="tel">+1 (214) 491-0807</div>
+                    </div>
+                    <div class="t-field">
+                        <input type="text" class="txt-field" placeholder="Name" value="Katie Lynn"/>
+                    </div>
+                    <div class="t-field">
+                        <input type="text" class="txt-field" placeholder="Email"/>
+                    </div>
+                    <div class="t-field">
+                        <input type="text" class="txt-field" placeholder="Address"/>
+                    </div>
+                    <div class="t-field">
+                        <input type="text" class="txt-field" placeholder="Company"/>
+                    </div>
+                    <div class="t-field">
+                        <select>
+                            <option>Update / Create CRM Lead</option>
+                            <option>Update / Create Prospect</option>
+                            <option>Add to List</option>
+                            <option>Nurture</option>
+                        </select>
+                    </div>
+                    <a href="#" class="ic-btn-go">Go</a>
+                </div>
+                <div class="ic-content-tab ic-call-content active">
+                    <h2>Dial Pad</h2>
+                    <div class="t-field">
+                        <select>
+                            <option>Find person to call</option>
+                            <option selected>Katie Lynn</option>
+                        </select>
+                    </div>
+                    <div class="t-field">
+                        <input type="text" id="ic-number-call-field" class="txt-field" placeholder="Enter number to call"/>
+                    </div>
+                    <div class="ic-number-call clearfix">
+                        <a href="#">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">7</a>
+                        <a href="#">8</a>
+                        <a href="#">9</a>
+                        <a href="#" class="ic-n"><img src="imgs/inbound_call/n.png"/></a>
+                        <a href="#">0</a>
+                        <a href="#" class="ic-r"><img src="imgs/inbound_call/r.png"/></a>
+                    </div>
+                    <a href="#" class="ic-btn-call">Call</a>
+                </div>
+                <div class="ic-content-tab">
+                    Time
+                </div>
+                <div class="ic-content-tab">
+                    Date
+                </div>
+                <div class="ic-content-tab">
+                    Settings
+                </div>
+            </div>
+            <div class="ic-inf">
+                <div>Ready Agernts: <strong>5</strong></div>
+                <div>Call Time: <strong class="ic-call-time-last">02:51</strong></div>
+                <div>Call Queue: <strong>0</strong></div>
+            </div>
+        </div>
+    </div>
+	
+	
+	<script>
+        $(document).ready(function() {
+            $('.inbound-call-line').addClass('talking animateCall');
+			
+			$('body').on('click', function(){
+				$('.sales-shortcut.open').removeClass('open');
+			});
+			
+			$('.sales-shortcut .btn-toggle').on('click', function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				$(this).parent().toggleClass('open');
+			});
+			$('.sales-shortcut .wrap-shortcut > a').on('click', function(e){
+				e.preventDefault();
+				$('.sales-shortcut.open').removeClass('open');
+			});
+        });
+    </script>
+	
+	<div class="ll-popup new-contract-popup" id="new-contract-popup">
+		<form action="/file-upload" class="dropzone dropzone-hover-contract">
+        <div class="ll-popup-head">
+			New Contract
+		</div>
+        <div class="ll-popup-content">
+			<div class="form">
+				<div class="wrap-fields">
+					<div class="t-field ll-line-field">
+						<div class="select-person">
+							<select>
+								<option>Benjamin Klinder</option>
+							</select>
+						</div>
+						<div class="select-company">
+							<select>
+								<option>Motorola</option>
+							</select>
+						</div>
+						<div class="select-deal">
+							<select>
+								<option>Motorola Deal</option>
+							</select>
+						</div>
+					</div>
+					
+					
+				</div>
+				<div class="popup-content-inner">
+					<div class="t-field ll-line-field">
+						<div class="label"><label>Type</label></div>
+						<select>
+							<option>Order Form</option>
+						</select>
+					</div>
+					<div class="t-field ll-line-field">
+						<div class="label"><label>Start Date</label></div>
+						<div class="field-start-date">
+							<i class="icn-search-date"></i>
+							<input type="text" class="txt-field"/>
+						</div>				
+					</div>
+					<div class="t-field ll-line-field">
+						<div class="label"><label>Duration (Months)</label></div>
+						<div class="field-duration">
+							<div class="field-duration-month">
+								<input type="text" class="txt-field" value="0"/>
+							</div>
+							<div class="field-duration-date">
+								<i class="icn-search-date"></i>
+								<input type="text" class="txt-field"/>
+							</div>
+						</div>
+					</div>
+					<div class="t-field ll-line-field">
+						<div class="label"><label>Recurring</label></div>
+						<div class="t-radio">
+							<label><i class="icn-radio"></i><input type="radio" checked name="recurring"/>Yes</label>
+						</div>
+						<div class="t-radio">
+							<label><i class="icn-radio"></i><input type="radio" name="recurring"/>No</label>
+						</div>
+					</div>
+					<div class="t-field ll-line-field">
+						<div class="label"><label>Files</label></div>
+						<div class="box-add-files">
+							<div class="images-preview">
+								
+							</div>
+							<div class="link-add-files"><a href="#">Add files</a></div>
+						</div> 
+					</div>
+				</div>
+			</div>
+        </div>
+        <div class="ll-popup-footer clearfix">
+            <a href="#" class="t-btn-gray ll-close-popup">Cancel</a>
+            <a href="#" class="t-btn-orange ll-close-popup">Save</a>
+        </div>
+		</form>
+		<div class="wrap-dropzone-contract">
+			<div class="dropzone-contract-fade"></div>
+			<form action="/file-upload" class="dropzone dropzone-contract" id="dropzone-contract">
+				<div class="fallback">
+					<input name="file" type="file" multiple />
+				</div>
+			</form>
+		</div>
+    </div>
+	
+	<div class="ll-popup new-task-popup" id="new-task-popup">
+        <div class="ll-popup-head">
+			New Task
+		</div>
+        <div class="ll-popup-content">
+			<div class="form">
+				<div class="wrap-fields">
+					<div class="t-field ll-line-field">
+						<div class="select-person">
+							<select>
+								<option>Benjamin Klinder</option>
+							</select>
+						</div>
+						<div class="select-company">
+							<select>
+								<option>Motorola</option>
+							</select>
+						</div>
+						<div class="select-deal">
+							<select>
+								<option>Motorola Deal</option>
+							</select>
+						</div>
+					</div>
+					<div class="wrap-fields-activity clearfix">
+						<div class="select-type-activity icn-call">
+							<select id="select-type-activity-popup">
+								<option value="Call">Call</option>
+								<option value="Email">Email</option>
+								<option value="Task" selected>Task</option>
+								<option value="Meeting">Meeting</option>
+								<option value="Deadline">Deadline</option>
+								<option value="Lunch">Lunch</option>
+								<option value="Event">Event</option>
+								<option value="Teambuilding">Teambuilding</option>
+								<option value="Errand">Errand</option>
+							</select>
+						</div>
+						<div class="field-activity-name">
+							<input type="text" class="txt-field" placeholder="Task"/>
+						</div>
+					</div>
+				</div>
+				<div class="popup-content-inner">
+					<div class="task-editor">
+						<textarea id="task-editor"></textarea>
+					</div>
+					<div class="t-field ll-line-field">
+						<div class="field-date">
+							<div class="lb-small">Date</div>
+							<div class="wrap-field">
+								<i class="icn-search-date"></i>
+								<input type="text" class="txt-field"/>
+							</div>
+						</div>
+						<div class="field-time">
+							<div class="lb-small">Time</div>
+							<div class="wrap-field">
+								<i class="remove-time"></i>
+								<input type="text" class="txt-field" id="time-task" value="12:00 PM"/>
+							</div>
+						</div>
+						<div class="field-duration">
+							<div class="lb-small">Duration</div>
+							<div class="wrap-field">
+								<i class="remove-time"></i>
+								<input type="text" class="txt-field" id="duration-task" value="00:00"/>
+							</div>
+						</div>
+						<div class="select-people">
+							<div class="lb-small">Assign To</div>
+							<select>
+								<option>Ryan Schefke</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+        <div class="ll-popup-footer clearfix">
+            <a href="#" class="t-btn-gray ll-close-popup">Cancel</a>
+            <a href="#" class="t-btn-orange ll-close-popup">Save</a>
+			<a href="#" class="t-btn-gray ll-close-popup btn-complete">Complete</a>
+        </div>
+    </div>
+	
+	<div class="ll-popup new-prospect-popup" id="new-prospect-popup">
+        <div class="ll-popup-head">
+			New Prospect
+		</div>
+        <div class="ll-popup-content">
+			<div class="form">
+                <div class="t-field ll-line-field">
+                    <div class="label"><label>Name</label></div>
+                    <input type="text" class="txt-field"/>
+                </div>
+				<div class="t-field ll-line-field">
+                    <div class="label"><label>Phone</label></div>
+					<div class="phone-fields">
+						<div class="t-field">
+							<input type="text" class="txt-field"/>
+							<select>
+								<option>Work</option>
+								<option>Home</option>
+								<option>Mobile</option>
+								<option>Other</option>
+							</select>
+							<a href="#" class="add-field"></a>
+							<a href="#" class="remove-field hide-btn-remove"></a>
+						</div>
+					</div>
+                </div>
+				<div class="t-field ll-line-field">
+                    <div class="label"><label>Email</label></div>
+					<div class="email-fields">
+						<div class="t-field">
+							<input type="text" class="txt-field"/>
+							<select>
+								<option>Work</option>
+								<option>Personal</option>
+								<option>Other</option>
+							</select>
+							<a href="#" class="add-field"></a>
+							<a href="#" class="remove-field"></a>
+						</div>
+					</div>
+                </div>
+				<div class="t-field ll-line-field">
+                    <div class="label"><label>Company</label></div>
+                    <select>
+						<option>Motorola</option>
+					</select>
+                </div>
+				<div class="t-field ll-line-field">
+                    <div class="label"><label>Job Title</label></div>
+                    <input type="text" class="txt-field"/>
+                </div>
+				<div class="t-field ll-line-field">
+                    <div class="label"><label>Owner</label></div>
+                    <select>
+						<option>Ryan Schefke</option>
+					</select>
+                </div>
+			</div>
+        </div>
+        <div class="ll-popup-footer clearfix">
+            <a href="#" class="t-btn-gray ll-close-popup">Cancel</a>
+            <a href="#" class="t-btn-orange ll-close-popup">Save</a>
+        </div>
+    </div>
+	
+	<div class="ll-popup new-deal-popup" id="new-deal-popup">
+        <div class="ll-popup-head">
+			<div class="ll-btn-group clearfix">
+				<a href="#" class="t-btn-gray ll-active ll-icn-shape ll_std_tooltip" title="Public Deal">
+					<i class="icn">
+						<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+							<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+								<g id="New-Deal-popup" sketch:type="MSArtboardGroup" transform="translate(-789.000000, -292.000000)" fill="#333333">
+									<g id="popup" sketch:type="MSLayerGroup" transform="translate(320.000000, 274.000000)">
+										<g id="Group" sketch:type="MSShapeGroup">
+											<g id="Group-3" transform="translate(461.000000, 10.000000)">
+												<path d="M22.8921154,15.9448077 C22.8921154,15.3044231 22.1426923,14.6796154 21.14,14.3473077 C21.0944231,14.3323077 20.8053846,14.2019231 20.9853846,13.6526923 L20.9830769,13.6526923 C21.4538462,13.1686538 21.8132692,12.3880769 21.8132692,11.6207692 C21.8132692,10.4392308 21.0280769,9.82076923 20.1153846,9.82076923 C19.2026923,9.82076923 18.4215385,10.4392308 18.4215385,11.6207692 C18.4215385,12.3921154 18.7792308,13.1744231 19.2523077,13.6584615 C19.4363462,14.1425 19.1063462,14.3219231 19.0376923,14.3473077 C18.7988462,14.4332692 18.5698077,14.5376923 18.3603846,14.6553846 L18.3603846,14.2134615 C18.3603846,13.5730769 17.5267308,12.9482692 16.5234615,12.6159615 C16.4778846,12.6009615 16.1888462,12.4705769 16.3688462,11.9213462 L16.3665385,11.9213462 C16.8373077,11.4373077 17.1967308,10.6567308 17.1967308,9.88942308 C17.1967308,8.70788462 16.4115385,8.08942308 15.4988462,8.08942308 C14.5855769,8.08942308 13.805,8.70788462 13.805,9.88942308 C13.805,10.6607692 14.1626923,11.4430769 14.6357692,11.9271154 C14.8203846,12.4111538 14.4903846,12.5905769 14.4211538,12.6159615 C13.4657692,12.9621154 12.6615385,13.5909615 12.6615385,14.2134615 L12.6615385,14.6698077 C12.4451923,14.5469231 12.2080769,14.4373077 11.9594231,14.3467308 C11.8907692,14.3213462 11.5607692,14.1419231 11.7448077,13.6578846 C12.2178846,13.1738462 12.5755769,12.3915385 12.5755769,11.6201923 C12.5755769,10.4386538 11.7944231,9.82019231 10.8817308,9.82019231 C9.96903846,9.82019231 9.18384615,10.4386538 9.18384615,11.6201923 C9.18384615,12.3875 9.54326923,13.1686538 10.0140385,13.6521154 L10.0146154,13.6521154 C10.1951923,14.2013462 9.90615385,14.3317308 9.86,14.3467308 C8.85730769,14.6784615 8.10788462,15.3032692 8.10788462,15.9442308 L8.10788462,18.9084615 C8.10788462,18.9148077 8.11076923,18.9194231 8.11134615,18.9251923 C8.11134615,18.9373077 8.10788462,18.9488462 8.10788462,18.9609615 C8.10788462,20.5671154 9.92230769,21.9465385 12.5190385,22.5557692 L12.5190385,21.6592308 C12.5190385,20.9259615 13.4507692,20.2601923 14.3738462,19.9261538 C14.3738462,19.9261538 14.4725,19.8863462 14.5203846,19.7796154 C14.5601923,19.6925 14.5573077,19.5817308 14.5117308,19.4513462 C13.9948077,18.9090385 13.6613462,18.0823077 13.6613462,17.3351923 C13.6613462,15.9921154 14.5844231,15.3909615 15.4994231,15.3909615 C16.4161538,15.3909615 17.3415385,15.9921154 17.3415385,17.3351923 C17.3415385,18.0736538 17.0115385,18.8951923 16.4975,19.4392308 C16.3982692,19.7651923 16.4946154,19.8978846 16.5696154,19.925 C17.4621154,20.2203846 18.5046154,20.8515385 18.5046154,21.6592308 L18.5046154,22.5494231 C21.0880769,21.9367308 22.8915385,20.5619231 22.8915385,18.9603846 C22.8915385,18.9482692 22.8880769,18.9367308 22.8880769,18.9246154 C22.8880769,18.9182692 22.8915385,18.9136538 22.8915385,18.9078846 C22.8921154,18.7423077 22.8921154,16.1132692 22.8921154,15.9448077 L22.8921154,15.9448077 Z" id="Shape"></path>
+											</g>
+										</g>
+									</g>
+								</g>
+							</g>
+						</svg>
+					</i>
+				</a>
+				<a href="#" class="t-btn-gray ll-icn-lock ll_std_tooltip" title="Private Deal">
+					<i class="icn">
+						<svg width="11px" height="15px" viewBox="0 0 11 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+							<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+								<g id="New-Deal-popup" sketch:type="MSArtboardGroup" transform="translate(-820.000000, -291.000000)" fill="#333333">
+									<g id="popup" sketch:type="MSLayerGroup" transform="translate(320.000000, 274.000000)">
+										<g id="Group" sketch:type="MSShapeGroup">
+											<g id="Group-3" transform="translate(461.000000, 10.000000)">
+												<g id="lock" transform="translate(39.000000, 7.000000)">
+													<path d="M9.2125,5.4375 L9.2125,4.8283125 C9.2125,2.27037688 7.83723022,0.515625 5.5,0.515625 C3.16652595,0.515625 1.7875,2.28055625 1.7875,4.8283125 L1.7875,5.4375 L3.1625,5.4375 L3.1625,4.8283125 C3.1625,2.99661816 4.00224869,1.921875 5.5,1.921875 C7.00262942,1.921875 7.8375,2.98711379 7.8375,4.8283125 L7.8375,5.4375 L9.2125,5.4375 L9.2125,5.4375 Z" id="Shape"></path>
+													<path d="M9.35,6 L1.65,6 C0.7392,6 0,6.756 0,7.6875 L0,13.3125 C0,14.244 0.7392,15 1.65,15 L9.35,15 C10.2608,15 11,14.244 11,13.3125 L11,7.6875 C11,6.756 10.2608,6 9.35,6 L9.35,6 Z M6.05,10.9066875 L6.05,12.1875 C6.05,12.4974375 5.80305,12.75 5.5,12.75 C5.19695,12.75 4.95,12.4974375 4.95,12.1875 L4.95,10.9066875 C4.6222,10.7115 4.4,10.3531875 4.4,9.9375 C4.4,9.3165 4.8928,8.8125 5.5,8.8125 C6.1072,8.8125 6.6,9.3165 6.6,9.9375 C6.6,10.352625 6.3778,10.7115 6.05,10.9066875 L6.05,10.9066875 Z" id="Shape"></path>
+												</g>
+											</g>
+										</g>
+									</g>
+								</g>
+							</g>
+						</svg>
+					</i>
+				</a>
+			</div>
+			New Deal
+		</div>
+        <div class="ll-popup-content">
+			<div class="form">
+                <div class="t-field ll-line-field">
+                    <div class="label"><label>Prospect</label></div>
+                    <input type="text" class="txt-field"/>
+                </div>
+				<div class="t-field ll-line-field">
+                    <div class="label"><label>Comapny</label></div>
+                    <input type="text" class="txt-field"/>
+                </div>
+				<div class="t-field ll-line-field">
+                    <div class="label"><label>Deal Name</label></div>
+                    <input type="text" class="txt-field"/>
+                </div>
+				<div class="t-field ll-line-field amount-field">
+                    <div class="label"><label>Amount</label></div>
+					<input type="text" class="txt-field"/>
+					<select>
+						<option>US Dollar (USD)</option>
+					</select>
+                </div>
+				<div class="t-field ll-line-field">
+                    <div class="label"><label>Stage</label></div>
+					<select>
+						<option>Research</option>
+					</select>
+                </div>
+				<div class="t-field ll-line-field">
+                    <div class="label"><label>Close Date</label></div>
+                    <div class="field-close-date">
+						<span class="icn-search-date"></span>
+						<input type="text" class="txt-field"/>
+					</div>
+                </div>
+			</div>
+        </div>
+        <div class="ll-popup-footer clearfix">
+            <a href="#" class="t-btn-gray ll-close-popup">Cancel</a>
+            <a href="#" class="t-btn-orange ll-close-popup">Save</a>
+        </div>
+    </div>
+	
+	<div class="ll-popup new-company-popup" id="new-company-popup">
+        <div class="ll-popup-head">
+			New Company
+		</div>
+        <div class="ll-popup-content">
+			<div class="form">
+                <div class="t-field ll-line-field">
+                    <div class="label"><label>Name</label></div>
+                    <input type="text" class="txt-field"/>
+                </div>
+				
+				<div class="t-field ll-line-field">
+                    <div class="label"><label>Owner</label></div>
+                    <select>
+						<option>Ryan Schefke</option>
+					</select>
+                </div>
+				<div class="t-field ll-line-field">
+                    <div class="label"><label>Address</label></div>
+					<div id="locationField" class="location-field">
+						<input id="autocomplete" onFocus="geolocate()" type="text" class="txt-field"/>
+					</div>
+					
+					
+				</div>
+				<div class="address-field" id="address">
+					<div class="t-field ll-line-field">
+						<div class="label"><label>Street address</label></div>
+						<div class="field-street-address">
+							<input id="street_number" disabled="true" class="txt-field"/>
+							<div class="t-field">
+								<input id="route" disabled="true" class="txt-field"/>
+							</div>
+						</div>
+					</div>
+					<div class="t-field ll-line-field">
+						<div class="label"><label>City</label></div>
+						<input id="locality" disabled="true" class="txt-field"/>
+					</div>
+					<div class="t-field ll-line-field">
+						<div class="label"><label>State</label></div>
+						<input id="administrative_area_level_1" disabled="true" class="txt-field"/>
+					</div>
+					<div class="t-field ll-line-field">
+						<div class="label"><label>Zip code</label></div>
+						<input id="postal_code" disabled="true" class="txt-field"/>
+					</div>
+					<div class="t-field ll-line-field">
+						<div class="label"><label>Country</label></div>
+						<input id="country" disabled="true" class="txt-field"/>
+					</div>
+				</div>
+			</div>
+        </div>
+        <div class="ll-popup-footer clearfix">
+            <a href="#" class="t-btn-gray ll-close-popup">Cancel</a>
+            <a href="#" class="t-btn-orange ll-close-popup">Save</a>
+        </div>
+    </div>
+</body>
+</html>

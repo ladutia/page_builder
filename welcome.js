@@ -31,7 +31,36 @@ var ws = {
 			});
 		}*/
 
+		$('.er-events-checkboxes').on('change', 'input', function () {
+            var $this = $(this);
+            var idx = $this.attr('idx');
+
+            if ($this.prop('checked'))
+                ws.showEvent(idx);
+            else
+                ws.hideEvent(idx);
+
+            ws.countEvent();
+        });
+
+        ws.countEvent();
 		
+	},
+	countEvent: function(){
+		var count = $('.list-inf-events .list-inf-item:visible').length;
+
+        $('.list-inf-events').removeClass('list-count-events-1 list-count-events-2 list-count-events-3 list-count-events-4 list-count-events-5 list-count-events-6 list-count-events-7 list-count-events-8 list-count-events-more')
+    	
+    	if(count < 9)
+    		$('.list-inf-events').addClass('list-count-events-' + count);
+    	else
+    		$('.list-inf-events').addClass('list-count-events-more');
+	},
+	showEvent: function(idx){
+		$('.list-inf-events').find('.list-inf-item[idx="' + idx + '"]').show();
+	},
+	hideEvent: function(idx){
+		$('.list-inf-events').find('.list-inf-item[idx="' + idx + '"]').hide();
 	},
 	updateCharts: function($box){
         if( $box.length ){

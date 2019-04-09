@@ -872,6 +872,64 @@
 .ws-block-inf-col .ws-block-inf-total{
 	padding-top: 5px;
 }
+
+.ll-actions-top .er-dropdown-settings{
+    width: 42px;
+    min-width: 0;
+    margin: 0 0 0 6px;
+    position: relative;
+    z-index: 12;
+}
+.ll-actions-top .er-dropdown-settings .icn {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+    background: url(imgs/imgs_dashboard/icn_settings.svg) no-repeat center center;
+}
+.ll-actions-top .t-actions-dropdown.er-dropdown-settings .t-btn,
+.ll-actions-top .t-actions-dropdown.er-dropdown-settings .t-btn:focus{
+    padding: 0;
+    min-width: 0;
+    display: block;
+    border-color: #c3c2c2;
+    background: #f0f0f0;
+}
+.ll-actions-top .t-actions-dropdown.er-dropdown-settings .t-btn:hover{
+    background: #fafafa;
+    text-decoration: none;
+}
+.ll-actions-top .t-actions-dropdown.er-dropdown-settings .t-btn:active{
+    background: #e7e7e7;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+    -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+}
+.ll-actions-top .er-dropdown-settings .ll-actions-dropdown{
+    min-width: 250px;
+    left: auto;
+    right: 0;
+}
+.ll-actions-top .er-dropdown-settings .wrap-checkbox{
+    padding: 6px 10px;
+}
+.ll-actions-top .er-dropdown-settings .t-checkbox{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+.ll-actions-top .er-dropdown-settings .scrollbar-inner{
+    overflow-y: auto;
+    min-height: 190px;
+    max-height: 190px;
+}
+.er-dropdown-settings .scrollbar-inner > .scroll-element.scroll-y{
+    right: -4px;
+}
+
+
 @media screen and (max-width: 1280px) {
 	body:not(.close-nav-admin) .ws-block-inf-text-2{
 		font-size: 13px;

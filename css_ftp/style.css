@@ -10593,23 +10593,56 @@ VIP NOTE: This class has to be added to the end of the file, because if messes t
 .list-inf{
 	color: #333;
 	overflow: hidden;
+	border: 1px solid #c3c2c2;
+	white-space: nowrap;
+	overflow: hidden;
+	overflow-x: auto;
+	min-height: 100px;
+	max-width: 100%;
 	border-radius: 4px;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
-	width: 100%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 }
 .list-inf .list-inf-item{
 	position: relative;
 	height: 100px;
-	float: left;
+	display: inline-block;
+	vertical-align: top;
+	margin-left: -4px;
 	min-width: 12.3%;
 	padding-top: 10px;
 	text-align: center;
-	border: 1px solid #c3c2c2;
-	border-left: 0;
+	border-left: 1px solid #c3c2c2;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
+}
+.list-count-events-1 .list-inf-item{
+	width: 100%;
+}
+.list-count-events-2 .list-inf-item{
+	width: 50%;
+}
+.list-count-events-3 .list-inf-item{
+	width: 33.333%;
+}
+.list-count-events-4 .list-inf-item{
+	width: 25%;
+}
+.list-count-events-5 .list-inf-item{
+	width: 20%;
+}
+.list-count-events-6 .list-inf-item{
+	width: 16.66666666666667%;
+}
+.list-count-events-7 .list-inf-item{
+	width: 14.28571428571429%;
+}
+.list-count-events-8 .list-inf-item{
+	width: 12.5%;
 }
 .list-inf .list-inf-item.large{
 	width: 15%;
@@ -10623,7 +10656,7 @@ VIP NOTE: This class has to be added to the end of the file, because if messes t
 }
 
 .list-inf .list-inf-item:first-child{
-	border-left: 1px solid #c3c2c2;
+	border-left: 0;
 	border-radius: 4px 0 0 4px;
 	-moz-border-radius: 4px 0 0 4px;
 	-webkit-border-radius: 4px 0 0 4px;
@@ -10672,6 +10705,7 @@ VIP NOTE: This class has to be added to the end of the file, because if messes t
 	vertical-align: top;
 	text-align: left;
 	padding-left: 10px;*/
+	padding: 0 10px;
 }
 
 .list-inf-item .item-val{

@@ -1,0 +1,2078 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script src="js/jquery-1.7.1.js" type="text/javascript"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700' rel='stylesheet'
+	 type='text/css'>
+	<link type="text/css" href="js/jquery-ui-1.8.5.custom/css/ui-lightness/jquery-ui-1.8.5.custom.css" rel="stylesheet" />
+	<link href="js/context_menu/src/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="stylesheet" type="text/css" href="css_ftp/style.css" />
+	<link rel="stylesheet" type="text/css" href="js/chosen/chosen.css" />
+	<link rel="stylesheet" type="text/css" href="js/datetimepicker/jquery.datetimepicker.css" />
+<link rel="stylesheet" type="text/css" href="js/nanoscroller/nanoscroller.css"/>
+	<link rel="stylesheet" type="text/css" href="js/bootstrap-toggle-master/css/bootstrap-toggle.min.css" />
+	<link rel="stylesheet" type="text/css" href="js/jquery.scrollbar/jquery.scrollbar.css" />
+	<link rel="stylesheet" type="text/css" href="js/tooltipster/css/tooltipster.css" />
+	<link rel="stylesheet" type="text/css" href="js/intl-tel-input/css/intlTelInput.css" />
+	<link rel="stylesheet" type="text/css" href="js/bxslider-4-master/dist/jquery.bxslider.css" />
+	<link rel="stylesheet" type="text/css" href="app_cloud.css" />
+	<link rel="stylesheet" type="text/css" href="theme.css" />
+	<link rel="stylesheet" type="text/css" href="inbound_call.css" />
+	<link rel="stylesheet" type="text/css" href="crm_popups.css" />
+	<link rel="stylesheet" type="text/css" href="sales_shortcut.css" />
+	<link rel="stylesheet" type="text/css" href="ll_grid.css" />
+	<link rel="stylesheet" type="text/css" href="welcome.css" />
+
+	<script type="text/javascript" src="js/jquery-ui-1.8.5.custom.min.js"></script>
+	<script src="js/context_menu/src/jquery.ui.position.js" type="text/javascript"></script>
+	<script src="js/context_menu/src/jquery.contextMenu.js" type="text/javascript"></script>
+	<script src="js/chosen/chosen.jquery.min.js" type="text/javascript"></script>
+	<script src="js/tablesorter/js/jquery.tablesorter.js" type="text/javascript"></script>
+	<script src="js/tablesorter/js/jquery.tablesorter.widgets.js" type="text/javascript"></script>
+	<script src="js/Highcharts-4.1.6/js/highcharts.js" type="text/javascript"></script>
+	
+<script src="js/nanoscroller/jquery.nanoscroller.js" type="text/javascript"></script>
+	<script src="js/jquery.scrollbar/jquery.scrollbar.js" type="text/javascript"></script>
+	<script src="js/tinymce/tinymce.min.js" type="text/javascript"></script>
+	<script src="js/datetimepicker/jquery.datetimepicker.js" type="text/javascript"></script>
+	<script src="js/bootstrap-toggle-master/js/bootstrap-toggle.min.js" type="text/javascript"></script>
+	<script src="js/tooltipster/js/jquery.tooltipster.min.js"></script>
+	<script src="js/intl-tel-input/js/intlTelInput.js"></script>
+	<script src="js/dropzone.js"></script>
+	<script src="js/bxslider-4-master/dist/jquery.bxslider.min.js" type="text/javascript"></script>
+	<script src="js/ll_theme.js" type="text/javascript"></script>
+	<script src="js/crm_popups.js" type="text/javascript"></script>
+	<script src="js/inbound_call.js" type="text/javascript"></script>
+	<script src="js/welcome.js" type="text/javascript"></script>
+	<title>LeadLiailson</title>
+</head>
+
+<body class="theme close-nav-admin open-nav-admin">
+	<div id="mainWrapper">
+
+		<div class="header-white">
+			<div class="logo">
+				<a href="#"><img src="imgs/logo_new.png" /></a>
+			</div>
+			<div class="search">
+				<div class="dropdown-search">
+					<span class="stext">Prospect's Email</span>
+					<span class="cr"></span>
+					<ul class="drop-down-search">
+						<li><a href="#">Prospect's Email</a></li>
+						<li><a href="#">Prospect's Name</a></li>
+						<li><a href="#">Company</a></li>
+						<li><a href="#">People </a></li>
+					</ul>
+				</div>
+				<input type="text" />
+				<label class="label">Search...</label>
+				<button class='s-btn-search btn-warning-msg'></button>
+			</div>
+			<a href="#" class="t-btn-green t-btn-add-big"></a>
+			<div class="nav-tooltip">
+				<ul class="clearfix">
+					<li class="active icn-create">
+						<a href="#">
+							<span>
+								<span data-svg-id="icon_create_svg"></span>
+							</span>
+							Create
+						</a>
+						<div class="tooltip-menu">
+							<div class="cr"></div>
+							<div class="t-b">
+								<ul>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-emails">
+													<span data-svg-id="svg_icn_emails"></span>
+												</i>
+											</i>
+											<i class="n">Emails</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-new-content">
+													<span data-svg-id="svg_icn_new_content"></span>
+												</i>
+											</i>
+											<i class="n">New Content</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-trackable-content">
+													<span data-svg-id="svg_icn_trackable_content"></span>
+												</i>
+											</i>
+											<i class="n">Trackable Content</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-contact-lists">
+													<span data-svg-id="svg_icn_contact_lists"></span>
+												</i>
+											</i>
+											<i class="n">Contact Lists</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-landing-pages">
+													<span data-svg-id="svg_icn_landing_page"></span>
+												</i>
+											</i>
+											<i class="n">Landing Pages</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-tracking-urls">
+													<span data-svg-id="svg_icn_tracking_urls"></span>
+												</i>
+											</i>
+											<i class="n">Tracking URLs</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-referrers">
+													<span data-svg-id="svg_icn_referrers"></span>
+												</i>
+											</i>
+											<i class="n">Referrers</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-web-forms">
+													<span data-svg-id="svg_icn_web_forms"></span>
+												</i>
+											</i>
+											<i class="n">Web Forms</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-surveys">
+													<span data-svg-id="svg_icn_surveys"></span>
+												</i>
+											</i>
+											<i class="n">Surveys</i>
+										</a>
+									</li>
+									<li class="show-elements-tooltip disabled-item">
+										<ul class="dropdown-elements-header">
+
+										</ul>
+									</li>
+								</ul>
+							</div>
+							<div class="t-bottom">
+								<button class="t-bottom-text">
+									Design Studio
+								</button>
+								<div class="tm-btn-settings">
+									<div class="settings-edit">
+										<span data-svg-id="svg_btn_settings"></span>
+									</div>
+									<div class="settings-save">
+										<span data-svg-id="svg_btn_save"></span>
+									</div>
+								</div>
+								<div class="tm-btn-view">
+									<div class="view-line">
+										<span data-svg-id="svg_btn_list_view"></span>
+									</div>
+									<div class="view-table">
+										<span data-svg-id="svg_btn_tile_view"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="icn-learn">
+						<a href="#">
+							<span>
+								<span data-svg-id="icon_learn_svg"></span>
+							</span>
+							Learn
+						</a>
+						<div class="tooltip-menu line-menu scroll-content pull-right-block-learn">
+							<div class="cr"></div>
+							<!--<div class="t-h">Learn</div>-->
+							<div class="t-b">
+								<ul>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-segmentation">
+													<span data-svg-id="svg_icn_segmentation"></span>
+												</i>
+											</i>
+											<i class="n">Segmentation</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-programs">
+													<span data-svg-id="svg_icn_programs"></span>
+												</i>
+											</i>
+											<i class="n">Programs</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-campaigns">
+													<span data-svg-id="svg_icn_campaigns"></span>
+												</i>
+											</i>
+											<i class="n">Campaigns</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-lists">
+													<span data-svg-id="svg_icn_lists"></span>
+												</i>
+											</i>
+											<i class="n">Lists</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-social-media">
+													<span data-svg-id="svg_icn_social_posts_media"></span>
+												</i>
+											</i>
+											<i class="n">Social Media</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-lead-nurturing">
+													<span data-svg-id="svg_icn_lead_nurtring"></span>
+												</i>
+											</i>
+											<i class="n">Lead Nurturing</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-content-creation">
+													<span data-svg-id="svg_icn_content_creation"></span>
+												</i>
+											</i>
+											<i class="n">Content Creation</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-email-marketing">
+													<span data-svg-id="svg_icn_email_marketing"></span>
+												</i>
+											</i>
+											<i class="n">Email Marketing</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-web-forms">
+													<span data-svg-id="svg_icn_web_forms"></span>
+												</i>
+											</i>
+											<i class="n">Web Forms</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-landing-pages">
+													<span data-svg-id="svg_icn_landing_page"></span>
+												</i>
+											</i>
+											<i class="n">Landing Pages</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-tracking-urls">
+													<span data-svg-id="svg_icn_tracking_urls"></span>
+												</i>
+											</i>
+											<i class="n">Tracking URLs</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-website-visitors">
+													<span data-svg-id="svg_icn_website_visitors"></span>
+												</i>
+											</i>
+											<i class="n">Website Visitors</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-1-1-emails">
+													<span data-svg-id="svg_icn_1to1_emails"></span>
+												</i>
+											</i>
+											<i class="n">1:1 Emails</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-lead-distributions">
+													<span data-svg-id="svg_icn_lead_distributions"></span>
+												</i>
+											</i>
+											<i class="n">Lead Distributions</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-lead-granding">
+													<span data-svg-id="svg_icn_lead_grading"></span>
+												</i>
+											</i>
+											<i class="n">Lead Granding</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-lead-scoring">
+													<span data-svg-id="svg_icn_lead_scoring"></span>
+												</i>
+											</i>
+											<i class="n">Lead Scoring</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-sales-prospecting">
+													<span data-svg-id="svg_icn_sales_prospecting"></span>
+												</i>
+											</i>
+											<i class="n">Sales Prospecting</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-buy-signals">
+													<span data-svg-id="svg_icn_buy_signals"></span>
+												</i>
+											</i>
+											<i class="n">Buy Signals</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-favorites">
+													<span data-svg-id="svg_icn_favorites"></span>
+												</i>
+											</i>
+											<i class="n">Favorites</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-hot-lead-dashboard">
+													<span data-svg-id="svg_icn_hot_lead_dashboard"></span>
+												</i>
+											</i>
+											<i class="n">Hot Lead Dashboard</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-surveys">
+													<span data-svg-id="svg_icn_surveys"></span>
+												</i>
+											</i>
+											<i class="n">Surveys</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-criteria">
+													<span data-svg-id="svg_icn_criteria"></span>
+												</i>
+											</i>
+											<i class="n">ROI</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-journey">
+													<span data-svg-id="svg_icn_journey"></span>
+												</i>
+											</i>
+											<i class="n">Journey</i>
+										</a>
+									</li>
+									<li class="show-elements-tooltip disabled-item">
+										<ul class="dropdown-elements-header">
+
+										</ul>
+									</li>
+								</ul>
+							</div>
+							<div class="t-bottom">
+								<div class="t-bottom-text">
+
+								</div>
+								<div class="tm-btn-settings">
+									<div class="settings-edit">
+										<span data-svg-id="svg_btn_settings"></span>
+									</div>
+									<div class="settings-save">
+										<span data-svg-id="svg_btn_save"></span>
+									</div>
+								</div>
+								<div class="tm-btn-view">
+									<div class="view-line">
+										<span data-svg-id="svg_btn_list_view"></span>
+									</div>
+									<div class="view-table">
+										<span data-svg-id="svg_btn_tile_view"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="icn-report">
+						<a href="#">
+							<span>
+								<span data-svg-id="icon_report_svg"></span>
+							</span>
+							Report
+						</a>
+						<div class="tooltip-menu">
+							<div class="cr"></div>
+							<div class="t-b">
+								<ul>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-visitors">
+													<span data-svg-id="svg_icn_website_visitors"></span>
+												</i>
+											</i>
+											<i class="n">Visitors</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-standard-reports">
+													<span data-svg-id="svg_icn_standard_reports"></span>
+												</i>
+											</i>
+											<i class="n">Standard Reports</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-premium-reports">
+													<span data-svg-id="svg_icn_premium_reports"></span>
+												</i>
+											</i>
+											<i class="n">Premium Reports</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-lead-source">
+													<span data-svg-id="svg_icn_lead_source"></span>
+												</i>
+											</i>
+											<i class="n">Lead Source</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-programs">
+													<span data-svg-id="svg_icn_programs"></span>
+												</i>
+											</i>
+											<i class="n">Programs</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-campaigns">
+													<span data-svg-id="svg_icn_campaigns"></span>
+												</i>
+											</i>
+											<i class="n">Campaigns</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-hot-leads">
+													<span data-svg-id="svg_icn_hot_leads"></span>
+												</i>
+											</i>
+											<i class="n">Hot Leads</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-emails">
+													<span data-svg-id="svg_icn_emails"></span>
+												</i>
+											</i>
+											<i class="n">Emails</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-surveys">
+													<span data-svg-id="svg_icn_surveys"></span>
+												</i>
+											</i>
+											<i class="n">Surveys</i>
+										</a>
+									</li>
+									<li class="show-elements-tooltip disabled-item">
+										<ul class="dropdown-elements-header">
+
+										</ul>
+									</li>
+								</ul>
+							</div>
+							<div class="t-bottom">
+								<div class="t-bottom-text">
+								</div>
+								<div class="tm-btn-settings">
+									<div class="settings-edit">
+										<span data-svg-id="svg_btn_settings"></span>
+									</div>
+									<div class="settings-save">
+										<span data-svg-id="svg_btn_save"></span>
+									</div>
+								</div>
+								<div class="tm-btn-view">
+									<div class="view-line">
+										<span data-svg-id="svg_btn_list_view"></span>
+									</div>
+									<div class="view-table">
+										<span data-svg-id="svg_btn_tile_view"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="settings-user">
+				<div class="count">
+					<span>2</span>
+					<div class="alert-center-tooltip">
+						<div class="ac-caret"></div>
+						<div class="h">Alert Center</div>
+						<div class="ac-content">
+							<ul>
+								<li class="inbox">
+									<div class="icn">
+										<span data-svg-id="svg_ac_icn_inbox"></span>
+									</div>
+									Inbox
+									<div class="total">2</div>
+								</li>
+								<li class="signals">
+									<div class="icn">
+										<span data-svg-id="svg_ac_icn_buy_signals"></span>
+									</div>
+
+									Buy Signals
+									<div class="total green">0</div>
+								</li>
+								<li class="favorites">
+									<div class="icn">
+										<span data-svg-id="svg_ac_icn_favorites"></span>
+									</div>
+									Favorites
+									<div class="total blue">0</div>
+								</li>
+								<li class="hopper">
+									<div class="icn">
+										<span data-svg-id="svg_ac_icn_hopper"></span>
+									</div>
+									Hopper
+									<div class="total blue2">0</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<a href='#'><img src='imgs/ava_ryan.png' /></a>
+				<div class="settings-user-tooltip">
+					<div class="sut-t">
+						<div class="ava">
+							<img src="imgs/ava96.png" />
+						</div>
+						<div class="right">
+							<h3>Ryan Schefke</h3>
+							<a href="#">rrschefke@leadliaison.com</a>
+							<div class="lb">Team:</div>
+							<strong>
+								Sales,
+								Marketing,
+								System Administrator
+							</strong>
+						</div>
+					</div>
+					<div class="sut-c">
+						<a href="#">
+							<div class="ava"><img src="imgs/ava_50_1.png" /></div>
+							<div class="name">Jade Schefke</div>
+							<div class="email">linjade8@gmail.com</div>
+							<div style="clear: both"></div>
+						</a>
+					</div>
+					<div class="sut-b">
+						<a href="#" class="add_account">Add account</a>
+						<a href="#" class="fr">Log Out</a>
+					</div>
+				</div>
+			</div>
+			<div class="nav-tooltip fr">
+				<ul class="clearfix">
+					<li class="icn-settings">
+						<a href="#">
+							<span>
+								<span data-svg-id="icon_settings_svg"></span>
+							</span>
+							Settings
+						</a>
+						<div class="tooltip-menu pull-right-block-settings">
+							<div class="cr"></div>
+							<div class="t-b">
+								<ul>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-app-cloud">
+													<span data-svg-id="svg_icn_app_cloud"></span>
+												</i>
+											</i>
+											<i class="n">App Cloud</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-home">
+													<span data-svg-id="svg_icn_home"></span>
+												</i>
+											</i>
+											<i class="n">Home</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-support">
+													<span data-svg-id="svg_icn_support"></span>
+												</i>
+											</i>
+											<i class="n">Support</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-setup">
+													<span data-svg-id="svg_icn_setup"></span>
+												</i>
+											</i>
+											<i class="n">Setup</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-webhooks">
+													<span data-svg-id="svg_icn_webhooks"></span>
+												</i>
+											</i>
+											<i class="n">Webhooks</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-connectors">
+													<span data-svg-id="svg_icn_connectors"></span>
+												</i>
+											</i>
+											<i class="n">Connectors</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-fields">
+													<span data-svg-id="svg_icn_fields"></span>
+												</i>
+											</i>
+											<i class="n">Fields</i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icn-wrap">
+												<i class="icn icn-svg-users">
+													<span data-svg-id="svg_icn_users"></span>
+												</i>
+											</i>
+											<i class="n">Users</i>
+										</a>
+									</li>
+									<li class="show-elements-tooltip disabled-item">
+										<ul class="dropdown-elements-header">
+
+										</ul>
+									</li>
+								</ul>
+							</div>
+							<div class="t-bottom">
+								<button class="t-bottom-text">
+									Administration
+								</button>
+								<div class="tm-btn-settings">
+									<div class="settings-edit">
+										<span data-svg-id="svg_btn_settings"></span>
+									</div>
+									<div class="settings-save">
+										<span data-svg-id="svg_btn_save"></span>
+									</div>
+								</div>
+								<div class="tm-btn-view">
+									<div class="view-line">
+										<span data-svg-id="svg_btn_list_view"></span>
+									</div>
+									<div class="view-table">
+										<span data-svg-id="svg_btn_tile_view"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+		<div class="main-page nano clearfix">
+			<div class="wrap-nav-admin">
+				<div class="toggle-nav-admin">
+					<svg version="1.1" id="theme-icn-menu" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+					 x="0px" y="0px" width="20px" height="17px" viewBox="0 0 20 17" enable-background="new 0 0 20 17" xml:space="preserve">
+						<rect x="0" fill="#FFFFFF" width="19.997" height="3.5" />
+						<rect x="0" y="6.75" fill="#FFFFFF" width="19.997" height="3.5" />
+						<rect x="0" y="13.498" fill="#FFFFFF" width="19.997" height="3.5" />
+					</svg>
+					<svg version="1.1" id="theme-prev-icn-nav" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+					 x="0px" y="0px" width="17px" height="16px" viewBox="0 0 17 16" enable-background="new 0 0 17 16" xml:space="preserve">
+						<g enable-background="new    ">
+							<g>
+								<g>
+									<defs>
+										<path id="SVGID_1_" d="M0,8.033L7.897,0L9.6,1.689L3.381,8.033L9.6,14.309L7.897,16L0,8.033z M7,8.033L14.897,0L16.6,1.689
+                                                               l-6.219,6.345l6.219,6.276L14.897,16L7,8.033z" />
+									</defs>
+									<use xlink:href="#SVGID_1_" overflow="visible" fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" />
+									<clipPath id="SVGID_2_">
+										<use xlink:href="#SVGID_1_" overflow="visible" />
+									</clipPath>
+								</g>
+							</g>
+						</g>
+					</svg>
+				</div>
+				<div class="search-box-left">
+					<input type="text" class="txt-field" placeholder="Search..." />
+					<div class="ll-actions-dropdown">
+						<ul>
+							<li><a href="#">Home</a></li>
+							<li><a href="#">Dashboard</a></li>
+							<li><a href="#">Visitors</a></li>
+							<li><a href="#">Filters</a></li>
+							<li><a href="#">Referrer Domains</a></li>
+							<li><a href="#">Prospects</a></li>
+							<li><a href="#">Import</a></li>
+							<li><a href="#">Lists</a></li>
+							<li><a href="#">Segmentation</a></li>
+							<li><a href="#">Content</a></li>
+							<li><a href="#">Emails</a></li>
+							<li><a href="#">Events</a></li>
+							<li><a href="#">Landing Pages</a></li>
+							<li><a href="#">Marketing Content</a></li>
+							<li><a href="#">Media</a></li>
+							<li><a href="#">Social Posts</a></li>
+							<li><a href="#">Surveys</a></li>
+							<li><a href="#">Trackable</a></li>
+							<li><a href="#">Tracking URLs</a></li>
+							<li><a href="#">Videos</a></li>
+							<li><a href="#">Web Forms</a></li>
+							<li><a href="#">Automation</a></li>
+							<li><a href="#">General Purpose</a></li>
+							<li><a href="#">Lead Distribution</a></li>
+							<li><a href="#">Lead Grading</a></li>
+							<li><a href="#">Lead Nurturing</a></li>
+							<li><a href="#">Lead Scoring</a></li>
+							<li><a href="#">Spark</a></li>
+							<li><a href="#">Marketing</a></li>
+							<li><a href="#">Campaigns</a></li>
+							<li><a href="#">Conversions</a></li>
+							<li><a href="#">Programs</a></li>
+							<li><a href="#">ROI</a></li>
+							<li><a href="#">Tags</a></li>
+							<li><a href="#">Sales</a></li>
+							<li><a href="#">Hot Leads</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="wrap-inner-nav-admin scrollbar-inner">
+					<ul class="nav-admin">
+						<li>
+							<a href="#">
+								<i class="icn-home">
+									<svg width="20px" height="18px" viewBox="0 0 20 18" version="1.1" xmlns="http://www.w3.org/2000/svg"
+									 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+										<g id="LAST-UPDATES" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+											<g id="Left-penal" sketch:type="MSArtboardGroup" transform="translate(-17.000000, -147.000000)" fill="#FFFFFF">
+												<g sketch:type="MSLayerGroup" transform="translate(0.000000, 128.000000)" id="icons">
+													<g transform="translate(14.000000, 19.000000)" sketch:type="MSShapeGroup">
+														<g id="home" transform="translate(3.000000, 0.000000)">
+															<path d="M16.5,6.627 L19.11,9.237 C19.40325,9.53025 19.40325,10.005 19.11,10.2975 C18.96375,10.44375 18.77175,10.51725 18.57975,10.51725 C18.38775,10.51725 18.19575,10.44375 18.0495,10.2975 L9.75,1.998 L1.47375,10.27425 C1.1805,10.5675 0.7065,10.5675 0.41325,10.27425 C0.12,9.981 0.12,9.507 0.41325,9.21375 L9.21975,0.40725 C9.513,0.114 9.987,0.114 10.28025,0.40725 L14.25,4.377 L14.25,0.762 C14.25,0.34875 14.586,0.012 15,0.012 L15.75,0.012 C16.16325,0.012 16.5,0.34875 16.5,0.762 L16.5,6.627 L16.5,6.627 Z M9.75,3.375 L1.5,11.625 L1.5,15.75 C1.5,16.992 2.508,18 3.75,18 L15.75,18 C16.992,18 18,16.992 18,15.75 L18,11.625 L9.75,3.375 L9.75,3.375 Z M12,15.75 C12,16.16325 11.66325,16.5 11.25,16.5 L8.25,16.5 C7.83675,16.5 7.5,16.16325 7.5,15.75 L7.5,11.25 C7.5,10.83675 7.83675,10.5 8.25,10.5 L11.25,10.5 C11.66325,10.5 12,10.83675 12,11.25 L12,15.75 L12,15.75 L12,15.75 Z"
+															 id="Shape"></path>
+														</g>
+													</g>
+												</g>
+											</g>
+										</g>
+									</svg>
+								</i>
+								<span>Home</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="icn-dashboard">
+									<svg width="22px" height="21px" viewBox="0 0 22 21" version="1.1" xmlns="http://www.w3.org/2000/svg"
+									 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+										<g id="LAST-UPDATES" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+											<g id="Left-penal" sketch:type="MSArtboardGroup" transform="translate(-16.000000, -208.000000)" fill="#FFFFFF">
+												<g sketch:type="MSLayerGroup" transform="translate(0.000000, 128.000000)" id="icons">
+													<g transform="translate(14.000000, 19.000000)" sketch:type="MSShapeGroup">
+														<g id="speedometer" transform="translate(2.000000, 61.000000)">
+															<path d="M16.1884215,3.65855583 C18.2847606,5.14754383 19.7242373,7.50882796 19.9644433,10.2 L18.9166667,10.2 L18.9166667,11.8 L19.9679082,11.8 C19.8413535,13.3616431 19.3425513,14.7989587 18.5080261,16.0186494 L20.1586406,17.1480172 C21.3649273,15.3849829 22,13.2680738 22,11 C22,4.94771525 17.0522847,0 11,0 C4.94771525,0 0,4.94771525 0,11 C0,13.2680738 0.635072738,15.3849829 1.84135941,17.1480172 L3.49197393,16.0186494 C2.65744873,14.7989587 2.15864653,13.3616431 2.03209184,11.8 L3.08333333,11.8 L3.08333333,10.2 L2.03555667,10.2 C2.1715437,8.6764556 2.69189636,7.25864009 3.49819828,6.04496982 L2.8669183,7.20231646 L3.78358496,7.70231646 L4.54974837,6.29768354 L3.65855583,5.81157852 C4.24995202,4.97895461 4.97895461,4.24995202 5.81157852,3.65855583 L6.29768354,4.54974837 L7.70231646,3.78358496 L7.20231646,2.8669183 L6.04496982,3.49819828 C7.25864009,2.69189636 8.6764556,2.1715437 10.2,2.03555667 L10.2,3.08333333 L11.8,3.08333333 L11.8,2.03555667 C13.3235444,2.1715437 14.7413599,2.69189636 15.9550302,3.49819828 L14.7976835,2.8669183 L14.2976835,3.78358496 L15.7023165,4.54974837 L16.1884215,3.65855583 L16.1884215,3.65855583 Z M11.5888687,9.61842312 L17.9166667,6.91666667 L18,7 L12.4909566,11.167097 C12.4088052,11.920695 11.7768157,12.5 11,12.5 C10.1666667,12.5 9.5,11.8333333 9.5,11 C9.5,10.1666667 10.1666667,9.5 11,9.5 C11.2094668,9.5 11.4084032,9.54212128 11.5888687,9.61842312 L11.5888687,9.61842312 Z M3.6330817,16.2023165 L4.54974837,15.7023165 L3.78358496,14.2976835 L2.8669183,14.7976835 L3.6330817,16.2023165 L3.6330817,16.2023165 Z M19.1330817,14.7976835 L18.216415,14.2976835 L17.4502516,15.7023165 L18.3669183,16.2023165 L19.1330817,14.7976835 L19.1330817,14.7976835 Z M7.66666667,16.6666667 L6.66666667,16.6666667 L6.66666667,17.6666667 L6.66666667,19.3333333 L6.66666667,20.3333333 L7.66666667,20.3333333 L11.1666667,20.3333333 L14.3333333,20.3333333 L15.3333333,20.3333333 L15.3333333,19.3333333 L15.3333333,17.6666667 L15.3333333,16.6666667 L14.3333333,16.6666667 L7.66666667,16.6666667 L7.66666667,16.6666667 Z"
+															 id="Shape"></path>
+														</g>
+													</g>
+												</g>
+											</g>
+										</g>
+									</svg>
+								</i>
+								<span>Dashboard</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="icn-visitors">
+									<svg width="23px" height="14px" viewBox="0 0 23 14" version="1.1" xmlns="http://www.w3.org/2000/svg"
+									 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+										<g id="LAST-UPDATES" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+											<g id="Left-penal" sketch:type="MSArtboardGroup" transform="translate(-14.000000, -274.000000)" fill="#FFFFFF">
+												<g sketch:type="MSLayerGroup" transform="translate(0.000000, 128.000000)" id="icons">
+													<g transform="translate(14.000000, 19.000000)" sketch:type="MSShapeGroup">
+														<path d="M8.00799082,130.755787 C6.53258243,131.284637 5.18857684,132.144934 4.08312618,133.279686 C4.89877987,136.616961 7.91448485,139.101538 11.5,139.101538 C15.0862384,139.101538 18.1024368,136.615958 18.9173672,133.277666 C17.8118541,132.142242 16.4671182,131.281968 14.9905358,130.75368 C15.4739921,131.444392 15.7576538,132.285223 15.7576538,133.192308 C15.7576538,135.543745 13.8514373,137.449962 11.5,137.449962 C9.14856271,137.449962 7.24234615,135.543745 7.24234615,133.192308 C7.24234615,132.286145 7.5254316,131.446101 8.00799082,130.755787 L8.00799082,130.755787 Z M3.21310246,134.296054 C4.38960834,137.742831 7.65628673,140.222346 11.5008846,140.222346 C15.3461938,140.222346 18.6119028,137.742261 19.7879739,134.295689 C19.8885506,134.42991 19.9861898,134.566958 20.0807692,134.706769 C20.5451923,135.395 21.482,135.574577 22.172,135.109269 C22.8611154,134.643077 23.0415769,133.706269 22.5753846,133.018038 C20.0825385,129.3345 15.9425385,127.137115 11.5008846,127.137115 C7.06011538,127.137115 2.91923077,129.3345 0.4255,133.016269 C-0.0415769231,133.706269 0.138884615,134.643077 0.827115385,135.108385 C1.08630769,135.284423 1.38,135.369346 1.67103846,135.369346 C2.15403846,135.369346 2.62907692,135.135808 2.92011538,134.706769 C3.01476661,134.567087 3.11246967,134.43016 3.21310246,134.296054 L3.21310246,134.296054 Z"
+														 id="Shape"></path>
+													</g>
+												</g>
+											</g>
+										</g>
+									</svg>
+								</i>
+								<span>Visitors</span>
+							</a>
+							<ul class="sub-nav">
+								<li>
+									<a href="#">
+										Filters
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Referrer Domains
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">
+								<i class="icn-prospects">
+									<svg width="16px" height="20px" viewBox="0 0 16 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
+									 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+										<g id="LAST-UPDATES" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+											<g id="Left-penal" sketch:type="MSArtboardGroup" transform="translate(-19.000000, -333.000000)" fill="#FFFFFF">
+												<g sketch:type="MSLayerGroup" transform="translate(0.000000, 128.000000)" id="icons">
+													<g transform="translate(14.000000, 19.000000)" sketch:type="MSShapeGroup">
+														<path d="M5,203.615997 L5,202.32292 C5,200.653689 7.53028571,199.110612 10.2830476,198.575997 C10.2830476,198.575997 11.1142857,198.129843 10.9131429,197.284458 C10.0392381,196.218304 9.85485714,195.088304 9.85485714,195.088304 C9.7047619,195.02215 9.49066667,194.89215 9.35657143,194.714458 C9.0487619,194.29292 8.76533333,193.383689 8.82704762,192.748304 C8.89180952,192.089843 9.06704762,192.299843 9.08761905,192.193689 C8.53447619,190.769843 8.79809524,189.024458 9.50666667,187.745997 C10.927619,185.18215 13.9752381,185.936766 14.4613333,186.899074 C17.3779048,186.351381 17.2499048,190.939074 16.8544762,192.161381 C16.8544762,192.161381 17.119619,192.213689 17.0609524,193.334458 C17.0068571,194.458304 16.064381,195.206766 16.064381,195.206766 C16.0346667,195.514458 15.6628571,196.455227 15.0510476,197.284458 C14.5558095,198.337535 15.6019048,198.575997 15.6019048,198.575997 C18.3531429,199.110612 20.8537143,200.653689 20.8537143,202.32292 L20.8537143,203.615997 C20.8537143,204.724458 16.7028571,205.815997 12.9413333,205.815997 C9.17904762,205.815997 5,205.427535 5,203.615997 L5,203.615997 Z"
+														 id="Shape"></path>
+													</g>
+												</g>
+											</g>
+										</g>
+									</svg>
+								</i>
+								<span>Prospects</span>
+							</a>
+							<ul class="sub-nav">
+								<li>
+									<a href="#">
+										Import
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Lists
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Segmentation
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">
+								<i class="icn-content">
+									<svg width="22px" height="23px" viewBox="0 0 22 23" version="1.1" xmlns="http://www.w3.org/2000/svg"
+									 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+										<g id="LAST-UPDATES" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+											<g id="Left-penal" sketch:type="MSArtboardGroup" transform="translate(-16.000000, -393.000000)" fill="#FFFFFF">
+												<g sketch:type="MSLayerGroup" transform="translate(0.000000, 128.000000)" id="icons">
+													<g transform="translate(14.000000, 19.000000)" sketch:type="MSShapeGroup">
+														<g id="Group" transform="translate(2.000000, 246.000000)">
+															<path d="M1.875,22 L1.875,22 L1.875,22 L19.375,22 C19.857125,22 20.25,21.607125 20.25,21.125 L20.25,1.875 C20.25,1.392875 19.857125,1 19.375,1 L1.875,1 C1.392875,1 1,1.392875 1,1.875 L1,21.125 C1,21.607125 1.392875,22 1.875,22 L1.875,22 Z M1.875,23 C0.84059025,23 0,22.1594097 0,21.125 L0,1.875 C0,0.84059025 0.84059025,0 1.875,0 L19.375,0 C20.4094097,0 21.25,0.84059025 21.25,1.875 L21.25,21.125 C21.25,22.1594097 20.4094097,23 19.375,23 L1.875,23 Z M8,6 L16.75,6 L16.75,7.75 L8,7.75 L8,6 L8,6 L8,6 Z M8,10.625 L16.75,10.625 L16.75,12.375 L8,12.375 L8,10.625 L8,10.625 L8,10.625 Z M8,15 L16.75,15 L16.75,16.75 L8,16.75 L8,15 L8,15 L8,15 Z M5,11 L6.75,11 L6.75,12.75 L5,12.75 L5,11 L5,11 L5,11 Z M5,15 L6.75,15 L6.75,16.75 L5,16.75 L5,15 L5,15 L5,15 Z M5,6 L6.75,6 L6.75,7.75 L5,7.75 L5,6 L5,6 L5,6 Z"
+															 id="Shape"></path>
+														</g>
+													</g>
+												</g>
+											</g>
+										</g>
+									</svg>
+								</i>
+								<span>Content</span>
+							</a>
+							<ul class="sub-nav">
+								<li>
+									<a href="#">
+										Emails
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Events
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Landing Pages
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Marketing Content
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Media
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Social Posts
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Surveys
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Trackable Content
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Tracking URLs
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Videos
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Web Forms
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">
+								<i class="icn-automation">
+									<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg"
+									 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+										<g id="LAST-UPDATES" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+											<g id="Left-penal" sketch:type="MSArtboardGroup" transform="translate(-17.000000, -454.000000)" fill="#FFFFFF">
+												<g sketch:type="MSLayerGroup" transform="translate(0.000000, 128.000000)" id="icons">
+													<g transform="translate(14.000000, 19.000000)" sketch:type="MSShapeGroup">
+														<path d="M17.6234815,322.146593 L17.6234815,320.416741 L15.5652593,320.080222 C15.4438519,319.592963 15.2523704,319.135037 14.9997778,318.714593 L16.2,317.003481 L14.976963,315.781259 L13.2894815,316.995333 C12.8674074,316.740296 12.407037,316.545556 11.9157037,316.424148 L11.5571852,314.374889 L9.8257037,314.374889 L9.49325926,316.41763 C9.00111111,316.537407 8.5382963,316.729704 8.11622222,316.982296 L6.43362963,315.780444 L5.20977778,317.002667 L6.3937037,318.695852 C6.13866667,319.12037 5.94311111,319.58237 5.82007407,320.076963 L3.78711111,320.415111 L3.78711111,322.144963 L5.81762963,322.504296 C5.93985185,322.998074 6.13540741,323.461704 6.39207407,323.886222 L5.19103704,325.564741 L6.41407407,326.788593 L8.1097037,325.601407 C8.53422222,325.856444 8.99540741,326.048741 9.48674074,326.169333 L9.8257037,328.212889 L11.5563704,328.212889 L11.9197778,326.16363 C12.4086667,326.040593 12.8698519,325.845037 13.2894815,325.59 L14.9965185,326.788593 L16.2195556,325.564741 L15.0014074,323.873185 C15.254,323.451926 15.4454815,322.994 15.5652593,322.505111 L17.6234815,322.146593 L17.6234815,322.146593 L17.6234815,322.146593 Z M10.7057037,323.707778 C9.37266667,323.707778 8.29303704,322.628148 8.29303704,321.295111 C8.29303704,319.962889 9.37266667,318.883259 10.7057037,318.883259 C12.0379259,318.883259 13.1175556,319.962889 13.1175556,321.295111 C13.1175556,322.628148 12.0379259,323.707778 10.7057037,323.707778 L10.7057037,323.707778 Z M24.3302222,314.950963 L24.8394815,313.731185 L23.4868889,312.885407 C23.5455556,312.504889 23.5455556,312.126 23.4917778,311.75363 L24.8427407,310.902963 L24.34,309.678296 L22.791037,310.03763 C22.5702222,309.732074 22.3005185,309.460741 21.9908889,309.227704 L22.3428889,307.677926 L21.1214815,307.167037 L20.2846667,308.509037 C19.9017037,308.448741 19.5195556,308.447111 19.1455556,308.500889 L18.3136296,307.157259 L17.088963,307.656741 L17.4246667,309.20163 C17.1191111,309.424074 16.8453333,309.694593 16.6114815,310.006667 L15.0771852,309.644074 L14.5671111,310.863852 L15.8936296,311.720222 C15.8341481,312.103185 15.834963,312.486148 15.8903704,312.863407 L14.5491852,313.692074 L15.0502963,314.91837 L16.596,314.581037 C16.8200741,314.884963 17.0881481,315.156296 17.4002222,315.387704 L17.0376296,316.930148 L18.2574074,317.439407 L19.1194815,316.101481 C19.5,316.158519 19.8837778,316.156889 20.2553333,316.099852 L21.106,317.45 L22.329037,316.947259 L21.9697037,315.395852 C22.2711852,315.173407 22.5417037,314.905333 22.7706667,314.598148 L24.3302222,314.950963 L24.3302222,314.950963 Z M18.9874815,314.009852 C18.0488148,313.617111 17.6047407,312.536667 17.9974815,311.594741 C18.3902222,310.656074 19.4722963,310.21363 20.4117778,310.60637 C21.3512593,310.999926 21.7945185,312.08037 21.4017778,313.020667 C21.009037,313.960148 19.9277778,314.402593 18.9874815,314.009852 L18.9874815,314.009852 L18.9874815,314.009852 Z"
+														 id="Shape"></path>
+													</g>
+												</g>
+											</g>
+										</g>
+									</svg>
+								</i>
+								<span>Automation</span>
+							</a>
+							<ul class="sub-nav">
+								<li>
+									<a href="#">
+										General Purpose
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Lead Distribution
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Lead Grading
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Lead Nurturing
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Lead Scoring
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Spark
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">
+								<i class="icn-marketing">
+									<svg width="20px" height="21px" viewBox="0 0 20 21" version="1.1" xmlns="http://www.w3.org/2000/svg"
+									 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+										<g id="LAST-UPDATES" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+											<g id="Left-penal" sketch:type="MSArtboardGroup" transform="translate(-17.000000, -516.000000)" fill="#FFFFFF">
+												<g sketch:type="MSLayerGroup" transform="translate(0.000000, 128.000000)" id="icons">
+													<g transform="translate(14.000000, 19.000000)" sketch:type="MSShapeGroup">
+														<path d="M5.32299469,377.707898 L7.32271893,376.533809 C7.3365877,375.704805 8.00760161,375.03708 8.83333333,375.03708 C9.01616253,375.03708 9.19140677,375.069815 9.35361232,375.129787 L11.5038156,373.41292 C11.4941592,373.343343 11.4891667,373.272259 11.4891667,373.2 C11.4891667,372.358915 12.1655898,371.67708 13,371.67708 C13.6640007,371.67708 14.2279555,372.108854 14.4306109,372.70906 L16.0388346,373.026642 C16.3155303,372.713963 16.7182887,372.51708 17.1666667,372.51708 C17.3531124,372.51708 17.5316701,372.551123 17.6965561,372.613378 L19.830887,370.841426 C19.8253427,370.788382 19.8225,370.734525 19.8225,370.68 C19.8225,369.838915 20.4989231,369.15708 21.3333333,369.15708 C22.1677435,369.15708 22.8441667,369.838915 22.8441667,370.68 C22.8441667,371.521085 22.1677435,372.20292 21.3333333,372.20292 C21.1490479,372.20292 20.9724688,372.169662 20.809181,372.108775 L18.6697658,373.884948 C18.6748803,373.935931 18.6775,373.987657 18.6775,374.04 C18.6775,374.881085 18.0010769,375.56292 17.1666667,375.56292 C16.5295338,375.56292 15.9845142,375.165381 15.7624136,374.602955 L14.0752938,374.269792 C13.8013539,374.549541 13.4207637,374.72292 13,374.72292 C12.8336914,374.72292 12.6736589,374.695834 12.5240075,374.645799 L10.3352367,376.393461 C10.3411382,376.448157 10.3441667,376.503722 10.3441667,376.56 C10.3441667,377.401085 9.66774354,378.08292 8.83333333,378.08292 C8.58192368,378.08292 8.34485657,378.021021 8.13631285,377.911517 L6.17739258,379.06165 C6.17746413,379.067758 6.1775,379.073875 6.1775,379.08 C6.1775,379.921085 5.50107688,380.60292 4.66666667,380.60292 C3.83225646,380.60292 3.15583333,379.921085 3.15583333,379.08 C3.15583333,378.238915 3.83225646,377.55708 4.66666667,377.55708 C4.90186551,377.55708 5.12451178,377.611254 5.32299469,377.707898 L5.32299469,377.707898 Z M3.83333333,390 C3.37333333,390 3,389.62284 3,389.16 L3,384.12 C3,383.65716 3.37333333,383.28 3.83333333,383.28 L5.5,383.28 C5.95916667,383.28 6.33333333,383.65716 6.33333333,384.12 L6.33333333,389.16 C6.33333333,389.62284 5.95916667,390 5.5,390 L3.83333333,390 L3.83333333,390 Z M8,390 C7.54,390 7.16666667,389.62284 7.16666667,389.16 L7.16666667,382.44 C7.16666667,381.97716 7.54,381.6 8,381.6 L9.66666667,381.6 C10.1258333,381.6 10.5,381.97716 10.5,382.44 L10.5,389.16 C10.5,389.62284 10.1258333,390 9.66666667,390 L8,390 L8,390 Z M12.1666667,390 C11.7066667,390 11.3333333,389.62284 11.3333333,389.16 L11.3333333,379.92 C11.3333333,379.45716 11.7066667,379.08 12.1666667,379.08 L13.8333333,379.08 C14.2925,379.08 14.6666667,379.45716 14.6666667,379.92 L14.6666667,389.16 C14.6666667,389.62284 14.2925,390 13.8333333,390 L12.1666667,390 L12.1666667,390 Z M16.3333333,390 C15.8733333,390 15.5,389.62284 15.5,389.16 L15.5,381.6 C15.5,381.13716 15.8733333,380.76 16.3333333,380.76 L18,380.76 C18.4591667,380.76 18.8333333,381.13716 18.8333333,381.6 L18.8333333,389.16 C18.8333333,389.62284 18.4591667,390 18,390 L16.3333333,390 L16.3333333,390 Z M20.5,390 C20.04,390 19.6666667,389.62284 19.6666667,389.16 L19.6666667,378.24 C19.6666667,377.77716 20.04,377.4 20.5,377.4 L22.1666667,377.4 C22.6258333,377.4 23,377.77716 23,378.24 L23,389.16 C23,389.62284 22.6258333,390 22.1666667,390 L20.5,390 L20.5,390 Z"
+														 id="Shape"></path>
+													</g>
+												</g>
+											</g>
+										</g>
+									</svg>
+								</i>
+								<span>Marketing</span>
+							</a>
+							<ul class="sub-nav">
+								<li>
+									<a href="#">
+										Campaigns
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Conversions
+									</a>
+								</li>
+								<li class="active">
+									<a href="#">
+										Programs
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										ROI
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										Tags
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">
+								<i class="icn-sales">
+									<svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg"
+									 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+										<g id="LAST-UPDATES" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+											<g id="Left-penal" sketch:type="MSArtboardGroup" transform="translate(-18.000000, -578.000000)" fill="#FFFFFF">
+												<g sketch:type="MSLayerGroup" transform="translate(0.000000, 128.000000)" id="icons">
+													<g transform="translate(14.000000, 19.000000)" sketch:type="MSShapeGroup">
+														<path d="M20.9242374,440.360799 C21.0940913,440.082145 21.3335603,439.599602 21.5693429,438.947886 C21.959599,437.869197 22.1938692,436.695254 22.1938692,435.461538 C22.1938692,433.399169 20.7719463,431.792977 18.7710769,431.792977 C16.8804193,431.792977 15.3482846,433.325112 15.3482846,435.215769 C15.3482846,435.492305 15.3912155,435.876493 15.4669837,436.360728 C15.486968,436.488447 15.5089842,436.621101 15.5327017,436.7575 C15.5715586,436.980966 15.6130874,437.203867 15.6546226,437.416182 C15.6796151,437.543935 15.6991747,437.640344 15.7106148,437.695165 L17.2124622,437.381758 C17.1707996,437.182111 17.1074312,436.858193 17.0442213,436.494673 C17.0219272,436.366459 17.001318,436.242284 16.9827408,436.123557 C16.9186188,435.713753 16.8824846,435.390388 16.8824846,435.215769 C16.8824846,434.172427 17.7277346,433.327177 18.7710769,433.327177 C19.8801854,433.327177 20.6596692,434.207675 20.6596692,435.461538 C20.6596692,436.503698 20.4598626,437.504942 20.1266571,438.425941 C20.010292,438.74758 19.8861124,439.035013 19.7629576,439.283176 C19.6917712,439.42662 19.6391983,439.521307 19.6142242,439.562278 L20.9242374,440.360799 L20.9242374,440.360799 Z M18.8617692,436.297154 C18.7371538,435.262846 18.7267692,435.264923 17.707,435.139615 C17.5346154,435.118154 17.3525385,435.098077 17.1676923,435.078692 C17.1635385,435.125077 17.1538462,435.168692 17.1538462,435.215769 C17.1538462,435.433846 17.2161538,435.879692 17.2936923,436.341462 C17.6723846,436.604538 17.9209231,437.042077 17.9209231,437.538462 C17.9209231,438.344308 17.2673846,438.997846 16.4615385,438.997846 C15.6556923,438.997846 15.0021538,438.344308 15.0021538,437.538462 C15.0021538,437.235923 15.0942308,436.955538 15.2513846,436.722231 C15.1620769,436.197462 15.0769231,435.600692 15.0769231,435.215769 C15.0769231,435.114692 15.0983846,435.021231 15.1066923,434.922231 C13.6057692,434.844 12.271,434.849538 12.1484615,434.972077 L4.43130769,442.688538 C3.95638462,443.163462 3.95638462,443.934 4.43130769,444.408231 L9.59107692,449.567308 C10.066,450.042923 10.8365385,450.042923 11.3107692,449.568 L19.0272308,441.850846 C19.3789231,441.500538 19.0729231,438.061846 18.8617692,436.297154 L18.8617692,436.297154 Z"
+														 id="Shape"></path>
+													</g>
+												</g>
+											</g>
+										</g>
+									</svg>
+								</i>
+								<span>Sales</span>
+							</a>
+							<ul class="sub-nav">
+								<li>
+									<a href="#">
+										Hot Leads
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<div id="footer-theme">
+						<div class="fl">
+							Version 2.5.1.6563<br>
+							Copyright 2015 |
+							<a href="http://www.leadliaison.com/about/privacy-policy/" target="_blank">Privacy Policy</a></div>
+					</div>
+				</div>
+			</div>
+			<div class="right-content-main nano-content white-content">
+				<div class="wrap-t-tabs">
+					<div class="t-tabs">
+						<ul class="clearfix">
+							<li class="">
+								<a href="manage-events.php">Manage</a>
+							</li>
+							<li class=" active">
+								<a href="events-report.php">Dashboard</a>
+							</li>
+							<li class="">
+								<a href="events-map.php">Map</a>
+							</li>
+											<li class="">
+								<a href="manage-badges.php">Badges</a>
+							</li>
+																<li class="">
+									<a href="manage-registration-portals.php">Registrations</a>
+								</li>
+										</ul>
+					</div>
+				</div>
+				<div class="ll-actions-top table-header-top">
+            <div class="t-btn-big-select t-actions-dropdown ">
+                <select class="txt-field chzn-done" name="select_form" data-placeholder="Select Event" id="sel9LD" style="display: none;">
+                    <option value="0">- All Events -</option>
+                    <option value="2185">AMA Non-Profit 2018</option><option value="2532">Coast Community College District - Sample Form</option><option value="2134">CodeBase 2018</option><option value="3195">ExhibitorLIVE -  copy</option><option value="2892">ExhibitorLIVE - DEMO FORM</option><option value="2903">ExhibitorLIVE - DEMO FORM - WINDOWS ONLY</option><option value="2708">ExhibitorLIVE 2019</option><option value="2971">ExhibitorLIVE 2019 - Development</option><option value="2980">ExhibitorLIVE 2019 - Live View</option><option value="2961">ExhibitorLIVE 2019 KIOSK</option><option value="2974">ExhibitorLIVE 2019 KIOSK - debug</option><option value="2196">Festival of Marketing - 2018</option><option value="2203">General Lead Capture</option><option value="2151">Lite Conf 2018</option><option value="3084">Sales Innovation Expo 2019</option><option value="2392">Sample Lead Capture Form</option><option value="2435">The Business Show - 2018</option>                    </select><div id="sel9LD_chzn" class="chzn-container  chzn-container-single" style="width: 180px;"><a href="javascript:void(0)" class="chzn-single"><span>- All Events -</span><div><b></b></div></a><div class="chzn-drop" style="left: -9000px; width: 177.767px; top: 42px;"><div class="chzn-search"><input type="text" autocomplete="off" style="width: 142.533px;"></div><ul class="chzn-results" style="max-height: 189px;"><li id="sel9LD_chzn_o_0" class="active-result result-selected">- All Events -</li><li id="sel9LD_chzn_o_1" class="active-result">AMA Non-Profit 2018</li><li id="sel9LD_chzn_o_2" class="active-result">Coast Community College District - Sample Form</li><li id="sel9LD_chzn_o_3" class="active-result">CodeBase 2018</li><li id="sel9LD_chzn_o_4" class="active-result">ExhibitorLIVE -  copy</li><li id="sel9LD_chzn_o_5" class="active-result">ExhibitorLIVE - DEMO FORM</li><li id="sel9LD_chzn_o_6" class="active-result">ExhibitorLIVE - DEMO FORM - WINDOWS ONLY</li><li id="sel9LD_chzn_o_7" class="active-result">ExhibitorLIVE 2019</li><li id="sel9LD_chzn_o_8" class="active-result">ExhibitorLIVE 2019 - Development</li><li id="sel9LD_chzn_o_9" class="active-result">ExhibitorLIVE 2019 - Live View</li><li id="sel9LD_chzn_o_10" class="active-result">ExhibitorLIVE 2019 KIOSK</li><li id="sel9LD_chzn_o_11" class="active-result">ExhibitorLIVE 2019 KIOSK - debug</li><li id="sel9LD_chzn_o_12" class="active-result">Festival of Marketing - 2018</li><li id="sel9LD_chzn_o_13" class="active-result">General Lead Capture</li><li id="sel9LD_chzn_o_14" class="active-result">Lite Conf 2018</li><li id="sel9LD_chzn_o_15" class="active-result">Sales Innovation Expo 2019</li><li id="sel9LD_chzn_o_16" class="active-result">Sample Lead Capture Form</li><li id="sel9LD_chzn_o_17" class="active-result">The Business Show - 2018</li></ul></div></div>
+            </div>
+            <div class="t-btn-big-select t-actions-dropdown div_select_owner">
+                <select class="txt-field chzn-done" name="select_owner" data-placeholder="Select User" id="selIRI" style="display: none;">
+                    <option value="0">- All Owners -</option>
+                    <option value="11282">Aiza Fajardo</option><option value="11144">Aleksey Ladutska</option><option value="13665">Bernadette Mesias</option><option value="259">Chris Eklund</option><option value="922">Chris Johnson</option><option value="11129">Chris Kipgen</option><option value="13292">Divyesh Divyesh</option><option value="61">Emad Atya</option><option value="95">Imad Atia</option><option value="63">Jade Lien</option><option value="12905">Jason Hall</option><option value="1359">Jen Worsham</option><option value="372">Kevin Glubke</option><option value="1433">Lisa Dovgalova</option><option value="11159">Marcos Conde</option><option value="567">Noha Azab</option><option value="12085">Reid Badgett</option><option value="11661">Richard Nightingale</option><option value="13823">Robert Madsen</option><option value="41">Ryan Schefke</option><option value="14473">Sam Mahboob</option><option value="12024">Scott Mitchell</option><option value="127">Valerie Heeney</option><option value="13186">Will King</option>                    </select><div id="selIRI_chzn" class="chzn-container  chzn-container-single" style="width: 180px;"><a href="javascript:void(0)" class="chzn-single"><span>- All Owners -</span><div><b></b></div></a><div class="chzn-drop" style="left: -9000px; width: 177.767px; top: 42px;"><div class="chzn-search"><input type="text" autocomplete="off" style="width: 142.533px;"></div><ul class="chzn-results" style="max-height: 189px;"><li id="selIRI_chzn_o_0" class="active-result result-selected">- All Owners -</li><li id="selIRI_chzn_o_1" class="active-result">Aiza Fajardo</li><li id="selIRI_chzn_o_2" class="active-result">Aleksey Ladutska</li><li id="selIRI_chzn_o_3" class="active-result">Bernadette Mesias</li><li id="selIRI_chzn_o_4" class="active-result">Chris Eklund</li><li id="selIRI_chzn_o_5" class="active-result">Chris Johnson</li><li id="selIRI_chzn_o_6" class="active-result">Chris Kipgen</li><li id="selIRI_chzn_o_7" class="active-result">Divyesh Divyesh</li><li id="selIRI_chzn_o_8" class="active-result">Emad Atya</li><li id="selIRI_chzn_o_9" class="active-result">Imad Atia</li><li id="selIRI_chzn_o_10" class="active-result">Jade Lien</li><li id="selIRI_chzn_o_11" class="active-result">Jason Hall</li><li id="selIRI_chzn_o_12" class="active-result">Jen Worsham</li><li id="selIRI_chzn_o_13" class="active-result">Kevin Glubke</li><li id="selIRI_chzn_o_14" class="active-result">Lisa Dovgalova</li><li id="selIRI_chzn_o_15" class="active-result">Marcos Conde</li><li id="selIRI_chzn_o_16" class="active-result">Noha Azab</li><li id="selIRI_chzn_o_17" class="active-result">Reid Badgett</li><li id="selIRI_chzn_o_18" class="active-result">Richard Nightingale</li><li id="selIRI_chzn_o_19" class="active-result">Robert Madsen</li><li id="selIRI_chzn_o_20" class="active-result">Ryan Schefke</li><li id="selIRI_chzn_o_21" class="active-result">Sam Mahboob</li><li id="selIRI_chzn_o_22" class="active-result">Scott Mitchell</li><li id="selIRI_chzn_o_23" class="active-result">Valerie Heeney</li><li id="selIRI_chzn_o_24" class="active-result">Will King</li></ul></div></div>
+            </div>
+            <div class="t-btn-big-select t-actions-dropdown wrap-select-filter">
+                <select id="select_date_range" name="select_date_range" class="t-medium-btn chzn-done" style="display: none;">
+                    <option value="0:day">Today</option>
+                    <option value="7:day" selected="selected">Last 7 Days</option>
+                    <option value="2:week">Last 2 Weeks</option>
+                    <option value="30:day">Last 30 Days</option>
+                    <option value="3:month">Last 3 Months</option>
+                    <option value="6:month">Last 6 Months</option>
+                    <option value="9:month">Last 9 Months</option>
+                    <option value="12:month">Last 12 Months</option>
+                    <option value="custom">Custom</option>
+                </select><div id="select_date_range_chzn" class="chzn-container  chzn-container-single" style="width: 230px;"><a href="javascript:void(0)" class="chzn-single"><span>Last 7 Days</span><div><b></b></div></a><div class="chzn-drop" style="left: -9000px; width: 227.767px; top: 42px;"><div class="chzn-search"><input type="text" autocomplete="off" style="width: 192.533px;"></div><ul class="chzn-results" style="max-height: 189px;"><li id="select_date_range_chzn_o_0" class="active-result">Today</li><li id="select_date_range_chzn_o_1" class="active-result result-selected">Last 7 Days</li><li id="select_date_range_chzn_o_2" class="active-result">Last 2 Weeks</li><li id="select_date_range_chzn_o_3" class="active-result">Last 30 Days</li><li id="select_date_range_chzn_o_4" class="active-result">Last 3 Months</li><li id="select_date_range_chzn_o_5" class="active-result">Last 6 Months</li><li id="select_date_range_chzn_o_6" class="active-result">Last 9 Months</li><li id="select_date_range_chzn_o_7" class="active-result">Last 12 Months</li><li id="select_date_range_chzn_o_8" class="active-result">Custom</li></ul></div></div>
+            </div>
+            <div id="custom_date_range" class="date-range" style="display:none;">
+                <!-- <label>Date Range:</label> -->
+                <div class="wrap-input start-date">
+                    <span class="icn-search-date"></span>
+                    <input placeholder="From" readonly="readonly" type="text" id="from" name="from" class="txt-field ll-input-start-date txt-field-big ">
+                </div>
+                <!-- <div class="separator">-</div> -->
+                <div class="wrap-input end-date">
+                    <span class="icn-search-date"></span>
+                    <input placeholder="To" readonly="readonly" type="text" id="to" name="to" class="txt-field ll-input-end-date txt-field-big ">
+                </div>
+                <div class="separator-small"></div>
+                <a href="javascript:void(0)" class="t-btn-orange t-btn-big" onclick="events_report_manager.save_filters_and_load_content();">Go</a>
+            </div>
+            <div class="t-btn-big-select t-actions-dropdown div_select_labels">
+                <select multiple="" name="select_labels" data-placeholder="Select Labels" id="sel69T" style="display: none;" class="chzn-done">
+                    <!--<option value="0">- Select labels -</option>-->
+                    <option value="2"></option><option value="14">CodeBase</option><option value="33">ExhibitorLIVE 2019</option><option value="17">Festival of Marketing 2018</option><option value="37">Sales Innovation Expo 2019</option><option value="32">The Business Show 2018</option>                    </select><div id="sel69T_chzn" class="chzn-container  chzn-container-multi" style="width: 285px;"><ul class="chzn-choices"><li class="search-field"><input type="text" value="Select Labels" class="default" autocomplete="off" style="width: 109px;"></li></ul><div class="chzn-drop" style="left: -9000px; width: 282.767px; top: 42px;"><ul class="chzn-results" style="max-height: 189px;"><li id="sel69T_chzn_o_1" class="active-result">CodeBase</li><li id="sel69T_chzn_o_2" class="active-result">ExhibitorLIVE 2019</li><li id="sel69T_chzn_o_3" class="active-result">Festival of Marketing 2018</li><li id="sel69T_chzn_o_4" class="active-result">Sales Innovation Expo 2019</li><li id="sel69T_chzn_o_5" class="active-result">The Business Show 2018</li></ul></div></div>
+            </div>
+        </div>
+				<div class="main-content welcome-page">
+					<div class="ws-layout clearfix ws-layout-0">
+              <div class="list-inf">
+              	<div class="list-inf-item list-inf-item-1">
+              		<div class="wrap-inf">
+              			<div class="item-val" style="color: #999999">0</div>
+              			<div class="t">Submissions</div>
+              		</div>
+              	</div>
+              	<div class="list-inf-item list-inf-item-1">
+              		<div class="wrap-inf">
+              			<div class="item-val" style="color: #fb8f04">0</div>
+              			<div class="t">Prospects Collected</div>
+              		</div>
+              	</div>
+              	<div class="list-inf-item list-inf-item-1">
+              		<div class="wrap-inf">
+              			<div class="item-val" style="color: #fb8f04">0</div>
+              			<div class="t">Engagement (Score)</div>
+              		</div>
+              	</div>
+              	<div class="list-inf-item list-inf-item-1">
+              		<div class="wrap-inf">
+              			<div class="item-val" style="color: #fb8f04">0</div>
+              			<div class="t">Opportunities</div>
+              		</div>
+              	</div>
+              	<div class="list-inf-item list-inf-item-1">
+              		<div class="wrap-inf">
+              			<div class="item-val" style="color: #999999">C</div>
+              			<div class="t">CPO</div>
+              		</div>
+              	</div>
+              	<div class="list-inf-item list-inf-item-1">
+              		<div class="wrap-inf">
+              			<div class="item-val" style="color: #999999">C</div>
+              			<div class="t">Forecasted Revenue</div>
+              		</div>
+              	</div>
+              	<div class="list-inf-item list-inf-item-1">
+              		<div class="wrap-inf">
+              			<div class="item-val" style="color: #999999">C</div>
+              			<div class="t">Value</div>
+              		</div>
+              	</div>
+              	<div class="list-inf-item list-inf-item-1">
+              		<div class="wrap-inf">
+              			<div class="item-val" style="color: #999999">C</div>
+              			<div class="t">Quality (Grade)</div>
+              		</div>
+              	</div>
+              	<div class="list-inf-item list-inf-item-1">
+              		<div class="wrap-inf">
+              			<div class="item-val" style="color: #999999">C</div>
+              			<div class="t">Pending Submissions</div>
+              		</div>
+              	</div>
+              	<div class="list-inf-item list-inf-item-1">
+              		<div class="wrap-inf">
+              			<div class="item-val" style="color: #999999">C</div>
+              			<div class="t">Leads Per Event</div>
+              		</div>
+              	</div>
+              </div>
+          </div>
+					<div class="ws-layout clearfix ws-layout-2">
+						<div class="ws-layout-50">
+							<div class="ws-white-box" data-id-box="1">
+								<div class="ws-white-box-h pl-35">
+									<div class="ws-settings-box ws-settings-box-text ws-settings-box-left ws-settings-box-icon-2">
+										<div class="ws-settings-box-toggle">
+
+										</div>
+										<div class="ws-settings-box-dropdown">
+											<ul>
+												<li><a href="#">Email</a></li>
+												<li><a href="#">Forms</a></li>
+												<li><a href="#">Landing Pages</a></li>
+												<li><a href="#">Surveys</a></li>
+											</ul>
+										</div>
+									</div>
+									<span class="ws-white-box-h-title">
+										Emails
+									</span>
+									<div class="ws-settings-box ws-settings-box-text">
+										<div class="ws-settings-box-toggle">
+											<svg width="17px" height="15px" viewBox="0 0 17 15" version="1.1" xmlns="http://www.w3.org/2000/svg"
+											 xmlns:xlink="http://www.w3.org/1999/xlink">
+												<defs></defs>
+												<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<g id="Welcome-screen-1" transform="translate(-590.000000, -1370.000000)" fill="#6C6C6C">
+														<g id="Group-17" transform="translate(76.000000, 1357.000000)">
+															<path d="M529,28 L516,28 C514.895,28 514,27.105 514,26 L514,15 C514,13.896 514.895,13 516,13 L529,13 C530.105,13 531,13.896 531,15 L531,26 C531,27.105 530.105,28 529,28 L529,28 Z M529,16 C529,15.448 528.552,15 528,15 L517,15 C516.448,15 516,15.448 516,16 L516,25 C516,25.552 516.448,26 517,26 L528,26 C528.552,26 529,25.552 529,25 L529,16 L529,16 Z M525,21 L524,21 L524,22 L523,22 L523,23 L522,23 L522,22 L521,22 L521,21 L520,21 L520,20 L519,20 L519,19 L526,19 L526,20 L525,20 L525,21 L525,21 Z"
+															 id="Imported-Layers-5"></path>
+														</g>
+													</g>
+												</g>
+											</svg>
+										</div>
+										<div class="ws-settings-box-dropdown">
+											<ul>
+												<li><a href="#" class="ws-clone-block">Clone</a></li>
+												<li class="ws-arrow-left">
+													<a href="#">Item</a>
+													<ul>
+														<li><a href="#">Item 2.1</a></li>
+														<li><a href="#">Item 2.2</a></li>
+														<li><a href="#">Item 2.3</a></li>
+														<li><a href="#">Item 2.4</a></li>
+													</ul>
+												</li>
+												<li><a href="#" class="ws-remove-block">Remove</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="ws-white-box-c">
+									<div class="ws-chart-box"></div>
+								</div>
+							</div>
+						</div>
+						<div class="ws-layout-50">
+							<div class="ws-white-box ws-blocks-toggle">
+								<div class="ws-white-box-h">
+									<span class="ws-white-box-h-title"></span>
+									<div class="ws-settings-box">
+										<div class="ws-settings-box-toggle">
+											<svg width="17px" height="15px" viewBox="0 0 17 15" version="1.1" xmlns="http://www.w3.org/2000/svg"
+											 xmlns:xlink="http://www.w3.org/1999/xlink">
+												<defs></defs>
+												<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<g id="Welcome-screen-1" transform="translate(-590.000000, -1370.000000)" fill="#6C6C6C">
+														<g id="Group-17" transform="translate(76.000000, 1357.000000)">
+															<path d="M529,28 L516,28 C514.895,28 514,27.105 514,26 L514,15 C514,13.896 514.895,13 516,13 L529,13 C530.105,13 531,13.896 531,15 L531,26 C531,27.105 530.105,28 529,28 L529,28 Z M529,16 C529,15.448 528.552,15 528,15 L517,15 C516.448,15 516,15.448 516,16 L516,25 C516,25.552 516.448,26 517,26 L528,26 C528.552,26 529,25.552 529,25 L529,16 L529,16 Z M525,21 L524,21 L524,22 L523,22 L523,23 L522,23 L522,22 L521,22 L521,21 L520,21 L520,20 L519,20 L519,19 L526,19 L526,20 L525,20 L525,21 L525,21 Z"
+															 id="Imported-Layers-5"></path>
+														</g>
+													</g>
+												</g>
+											</svg>
+										</div>
+										<div class="ws-settings-box-dropdown">
+											<div class="ws-settings-box-dropdown-item">
+												<div class="ws-settings-box-dropdown-item-toggle">
+													<div class="toggle-check toggle-check-small">
+														<input type="checkbox" checked data-toggle="toggle" data-id-block="0" class="ws-show-hide-toggle-block" />
+													</div>
+												</div>
+												<div class="ws-settings-box-dropdown-item-text">
+													New Compaign
+												</div>
+											</div>
+											<div class="ws-settings-box-dropdown-item">
+												<div class="ws-settings-box-dropdown-item-toggle">
+													<div class="toggle-check toggle-check-small">
+														<input type="checkbox" checked data-toggle="toggle" data-id-block="1" class="ws-show-hide-toggle-block" />
+													</div>
+												</div>
+												<div class="ws-settings-box-dropdown-item-text">
+													Reports
+												</div>
+											</div>
+											<div class="ws-settings-box-dropdown-item">
+												<div class="ws-settings-box-dropdown-item-toggle">
+													<div class="toggle-check toggle-check-small">
+														<input type="checkbox" data-toggle="toggle" data-id-block="2" class="ws-show-hide-toggle-block" />
+													</div>
+												</div>
+												<div class="ws-settings-box-dropdown-item-text">
+													Hot Leads
+												</div>
+											</div>
+											<div class="ws-settings-box-dropdown-item">
+												<div class="ws-settings-box-dropdown-item-toggle">
+													<div class="toggle-check toggle-check-small">
+														<input type="checkbox" checked data-toggle="toggle" data-id-block="3" class="ws-show-hide-toggle-block" />
+													</div>
+												</div>
+												<div class="ws-settings-box-dropdown-item-text">
+													Visitors
+												</div>
+											</div>
+											<div class="ws-settings-box-dropdown-item">
+												<div class="ws-settings-box-dropdown-item-toggle">
+													<div class="toggle-check toggle-check-small">
+														<input type="checkbox" data-toggle="toggle" data-id-block="4" class="ws-show-hide-toggle-block" />
+													</div>
+												</div>
+												<div class="ws-settings-box-dropdown-item-text">
+													Help
+												</div>
+											</div>
+											<div class="ws-settings-box-dropdown-item">
+												<div class="ws-settings-box-dropdown-item-toggle">
+													<div class="toggle-check toggle-check-small">
+														<input type="checkbox" checked data-toggle="toggle" data-id-block="5" class="ws-show-hide-toggle-block" />
+													</div>
+												</div>
+												<div class="ws-settings-box-dropdown-item-text">
+													Get Started
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="ws-white-box-c">
+									<div class="wrap-ws-blocks-toggle wrap-ws-blocks-toggle-4">
+										<div class="wrap-ws-block-toggle" data-id="0">
+											<div class="ws-block-toggle">
+												<div class="ws-block-toggle-icn">
+													<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg"
+													 xmlns:xlink="http://www.w3.org/1999/xlink">
+														<defs></defs>
+														<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+															<g id="Welcome-screen-3" transform="translate(-722.000000, -410.000000)" class="svg-fill" fill="#FF982B">
+																<g id="Group-22" transform="translate(636.000000, 355.000000)">
+																	<g id="Views" transform="translate(35.000000, 35.000000)">
+																		<g id="rocket" transform="translate(51.000000, 20.000000)">
+																			<g id="Layer_1">
+																				<path d="M9.14868283,32.1757551 L7.86153846,35.1096154 C7.86153846,35.1096154 7.34230769,36.0269231 10.6596154,39.3423077 C13.975,42.6576923 14.8923077,42.1384615 14.8923077,42.1384615 L17.8250965,40.8524714 C18.3070785,41.0154106 18.6295335,41.0373538 18.8078021,41.0296668 L20.3153846,48.0923077 C20.3673077,48.3634615 20.575,48.4596154 20.7634615,48.3019231 L26.6192308,43.7326923 C26.8134615,43.5788462 26.9230769,43.2326923 26.8634615,42.9596154 L26.7641836,34.7344404 C31.7866253,30.6232762 37.9684832,25.4266372 41.225,22.1711538 C43.3557692,20.0365385 44.9519231,17.6461538 46.1442308,15.2538462 C49.8346154,7.82692308 49.6403846,0.359615385 49.6403846,0.359615385 C49.6403846,0.359615385 42.1903846,0.138461538 34.75,3.84230769 C32.3615385,5.03461538 29.9711538,6.63269231 27.8288462,8.77115385 C24.4750235,12.1249765 19.2853999,18.3011001 15.2019538,23.2971802 L7.1,23.1942308 C6.82692308,23.1365385 6.48076923,23.2423077 6.32307692,23.4365385 L1.76346154,29.2807692 C1.60769231,29.4692308 1.70576923,29.6711538 1.97884615,29.7307692 L8.96962008,31.2194982 C8.96549749,31.4026115 8.99323792,31.7169391 9.14868283,32.1757551 Z M34.6153846,19.3211538 C32.4403846,19.3211538 30.6788462,17.5596154 30.6788462,15.3846154 C30.6788462,13.2096154 32.4403846,11.4480769 34.6153846,11.4480769 C36.7903846,11.4480769 38.5519231,13.2096154 38.5519231,15.3846154 C38.5519231,17.5596154 36.7903846,19.3211538 34.6153846,19.3211538 Z M12.9442308,44.0076923 C9.175,46.8980769 3.55769231,46.4461538 3.55769231,46.4461538 C3.55769231,46.4461538 3.10384615,40.825 5.99423077,37.0596154 C5.77307692,36.7269231 5.59807692,36.4307692 5.45576923,36.1596154 C4.99423077,36.5480769 4.52884615,36.9230769 4.08269231,37.3692308 C-0.396153846,41.85 0.25,49.7519231 0.25,49.7519231 C0.25,49.7519231 8.15384615,50.3961538 12.6326923,45.9153846 C13.0769231,45.4711538 13.4538462,45.0057692 13.8403846,44.5461538 C13.5711538,44.4038462 13.275,44.2269231 12.9442308,44.0076923 Z"
+																				 id="Combined-Shape"></path>
+																			</g>
+																		</g>
+																	</g>
+																</g>
+															</g>
+														</g>
+													</svg>
+												</div>
+												<div class="ws-block-toggle-t">New Campaign</div>
+											</div>
+										</div>
+										<div class="wrap-ws-block-toggle" data-id="1">
+											<div class="ws-block-toggle">
+												<div class="ws-block-toggle-icn">
+													<svg width="64px" height="48px" viewBox="0 0 64 48" version="1.1" xmlns="http://www.w3.org/2000/svg"
+													 xmlns:xlink="http://www.w3.org/1999/xlink">
+														<defs></defs>
+														<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+															<g id="Welcome-screen-3" transform="translate(-876.000000, -411.000000)" class="svg-fill" fill="#B9B9B9">
+																<g id="Group-22" transform="translate(636.000000, 355.000000)">
+																	<g id="Views-2" transform="translate(196.000000, 35.000000)">
+																		<g id="Group-21">
+																			<g id="1476729991_group" transform="translate(44.000000, 21.000000)">
+																				<g id="Layer_1">
+																					<path d="M31.6955429,47.8467692 C38.1657671,47.8467692 43.7258697,45.7011493 46.5941309,41.317176 C48.1343554,41.8076556 49.8523716,42.0507692 51.6571429,42.0507692 C58.1558857,42.0507692 63.3197714,38.8993846 63.3197714,32.3981538 C63.3206857,26.4249231 58.5956571,26.4590769 52.7872,26.5043077 L51.2292571,29.4018462 L49.4628571,26.5024615 C47.851933,26.4905221 46.3676053,26.4854462 45.0701871,26.6242762 C42.2557706,25.1495542 38.0413784,25.1820089 33.3385143,25.2184615 L31.072,29.4341538 L28.5001143,25.2156923 C24.0327033,25.1813315 20.2357172,25.1834835 17.713875,26.6006948 C16.3370436,26.4798375 14.7952188,26.491638 13.1684571,26.5043077 L11.6105143,29.4018462 L9.84411429,26.5024615 C4.23954286,26.4609231 0.167314286,26.5024615 0.167314286,32.3981538 C0.167314286,38.8993846 5.54057143,42.0507692 12.0384,42.0507692 C13.6816351,42.0507692 15.2395257,41.8492845 16.6501706,41.4431067 C19.6325901,45.7422424 25.2881966,47.8467692 31.6955429,47.8467692 C41.1556571,47.8467692 48.6701714,43.26 48.6701714,33.7966154 C48.6701714,25.1003077 41.7938286,25.1529231 33.3385143,25.2184615 L31.072,29.4341538 L28.5001143,25.2156923 C20.3392,25.1529231 14.4155429,25.212 14.4155429,33.7966154 C14.4155429,43.26 22.2363429,47.8467692 31.6955429,47.8467692 Z M50.6898286,24.5436923 C54.8637127,24.5436923 58.2473143,21.1275561 58.2473143,16.9135385 C58.2473143,12.6995209 54.8637127,9.28338462 50.6898286,9.28338462 C46.5159445,9.28338462 43.1323429,12.6995209 43.1323429,16.9135385 C43.1323429,21.1275561 46.5159445,24.5436923 50.6898286,24.5436923 Z M11.0710857,24.5436923 C15.2449698,24.5436923 18.6285714,21.1275561 18.6285714,16.9135385 C18.6285714,12.6995209 15.2449698,9.28338462 11.0710857,9.28338462 C6.89720161,9.28338462 3.5136,12.6995209 3.5136,16.9135385 C3.5136,21.1275561 6.89720161,24.5436923 11.0710857,24.5436923 Z M30.2857143,22.3643077 C36.3607203,22.3643077 41.2854857,17.3921888 41.2854857,11.2587692 C41.2854857,5.1253497 36.3607203,0.153230769 30.2857143,0.153230769 C24.2107083,0.153230769 19.2859429,5.1253497 19.2859429,11.2587692 C19.2859429,17.3921888 24.2107083,22.3643077 30.2857143,22.3643077 Z M33.0425966,26.163212 L31.0575968,29.8873866 L28.8051546,26.1607657 C21.6578744,26.1053149 16.4699707,26.1575039 16.4699707,33.7412182 C16.4699707,42.101244 23.3193808,46.1532308 31.6036919,46.1532308 C39.8888038,46.1532308 46.4699707,42.101244 46.4699707,33.7412182 C46.4699707,26.058834 40.4477105,26.1053149 33.0425966,26.163212 Z"
+																					 id="Combined-Shape"></path>
+																				</g>
+																			</g>
+																		</g>
+																	</g>
+																</g>
+															</g>
+														</g>
+													</svg>
+												</div>
+												<div class="ws-block-toggle-t">Visitors</div>
+											</div>
+										</div>
+										<div class="wrap-ws-block-toggle hide" data-id="2">
+											<div class="ws-block-toggle">
+												<div class="ws-block-toggle-icn">
+													<svg width="50px" height="51px" viewBox="0 0 50 51" version="1.1" xmlns="http://www.w3.org/2000/svg"
+													 xmlns:xlink="http://www.w3.org/1999/xlink">
+														<defs></defs>
+														<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+															<g id="Welcome-screen-3" transform="translate(-1044.000000, -409.000000)" class="svg-fill" fill="#FF982B">
+																<g id="Group-22" transform="translate(636.000000, 355.000000)">
+																	<g id="Views-2" transform="translate(357.000000, 35.000000)">
+																		<path d="M91.5363538,33.2464956 C90.6150807,31.9159333 88.6121342,30.147621 87.0890175,28.890017 C86.7805555,28.6377543 86.4570132,28.6427006 86.2541137,28.7638857 C85.8304926,28.9778144 85.9483936,29.3524987 85.9483936,29.3524987 L85.9237167,29.3388963 C86.7435401,30.7139755 87.2727238,32.3017469 87.3316743,34.3693121 C87.3453837,35.4933651 87.26724,36.2798313 87.2644981,36.2946703 C87.2329664,36.4665552 87.1973219,36.6174182 87.1630484,36.7522057 C87.0588568,37.209741 86.3679019,38.558852 85.3876783,38.1878774 C84.4074547,37.8181394 84.3485041,36.4010164 84.3485041,36.4010164 C84.3485041,36.4010164 84.3402785,36.4047261 84.3347947,36.4047261 C83.5821475,28.5326448 79.5584323,23.869494 76.4724415,21.4235347 C76.4696996,21.4210615 76.4655868,21.4173518 76.4628449,21.4148786 C76.461474,21.413642 76.4573611,21.4111689 76.4532483,21.4074591 C75.2152876,20.4305593 74.139098,19.8085585 73.4851586,19.4709716 C73.4124986,19.4375839 73.3370968,19.4041962 73.2411309,19.34855 C73.0848435,19.2570429 72.9628296,19.2149991 72.8298482,19.159353 C72.8325901,19.1605895 72.8325901,19.1630627 72.8325901,19.1630627 C72.7448498,19.1222555 72.6543676,19.0901044 72.5638854,19.0517703 C71.9784931,18.8910147 71.6892243,19.129675 71.5452754,19.4239815 C71.5397916,19.4487132 71.4232616,20.0397994 71.8770434,21.2343376 C71.8784144,21.2355742 71.8770434,21.2355742 71.8784144,21.2368108 C73.1273427,24.2911684 74.6490884,29.6962685 73.0533118,35.4896554 C72.7530755,36.455426 71.7797065,37.1639875 71.3807624,37.1639875 C69.9686919,37.2938286 69.3161235,36.3589726 69.0583864,35.8198228 C69.0131453,35.7060572 68.9569366,35.5997112 68.9171793,35.476053 C68.9171793,35.4723432 68.9116955,35.4550311 68.9116955,35.4550311 C68.0658242,32.733314 69.1022565,28.6612494 69.8274849,26.3896482 C70.3141694,24.7091332 68.0274379,26.3908847 68.0274379,26.3908847 L68.0192122,26.3958311 C67.5695432,26.7371277 67.0856006,27.1241779 66.5756101,27.5520353 L66.5728682,27.5359597 C65.9285254,28.06769 65.0771704,28.8059295 64.2011383,29.650515 C63.7267923,30.1080503 57.4094909,36.3787579 59.3795348,44.9420885 C61.2728059,51.8632382 68.1727577,57 76.4299423,57 C85.3849364,57 92.7592342,50.9630065 93.8724393,43.1589372 C93.9149385,42.8436088 93.9533248,42.5307535 93.9711471,42.2191349 C93.9793727,42.1202083 93.9821146,42.0188086 93.9875984,41.9149357 C94.1411439,38.325138 92.8428617,35.32519 91.5363538,33.2464956 Z M51,64 L101,64 L101,70 L51,70 L51,64 Z"
+																		 id="Combined-Shape"></path>
+																	</g>
+																</g>
+															</g>
+														</g>
+													</svg>
+												</div>
+												<div class="ws-block-toggle-t">Hot Leads</div>
+											</div>
+										</div>
+										<div class="wrap-ws-block-toggle" data-id="3">
+											<div class="ws-block-toggle">
+												<div class="ws-block-toggle-icn ws-block-toggle-icn-getstarted">
+													<svg width="36px" height="40px" viewBox="0 0 36 40" version="1.1" xmlns="http://www.w3.org/2000/svg"
+													 xmlns:xlink="http://www.w3.org/1999/xlink">
+														<defs></defs>
+														<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+															<g id="Welcome-screen-3" transform="translate(-729.000000, -542.000000)" class="svg-fill" fill="#B9B9B9">
+																<g id="Group-22" transform="translate(636.000000, 355.000000)">
+																	<g id="Views" transform="translate(9.000000, 162.000000)">
+																		<g id="1476730124_Play" transform="translate(84.000000, 25.000000)">
+																			<g id="Layer_1">
+																				<path d="M33.9469213,16.466 L6.16245984,0.5456 C5.52618677,0.1808 4.81818691,0 4.10776928,0 C3.39775462,0 2.68975475,0.1812 2.0542876,0.546 C0.782144416,1.274 0,2.6204 0,4.0784 L0,35.9228 C0,37.3804 0.781741457,38.726 2.0542876,39.4548 C2.68975475,39.8196 3.39775462,40 4.10776928,40 C4.81818691,40 5.52618677,39.8196 6.16245984,39.4548 L33.9469213,23.5304 C35.2174526,22.8016 36,21.456 36,19.9976 C36,18.5404 35.2178556,17.1948 33.9469213,16.466 L33.9469213,16.466 Z"
+																				 id="Shape"></path>
+																			</g>
+																		</g>
+																	</g>
+																</g>
+															</g>
+														</g>
+													</svg>
+												</div>
+												<div class="ws-block-toggle-t">Get Started</div>
+											</div>
+										</div>
+										<div class="wrap-ws-block-toggle hide" data-id="4">
+											<div class="ws-block-toggle">
+												<div class="ws-block-toggle-icn">
+													<svg width="31px" height="50px" viewBox="0 0 31 50" version="1.1" xmlns="http://www.w3.org/2000/svg"
+													 xmlns:xlink="http://www.w3.org/1999/xlink">
+														<defs></defs>
+														<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+															<g id="Welcome-screen-3" transform="translate(-892.000000, -537.000000)" class="svg-fill" fill="#FF982B">
+																<g id="Group-22" transform="translate(636.000000, 355.000000)">
+																	<g id="Views-2" transform="translate(196.000000, 162.000000)">
+																		<g id="1476729851_icon-help" transform="translate(60.000000, 20.000000)">
+																			<g id="Layer_1">
+																				<path d="M26.2894531,3.39350297 C22.959375,0.869509657 19.2054688,0 14.4464844,0 C10.8378906,0 7.75,0.736667904 5.30390625,2.37907503 C1.6953125,4.83060921 0,8.94870356 0,15.4579495 L9.3,15.4579495 C9.3,13.7189302 9.13046875,11.8470691 10.1476563,10.2408915 C11.1648438,8.63471396 12.5816406,7.40290861 15.015625,7.40290861 C17.4859375,7.40290861 18.7574219,8.11542347 19.95625,9.58875928 C20.9734375,10.8447177 21.3609375,12.3422065 21.3609375,13.9363076 C21.3609375,15.3130312 20.6585938,16.5810661 19.8230469,17.7283358 C19.3628906,18.4046211 18.7574219,19.0084472 17.9945313,19.5881203 C17.9945313,19.5881203 12.9691406,22.5710215 11.2011719,25.3969279 C9.88125,27.4982429 9.40898438,30.1309249 9.3,33.2828974 C9.28789063,33.5123514 9.37265625,33.9833358 10.171875,33.9833358 L17.6554688,33.9833358 C18.3578125,33.9833358 18.503125,33.4519688 18.5152344,33.2345914 C18.5636719,32.0873217 18.7089844,30.3241493 18.9148438,29.6599405 C19.3144531,28.4039821 20.0894531,27.3050185 21.3003906,26.3630498 L23.8070313,24.636107 C26.0714844,22.8729346 27.8757813,21.4358284 28.675,20.3006352 C30.0433594,18.4408507 31,16.1463113 31,13.4290936 C31,8.99700965 29.3652344,5.72427191 26.2894531,3.39350297 L26.2894531,3.39350297 Z M13.8046875,38.7897919 C10.6683594,38.6931798 8.07695312,40.8669539 7.96796875,44.2604569 C7.87109375,47.6660364 10.3292969,49.9001931 13.4777344,49.9968053 C16.7472656,50.0934175 19.278125,47.9921025 19.375,44.5985995 C19.471875,41.2050965 17.0742187,38.8864041 13.8046875,38.7897919 L13.8046875,38.7897919 Z"
+																				 id="Shape"></path>
+																			</g>
+																		</g>
+																	</g>
+																</g>
+															</g>
+														</g>
+													</svg>
+												</div>
+												<div class="ws-block-toggle-t">Help</div>
+											</div>
+										</div>
+										<div class="wrap-ws-block-toggle" data-id="5">
+											<div class="ws-block-toggle">
+												<div class="ws-block-toggle-icn">
+													<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg"
+													 xmlns:xlink="http://www.w3.org/1999/xlink">
+														<defs></defs>
+														<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+															<g id="Welcome-screen-3" transform="translate(-1044.000000, -537.000000)" class="svg-fill" fill="#B8B8B8">
+																<g id="Group-22" transform="translate(636.000000, 355.000000)">
+																	<g id="Views-2" transform="translate(357.000000, 162.000000)">
+																		<g id="Group-21">
+																			<g id="1476735122_line_graph_up" transform="translate(51.000000, 20.000000)">
+																				<path d="M15.7726562,17.7173828 C16.6318359,17.7173828 17.428418,17.4505859 18.0856445,16.9967773 L24.6669922,20.9362305 C24.6582031,21.0454102 24.6504883,21.1546875 24.6504883,21.2664063 C24.6504883,23.5194336 26.4773437,25.3458008 28.7302734,25.3458008 C30.9831055,25.3458008 32.8095703,23.5193359 32.8095703,21.2664063 C32.8095703,20.756543 32.7115234,20.2709961 32.5414062,19.8208008 L40.1737305,11.6311523 L44.6566406,15.5068359 L47.3666016,1.075 L33.4773437,5.84199219 L37.4435547,9.27070313 L29.9053711,17.3601563 C29.5330078,17.2482422 29.1387695,17.1867188 28.7305664,17.1867188 C27.9148437,17.1867188 27.1567383,17.4286133 26.519043,17.8412109 L19.8423828,13.8446289 C19.8457031,13.7754883 19.8526367,13.7078125 19.8526367,13.6379883 C19.8526367,11.3848633 18.0262695,9.55849609 15.7728516,9.55849609 C13.5201172,9.55849609 11.6936523,11.3848633 11.6936523,13.6379883 C11.6936523,14.0280273 11.7517578,14.4038086 11.8538086,14.7608398 L6.41855469,19.7556641 L6.41855469,24.6541016 L14.2785156,17.4313477 C14.7416992,17.6137695 15.2444336,17.7173828 15.7726562,17.7173828 L15.7726562,17.7173828 Z M15.7726563,32.3589844 C16.8987305,32.3589844 17.9177734,31.9025391 18.6561523,31.165332 L30.3777344,35.5329102 C30.5841797,37.5924805 32.3225586,39.2009766 34.4362305,39.2009766 C36.6895508,39.2009766 38.515918,37.3739258 38.515918,35.1208984 C38.515918,34.5700195 38.4053711,34.0448242 38.2072266,33.5655273 L45.0787109,25.7584961 L47.731543,27.8049805 L49.0125977,17.9975586 L39.8509766,21.7250977 L42.2173828,23.5512695 L35.497168,31.1859375 C35.1580078,31.0948242 34.8039063,31.0417969 34.4360352,31.0417969 C33.353125,31.0417969 32.3712891,31.4666016 31.6410156,32.1552734 L19.8138672,27.7486328 C19.553125,25.7466797 17.8458984,24.1999023 15.7726563,24.1999023 C13.5199219,24.1999023 11.693457,26.0260742 11.693457,28.2791992 C11.693457,28.3917969 11.7007813,28.5027344 11.7101563,28.612793 L6.41835938,31.8692383 L6.41835938,36.1048828 L13.5651367,31.7071289 C14.2020508,32.1177734 14.9585938,32.3589844 15.7726563,32.3589844 L15.7726563,32.3589844 Z M3.48408203,0 L0.0001953125,0 L0.0001953125,50 L49.9998047,50 L49.9998047,46.3938477 L3.60654297,46.3938477 L3.48408203,0 Z"
+																				 id="Shape"></path>
+																			</g>
+																		</g>
+																	</g>
+																</g>
+															</g>
+														</g>
+													</svg>
+												</div>
+												<div class="ws-block-toggle-t">Reports</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="ws-layout clearfix ws-layout-3">
+						<div class="ws-layout-50">
+							<div class="ws-grid-blocks clearfix">
+								<div class="ws-grid-block ws-grid-block-1">
+									<div class="ws-block-inf">
+										<div class="ws-block-inf-text">Prospects</div>
+										<div class="ws-block-inf-total">1,059</div>
+									</div>
+								</div>
+								<div class="ws-grid-block ws-grid-block-2">
+									<div class="ws-block-inf">
+										<div class="ws-block-inf-text">Offline Marketing Content</div>
+										<div class="ws-block-inf-total">0</div>
+									</div>
+								</div>
+							</div>
+							<div class="ws-grid-blocks clearfix">
+								<div class="ws-grid-block ws-grid-block-3">
+									<div class="ws-block-inf">
+										<div class="ws-block-inf-text">Automations</div>
+										<div class="ws-block-inf-wrap-col clearfix">
+											<div class="ws-block-inf-col">
+												<div class="ws-block-inf-total">99+</div>
+												<div class="ws-block-inf-text-2">Active</div>
+											</div>
+											<div class="ws-block-inf-col">
+												<div class="ws-block-inf-total">5</div>
+												<div class="ws-block-inf-text-2">Scheduled</div>
+											</div>
+											<div class="ws-block-inf-col">
+												<div class="ws-block-inf-total">45</div>
+												<div class="ws-block-inf-text-2">Paused</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="ws-grid-block">
+									<div class="ws-block-inf">
+										<div class="ws-block-inf-text">Marketing Emails this Monht</div>
+										<div class="ws-block-inf-total">30,516</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="ws-layout-50">
+							<div class="ws-white-box">
+								<div class="ws-video">
+									<div class="ws-video-search clearfix">
+										<div class="t-field">
+											<input class="txt-field" placeholder="Search Lists" />
+											<div class="ws-video-icn-search"></div>
+										</div>
+										<div class="t-field">
+											<select class="ws-filter-video">
+												<option value="0">All</option>
+												<option value="24">Automation</option>
+												<option value="21">Campaigns</option>
+												<option value="17">Email Marketing</option>
+												<option value="18">Hot Leads</option>
+												<option value="16">Landing Pages</option>
+												<option value="15">Lead Distribution</option>
+												<option value="14">Lead Grading</option>
+												<option value="13">Lead Nurturing</option>
+												<option value="12">Lead Scoring</option>
+												<option value="11">Lists</option>
+												<option value="20">Marketing Content</option>
+												<option value="19">Notifications</option>
+												<option value="10">Programs</option>
+												<option value="9">Reporting</option>
+												<option value="7">Sales Emails</option>
+												<option value="8">Segmentations</option>
+												<option value="22">Setup</option>
+											</select>
+										</div>
+										<div class="ws-video-back">
+											<svg width="18px" height="16px" viewBox="0 0 18 16" version="1.1" xmlns="http://www.w3.org/2000/svg"
+											 xmlns:xlink="http://www.w3.org/1999/xlink">
+												<defs></defs>
+												<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<g id="Welcome-screen-2" transform="translate(-1147.000000, -711.000000)" fill="#9F9F9F">
+														<g id="Screenshot-2016-10-17-16.52.43" transform="translate(636.000000, 689.000000)">
+															<path d="M521.174021,22 C516.917404,22 513.457191,25.4743415 513.35283,29.8001951 L511,29.8001951 L514.522064,33.8001951 L518.043745,29.8001951 L515.30966,29.8001951 C515.412872,26.579122 517.997979,24 521.174021,24 C524.415936,24 527.043553,26.6862439 527.043553,30 C527.043553,33.3137561 524.415936,36 521.174021,36 C519.874,36 518.673362,35.5672195 517.700979,34.8359024 L516.355,36.3034146 C517.683745,37.3660488 519.356404,38 521.174021,38 C525.496319,38 529,34.4185366 529,30 C529,25.5814634 525.496319,22 521.174021,22 L521.174021,22 Z"
+															 id="Shape"></path>
+														</g>
+													</g>
+												</g>
+											</svg>
+										</div>
+									</div>
+									<div class="ws-video-content">
+										<div class="ws-one-video">
+											<img src="imgs/video.jpg" />
+										</div>
+										<div class="ws-list-video">
+											<div class="ws-list-video-inner scrollbar-inner">
+												<div class="ws-list-video-items">
+													<div class="ws-wrap-mini-box">
+														<div class="mini_box_gray">
+															<div class="header">
+																<h3>Adding Email Authentication</h3>
+															</div>
+															<div class="main main_video">
+																<div>
+																	<img src="imgs/thumbnail_img.jpg" />
+																</div>
+																<div class="support_portal_video_description">
+																	Add a SPF and DKIM record into your domain's DNS for email authentication and improved delivery.
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="ws-wrap-mini-box">
+														<div class="mini_box_gray">
+															<div class="header">
+																<h3>Automation Types</h3>
+															</div>
+															<div class="main main_video">
+																<div>
+																	<img src="imgs/thumbnail_img.jpg" />
+																</div>
+																<div class="support_portal_video_description">
+																	Add a SPF and DKIM record into your domain's DNS for email authentication and improved delivery.
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="ws-wrap-mini-box">
+														<div class="mini_box_gray">
+															<div class="header">
+																<h3>Adding Email Authentication</h3>
+															</div>
+															<div class="main main_video">
+																<div>
+																	<img src="imgs/thumbnail_img.jpg" />
+																</div>
+																<div class="support_portal_video_description">
+																	Add a SPF and DKIM record into your domain's DNS for email authentication and improved delivery.
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="ws-wrap-mini-box">
+														<div class="mini_box_gray">
+															<div class="header">
+																<h3>Automation Types</h3>
+															</div>
+															<div class="main main_video">
+																<div>
+																	<img src="imgs/thumbnail_img.jpg" />
+																</div>
+																<div class="support_portal_video_description">
+																	Add a SPF and DKIM record into your domain's DNS for email authentication and improved delivery.
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="ws-wrap-mini-box">
+														<div class="mini_box_gray">
+															<div class="header">
+																<h3>Adding Email Authentication</h3>
+															</div>
+															<div class="main main_video">
+																<div>
+																	<img src="imgs/thumbnail_img.jpg" />
+																</div>
+																<div class="support_portal_video_description">
+																	Add a SPF and DKIM record into your domain's DNS for email authentication and improved delivery.
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="ws-wrap-mini-box">
+														<div class="mini_box_gray">
+															<div class="header">
+																<h3>Automation Types</h3>
+															</div>
+															<div class="main main_video">
+																<div>
+																	<img src="imgs/thumbnail_img.jpg" />
+																</div>
+																<div class="support_portal_video_description">
+																	Add a SPF and DKIM record into your domain's DNS for email authentication and improved delivery.
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="ws-video-more">
+													<a href="#" class="t-btn-orange t-btn-big btn-load-more-video">Load More</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="ws-layout clearfix ws-layout-4">
+						<div class="ws-layout-100">
+							<div class="ws-white-box" data-id-box="2">
+								<div class="ws-white-box-h">
+									<span class="ws-white-box-h-title">
+										Conversion Chart
+									</span>
+									<div class="ws-settings-box ws-settings-box-text">
+										<div class="ws-settings-box-toggle">
+											<svg width="17px" height="15px" viewBox="0 0 17 15" version="1.1" xmlns="http://www.w3.org/2000/svg"
+											 xmlns:xlink="http://www.w3.org/1999/xlink">
+												<defs></defs>
+												<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<g id="Welcome-screen-1" transform="translate(-590.000000, -1370.000000)" fill="#6C6C6C">
+														<g id="Group-17" transform="translate(76.000000, 1357.000000)">
+															<path d="M529,28 L516,28 C514.895,28 514,27.105 514,26 L514,15 C514,13.896 514.895,13 516,13 L529,13 C530.105,13 531,13.896 531,15 L531,26 C531,27.105 530.105,28 529,28 L529,28 Z M529,16 C529,15.448 528.552,15 528,15 L517,15 C516.448,15 516,15.448 516,16 L516,25 C516,25.552 516.448,26 517,26 L528,26 C528.552,26 529,25.552 529,25 L529,16 L529,16 Z M525,21 L524,21 L524,22 L523,22 L523,23 L522,23 L522,22 L521,22 L521,21 L520,21 L520,20 L519,20 L519,19 L526,19 L526,20 L525,20 L525,21 L525,21 Z"
+															 id="Imported-Layers-5"></path>
+														</g>
+													</g>
+												</g>
+											</svg>
+										</div>
+										<div class="ws-settings-box-dropdown">
+											<ul>
+												<li><a href="#" class="ws-clone-block">Clone</a></li>
+												<li class="ws-arrow-left">
+													<a href="#">Item</a>
+													<ul>
+														<li><a href="#">Item 2.1</a></li>
+														<li><a href="#">Item 2.2</a></li>
+														<li><a href="#">Item 2.3</a></li>
+														<li><a href="#">Item 2.4</a></li>
+													</ul>
+												</li>
+												<li><a href="#" class="ws-remove-block">Remove</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="ws-white-box-c">
+									<div class="ws-chart-box"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="ws-layout clearfix ws-layout-5">
+						<div class="ws-layout-50">
+							<div class="ws-white-box" data-id-box="3">
+								<div class="ws-white-box-h">
+									<span class="ws-white-box-h-title">
+										Recent Email Campaign
+									</span>
+									<div class="ws-settings-box ws-settings-box-text">
+										<div class="ws-settings-box-toggle">
+											<svg width="17px" height="15px" viewBox="0 0 17 15" version="1.1" xmlns="http://www.w3.org/2000/svg"
+											 xmlns:xlink="http://www.w3.org/1999/xlink">
+												<defs></defs>
+												<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<g id="Welcome-screen-1" transform="translate(-590.000000, -1370.000000)" fill="#6C6C6C">
+														<g id="Group-17" transform="translate(76.000000, 1357.000000)">
+															<path d="M529,28 L516,28 C514.895,28 514,27.105 514,26 L514,15 C514,13.896 514.895,13 516,13 L529,13 C530.105,13 531,13.896 531,15 L531,26 C531,27.105 530.105,28 529,28 L529,28 Z M529,16 C529,15.448 528.552,15 528,15 L517,15 C516.448,15 516,15.448 516,16 L516,25 C516,25.552 516.448,26 517,26 L528,26 C528.552,26 529,25.552 529,25 L529,16 L529,16 Z M525,21 L524,21 L524,22 L523,22 L523,23 L522,23 L522,22 L521,22 L521,21 L520,21 L520,20 L519,20 L519,19 L526,19 L526,20 L525,20 L525,21 L525,21 Z"
+															 id="Imported-Layers-5"></path>
+														</g>
+													</g>
+												</g>
+											</svg>
+										</div>
+										<div class="ws-settings-box-dropdown">
+											<ul>
+												<li><a href="#" class="ws-remove-block">Remove</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="ws-white-box-c">
+									<div class="rec">
+										<!--<div class="rec-no">
+												<div class="rec-no-icon">
+													<svg width="63px" height="63px" viewBox="0 0 63 63" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+														<defs></defs>
+														<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+															<g id="Welcome-screen-1" transform="translate(-313.000000, -1464.000000)" fill="#CCCCCC">
+																<g id="1476799788_line-62" transform="translate(313.000000, 1464.000000)">
+																	<g id="Слой_1">
+																		<g id="Group">
+																			<path d="M62.75,61.5 L62.75,21.5 L62.75,21.5 L62.75,21.5 L62.75,21.45 L62.75,21.25 C62.75,21.2 62.75,21.15 62.7,21.15 C62.7,21.1 62.7,21.05 62.65,21.05 C62.6,21 62.6,20.95 62.55,20.85 L62.55,20.8 L62.55,20.8 C62.5,20.75 62.45,20.65 62.4,20.6 C62.35,20.55 62.35,20.55 62.3,20.5 C62.25,20.45 62.25,20.45 62.2,20.4 C62.15,20.4 62.1,20.35 62.1,20.35 C62.05,20.35 62.05,20.3 62,20.3 C61.95,20.3 61.9,20.25 61.85,20.25 C61.8,20.25 61.8,20.25 61.75,20.2 L61.5,20.2 L61.5,20.2 L57.75,20.2 L57.75,1.5 C57.75,0.8 57.2,0.25 56.5,0.25 L6.5,0.25 C5.8,0.25 5.25,0.8 5.25,1.5 L5.25,20.25 L1.5,20.25 L1.5,20.25 L1.25,20.25 C1.2,20.25 1.2,20.25 1.15,20.3 C1.1,20.3 1.05,20.3 1,20.35 C0.95,20.35 0.95,20.4 0.9,20.4 C0.85,20.4 0.8,20.45 0.8,20.45 C0.75,20.45 0.75,20.5 0.7,20.5 L0.6,20.6 C0.55,20.65 0.5,20.7 0.45,20.8 L0.45,20.8 L0.45,20.85 C0.4,20.9 0.4,20.95 0.35,21.05 C0.35,21.1 0.35,21.15 0.3,21.15 C0.3,21.2 0.25,21.25 0.25,21.25 L0.25,21.45 L0.25,21.5 L0.25,21.5 L0.25,21.5 L0.25,61.5 C0.25,62.2 0.8,62.75 1.5,62.75 L61.5,62.75 C61.6,62.75 61.7,62.75 61.8,62.7 L61.85,62.7 C61.9,62.7 62,62.65 62.05,62.65 C62.1,62.65 62.1,62.6 62.15,62.6 C62.2,62.55 62.25,62.55 62.3,62.5 L62.35,62.45 L62.55,62.25 L62.55,62.25 L62.55,62.2 C62.6,62.15 62.6,62.1 62.65,62 C62.65,61.95 62.65,61.9 62.7,61.9 C62.7,61.85 62.75,61.8 62.75,61.8 L62.75,61.6 C62.75,61.55 62.75,61.5 62.75,61.5 L62.75,61.5 L62.75,61.5 L62.75,61.5 Z M33.75,41.5 L60.25,23.85 L60.25,59.2 L33.75,41.5 L33.75,41.5 Z M7.75,2.75 L55.25,2.75 L55.25,24.15 L31.5,40 L7.75,24.15 L7.75,2.75 L7.75,2.75 Z M2.75,23.85 L57.35,60.25 L2.75,60.25 L2.75,23.85 Z M19,10.75 L44,10.75 C44.7,10.75 45.25,10.2 45.25,9.5 C45.25,8.8 44.7,8.25 44,8.25 L19,8.25 C18.3,8.25 17.75,8.8 17.75,9.5 C17.75,10.2 18.3,10.75 19,10.75 Z M19,20.75 L44,20.75 C44.7,20.75 45.25,20.2 45.25,19.5 C45.25,18.8 44.7,18.25 44,18.25 L19,18.25 C18.3,18.25 17.75,18.8 17.75,19.5 C17.75,20.2 18.3,20.75 19,20.75 Z" id="Combined-Shape"></path>
+																		</g>
+																	</g>
+																</g>
+															</g>
+														</g>
+													</svg>
+												</div>
+												<div class="rec-no-text">No rect campaign</div>
+											</div>-->
+										<div class="ws-chart-box">
+											<div class="rec-title-chart">Campaign ABC</div>
+											<div id="ws-chart-3"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="ws-layout-50">
+							<div class="ws-white-box" data-id-box="4">
+								<div class="ws-white-box-h">
+									<span class="ws-white-box-h-title">
+										Upcoming Campaigns
+									</span>
+									<div class="ws-settings-box ws-settings-box-text">
+										<div class="ws-settings-box-toggle">
+											<svg width="17px" height="15px" viewBox="0 0 17 15" version="1.1" xmlns="http://www.w3.org/2000/svg"
+											 xmlns:xlink="http://www.w3.org/1999/xlink">
+												<defs></defs>
+												<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<g id="Welcome-screen-1" transform="translate(-590.000000, -1370.000000)" fill="#6C6C6C">
+														<g id="Group-17" transform="translate(76.000000, 1357.000000)">
+															<path d="M529,28 L516,28 C514.895,28 514,27.105 514,26 L514,15 C514,13.896 514.895,13 516,13 L529,13 C530.105,13 531,13.896 531,15 L531,26 C531,27.105 530.105,28 529,28 L529,28 Z M529,16 C529,15.448 528.552,15 528,15 L517,15 C516.448,15 516,15.448 516,16 L516,25 C516,25.552 516.448,26 517,26 L528,26 C528.552,26 529,25.552 529,25 L529,16 L529,16 Z M525,21 L524,21 L524,22 L523,22 L523,23 L522,23 L522,22 L521,22 L521,21 L520,21 L520,20 L519,20 L519,19 L526,19 L526,20 L525,20 L525,21 L525,21 Z"
+															 id="Imported-Layers-5"></path>
+														</g>
+													</g>
+												</g>
+											</svg>
+										</div>
+										<div class="ws-settings-box-dropdown">
+											<ul>
+												<li><a href="#" class="ws-remove-block">Remove</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="ws-white-box-c">
+									<div class="upcoming-campaign">
+										<div class="upcoming-campaign-item <!--upcoming-campaign-item-none-->">
+											<div class="upcoming-campaign-item-icn upcoming-campaign-item-icn-automation">
+												<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg"
+												 xmlns:xlink="http://www.w3.org/1999/xlink">
+													<defs></defs>
+													<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+														<g id="Welcome-screen-1" transform="translate(-659.000000, -1438.000000)" fill="#6C6C6C">
+															<g id="Group-25" transform="translate(640.000000, 1357.000000)">
+																<g id="Group-26" transform="translate(19.000000, 81.000000)">
+																	<g id="Group-18">
+																		<g id="settings">
+																			<path d="M19,11.4153846 C14.8184615,11.4153846 11.4153846,14.8184615 11.4153846,19 C11.4153846,23.1815385 14.8184615,26.5846154 19,26.5846154 C23.1815385,26.5846154 26.5846154,23.1815385 26.5846154,19 C26.5846154,14.8184615 23.1815385,11.4153846 19,11.4153846 L19,11.4153846 Z M18.9646154,22.1969231 C17.2015385,22.1969231 15.7676923,20.7646154 15.7676923,19.0015385 C15.7676923,17.2369231 17.2015385,15.8061538 18.9646154,15.8061538 C20.7276923,15.8061538 22.1584615,17.2369231 22.1584615,19.0015385 C22.1584615,20.7646154 20.7276923,22.1969231 18.9646154,22.1969231 L18.9646154,22.1969231 Z M37.5153846,21.2784615 L37.5153846,16.6492308 L32.0061538,15.7492308 C31.68,14.4430769 31.1676923,13.2169231 30.4938462,12.0938462 L33.7046154,7.51692308 L30.4307692,4.24615385 L25.9123077,7.49384615 C24.7861538,6.81230769 23.5523077,6.29230769 22.2369231,5.96461538 L21.2769231,0.483076923 L16.6476923,0.483076923 L15.7553846,5.94769231 C14.4415385,6.27076923 13.2,6.78307692 12.0707692,7.46153846 L7.56615385,4.24307692 L4.29230769,7.51538462 L7.46153846,12.0461538 C6.77692308,13.18 6.25538462,14.42 5.92461538,15.7430769 L0.484615385,16.6492308 L0.484615385,21.2784615 L5.91846154,22.2415385 C6.24615385,23.5615385 6.76769231,24.8015385 7.45538462,25.9369231 L4.24307692,30.4292308 L7.51538462,33.7046154 L12.0523077,30.5276923 C13.1846154,31.2076923 14.4230769,31.7246154 15.7384615,32.0492308 L16.6492308,37.5169231 L21.2784615,37.5169231 L22.2507692,32.0353846 C23.56,31.7046154 24.7938462,31.1830769 25.9169231,30.5 L30.4861538,33.7061538 L33.7584615,30.4307692 L30.4984615,25.9030769 C31.1723077,24.78 31.6846154,23.5523077 32.0076923,22.2461538 L37.5153846,21.2784615 L37.5153846,21.2784615 Z M19,29.0384615 C13.4553846,29.0384615 8.96153846,24.5430769 8.96153846,19 C8.96153846,13.4569231 13.4553846,8.96153846 19,8.96153846 C24.5446154,8.96153846 29.0384615,13.4553846 29.0384615,19 C29.0384615,24.5446154 24.5446154,29.0384615 19,29.0384615 L19,29.0384615 Z"
+																			 id="Combined-Shape"></path>
+																		</g>
+																	</g>
+																</g>
+															</g>
+														</g>
+													</g>
+												</svg>
+											</div>
+											<div class="upcoming-campaign-item-title">
+												<a href="#">My first automation</a>
+												<span>No schedule automations</span>
+											</div>
+											<div class="upcoming-campaign-item-text">Scheduled for April 30th, 2016 at 10:15AM</div>
+											<a href="#" class="t-btn-gray upcoming-campaign-item-btn-view">View</a>
+										</div>
+									</div>
+									<div class="upcoming-campaign">
+										<div class="upcoming-campaign-item">
+											<div class="upcoming-campaign-item-icn upcoming-campaign-item-icn-emails">
+												<svg width="35px" height="26px" viewBox="0 0 35 26" version="1.1" xmlns="http://www.w3.org/2000/svg"
+												 xmlns:xlink="http://www.w3.org/1999/xlink">
+													<defs></defs>
+													<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+														<g id="Welcome-screen-1" transform="translate(-661.000000, -1512.000000)" fill="#6C6C6C">
+															<g id="Group-25" transform="translate(640.000000, 1357.000000)">
+																<g id="Group-26" transform="translate(18.000000, 81.000000)">
+																	<g id="Group-19" transform="translate(3.000000, 74.000000)">
+																		<g id="message_outline">
+																			<g id="Layer_1">
+																				<path d="M32.0833333,2.88888889 L32.0833333,23.1111111 L2.91666667,23.1111111 L2.91666667,2.88888889 L32.0833333,2.88888889 L32.0833333,2.88888889 Z M35,0 L0,0 L0,26 L35,26 L35,0 L35,0 L35,0 Z M2.92602304,9.28090587 L16.86196,16.1687095 L17.5,16.4840593 L18.13804,16.1687095 L32.099569,9.26825705 L32.0948311,6.05876384 L17.5140154,13.2784233 L2.93572294,6.07313702 L2.92602304,9.28090587 Z"
+																				 id="Combined-Shape"></path>
+																			</g>
+																		</g>
+																	</g>
+																</g>
+															</g>
+														</g>
+													</g>
+												</svg>
+											</div>
+											<div class="upcoming-campaign-item-title">
+												<a href="#">My schedule email message</a>
+												<span>No schedule emails</span>
+											</div>
+											<div class="upcoming-campaign-item-text">Scheduled for April 30th, 2016 at 10:15AM</div>
+											<a href="#" class="t-btn-gray upcoming-campaign-item-btn-view">View</a>
+										</div>
+									</div>
+									<div class="upcoming-campaign">
+										<div class="upcoming-campaign-item">
+											<div class="upcoming-campaign-item-icn upcoming-campaign-item-icn-social-posts">
+												<svg width="39px" height="38px" viewBox="0 0 39 38" version="1.1" xmlns="http://www.w3.org/2000/svg"
+												 xmlns:xlink="http://www.w3.org/1999/xlink">
+													<defs></defs>
+													<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+														<g id="Welcome-screen-1" transform="translate(-658.000000, -1579.000000)" fill="#6C6C6C">
+															<g id="Group-25" transform="translate(640.000000, 1357.000000)">
+																<g id="Group-26" transform="translate(19.000000, 81.000000)">
+																	<g id="Group-20" transform="translate(2.000000, 143.000000)">
+																		<g id="delete_message">
+																			<g id="Layer_1">
+																				<path d="M-0.597265306,14.936625 C-0.597265306,19.4464439 1.40830078,23.6592774 4.8804489,26.7311105 L4.37436735,25.6076667 C4.37436735,27.5429366 3.56367781,29.1364232 2.11005875,30.5732824 C1.45781982,31.2180013 -0.459012241,32.6898053 -0.355725462,32.5980561 L-2.4223137,34.4337987 L0.243154874,35.1659292 C4.6530436,36.3772037 11.0173751,34.0385445 14.9305243,30.6733821 L13.9524898,29.5360833 L13.6674676,31.0087552 C14.9103465,31.2493031 16.1653062,31.37325 17.4246531,31.37325 C27.345547,31.37325 35.4465714,24.0493757 35.4465714,14.936625 C35.4465714,5.82292266 27.346069,-1.5 17.4246531,-1.5 C7.50369994,-1.5 -0.597265306,5.82312857 -0.597265306,14.936625 Z M32.4465714,14.936625 C32.4465714,22.3212649 25.7523988,28.37325 17.4246531,28.37325 C16.3595831,28.37325 15.2952857,28.268134 14.237512,28.0634115 L13.5248342,27.9254792 L12.9744553,28.3987846 C9.74303829,31.1776827 4.31351378,33.1728345 1.03774309,32.2730708 L0.64044898,33.7195 L1.63662342,34.8409439 C1.7274786,34.7602376 2.6422202,34.0713762 2.57687656,34.1215491 C3.19031461,33.6505321 3.71011958,33.2099233 4.21904364,32.7068669 C6.19777912,30.7509457 7.37436735,28.4382508 7.37436735,25.6076667 L7.37436735,24.9319566 L6.86828579,24.4842228 C4.02338347,21.9673183 2.40273469,18.5630308 2.40273469,14.936625 C2.40273469,7.55130927 9.09679252,1.5 17.4246531,1.5 C25.7529593,1.5 32.4465714,7.55108192 32.4465714,14.936625 Z"
+																				 id="Shape"></path>
+																			</g>
+																		</g>
+																	</g>
+																</g>
+															</g>
+														</g>
+													</g>
+												</svg>
+											</div>
+											<div class="upcoming-campaign-item-title">
+												<a href="#">My next social post</a>
+												<span>No schedule social posts</span>
+											</div>
+											<div class="upcoming-campaign-item-text">Scheduled for April 30th, 2016 at 10:15AM</div>
+											<a href="#" class="t-btn-gray upcoming-campaign-item-btn-view">View</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="ll-fade"></div>
+</body>
+
+</html>

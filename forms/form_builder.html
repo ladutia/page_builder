@@ -171,6 +171,12 @@
                                     <div class="eb-block-content el-business-card" data-field-type="20">
                                         <div class="t">Business Card</div>
                                     </div>
+                                    <div class="eb-block-content el-upload-file" data-field-type="21">
+                                      <div class="t">Upload File</div>
+                                    </div>
+                                    <div class="eb-block-content el-section" data-field-type="22">
+                                        <div class="t">Section</div>
+                                    </div>
                                 </div>
                             </div>
                             
@@ -6232,6 +6238,280 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="fb-right-panel-slide" id="fb-slide-panel-21">
+                          <div class="fb-panel-head">
+                            <span>Upload File</span>
+                            <a href="#" class="fb-save-panel">Save</a>
+                            <a href="#" class="fb-cancel-panel">Cancel</a>
+                          </div>
+                          <div class="fb-panel-content">
+                            <div class="tabs-editor">
+                              <ul class="clearfix">
+                                <li class="selected"><a href="#"><i class="icn-form-properties"></i>Settings</a></li>
+                                <li><a href="#"><i class="icn-form-style"></i>Style</a></li>
+                              </ul>
+                              <div class="wrap-tabs-content">
+                                <div class="tab-content">
+                                  <div id="fb-settings-21" class="fb-settings">
+                                    <div class="fb-field">
+                                      <label><span class="fb-wrap-tooltip">Field Label <span class="fb-tooltip">Field Label is one or two words placed directly above the field.</span></span></label>
+                                      <div class="fb-right">
+                                        <div class="eb-inner-field">
+                                          <input type="text" class="txt-field fb-label-text" value="Upload File A"/>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="fb-field clearfix fb-wrap-identifier">
+                                        <label>Identifier</label>
+                                        <div class="fb-right">
+                                            <div class="eb-inner-field">
+                                                <div class="eb-inner-field">
+                                                    <div class="t-field">
+                                                        <input type="text" disabled class="txt-field fb-identifier-input" value="Calculated_Question"/>
+                                                    </div>
+                                                    <div class="t-field fb-auto-identifier-section">
+                                                        <a href="#" class="fb-edit-identifier">use custom identifier</a>
+                                                    </div>
+                                                    <div class="t-field fb-custom-identifier-section">
+                                                        <a href="#" class="fb-cancel-edit-identifier">generate identifier automatically</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fb-field clearfix fb-wrap-visible">
+                                      <label>Visible</label>
+                                      <div class="fb-right">
+                                        <div class="eb-inner-field">
+                                          <div class="t-field">
+                                            <select class="fb-field-visible">
+                                              <option value="0">Always</option>
+                                              <option selected value="1">Only When...</option>
+                                            </select>
+                                          </div>
+                                          <div class="t-field fb-set-rule-link">
+                                            <a href="#" class="ll-show-popup fb-btn-set-rule" data-show-popup="popup-set-rule">Set Rule</a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="fb-field">
+                                      <label><span class="fb-wrap-tooltip">CSS Class <span class="fb-tooltip">CSS Class sets the CSS class that will be used on this form field. Use this option to add your own custom styling to the field. The CSS class should be defined in your Layout Template. The CSS code can be embedded into your Layout Template or referenced in a file, which can be hosted in your Media Manager or on your own server.</span></span></label>
+                                      <div class="fb-right">
+                                        <div class="eb-inner-field">
+                                          <input type="text" class="txt-field"/>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="fb-field clearfix">
+                                      <label><span class="fb-wrap-tooltip">Guidelines for User <span class="fb-tooltip">This text will be displayed to your users while they're filling out the field. If you're using HTML code the form designer will not render the code properly. Preview the form to see how the HTML will be rendered in a browser.</span></span></label>
+                                      <div class="fb-right">
+                                        <div class="eb-inner-field">
+                                          <textarea class="txt-field"></textarea>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="tab-content fb-form-style">
+                                  <div class="fb-design-head">Label Style</div>
+                                  <div class="fb-field clearfix">
+                                    <label>Font</label>
+                                    <div class="fb-right">
+                                      <div class="fb-inner-field">
+                                        <label>Typeface</label>
+                                        <select class="fb-w130 fb-label-font">
+                                          <option value="None">None</option>
+                                          <option value="Arial">Arial</option>
+                                          <option value="Open Sans">Open Sans</option>
+                                          <option value="Comic Sans MS">Comic Sans MS</option>
+                                          <option value="Courier New">Courier New</option>
+                                          <option value="Georgia">Georgia</option>
+                                          <option value="Lucida Sans Unicode">Lucida</option>
+                                          <option value="Tahoma">Tahoma</option>
+                                          <option value="Times New Roman">Times New Roman</option>
+                                          <option value="Trebuchet MS">Trebuchet MS</option>
+                                          <option value="Verdana">Verdana</option>
+                                        </select>
+                                      </div>
+                                      <div class="fb-inner-field">
+                                        <label>Size</label>
+                                        <select class="fb-w70  fb-label-size">
+                                          <option value="None">None</option>
+                                          <option value="9">9px</option>
+                                          <option value="10">10px</option>
+                                          <option value="11">11px</option>
+                                          <option value="12">12px</option>
+                                          <option value="13">13px</option>
+                                          <option value="14" selected>14px</option>
+                                          <option value="16">16px</option>
+                                          <option value="18">18px</option>
+                                          <option value="20">20px</option>
+                                          <option value="22">22px</option>
+                                          <option value="24">24px</option>
+                                          <option value="26">26px</option>
+                                          <option value="28">28px</option>
+                                          <option value="30">30px</option>
+                                          <option value="36">36px</option>
+                                          <option value="48">48px</option>
+                                          <option value="64">64px</option>
+                                        </select>
+                                      </div>
+                                      <div class="fb-inner-field">
+                                        <div class="wrap-color">
+                                          <div style="background-color: #333333;" class="color-box fb-label-color" data-color-start="333333"></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="fb-right-panel-slide" id="fb-slide-panel-22">
+                        <div class="fb-panel-head">
+                          <span>Section</span>
+                          <a href="#" class="fb-save-panel">Save</a>
+                          <a href="#" class="fb-cancel-panel">Cancel</a>
+                        </div>
+                        <div class="fb-panel-content">
+                          <div class="tabs-editor">
+                            <ul class="clearfix">
+                              <li class="selected"><a href="#"><i class="icn-form-properties"></i>Settings</a></li>
+                              <li><a href="#"><i class="icn-form-style"></i>Style</a></li>
+                            </ul>
+                            <div class="wrap-tabs-content">
+                              <div class="tab-content">
+                                <div id="fb-settings-22" class="fb-settings">
+                                  <div class="fb-field">
+                                    <label><span class="fb-wrap-tooltip">Field Label <span class="fb-tooltip">Field Label is one or two words placed directly above the field.</span></span></label>
+                                    <div class="fb-right">
+                                      <div class="eb-inner-field">
+                                        <input type="text" class="txt-field fb-label-text" value="Upload File A"/>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="fb-field clearfix fb-wrap-identifier">
+                                      <label>Identifier</label>
+                                      <div class="fb-right">
+                                          <div class="eb-inner-field">
+                                              <div class="eb-inner-field">
+                                                  <div class="t-field">
+                                                      <input type="text" disabled class="txt-field fb-identifier-input" value="Calculated_Question"/>
+                                                  </div>
+                                                  <div class="t-field fb-auto-identifier-section">
+                                                      <a href="#" class="fb-edit-identifier">use custom identifier</a>
+                                                  </div>
+                                                  <div class="t-field fb-custom-identifier-section">
+                                                      <a href="#" class="fb-cancel-edit-identifier">generate identifier automatically</a>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="fb-field clearfix fb-wrap-visible">
+                                    <label>Visible</label>
+                                    <div class="fb-right">
+                                      <div class="eb-inner-field">
+                                        <div class="t-field">
+                                          <select class="fb-field-visible">
+                                            <option value="0">Always</option>
+                                            <option selected value="1">Only When...</option>
+                                          </select>
+                                        </div>
+                                        <div class="t-field fb-set-rule-link">
+                                          <a href="#" class="ll-show-popup fb-btn-set-rule" data-show-popup="popup-set-rule">Set Rule</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="fb-field">
+                                    <label><span class="fb-wrap-tooltip">CSS Class <span class="fb-tooltip">CSS Class sets the CSS class that will be used on this form field. Use this option to add your own custom styling to the field. The CSS class should be defined in your Layout Template. The CSS code can be embedded into your Layout Template or referenced in a file, which can be hosted in your Media Manager or on your own server.</span></span></label>
+                                    <div class="fb-right">
+                                      <div class="eb-inner-field">
+                                        <input type="text" class="txt-field"/>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="fb-field clearfix">
+                                    <label><span class="fb-wrap-tooltip">Guidelines for User <span class="fb-tooltip">This text will be displayed to your users while they're filling out the field. If you're using HTML code the form designer will not render the code properly. Preview the form to see how the HTML will be rendered in a browser.</span></span></label>
+                                    <div class="fb-right">
+                                      <div class="eb-inner-field">
+                                        <textarea class="txt-field"></textarea>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="tab-content fb-form-style">
+                                <div class="fb-design-head">Label Style</div>
+                                <div class="fb-field clearfix">
+                                  <label>Font</label>
+                                  <div class="fb-right">
+                                    <div class="fb-inner-field">
+                                      <label>Typeface</label>
+                                      <select class="fb-w130 fb-label-font">
+                                        <option value="None">None</option>
+                                        <option value="Arial">Arial</option>
+                                        <option value="Open Sans">Open Sans</option>
+                                        <option value="Comic Sans MS">Comic Sans MS</option>
+                                        <option value="Courier New">Courier New</option>
+                                        <option value="Georgia">Georgia</option>
+                                        <option value="Lucida Sans Unicode">Lucida</option>
+                                        <option value="Tahoma">Tahoma</option>
+                                        <option value="Times New Roman">Times New Roman</option>
+                                        <option value="Trebuchet MS">Trebuchet MS</option>
+                                        <option value="Verdana">Verdana</option>
+                                      </select>
+                                    </div>
+                                    <div class="fb-inner-field">
+                                      <label>Size</label>
+                                      <select class="fb-w70  fb-label-size">
+                                        <option value="None">None</option>
+                                        <option value="9">9px</option>
+                                        <option value="10">10px</option>
+                                        <option value="11">11px</option>
+                                        <option value="12">12px</option>
+                                        <option value="13">13px</option>
+                                        <option value="14" selected>14px</option>
+                                        <option value="16">16px</option>
+                                        <option value="18">18px</option>
+                                        <option value="20">20px</option>
+                                        <option value="22">22px</option>
+                                        <option value="24">24px</option>
+                                        <option value="26">26px</option>
+                                        <option value="28">28px</option>
+                                        <option value="30">30px</option>
+                                        <option value="36">36px</option>
+                                        <option value="48">48px</option>
+                                        <option value="64">64px</option>
+                                      </select>
+                                    </div>
+                                    <div class="fb-inner-field">
+                                      <div class="wrap-color">
+                                        <div style="background-color: #333333;" class="color-box fb-label-color" data-color-start="333333"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="fb-field clearfix">
+                                    <label>Label Align</label>
+                                    <div class="fb-right">
+                                        <div class="fb-inner-field">
+                                            <select class="fb-w160  fb-label-align">
+                                                <option value="0">Left</option>
+                                                <option value="1" selected>Center</option>
+                                                <option value="2">Right</option>
+                                            </select>
+                                        </div> 
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>

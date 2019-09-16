@@ -739,14 +739,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#df801b', end
     background-image: url('imgs/imgs_form_builder/icn_signature.png');
     background-position: 21px center;
 }
-.el-upload-file{
-    background-image: url('imgs/imgs_form_builder/icn_upload_file.svg');
-    background-position: 21px center;
-}
-.el-section{
-    background-image: url('imgs/imgs_form_builder/icn_section.svg');
-    background-position: 21px center;
-}
 .fb-field-properties-inf,
 .fb-dragenddrop-box{
     color: #999999;
@@ -755,7 +747,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#df801b', end
     text-align: center;
     padding: 25px 0 30px;
 }
-.fb-sortable-hover > .fb-dragenddrop-box{
+.fb-sortable-hover .fb-dragenddrop-box{
     display: none!important;
 }
 
@@ -774,11 +766,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#df801b', end
     padding: 0 20px;
     border: 1px dashed #ffffff;
     background: transparent;
-}
-.tpl-block .tpl-block{
-    padding-left: 0;
-    padding-right: 0;
-}
+} 
 .tpl-block.selected{
     z-index: 1;
     border: 1px solid #f08b21;
@@ -794,12 +782,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#df801b', end
     top: 10px;
     right: 10px;
     display: none;
-    z-index: 1;
 }
-.tpl-block:not(.hide-controls):hover{
+.tpl-block:hover{
     border: 1px dashed #c9c9c9;
 }
-.tpl-block:not(.hide-controls):hover > .tpl-block-controls{
+.tpl-block:hover .tpl-block-controls{
     display: block;
 }
 .tpl-block-controls > a{
@@ -2132,46 +2119,4 @@ select.fb-w160{
 }
 .check-bg-transparent > label{
     padding-left: 22px;
-}
-.fb-upload-file-box{
-    height: 100px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px dashed #d9d9d9;
-    background-color: #f3f3f3;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-}
-.fb-upload-file-box > label{
-    font-size: 20px;
-    line-height: 1.1em;
-    font-weight: 600;
-}
-.fb-section-box > label{
-    font-size: 20px;
-    line-height: 1.1em;
-    font-weight: 600;
-    text-align: center;
-    display: block;
-    margin-bottom: 10px;
-}
-.fb-section{
-    border: 1px dashed #c9c9c9;
-    background-color: rgba(0,0,0,0.02)!important;
-    padding-top: 15px;
-}
-.fb-section-box .wrap-tpl-block{
-    min-height: 47px!important;
-}
-.fb-section .tpl-block{
-    background-color: inherit!important;
-}
-.fb-section .fb-dragenddrop-box{
-    position: relative;
-    margin: 0;
-    top: 0;
-    padding: 15px 0;
 }

@@ -168,6 +168,24 @@ var page = {
       var content = $(this).val();
       $tpl.find(".fb-html").html(content);
     });
+
+    $("#ll-form-box").on(
+      {
+        mouseover: function(e) {
+          e.stopPropagation();
+          $(this)
+            .parents(".tpl-block")
+            .addClass("hide-controls");
+        },
+        mouseout: function(e) {
+          e.stopPropagation();
+          $(this)
+            .parents(".tpl-block")
+            .removeClass("hide-controls");
+        }
+      },
+      ".tpl-block"
+    );
   },
   resizeForm: function() {
     widthBody = $("body").width();
@@ -468,10 +486,12 @@ var page = {
     $(".eb-wrap-form-page").on("click", ".tpl-block-delete", function(e) {
       e.preventDefault();
       e.stopPropagation();
+      var $block = $(this).closest(".tpl-block");
+      var $parent = $block.parents(".tpl-block");
+
       if (
-        $(this)
-          .parents(".tpl-block")
-          .hasClass("selected")
+        $block.hasClass("selected") ||
+        $block.find(".tpl-block.selected").length
       ) {
         $(".fb-right-panel-slide.active")
           .removeClass("active")
@@ -479,49 +499,86 @@ var page = {
           .hide();
         $(".wrap-panels-el").css("z-index", "-1");
       }
-      $(this)
-        .parents(".tpl-block")
-        .remove();
 
+      $parent.removeClass("hide-controls");
+      $block.remove();
       page.showHideInfBlock();
     });
   },
   dragAndDropElements: function() {
-    $(".eb-block-content").draggable({
+    $(".eb-block-content:not(.ui-draggable)").draggable({
       helper: "clone",
       start: function(event, ui) {
-        $(".wrap-tpl-block").addClass("tpl-placeholder");
+        $(".wrap-tpl-block, .wrap-tpl-block-section").addClass(
+          "tpl-placeholder"
+        );
       },
       stop: function(event, ui) {
-        $(".wrap-tpl-block").removeClass("tpl-placeholder");
+        $(".wrap-tpl-block, .wrap-tpl-block-section").removeClass(
+          "tpl-placeholder"
+        );
         $(".fb-sortable-hover").removeClass("fb-sortable-hover");
       },
-      connectToSortable: ".wrap-tpl-block",
+      connectToSortable: ".wrap-tpl-block, .wrap-tpl-block-section",
       refreshPositions: true
     });
-    $(".wrap-tpl-block").sortable({
+
+    $(
+      ".wrap-tpl-block:not(.ui-sortable), .wrap-tpl-block-section:not(.ui-sortable)"
+    ).sortable({
       cursor: "move",
       //handle: '.tpl-block-move',
       tolerance: "intersect",
       cancel:
-        ".fb-dragenddrop-box-text, .fb-dragenddrop-box-text, .tpl-block-edit, .tpl-block-clone, .tpl-block-delete, .txt-field",
-      connectWith: ".wrap-tpl-block",
+        ".fb-dragenddrop-box, .fb-dragenddrop-box-text, .fb-dragenddrop-box-text, .tpl-block-edit, .tpl-block-clone, .tpl-block-delete, .txt-field",
+      connectWith: ".wrap-tpl-block, .wrap-tpl-block-section",
       placeholder: "fb-placeholder-element",
       beforeStop: function(event, ui) {
+        var $this = $(this);
         if (ui.item.hasClass("eb-block-content")) {
-          page.addElements(ui.item, true);
+          if (!ui.item.hasClass("el-section")) {
+            page.addElements(ui.item, true);
+          } else {
+            if (!$this.hasClass("wrap-tpl-block-section")) {
+              page.addElements(ui.item, true);
+            } else {
+              ui.item.remove();
+              $(".fb-sortable-hover").removeClass("fb-sortable-hover");
+            }
+          }
         }
       },
       start: function(event, ui) {
         ui.item.parent().addClass("fb-sortable-hover");
       },
       over: function(event, ui) {
+        var $this = $(this);
         $(".fb-sortable-hover").removeClass("fb-sortable-hover");
-        $(this).addClass("fb-sortable-hover");
+        $this.addClass("fb-sortable-hover");
+
+        if (
+          (ui.item.hasClass("el-section") || ui.item.hasClass("fb-section")) &&
+          $this.hasClass("wrap-tpl-block-section")
+        ) {
+          $this.addClass("no-drop-element");
+        }
       },
       stop: function(event, ui) {
         ui.item.parent().removeClass("fb-sortable-hover");
+        $(".no-drop-element").removeClass("no-drop-element");
         page.showHideInfBlock();
+      },
+      receive: function(event, ui) {
+        ui.sender.parents(".tpl-block").removeClass("hide-controls");
+        if (
+          $(this).hasClass("wrap-tpl-block-section") &&
+          !$(ui.sender).hasClass("eb-block-content") && $(ui.item).hasClass('fb-section')
+        ) {
+          console.log('stop');
+          $(ui.sender).sortable("cancel");
+          $(".no-drop-element").removeClass("no-drop-element");
+          $(".fb-sortable-hover").removeClass("fb-sortable-hover");
+        }
       }
     });
   },
@@ -1037,6 +1094,69 @@ var page = {
     } else if (type == 20) {
       $box.find(".eb-block-content").replaceWith("");
       return false;
+    } else if (type == 21) {
+      var letter = page.getIdLabel($(".fb-upload-file-box"));
+      var label = "Upload File " + letter.text;
+      var idLetter = letter.id;
+
+      dataAll =
+        '{"identifierCustom":"0", "identifier":"Upload_File", "defaultIdentifier":"Upload_File", "visible":"0", "labelText":"' +
+        label +
+        '", "fieldLength":"None", "labelFont":"None", "labelSize":"None", "labelColor":"None" }';
+
+      htmlEl =
+        "<div data-json='" +
+        dataAll +
+        "' class='tpl-block fb-upload-file fb-add-new-el' data-type-el='21'>" +
+        '<div class="tpl-block-content clearfix">' +
+        '<div class="fb-upload-file-box" id-letter="' +
+        idLetter +
+        '">' +
+        "<label><span>" +
+        label +
+        "</span></label>" +
+        "</div>" +
+        "</div>" +
+        '<div class="tpl-block-controls">' +
+        '<a href="#" class="t-btn-gray tpl-block-move"><i></i></a>' +
+        '<a href="#" class="t-btn-gray tpl-block-edit"><i></i></a>' +
+        '<a href="#" class="t-btn-gray tpl-block-clone"><i></i></a>' +
+        '<a href="#" class="t-btn-gray tpl-block-delete"><i></i></a>' +
+        "</div>" +
+        "</div>";
+    } else if (type == 22) {
+      var letter = page.getIdLabel($(".fb-section-box"));
+      var label = "Section " + letter.text;
+      var idLetter = letter.id;
+
+      dataAll =
+        '{"identifierCustom":"0", "identifier":"Section", "defaultIdentifier":"Section", "visible":"0", "labelText":"' +
+        label +
+        '", "fieldLength":"None", "labelFont":"None", "labelSize":"20", "labelColor":"None", "labelAlign":"1"}';
+
+      htmlEl =
+        "<div data-json='" +
+        dataAll +
+        "' class='tpl-block fb-section fb-add-new-el' data-type-el='22'>" +
+        '<div class="tpl-block-content clearfix">' +
+        '<div class="fb-section-box" id-letter="' +
+        idLetter +
+        '">' +
+        "<label><span>" +
+        label +
+        "</span></label>" +
+        '<div class="wrap-tpl-block-section">' +
+        '<div class="fb-dragenddrop-box">Drop your element here</div>' +
+        "</div>" +
+        "</div>" +
+        "</div>" +
+        '<div class="tpl-block-controls">' +
+        '<a href="#" class="t-btn-gray tpl-block-move"><i></i></a>' +
+        '<a href="#" class="t-btn-gray tpl-block-edit"><i></i></a>' +
+        '<a href="#" class="t-btn-gray tpl-block-clone"><i></i></a>' +
+        '<a href="#" class="t-btn-gray tpl-block-delete"><i></i></a>' +
+        "</div>" +
+        "</div>";
     }
 
     if (isDrop) {
@@ -1086,38 +1206,74 @@ var page = {
     page.fieldSize($block);
     page.showHideInfBlock();
     page.dropDownStyleUpdate($block);
+    page.dragAndDropElements();
+  },
+
+  getIdLabel: function($el) {
+    var idLetters = [];
+    var idLetter = 0;
+    var letter = "";
+
+    $el.each(function() {
+      idLetters.push($(this).attr("id-letter"));
+    });
+
+    for (i = 0; i < 26; i++) {
+      if (idLetters.indexOf(i + "") === -1) {
+        idLetter = i;
+        break;
+      }
+    }
+
+    letter = String.fromCharCode(65 + idLetter);
+
+    return { text: letter, id: idLetter };
   },
 
   showHideInfBlock: function() {
-    if ($(".wrap-tpl-block .tpl-block").length > 0) {
-      $(".fb-dragenddrop-box").hide();
-      $(".wrap-tpl-block").css("min-height", "0");
-      $("#wrap-form-submit-button").show();
+    var $form = $(".fb-wrap-columns-form");
+    var $wrapperColumn = $form.children(".wrap-tpl-block");
+    var $dragenddropFirst = $form.children(".fb-dragenddrop-box");
+    var $btn = $("#wrap-form-submit-button");
+    var $wraperSection = $(".fb-section-box").children(".wrap-tpl-block-section");
+
+    if ($wrapperColumn.children(".tpl-block").length > 0) {
+      $dragenddropFirst.hide();
+      $wrapperColumn.css("min-height", "0");
+      $btn.show();
     } else {
-      $("#wrap-form-submit-button").hide();
-      $(".wrap-tpl-block").css("min-height", "340px");
-      $(".fb-dragenddrop-box").show();
+      $btn.hide();
+      $wrapperColumn.css("min-height", "340px");
+      $dragenddropFirst.show();
     }
-    $(".wrap-tpl-block").each(function() {
-      if ($(this).find(".tpl-block").length > 0) {
-        $(this)
-          .find(".fb-dragenddrop-box-text")
-          .hide();
+
+    $wrapperColumn.each(function() {
+      var $wrap = $(this);
+
+      if ($wrap.find(".tpl-block").length > 0) {
+        $wrap.find(".fb-dragenddrop-box-text").hide();
         if (
-          $(this).parents(".fb-wrap-three-columns, .fb-wrap-two-columns").length
+          $wrap.parents(".fb-wrap-three-columns, .fb-wrap-two-columns").length
         ) {
-          $(this).removeClass("fb-noactive-container");
+          $wrap.removeClass("fb-noactive-container");
         }
       } else {
-        $(this)
-          .find(".fb-dragenddrop-box-text")
-          .show();
+        $wrap.find(".fb-dragenddrop-box-text").show();
         if (
-          $(this).parents(".fb-wrap-three-columns, .fb-wrap-two-columns").length
+          $wrap.parents(".fb-wrap-three-columns, .fb-wrap-two-columns").length
         ) {
-          $(this).addClass("fb-noactive-container");
+          $wrap.addClass("fb-noactive-container");
         }
       }
+    });
+
+    $wraperSection.each(function() {
+      var $wrap = $(this);
+      var $dragenddrop = $wrap.children(".fb-dragenddrop-box");
+
+      $wrap.children(".tpl-block").length > 0
+        ? $dragenddrop.hide()
+        : $dragenddrop.show();
     });
     page.useCaptchaFormShowHide();
   },
@@ -1140,7 +1296,7 @@ var page = {
     }
   },
   elementsClone: function($btn) {
-    var $block = $btn.parents(".tpl-block");
+    var $block = $btn.closest(".tpl-block");
     var type = $block.attr("data-type-el");
     var $clone = $block.clone();
     $clone.removeClass("selected").addClass("fb-clone-new");
@@ -1171,6 +1327,12 @@ var page = {
       $(".fb-clone-new")
         .find("select")
         .chosen();
+    }
+    if (type == "22") {
+      $(".fb-clone-new")
+        .find(".wrap-tpl-block")
+        .removeClass("ui-sortable");
+      page.dragAndDropElements();
     }
     $(".fb-clone-new").removeClass("fb-clone-new");
   },
@@ -1516,6 +1678,13 @@ var page = {
         $slide.find(".fb-identifier-input").removeAttr("disabled");
         $(".fb-auto-identifier-section").hide();
         $(".fb-custom-identifier-section").show();
+      }
+
+      if (type == 22) {
+        $slide
+          .find('.fb-label-align option[value="' + opt.labelAlign + '"]')
+          .attr("selected", true);
+        $slide.find(".fb-label-align").trigger("liszt:updated");
       }
     }
   },
@@ -2111,10 +2280,19 @@ var page = {
       var opt = $tpl.data("json");
 
       opt.labelFont = $(this).val();
-      $tpl
-        .find(".tpl-block-content")
-        .children("label")
-        .css("font-family", opt.labelFont + ", sans-serif");
+      if ($tpl.hasClass("fb-upload-file") || $tpl.hasClass("fb-section")) {
+        $tpl
+          .children(".tpl-block-content")
+          .children(".fb-upload-file-box, .fb-section-box")
+          .children("label")
+          .css("font-family", opt.labelFont + ", sans-serif");
+      } else {
+        $tpl
+          .find(".tpl-block-content")
+          .children("label")
+          .css("font-family", opt.labelFont + ", sans-serif");
+      }
+
       $tpl.attr("data-json", JSON.stringify(opt));
     });
     $(".fb-label-size").change(function() {
@@ -2122,10 +2300,20 @@ var page = {
       var opt = $tpl.data("json");
 
       opt.labelSize = $(this).val();
-      $tpl
-        .find(".tpl-block-content")
-        .children("label")
-        .css("font-size", opt.labelSize + "px");
+
+      if ($tpl.hasClass("fb-upload-file") || $tpl.hasClass("fb-section")) {
+        $tpl
+          .children(".tpl-block-content")
+          .children(".fb-upload-file-box, .fb-section-box")
+          .children("label")
+          .css("font-size", opt.labelSize + "px");
+      } else {
+        $tpl
+          .find(".tpl-block-content")
+          .children("label")
+          .css("font-size", opt.labelSize + "px");
+      }
+
       $tpl.attr("data-json", JSON.stringify(opt));
     });
     $(".fb-label-pos").change(function() {
@@ -2247,11 +2435,20 @@ var page = {
       var optGlobal = $tplGlobal.data("json");
 
       opt.labelText = $(this).val();
-      $tpl
-        .find(".tpl-block-content")
-        .children("label")
-        .children("span")
-        .text(opt.labelText);
+
+      if ($tpl.hasClass("fb-upload-file") || $tpl.hasClass("fb-section")) {
+        $tpl
+          .children(".tpl-block-content")
+          .children(".fb-upload-file-box, .fb-section-box")
+          .children("label")
+          .text(opt.labelText);
+      } else {
+        $tpl
+          .find(".tpl-block-content")
+          .children("label")
+          .children("span")
+          .text(opt.labelText);
+      }
 
       $tpl.attr("data-json", JSON.stringify(opt));
       if (
@@ -2634,6 +2831,26 @@ var page = {
 
       $tplGlobal.attr("data-json", JSON.stringify(opt));
     });
+    $(".fb-label-align").change(function() {
+      var $tpl = $(".tpl-block.selected");
+      var opt = $tpl.data("json");
+      var align = "center";
+
+      opt.labelAlign = $(this).val();
+
+      if (opt.labelAlign == 0) {
+        align = "left";
+      } else if (opt.labelAlign == 2) {
+        align = "right";
+      }
+
+      $tpl
+        .children(".tpl-block-content")
+        .children(".fb-section-box")
+        .children("label")
+        .css("text-align", align);
+      $tpl.attr("data-json", JSON.stringify(opt));
+    });
   },
   updateColorElTpl: function(el, hex) {
     var $tpl = $(".tpl-block.selected");
@@ -2782,10 +2999,20 @@ var page = {
       $tplGlobal.attr("data-json", JSON.stringify(optGlobal));
     } else if ($el.hasClass("fb-label-color")) {
       opt.labelColor = "#" + hex;
-      $tpl
-        .find(".tpl-block-content")
-        .children("label")
-        .css("color", opt.labelColor);
+
+      if ($tpl.hasClass("fb-upload-file") || $tpl.hasClass("fb-section")) {
+        $tpl
+          .children(".tpl-block-content")
+          .children(".fb-upload-file-box, .fb-section-box")
+          .children("label")
+          .css("color", opt.labelColor);
+      } else {
+        $tpl
+          .find(".tpl-block-content")
+          .children("label")
+          .css("color", opt.labelColor);
+      }
+
       $tpl.attr("data-json", JSON.stringify(opt));
     } else if ($el.hasClass("fb-field-background")) {
       opt.fieldBackground = "#" + hex;

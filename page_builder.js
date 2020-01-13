@@ -778,7 +778,7 @@ var pageBuilder = {
         var type2 = $el.attr('data-type2');
 
         if (type === 'container' && !type2) {
-            dataJson = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "borderWidth":"0", "borderColor":"#ffffff", "borderType":"None", "borderRadius":"0", "width":"100%", "minHeight":"0", "maxWidth":"100%", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"10px", "paddingRight":"10px", "paddingTop":"10px", "paddingBottom":"10px"}';
+            dataJson = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "borderWidth":"0", "borderColor":"#ffffff", "borderType":"None", "borderRadius":"0", "width":"100%", "minHeight":"0", "maxWidth":"100%", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"10px", "paddingRight":"10px", "paddingTop":"10px", "paddingBottom":"10px", "isDesktop":"true", "isTablet": "true", "isMobile":"true"}';
             html = "<div class='pb-widget pb-widget--init pb-widget--container' data-type='" + type + "' data-json='" + dataJson + "' style='padding: 10px;'>" +
                 '<div class="pb-widget__content pb-container-grid">' +
                 '</div>' +
@@ -2353,17 +2353,20 @@ var pageBuilder = {
                 $('#textAlign').find('li').eq(opt.textAlign).addClass('pb-text-align--selected');
             setSettingCssWidget($('#pb-panel__text'));
             setSettingsBackgroundImage($('#pb-panel__text'));
+            setSettingsResponsive($("#pb-panel__text"));
         } else if (type === 'image') {
             $('#imageBackground').colpickSetColor(opt.backgroundColor, true).css('background-color', opt.backgroundColor);
             $('#imageAlign').find('li').removeClass('pb-text-align--selected').eq(opt.textAlign).addClass('pb-text-align--selected');
             pageBuilder.setOptionsImage();
             setSettingCssWidget($('#pb-panel__image'));
+            setSettingsResponsive($("#pb-panel__image"));
         } else if (type === 'image-group') {
             $('#imageGroupBackground').colpickSetColor(opt.backgroundColor, true).css('background-color', opt.backgroundColor);
             pageBuilder.setOptionsLayoutImageGroup();
             pageBuilder.setOptionsImageGroup();
             setSettingCssWidget($('#pb-panel__image-group'));
             setSettingsBackgroundImage($('#pb-panel__image-group'));
+            setSettingsResponsive($("#pb-panel__image-group"));
         } else if (type === 'svg') {
             $('#svgWidth').val(opt.width);
             $('#svgHeight').val(opt.height);
@@ -2376,6 +2379,7 @@ var pageBuilder = {
                 $('.pb-box-btn-upload-svg').addClass('pb-box-btn-upload-svg--none');
 
             setSettingCssWidget($('#pb-panel__svg'));
+            setSettingsResponsive($("#pb-panel__svg"));
         } else if (type === 'code') {
             var html = $widget.find('.pb-code-box').html();
             pageBuilder.codeBox.editor.setValue(html);
@@ -2392,6 +2396,7 @@ var pageBuilder = {
             $('#dividerBorderColor').colpickSetColor(opt.borderColor, true).css('background-color', opt.borderColor);
             setSettingCssWidget($('#pb-panel__divider'));
             setSettingsBackgroundImage($('#pb-panel__divider'));
+            setSettingsResponsive($("#pb-panel__divider"));
         } else if (type === 'social-share' || type === 'social-follow' || type === 'calendar') {
             $('#socialContainerBackground').colpickSetColor(opt.containerBackground, true).css('background-color', opt.containerBackground);
             $('#socialContainerBorderType option[value="' + opt.containerBorderType + '"]').attr('selected', true);
@@ -2480,6 +2485,7 @@ var pageBuilder = {
             pageBuilder.updateSocialGroupHtml();
             pageBuilder.countGroupSocial();
             setSettingsBackgroundImage($('#pb-panel__social-calendar-btns'));
+            setSettingsResponsive($("#pb-panel__social-calendar-btns"));
         } else if (type === 'button') {
             var backgroundColor = opt.backgroundColor;
             var borderWidth = opt.borderWidth;
@@ -2525,6 +2531,7 @@ var pageBuilder = {
             $('#btnText').val(opt.buttonText);
             $('#btnUrl').val(opt.url);
             setSettingCssWidget($('#pb-panel__button'));
+            setSettingsResponsive($("#pb-panel__button"));
             //setSettingsBackgroundImage($('#pb-panel__button'));
         } else if (type === 'image-caption-1') {
             pageBuilder.addHTMLImageColumnsList();
@@ -2558,6 +2565,7 @@ var pageBuilder = {
             pageBuilder.setGridSizeColumns($('#imgCaptionOneGrid'), [opt.gridSize1]);
             setSettingCssWidget($('#pb-panel__image-caption-1'));
             setSettingsBackgroundImage($('#pb-panel__image-caption-1'));
+            setSettingsResponsive($("#pb-panel__image-caption-1"));
         } else if (type === 'image-caption-2') {
             pageBuilder.addHTMLImageColumnsList();
 
@@ -2591,6 +2599,7 @@ var pageBuilder = {
             pageBuilder.showHideGridSizeColumns();
             setSettingCssWidget($('#pb-panel__image-caption-2'));
             setSettingsBackgroundImage($('#pb-panel__image-caption-2'));
+            setSettingsResponsive($("#pb-panel__image-caption-2"));
         } else if (type === 'text-column-with-image') {
             pageBuilder.addHTMLImageColumnsList();
 
@@ -2621,6 +2630,7 @@ var pageBuilder = {
             pageBuilder.showHideGridSizeColumns();
             setSettingCssWidget($('#pb-panel__text-column-with-image'));
             setSettingsBackgroundImage($('#pb-panel__text-column-with-image'));
+            setSettingsResponsive($("#pb-panel__text-column-with-image"));
         } else if (type === 'two-text-columns') {
             $('#twoTextColumnsBackground').colpickSetColor(opt.backgroundColor, true).css('background-color', opt.backgroundColor);
             $('#twoTextColumnsTypeFace option[value="' + opt.fontTypeFace + '"]').attr('selected', true);
@@ -2645,6 +2655,7 @@ var pageBuilder = {
             pageBuilder.setGridSizeColumns($('#twoTextColumnsGrid'), [opt.gridSize1]);
             setSettingCssWidget($('#pb-panel__two-text-columns'));
             setSettingsBackgroundImage($('#pb-panel__two-text-columns'));
+            setSettingsResponsive($("#pb-panel__two-text-columns"));
         } else if (type === 'columns-caption') {
             pageBuilder.addHTMLImageColumnsList();
 
@@ -2675,6 +2686,7 @@ var pageBuilder = {
             pageBuilder.showHideGridSizeColumns();
             setSettingCssWidget($('#pb-panel__columns-caption'));
             setSettingsBackgroundImage($('#pb-panel__columns-caption'));
+            setSettingsResponsive($("#pb-panel__columns-caption"));
         } else if (type === 'slideshow' || type === 'vertical-slideshow') {
             pageBuilder.addHTMLImageGroupList(true);
             $('.pb-list-image--slideshow .pb-image__item:first').trigger('click');
@@ -2689,6 +2701,7 @@ var pageBuilder = {
             $('#slideshowHeight').val(opt.height)
             setSettingCssWidget($('#pb-panel__slideshow'));
             setSettingsBackgroundImage($('#pb-panel__slideshow'));
+            setSettingsResponsive($("#pb-panel__slideshow"));
         } else if (type === 'two-column-grid') {
             var sliderValues = [];
 
@@ -2711,6 +2724,7 @@ var pageBuilder = {
             $('#twoGridMinHeight').val(opt.minHeight);
             setSettingCssWidget($('#pb-panel__two-column-grid'));
             setSettingsBackgroundImage($('#pb-panel__two-column-grid'));
+            setSettingsResponsive($("#pb-panel__two-column-grid"));
         } else if (type === 'three-column-grid') {
             var sliderValues = [];
 
@@ -2733,6 +2747,7 @@ var pageBuilder = {
             $('#threeGridMinHeight').val(opt.minHeight);
             setSettingCssWidget($('#pb-panel__three-column-grid'));
             setSettingsBackgroundImage($('#pb-panel__three-column-grid'));
+            setSettingsResponsive($("#pb-panel__three-column-grid"));
         } else if (type === 'uneven-grid') {
             var sliderValues = [];
 
@@ -2755,6 +2770,7 @@ var pageBuilder = {
             $('#unevenGridMinHeight').val(opt.minHeight);
             setSettingCssWidget($('#pb-panel__uneven-grid'));
             setSettingsBackgroundImage($('#pb-panel__uneven-grid'));
+            setSettingsResponsive($("#pb-panel__uneven-grid"));
         } else if (type === 'container') {
             $('#containerBackground').colpickSetColor(opt.backgroundColor, true).css('background-color', opt.backgroundColor);
 
@@ -2779,6 +2795,7 @@ var pageBuilder = {
             $('#containerMinHeight').val(opt.minHeight);
             setSettingCssWidget($('#pb-panel__container'));
             setSettingsBackgroundImage($('#pb-panel__container'));
+            setSettingsResponsive($("#pb-panel__container"));
         } else if (type === 'field') {
             $('#fieldPlaceholder').val(opt.placeholder);
             $('#fieldBackground').colpickSetColor(opt.backgroundColor, true).css('background-color', opt.backgroundColor);
@@ -2797,6 +2814,7 @@ var pageBuilder = {
             $('#fieldType option[value="' + opt.type + '"]').attr('selected', true);
             $("#fieldType").trigger('liszt:updated');
             setSettingCssWidget($('#pb-panel__field'));
+            setSettingsResponsive($("#pb-panel__field"));
         } else if (type === 'vertical-form' || type === 'horizontal-form') {
             $('#formBackground').colpickSetColor(opt.backgroundColor, true).css('background-color', opt.backgroundColor);
             $('#formBorderType option[value="' + opt.borderType + '"]').attr('selected', true);
@@ -2822,10 +2840,12 @@ var pageBuilder = {
 
             setSettingCssWidget($('#pb-panel__vertical-form'));
             setSettingsBackgroundImage($('#pb-panel__vertical-form'));
+            setSettingsResponsive($("#pb-panel__vertical-form"));
         } else if (type === 'icon') {
             $('#iconColor').colpickSetColor(opt.color, true).css('background-color', opt.color);
             $('#iconHeight').val(opt.height);
             setSettingCssWidget($('#pb-panel__icon'));
+            setSettingsResponsive($("#pb-panel__icon"));
         } else if (type === 'nav-items') {
             $('#itemsBackground').colpickSetColor(opt.backgroundColor, true).css('background-color', opt.backgroundColor);
             $('#itemsTypeFace option[value="' + opt.fontTypeFace + '"]').attr('selected', true);
@@ -2848,6 +2868,7 @@ var pageBuilder = {
 
             setSettingCssWidget($('#pb-panel__nav-items'));
             setSettingsBackgroundImage($('#pb-panel__nav-items'));
+            setSettingsResponsive($("#pb-panel__nav-items"));
         } else if (type === 'nav-item') {
             $('#itemBackground').colpickSetColor(opt.backgroundColor, true).css('background-color', opt.backgroundColor);
             $('#itemTypeFace option[value="' + opt.fontTypeFace + '"]').attr('selected', true);
@@ -2873,7 +2894,9 @@ var pageBuilder = {
 
             setSettingCssWidget($('#pb-panel__nav-item'));
             setSettingsBackgroundImage($('#pb-panel__nav-item'));
+            setSettingsResponsive($("#pb-panel__nav-item"));
         }
+
         function setSettingCssWidget($panel) {
             $panel.find('.pb-widget-width').val(opt.width);
             $panel.find('.pb-widget-max-width').val(opt.maxWidth);
@@ -2893,6 +2916,23 @@ var pageBuilder = {
                 $panel.find(".pb-box-btn-upload-bg-image").removeClass('pb-box-btn-upload-bg-image--none');
                 $panel.find(".pb-box-btn-upload-bg-image").find('.pb-unload-bg-image__title').text(pageBuilder.getBgImageName(opt.backgroundImageUrl));
             }
+        }
+        function setSettingsResponsive ($panel){
+            if (opt.isDesktop === 'true' || opt.isDesktop === undefined)
+                $panel.find('.switch-isDesktop').val('on').attr('checked', true);
+            else 
+                $panel.find('.switch-isDesktop').val('off').removeAttr('checked');
+
+            if (opt.isTablet === 'true' || opt.isTablet === undefined) 
+                $panel.find('.switch-isTablet').val('on').attr('checked', true);
+            else
+                $panel.find('.switch-isTablet').val('off').removeAttr('checked');
+
+            if (opt.isMobile === 'true' || opt.isMobile === undefined) 
+                $panel.find('.switch-isMobile').val('on').attr('checked', true);
+            else
+                $panel.find('.switch-isMobile').val('off').removeAttr('checked');
+            
         }
     },
     updateIndividualOptions: function () {
@@ -3729,6 +3769,35 @@ var pageBuilder = {
             $tpl.attr('data-bgvideoyt', opt.bgVideoYT);
             $tpl.attr('data-json', JSON.stringify(opt));
             pageBuilder.setNewActionHistory();
+        });
+
+        //RESPONSIVE
+        $('.switch-isDesktop').change(function(){
+            getTplOpt();
+            var val = $(this).prop('checked');
+
+            val ? $tpl.removeClass('hideBlockDesktop') : $tpl.addClass('hideBlockDesktop');
+            
+            opt.isDesktop = val; 
+            $tpl.attr('data-json', JSON.stringify(opt));
+        });
+        $('.switch-isTablet').change(function(){
+            getTplOpt();
+            var val = $(this).prop('checked');
+
+            val ? $tpl.removeClass('hideBlockTablet') : $tpl.addClass('hideBlockTablet');
+            
+            opt.isTablet = val; 
+            $tpl.attr('data-json', JSON.stringify(opt));
+        });
+        $('.switch-isMobile').change(function(){
+            getTplOpt();
+            var val = $(this).prop('checked');
+
+            val ? $tpl.removeClass('hideBlockMobile') : $tpl.addClass('hideBlockMobile');
+            
+            opt.isMobile = val; 
+            $tpl.attr('data-json', JSON.stringify(opt));
         });
     },
     updateGlobalOptions: function () {
@@ -5279,11 +5348,13 @@ var pageBuilder = {
             if (val === 'off') {
                 $toggle.val('on');
                 $panel.removeClass('pb-media-screen--hide');
+                $box.addClass('init-media-screen');
                 $box.animate({ paddingTop: '30px' }, { duration: 400 });
                 $panel.animate({ top: '0' }, { duration: 400, queue: false });
                 pageBuilder.responsiveMediaResize($('.pb-editor__column-left .pb-media-screen'));
             } else {
                 $toggle.val('off');
+                $box.removeClass('init-media-screen');
                 $box.animate({ paddingTop: '0' }, { duration: 400 });
                 $panel.animate({ top: '-30px' }, {
                     duration: 400,

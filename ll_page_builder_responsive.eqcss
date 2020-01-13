@@ -1,3 +1,13 @@
+@element .pb-blocks and (min-width: 992px) {
+  .init-media-screen .hideBlockDesktop{
+    display: none!important;
+  }
+}
+@element .pb-blocks and (min-width: 768px) and (max-width: 991px) {
+  .hideBlockTablet{
+    display: none!important;
+  }
+}
 @element .pb-blocks and (max-width: 767px) {
   .pb-helper-drag-drop__text{
     font-size: 16px;
@@ -83,5 +93,9 @@
   }
   .pb-widget--mobile-toggle{
     display: block;
+  }
+
+  .hideBlockMobile{
+    display: none!important;
   }
 }

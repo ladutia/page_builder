@@ -3346,3 +3346,14 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
   background: #fb8f04;
   color: #fff;
 }
+
+.ll-switch-is-hide-responsive {
+  display: block;
+  margin-top: 5px;
+}
+
+.ll-switch-is-hide-responsive .switch-lb {
+  font-size: 13px;
+  display: inline-block;
+  margin-left: 8px;
+}

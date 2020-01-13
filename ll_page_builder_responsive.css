@@ -1,3 +1,13 @@
+@media screen and (min-width: 992px) {
+  .hideBlockDesktop{
+    display: none!important;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .hideBlockTablet{
+    display: none!important;
+  }
+}
 @media screen and (max-width: 767px) {
   .pb-layout-grid .pb-layout-grid__cell{
     float: none;
@@ -79,5 +89,8 @@
   }
   .pb-widget--mobile-toggle{
     display: block;
+  }
+  .hideBlockMobile{
+    display: none!important;
   }
 }

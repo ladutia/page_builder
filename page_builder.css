@@ -3201,7 +3201,21 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
   display: none;
 }
 
-.pb-widget--selected > .pb-widget__btn-remove {
+.pb-widget__btn-clone {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #F08B21 url("imgs/page_builder/icn_clone.svg") no-repeat center center;
+  background-size: 10px 10px;
+  width: 16px;
+  height: 16px;
+  z-index: 2;
+  cursor: pointer;
+  display: none;
+}
+
+.pb-widget--selected > .pb-widget__btn-remove,
+.pb-widget--selected > .pb-widget__btn-clone {
   display: block;
 }
 

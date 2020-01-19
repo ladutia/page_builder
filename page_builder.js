@@ -202,6 +202,10 @@ var pageBuilder = {
             e.stopPropagation();
             pageBuilder.removeWidget($('.pb-widget--selected'));
         });
+        $('body').on('click', '.pb-blocks .pb-widget__btn-clone', function (e) {
+            e.stopPropagation();
+            pageBuilder.cloneWidget($('.pb-widget--selected'));
+        });
         $('.search-results-list-icon').on('click', function (e) {
             e.preventDefault();
         });
@@ -1933,6 +1937,7 @@ var pageBuilder = {
 
             pageBuilder.openPanelSettings($widget);
             pageBuilder.setIndividualOptions($widget);
+            pageBuilder.addBtnClone($widget);
         }
     },
     removeSelectedWidget: function () {
@@ -1950,6 +1955,12 @@ var pageBuilder = {
 
         if (pageBuilder.isNewHistory())
             pageBuilder.updateHistory();
+    },
+    addBtnClone: function($widget){
+        if($widget.children('.pb-widget__btn-clone').length > 0 )
+            return false;
+
+        $widget.append('<div class="pb-widget__btn-clone"></div>');
     },
     hidePanelSettings: function () {
         $('.pb-settings-panel:visible').hide();
@@ -1977,6 +1988,31 @@ var pageBuilder = {
         $box.find('.pb-tabs-panel__tab:first').trigger('click');
         $box.show();
         pageBuilder.showHideBtnsHistory();
+    },
+    cloneWidget: function ($widget){
+        var $clone = $widget.clone();
+        var type = $clone.attr('data-type');
+
+        $clone.removeClass('pb-widget--selected ui-droppable').removeAttr('data-idx data-name').addClass('pb-widget--init');
+        $clone.find('.ui-droppable').removeClass('ui-droppable');
+        $clone.find('.ui-sortable').removeClass('ui-sortable');
+        $clone.find('.pb-editable').removeClass('mce-content-body').removeAttr('id contenteditable');
+        $clone.find('.pb-widget').removeAttr('data-idx data-name').addClass('pb-widget--init');
+
+        $clone.find('.pb-widget__shadow-label').each(function(){
+            var $el = $(this);
+            var text = $el.text();
+            var newLabelText = text.substr(0, text.indexOf(" #"));
+
+            $el.text(newLabelText);
+        });
+
+        $widget.after($clone);
+        pageBuilder.initActionsElements(type);
+
+        if (type === 'container' || type === 'two-column-grid' || type === 'three-column-grid' || type === 'uneven-grid' || type === 'vertical-form' || type === 'horizontal-form')
+            pageBuilder.dragDropColumns();
+        
     },
     removeWidget: function ($el) {
         var type = $el.attr('data-type');

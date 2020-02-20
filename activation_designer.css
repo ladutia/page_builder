@@ -266,42 +266,44 @@
   bottom: 0;
   overflow: hidden;
 }
+.tabs-pages ul{
+  background: #f9f9f9;
+  border-bottom: 1px solid #c3c3c3;
+  padding: 8px 7px 0;
+  height: 50px;
+  box-sizing: border-box;
+}
 .tabs-pages li {
   position: relative;
-  width: 25%;
+  width: 200px;
   float: left;
-  color: #333333;
-  background-color: #f2f2f2;
-  font-size: 18px;
-  line-height: 48px;
-  height: 50px;
-  font-weight: bold;
+  height: 42px;
+  line-height: 40px;
+  font-size: 16px;
   text-align: center;
-  cursor: pointer;
-  padding: 0 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  border-left: 1px solid #e9e9e9;
-  border-bottom: 1px solid #e9e9e9;
+  color: #424242;
+  border: 1px solid transparent;
+  border-radius: 4px 4px 0 0;
   box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
+  cursor: pointer;
 }
 .tabs-pages li:first-child {
-  border-left: 0;
+  
 }
 .tabs-pages li.selected {
-  color: #fb8f04;
+  background: #ffffff;
+  border-color: #c3c3c3;
+  border-bottom-color: #ffffff;
 }
 .tabs-pages li.selected:before {
-  content: "";
-  height: 2px;
-  background: #fb8f04;
+  content: '';
   position: absolute;
-  bottom: 0;
+  top: -1px;
   left: 0;
   right: 0;
+  height: 2px;
+  background: #fb920c;
+  border-radius: 4px 4px 0 0;
 }
 .tab-content-page {
   display: none;

@@ -1013,7 +1013,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#55a03b', end
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
-.wrap-preview-col .ui-resizable-e{
+.wrap-preview-col > .ui-resizable-e{
     position: absolute;
     right: 0;
     top: 0;
@@ -3589,7 +3589,28 @@ select.eb-w160{
 .eb-share-custom-text{
     display: none;
 }
-
+.ebImageContent  > .ui-wrapper{
+    display: inline-block;
+    vertical-align: top;
+    position: relative!important;
+}
+.ebImageContent  > .ui-wrapper .ui-resizable-se{
+    width: 20px!important;
+    height: 20px!important;
+    bottom: 3px!important;
+    right: 3px!important;
+    background-color: rgba(0,0,0,0.6);
+    border-radius: 2px;
+    background-image: url('imgs/imgs_email_builder/icn_resize_se.svg');
+    background-repeat: no-repeat;
+    background-size: 12px auto;
+    background-position: center center;
+    display: none!important;
+}
+.ebImageContent  > .ui-resizable-resizing .ui-resizable-se,
+.ebImageContent  > .ui-wrapper:hover .ui-resizable-se{
+    display: block!important;
+}
 
 body.email-builder h1{
 	font-size:26px;

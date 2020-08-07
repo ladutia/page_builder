@@ -990,7 +990,8 @@ var page = {
         page.updateColWidth1150();
         page.updatePageDesign();
         
-        page.initiate_import_area()
+        page.initiate_import_area();
+        page.initUIResizeImage();
 
     	switch(this.ll_email_builder_step){
 	    	case 'setup_advanced':
@@ -1471,6 +1472,12 @@ var page = {
 		}
 		
 		$('#container_HTML_hidden').find('.tpl-block-controls, .cont-drop-image, .et-btn-white, .eb-show-code-tpl-block').remove();
+
+        /**
+         * Clear HTML Resize Image
+         */
+
+         page.resetUIResizeImage($('#container_HTML_hidden'));
 		
 		/*
 		 * Emad Atya - 25-1-2016
@@ -1556,6 +1563,8 @@ var page = {
 		});
 		*/
 		$('#container_HTML_hidden grammarly-extension').remove();
+
+
 
 		var _clean_html = $('#container_HTML_hidden').html();
 		_clean_html = _clean_html.replace(/></g, '>\n<');
@@ -6781,9 +6790,11 @@ var page = {
         	var _rel_height = $(this).prop('naturalHeight');
             $li.find('.eb-size-img').show().text(_rel_width + ' × '+ _rel_height);
 
+            $(this).height("auto");
+
             if( boxImgWidth > _rel_width){
 	            $(this).width (_rel_width)
-	            $(this).height (_rel_height)
+	            //$(this).height (_rel_height)
 				$(this).css('max-width', _rel_width + 'px');
 				$(this).attr('width', _rel_width);
             }
@@ -6793,6 +6804,97 @@ var page = {
         	_original_alt = titleImage;
         }
     	$boxImg.find('img').attr('alt', _original_alt)
+        page.resizeImage($boxImg, widthImg);
+
+    },
+    initUIResizeImage: function(){
+        $('.ebImageContent > img, .ebImageContent > .ui-wrapper > img').each(function(){
+            var $imgBox = $(this).closest('.ebImageContent');
+            page.resetUIResizeImage($imgBox.parent());
+            page.resizeImage($imgBox);
+        });
+    },
+    resizeImage: function ($boxs, maxWidthImg, currentWidth){
+        $boxs.each(function(){
+            var $box = $(this);
+            var $img = $box.find('img');
+
+            if (!maxWidthImg) maxWidthImg = $img.attr('maxWidth');
+ 
+            $img.resizable({
+                handles: "s, e, se",
+                aspectRatio: true,
+                maxWidth: parseInt(maxWidthImg),
+                grid: [1,1],
+                create: function(event, ui) {
+                    $box.find('.ui-wrapper').add($img).height("auto");
+                },
+                stop: function(event, ui) {
+                    $(ui.element).find('img').attr('width', $(ui.element).width());
+                    $(ui.element).find('img').attr('rewidth', $(ui.element).width());
+                }
+            });
+
+            if (currentWidth) 
+                $img.attr('rewidth', currentWidth);
+            else
+                $img.attr('rewidth', maxWidthImg);
+
+            $img.attr('maxWidth', maxWidthImg);
+            
+        });
+    },
+    updateResizeImage: function($box){
+        var $defaultImage = $box.children('img');
+        var $resizeImage = $box.find('.ui-wrapper > img');
+        var $allImages = $defaultImage.add($resizeImage);
+
+        $allImages.each(function(){
+            var $img = $(this);
+            var $boxImg = $img.closest('.ebImageContent');
+
+            $img.css('width', 'auto');
+            $img.css('height', 'auto');
+            $img.attr('width', 'auto');
+            $img.css('max-width', '100%');
+            $img.removeAttr('maxWidth');
+
+            page.resetUIResizeImage($boxImg.parent());
+            
+            var boxImgWidth = $boxImg.width();
+            var naturalWidth = this.naturalWidth;
+            var widthImg = naturalWidth;
+            var currentWidth = $img.attr('rewidth');
+            var maxWidthImg = widthImg;
+
+            if( boxImgWidth < widthImg){
+                widthImg = boxImgWidth;
+                maxWidthImg = boxImgWidth;
+            }
+            
+            if(currentWidth < widthImg)
+                widthImg = currentWidth;
+                 
+            $img = $boxImg.find('img');
+            $img.css('width', widthImg);
+            $img.attr('width', widthImg);
+            $img.css('max-width', naturalWidth + 'px');
+
+            page.resizeImage($boxImg, maxWidthImg, currentWidth);
+        });
+    },
+    resetUIResizeImage: function($box){
+        $box.find('.ebImageContent .ui-wrapper').each(function(){
+            var $wrapperImg = $(this);
+            var $boxImg = $wrapperImg.parent();
+            var imgHTML = $wrapperImg.html();
+
+            $boxImg
+                .html(imgHTML)
+                .find('.ui-resizable-handle').remove();
+
+            $boxImg.find('img').css("display", "");
+        });
     },
     removeImage: function($el, indexImage){
         var $tpl = $('.tpl-block.tpl-selected');
@@ -6822,28 +6924,30 @@ var page = {
         $tpl.find('.ebImageContent').each(function(){
             var $box = $(this);
             var $img = $box.find('img').eq(0);
-            var maxWidth = 0;
-            var boxWidth = 0;
-            var widthImg = 0;
+            //var maxWidth = 0;
+            //var boxWidth = 0;
+            //var widthImg = 0;
             
             $img.attr('width', 0);
             
             if ($img.length){
                 
-                maxWidth = parseInt($img.css('max-width'));
-                boxWidth = $box.width();
+                //maxWidth = parseInt($img.css('max-width'));
+                //boxWidth = $box.width();
                 
-                if( boxWidth > maxWidth ){
+                /*if( boxWidth > maxWidth ){
                     widthImg  = maxWidth;
                 } else {
                     widthImg  = boxWidth;
-                }
+                }*/
                 if ( !$img.parent('.eb-upload-image').length ){
-                    $img.attr('width', widthImg);
+                    //$img.attr('width', widthImg);
+                    page.updateResizeImage($box);
                 } else {
                     $img.attr('width', '');
                 }
             }
+            
         });
     },
     uploadImageHtml: function(index){
@@ -7598,7 +7702,6 @@ var page = {
                 }
             }
         }
-        
     },
     optionsDropdownImage: function(start){
         var $tpl = $('.tpl-block.tpl-selected');

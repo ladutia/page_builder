@@ -3590,11 +3590,13 @@ select.eb-w160{
     display: none;
 }
 
+.ebImageContent  > a > .ui-wrapper,
 .ebImageContent  > .ui-wrapper{
     display: inline-block;
     vertical-align: top;
     position: relative!important;
 }
+.ebImageContent  > a > .ui-wrapper .ui-resizable-se,
 .ebImageContent  > .ui-wrapper .ui-resizable-se{
     width: 20px!important;
     height: 20px!important;
@@ -3608,6 +3610,8 @@ select.eb-w160{
     background-position: center center;
     display: none!important;
 }
+.ebImageContent > a > .ui-resizable-resizing .ui-resizable-se,
+.ebImageContent > a > .ui-wrapper:hover .ui-resizable-se,
 .ebImageContent  > .ui-resizable-resizing .ui-resizable-se,
 .ebImageContent  > .ui-wrapper:hover .ui-resizable-se{
     display: block!important;

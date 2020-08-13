@@ -377,6 +377,7 @@ var page = {
                 if($boxImg.find('a').length > 0){
                 	var _img_html = $boxImg.find('a').html()
                 	$boxImg.html(_img_html);
+                    page.updateResizeImage($boxImg);
                 }
 				ll_popup_manager.close('#ll_popup_edit_image_link')
     		})
@@ -410,6 +411,7 @@ var page = {
         				$boxImg.find('a').attr('href', _href)
         				$boxImg.find('a').html(_img_html)
         				ll_popup_manager.close('#ll_popup_edit_image_link')
+                        page.updateResizeImage($boxImg);
     				} else {
     					show_error_message("Please enter valid Email");
     					return false;
@@ -429,6 +431,7 @@ var page = {
         				$boxImg.find('a').attr('target', _target)
         				$boxImg.find('a').html(_img_html)
         				ll_popup_manager.close('#ll_popup_edit_image_link')
+                        page.updateResizeImage($boxImg);
     				} else {
     					show_error_message("Please enter valid URL");
     					return false;
@@ -6794,6 +6797,9 @@ var page = {
 	            //$(this).height (_rel_height)
 				$(this).css('max-width', _rel_width + 'px');
 				$(this).attr('width', _rel_width);
+
+                if($(this).attr('maxWidth') !== _rel_width)
+                    page.updateResizeImage($boxImg);
             }
         })
         
@@ -6805,15 +6811,16 @@ var page = {
     },
 	
 	initUIResizeImage: function(){
-		$('.ebImageContent > img, .ebImageContent > .ui-wrapper > img').each(function(){
+		$('.ebImageContent > img, .ebImageContent > .ui-wrapper > img, .ebImageContent > a > img, .ebImageContent > a > .ui-wrapper > img').each(function(){
 			var $imgBox = $(this).closest('.ebImageContent');
-			page.resetUIResizeImage($imgBox.parent());
+			page.updateResizeImage($imgBox);
+            /*page.resetUIResizeImage($imgBox.parent());
 			
 			var currentWidth = $imgBox.find('img').attr('width');
 			//var maxWidthImg = $imgBox.find('img').attr('rewidth');
 			var maxWidthImg = $imgBox.width();
 			
-			page.resizeImage($imgBox, maxWidthImg, currentWidth);
+			page.resizeImage($imgBox, maxWidthImg, currentWidth);*/
 		});
 	},
 	resizeImage: function ($boxs, maxWidthImg, currentWidth){

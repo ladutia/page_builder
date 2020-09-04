@@ -1012,3 +1012,71 @@ grammarly-btn > div{
   z-index: 200;
   height: 500px;
 }
+.ll-lp-modal__fade{
+    position: fixed;
+    background-color: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    outline: 0;
+}
+.ll-lp-modal__wrap{
+  position: relative;
+  width: auto;
+  max-width: 500px;
+  margin: 30px auto;
+}
+.ll-lp-modal{
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  height: 300px;
+  pointer-events: auto;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: 4px;
+  outline: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  -webkit-box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.ll-lp-modal__btn-close{
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,.2);
+  cursor: pointer;
+  position: absolute;
+  right: -12px;
+  top: -12px;
+  background: #fff url("../../imgs/icn_close_popup.png") no-repeat center center;
+  background-size: 12px auto;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+}
+.ll-lp-modal__content{
+  padding: 20px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+.ll-lp-modal iframe{
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  right: 10px;
+  bottom: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  border: 0;
+  overflow: 0;
+}

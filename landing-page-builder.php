@@ -2048,6 +2048,38 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                             <ul class="pb-list-image">
 
                                             </ul>
+                                            <div class="pb-field pb-field--vertical" id="image_link_to">
+                                                <label>Link To</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <select id="imageLinkTo">
+                                                            <option value="none">None</option>
+                                                            <option value="url">Web Address</option>
+                                                            <option value="email">Email Address</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical" id="image_view">
+                                                <label>View</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <select id="imageView">
+                                                            <option value="same">Same Page</option>
+                                                            <option value="tab">New Tab</option>
+                                                            <option value="modal">Modal</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical" id="image_url">
+                                                <label class="image_text">Web Address (URL)</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <input type="text" class="txt-field" id="imageUrl" />
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="pb-tabs-panel__content">
                                             <div class="pb-field">
@@ -4035,7 +4067,7 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                             </div>
                                         </div>
                                         <div class="pb-tabs-panel__content">
-                                            <div class="">
+                                            <div class="element-link-to">
                                                 <div class="pb-field pb-field--vertical">
                                                     <label>Button Text</label>
                                                     <div class="pb-right">
@@ -4051,6 +4083,18 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                                             <select id="btnLinkTo">
                                                                 <option value="url">Web Address</option>
                                                                 <option value="email">Email Address</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field pb-field--vertical" id="button_view">
+                                                    <label>View</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner wFull">
+                                                            <select id="btnView">
+                                                                <option value="same">Same Page</option>
+                                                                <option value="tab">New Tab</option>
+                                                                <option value="modal">Modal</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -5993,6 +6037,38 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                                         <div class="wrap-color">
                                                             <div id="iconColor" style="background-color: #333333;" class="color-box" data-color-start="333333"></div>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical" id="icon_link_to">
+                                                <label>Link To</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <select id="iconLinkTo">
+                                                            <option value="none">None</option>
+                                                            <option value="url">Web Address</option>
+                                                            <option value="email">Email Address</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical" id="icon_view">
+                                                <label>View</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <select id="iconView">
+                                                            <option value="same">Same Page</option>
+                                                            <option value="tab">New Tab</option>
+                                                            <option value="modal">Modal</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical" id="icon_url">
+                                                <label class="icon_text">Web Address (URL)</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <input type="text" class="txt-field" id="iconUrl" />
                                                     </div>
                                                 </div>
                                             </div>

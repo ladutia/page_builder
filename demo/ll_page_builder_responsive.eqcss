@@ -1,14 +1,18 @@
-@media screen and (min-width: 992px) {
-  .hideBlockDesktop{
+@element .pb-blocks and (min-width: 992px) {
+  .init-media-screen .hideBlockDesktop{
     display: none!important;
   }
 }
-@media screen and (min-width: 768px) and (max-width: 991px) {
+@element .pb-blocks and (min-width: 768px) and (max-width: 991px) {
   .hideBlockTablet{
     display: none!important;
   }
 }
-@media screen and (max-width: 767px) {
+@element .pb-blocks and (max-width: 767px) {
+  .pb-helper-drag-drop__text{
+    font-size: 16px;
+    line-height: 23px;
+  }
   .pb-layout-grid .pb-layout-grid__cell{
     float: none;
     width: 100%!important;
@@ -74,7 +78,6 @@
     float: none;
     width: 100%!important;
     display: none;
-    clear: both;
   }
   .pb-widget--button{
     padding: 0!important;
@@ -92,12 +95,16 @@
     display: block;
   }
   .hideBlockMobile{
-    display: none!important;
+      display: none!important;
   }
-}
-
-@media screen and (min-width: 767px) {
-  .pb-widget--nav-items{
-    display: block !important;
+  .ll-lp-modal__wrap{
+    margin: 15px 10px;
+  }
+  .ll-lp-modal__content{
+    padding: 10px;
+  }
+  .ll-lp-modal__btn-close{
+    right: -8px;
+    top: -8px;
   }
 }

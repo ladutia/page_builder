@@ -84,267 +84,10 @@ var pageBuilder = {
             if (opt.btnLinkto == 'email') {
                 url = 'mailto:' + opt.url;
                 $('label.btn_text').text('Email Address');
-                opt.btnView = "same";
-                $('#button_view').hide();
-            } else{
-                $('#button_view').show();
             }
-
-            ll_combo_manager.set_selected_value('select#btnView', opt.btnView);
-            ll_combo_manager.trigger_event_on_change('select#btnView');
-
             $tpl.find('.pb-btn').attr('href', url);
 
             $tpl.attr('data-json', JSON.stringify(opt));
-        });
-
-        ll_combo_manager.event_on_change('select#btnView', function () {
-            var $tpl = $('.pb-widget--selected');
-            var opt = $tpl.data('json');
-            var $btn = $tpl.find('.pb-btn');
-            var $fieldUrl =  $('#button_url');
-            var $settings = $('.pb-settings-panel:visible');
-
-            opt.btnView = ll_combo_manager.get_selected_value('select#btnView');
-            
-            if(opt.btnView == "same"){
-                $btn.attr('target', "_self");
-                $fieldUrl.show();
-                $settings.find('.pb-modal-settings').hide();
-            }
-
-            if(opt.btnView == "tab"){
-                $btn.attr('target', "_blank");
-                $fieldUrl.show();
-                $settings.find('.pb-modal-settings').hide();
-            }
-
-            if(opt.btnView == "modal"){
-                $btn.attr('target', "_self");
-                $fieldUrl.hide();
-                pageBuilder.initModalLinkTo($btn);
-                $settings.find('.pb-modal-settings').show();
-                ll_combo_manager.set_selected_value('#pb-panel__button select.pb-modal-content', opt.modalView);
-                ll_combo_manager.trigger_event_on_change('#pb-panel__button select.pb-modal-content');
-                opt.modalWidth = opt.modalWidth || 500;
-                opt.modalHeight = opt.modalHeight || 300;
-                $('#pb-panel__button .modalWidth').val(opt.modalWidth);
-                $('#pb-panel__button .modalHeight').val(opt.modalHeight);
-            } else{
-                pageBuilder.destroyModalLinkTo($btn);
-                pageBuilder.resetModalLinkTo($tpl, opt);
-            }
-
-            $tpl.attr('data-json', JSON.stringify(opt));
-        });
-
-        ll_combo_manager.event_on_change('select#iconLinkTo', function () {
-            var $tpl = $('.pb-widget--selected');
-            var opt = $tpl.data('json');
-
-            opt.iconLinkto = ll_combo_manager.get_selected_value('select#iconLinkTo');
-            var url = opt.url;
-            $('label.icon_text').text('Web Address (URL)');
-
-            if (opt.iconLinkto == 'email') {
-                url = 'mailto:' + opt.url;
-                $('label.icon_text').text('Email Address');
-                opt.iconView = "same";
-                $('#icon_view').hide();
-                $("#icon_url").show();
-            } else if(opt.iconLinkto == 'none'){
-                opt.iconView = "same";
-                $('#icon_view').hide();
-                $("#icon_url").hide();
-            } else{
-                $('#icon_view').show();
-                $("#icon_url").show();
-            }
-
-            ll_combo_manager.set_selected_value('select#iconView', opt.iconView);
-            ll_combo_manager.trigger_event_on_change('select#iconView');
-
-            pageBuilder.checkIsLinkTo($tpl, opt);
-
-            $tpl.find('a').attr('href', url);
-
-            $tpl.attr('data-json', JSON.stringify(opt));
-        });
-
-        ll_combo_manager.event_on_change('select#iconView', function () {
-            var $tpl = $('.pb-widget--selected');
-            var opt = $tpl.data('json');
-            var $link = $tpl.find('a');
-            var $fieldUrl =  $('#icon_url');
-            var $settings = $('.pb-settings-panel:visible');
-
-            opt.iconView = ll_combo_manager.get_selected_value('select#iconView');
-            
-            if(opt.iconView == "same"){
-                $link.attr('target', "_self");
-                $settings.find('.pb-modal-settings').hide();
-                if(opt.iconLinkto !== "none") $fieldUrl.show();
-            }
-
-            if(opt.iconView == "tab"){
-                $link.attr('target', "_blank");
-                $settings.find('.pb-modal-settings').hide();
-                if(opt.iconLinkto !== "none") $fieldUrl.show();
-            }
-
-            if(opt.iconView == "modal"){
-                $link.attr('target', "_self");
-                $fieldUrl.hide();
-                pageBuilder.initModalLinkTo($link);
-                $settings.find('.pb-modal-settings').show();
-                ll_combo_manager.set_selected_value('#pb-panel__icon select.pb-modal-content', opt.modalView);
-                ll_combo_manager.trigger_event_on_change('#pb-panel__icon select.pb-modal-content');
-                opt.modalWidth = opt.modalWidth || 500;
-                opt.modalHeight = opt.modalHeight || 300;
-                $('#pb-panel__icon .modalWidth').val(opt.modalWidth);
-                $('#pb-panel__icon .modalHeight').val(opt.modalHeight);
-            } else{
-                pageBuilder.destroyModalLinkTo($link);
-                pageBuilder.resetModalLinkTo($tpl, opt);
-            }
-
-            $tpl.attr('data-json', JSON.stringify(opt));
-        });
-
-        ll_combo_manager.event_on_change('select#imageLinkTo', function () {
-            var $tpl = $('.pb-widget--selected');
-            var opt = $tpl.data('json');
-
-            opt.imageLinkto = ll_combo_manager.get_selected_value('select#imageLinkTo');
-            var url = opt.url;
-            $('label.image_text').text('Web Address (URL)');
-
-            if (opt.imageLinkto == 'email') {
-                url = 'mailto:' + opt.url;
-                $('label.image_text').text('Email Address');
-                
-                opt.imageView = "same";
-                $('#image_view').hide();
-                $("#image_url").show();
-            } else if(opt.imageLinkto == 'none'){
-                opt.imageView = "same";
-                $('#image_view').hide();
-                $("#image_url").hide();
-            } else{
-                $('#image_view').show();
-                $("#image_url").show();
-            }
-
-            ll_combo_manager.set_selected_value('select#imageView', opt.imageView);
-            ll_combo_manager.trigger_event_on_change('select#imageView');
-
-            pageBuilder.checkIsLinkTo($tpl, opt);
-
-            $tpl.find('a').attr('href', url);
-
-            $tpl.attr('data-json', JSON.stringify(opt));
-        });
-
-        ll_combo_manager.event_on_change('select#imageView', function () {
-            var $tpl = $('.pb-widget--selected');
-            var opt = $tpl.data('json');
-            var $link = $tpl.find('a');
-            var $fieldUrl =  $('#image_url');
-            var $settings = $('#pb-panel__image');
-
-            opt.imageView = ll_combo_manager.get_selected_value('select#imageView');
-            
-            if(opt.imageView == "same"){
-                $link.attr('target', "_self");
-                $settings.find('.pb-modal-settings').hide();
-                if(opt.imageLinkto !== "none") $fieldUrl.show();
-            }
-
-            if(opt.imageView == "tab"){
-                $link.attr('target', "_blank");
-                $settings.find('.pb-modal-settings').hide();
-                if(opt.imageLinkto !== "none") $fieldUrl.show();
-            }
-
-            if(opt.imageView == "modal"){
-                $link.attr('target', "_self");
-                $fieldUrl.hide();
-                pageBuilder.initModalLinkTo($link);
-                $settings.find('.pb-modal-settings').show();
-                ll_combo_manager.set_selected_value('#pb-panel__image select.pb-modal-content', opt.modalView);
-                ll_combo_manager.trigger_event_on_change('#pb-panel__image select.pb-modal-content');
-                opt.modalWidth = opt.modalWidth || 500;
-                opt.modalHeight = opt.modalHeight || 300;
-                $('#pb-panel__image .modalWidth').val(opt.modalWidth);
-                $('#pb-panel__image .modalHeight').val(opt.modalHeight);
-            } else{
-                pageBuilder.destroyModalLinkTo($link);
-                pageBuilder.resetModalLinkTo($tpl, opt);
-            }
-
-            $tpl.attr('data-json', JSON.stringify(opt));
-        });
-
-        pageBuilder.initEditor('.pb-modal-html');
-
-        ll_combo_manager.event_on_change('select.pb-modal-content', function () {
-            var $tpl = $('.pb-widget--selected');
-            var opt = $tpl.data('json');
-            var $settings = $('.pb-settings-panel:visible');
-            var id = $tpl.find('.pb-widget__content a').attr('modal-id');
-            var idEditor = $settings.find('.pb-modal-html').attr('id');
-            var editor = tinyMCE.get(idEditor);
-            var content = '';
-
-            opt.modalView = ll_combo_manager.get_selected_value('.pb-settings-panel:visible select.pb-modal-content');
-
-            if(opt.modalView == "html"){
-                content = pageBuilder.getContentModal();
-                $settings.find('.pb-field-modal-iframe-url').hide();
-                $settings.find('.pb-field-modal-html').show();
-                editor.setContent(content);
-                pageBuilder.setContentModal(content);
-            } else{
-                editor.setContent('');
-                pageBuilder.setContentModal('');
-                $settings.find('.pb-field-modal-html').hide();
-                $settings.find('.pb-field-modal-iframe-url').show().find('.pb-modal-iframe-url').val(opt.modalIFrameUrl);
-            }
-
-            $tpl.attr('data-json', JSON.stringify(opt));
-        });
-
-        $('.modalWidth').on('change', function () {
-            var $tpl = $('.pb-widget--selected');
-            var opt = $tpl.data('json');
-            var id = $tpl.find('.pb-widget__content a').attr('modal-id');
-
-            opt.modalWidth = $(this).val();
-            $('#ll-lp-modal-' + id).find('.ll-lp-modal__wrap').css('max-width', opt.modalWidth + 'px');
-            $tpl.attr('data-json', JSON.stringify(opt));
-            pageBuilder.setNewActionHistory();
-        });
-
-        $('.modalHeight').on('change', function () {
-            var $tpl = $('.pb-widget--selected');
-            var opt = $tpl.data('json');
-            var id = $tpl.find('.pb-widget__content a').attr('modal-id');
-
-            opt.modalHeight = $(this).val();
-            $('#ll-lp-modal-' + id).find('.ll-lp-modal').css('height', opt.modalHeight + 'px');
-            $tpl.attr('data-json', JSON.stringify(opt));
-            pageBuilder.setNewActionHistory();
-        });
-
-        $('.pb-modal-iframe-url').on('change', function () {
-            var $tpl = $('.pb-widget--selected');
-            var opt = $tpl.data('json');
-            var id = $tpl.find('.pb-widget__content a').attr('modal-id');
-
-            opt.modalIFrameUrl = $(this).val();
-            $('#ll-lp-modal-' + id).find('.ll-lp-modal > iframe').attr('src', opt.modalIFrameUrl);
-            $tpl.attr('data-json', JSON.stringify(opt));
-            pageBuilder.setNewActionHistory();
         });
 
         $('.pb-tabs__item').on('click', function () {
@@ -2013,7 +1756,7 @@ var pageBuilder = {
             dataJson = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "borderWidth":"0", "borderColor":"#ffffff", "borderType":"None", "borderRadius":"0", "width":"auto", "minHeight":"0", "maxWidth":"100%", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"15px", "paddingRight":"15px", "paddingTop":"10px", "paddingBottom":"10px"}';
             dataJsonContainer = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "borderWidth":"0", "borderColor":"#ffffff", "borderType":"None", "borderRadius":"0", "width":"100%", "minHeight":"0", "maxWidth":"100%", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0", "background_transparent":1}';
             dataJsonSVG = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"15px", "marginTop":"0", "marginBottom":"0"}';
-            dataJsonSvgToggle = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"0", "marginTop":"0", "marginBottom":"0"}';
+            dataJsonSvgToggle = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"0", "marginTop":"0, "marginBottom":"0"}';
             dataJsonBtn = '{"buttonText":"Let&#39;s Go!","url":"","backgroundColor":"None", "backgroundImageUrl":"","fontTypeFace":"None","fontWeight":"None","fontSize":"None","color":"None","borderWidth":"0","borderColor":"None","borderType":"None","radius":"None","paddingX":"20","paddingY":"10", "width":"auto","maxWidth":"160px", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0"}';
             dataJsonItems = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "fontTypeFace": "None", "fontWeight": "Normal", "fontSize": "16", "color":"#333333", "lineHeight": "125", "textAlign":"0", "width":"auto","maxWidth":"1000px", "marginLeft":"0", "marginRight":"0", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0", "background_transparent":1}';
             dataJsonItem = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "fontTypeFace": "None", "fontWeight": "None", "fontSize": "None", "color":"#333333", "lineHeight": "None", "textAlign":"1", "width":"auto","maxWidth":"1000px", "marginLeft":"0", "marginRight":"0", "marginTop":"0", "marginBottom":"0", "paddingLeft":"20px", "paddingRight":"20px", "paddingTop":"10px", "paddingBottom":"10px", "background_transparent":1}';
@@ -2390,7 +2133,7 @@ var pageBuilder = {
             dataJson = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "borderWidth":"0", "borderColor":"#ffffff", "borderType":"None", "borderRadius":"0", "width":"auto", "minHeight":"0", "maxWidth":"100%", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"15px", "paddingRight":"15px", "paddingTop":"10px", "paddingBottom":"10px"}';
             dataJsonContainer = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "borderWidth":"0", "borderColor":"#ffffff", "borderType":"None", "borderRadius":"0", "width":"100%", "minHeight":"0", "maxWidth":"100%", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0", "background_transparent":1}';
             dataJsonSVG = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"15px", "marginTop":"0", "marginBottom":"0"}';
-            dataJsonSvgToggle = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"0", "marginTop":"0", "marginBottom":"0"}';
+            dataJsonSvgToggle = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"0", "marginTop":"0, "marginBottom":"0"}';
             dataJsonBtn = '{"buttonText":"Let&#39;s Go!","url":"","backgroundColor":"None", "backgroundImageUrl":"","fontTypeFace":"None","fontWeight":"None","fontSize":"None","color":"None","borderWidth":"0","borderColor":"None","borderType":"None","radius":"None","paddingX":"20","paddingY":"10", "width":"auto","maxWidth":"160px", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0"}';
             dataJsonItems = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "fontTypeFace": "None", "fontWeight": "Normal", "fontSize": "16", "color":"#333333", "lineHeight": "125", "textAlign":"0", "width":"auto","maxWidth":"1000px", "marginLeft":"0", "marginRight":"0", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0", "background_transparent":1}';
             dataJsonItem = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "fontTypeFace": "None", "fontWeight": "None", "fontSize": "None", "color":"#333333", "lineHeight": "None", "textAlign":"1", "width":"auto","maxWidth":"1000px", "marginLeft":"0", "marginRight":"0", "marginTop":"0", "marginBottom":"0", "paddingLeft":"20px", "paddingRight":"20px", "paddingTop":"10px", "paddingBottom":"10px", "background_transparent":1}';
@@ -2931,17 +2674,6 @@ var pageBuilder = {
                 $el.text(newLabelText);
             });
 
-            //clone Modal
-            $clone.find('.pb-widget__content > a[modal-id]').each(function(){
-                var idModal = $(this).attr('modal-id');
-                var newIdModal = new Date().valueOf();
-                var $cloneModal = $('#ll-lp-modal-' + idModal).clone();
-
-                $cloneModal.attr('id', 'll-lp-modal-' + newIdModal);
-                $(this).attr('modal-id', newIdModal);
-                $('#pb-template').append($cloneModal);
-            });
-
             $widget.after($clone);
             pageBuilder.initActionsElements(type);
 
@@ -2985,12 +2717,6 @@ var pageBuilder = {
         var $parent = $widget.parent();
 
         if ($widget.length) {
-
-            //remove modal
-            $widget.find('.pb-widget__content > a[modal-id]').each(function(){
-                $('#ll-lp-modal-' + $(this).attr('modal-id')).remove();
-            });
-
             $widget.remove();
             $widgetTreeItem.remove();
 
@@ -3036,98 +2762,6 @@ var pageBuilder = {
         else
             $helpBox.css('display', '');
     },
-    initEditor: function (el){
-        tinymce.init({
-            selector: el,
-            mode : "exact",
-            plugins: [
-                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
-                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                "table contextmenu directionality emoticons template textcolor paste fullpage textcolor colorpicker textpattern",
-                "autoresize"
-            ],
-            menubar: false,
-            toolbar: 'heading | fontsizeselect | bold italic underline | forecolor backcolor | alignleft aligncenter alignright | bullist numlist | link unlink | cfbutton',
-            browser_spellcheck: true,
-            fontsize_formats: "8px 10px 12px 14px 18px 24px 36px",
-            toolbar_items_size: 'small',
-            forced_root_block: "div",
-            force_br_newlines: true,
-            force_p_newlines: false,
-            autosave_ask_before_unload: false,
-            autoresize_bottom_margin: 0,
-            min_height: 250,
-            height: 250,
-            autoresize_min_height: 250,
-            autoresize_max_height: 250,
-            statusbar: false,
-            setup: function (editor) {
-                editor.addButton('heading', {
-                    type: 'menubutton',
-                    text: 'Heading',
-                    icon: false,
-                    menu: [
-                    {
-                        text: 'Heading 1', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h1 style="font-size: 36px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h1>');
-                        }
-                    },
-                    {
-                        text: 'Heading 2', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h2 style="font-size: 30px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h2>');
-                        }
-                    },
-                    {
-                        text: 'Heading 3', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h3 style="font-size: 24px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h3>');
-                        }
-                    },
-                    {
-                        text: 'Heading 4', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h4 style="font-size: 18px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h4>');
-                        }
-                    },
-                    {
-                        text: 'Heading 5', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h5 style="font-size: 14px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h5>');
-                        }
-                    },
-                    {
-                        text: 'Heading 6', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h6 style="font-size: 13px; line-height: 125%; padding:0; margin: 0;">' + editor.selection.getContent() + '</h6>');
-                        }
-                    },
-                    {
-                        text: 'Paragraph', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<p>' + editor.selection.getContent() + '</p>');
-                        }
-                    }
-                ]
-                });
-                editor.addButton('cfbutton', {
-                    title : 'Fields',
-                    text: 'Fields',
-                    onclick : function() {
-                        pageBuilder.active_html_editor = editor;
-                        ll_popup_manager.open('#ll_popup_insert_token')
-                    }
-                });
-                editor.on('blur', function (e) {
-                    if (editor.changeHistory) {
-                        editor.changeHistory = false;
-                        pageBuilder.updateHistory();
-                    }
-                });
-                editor.on('change', function (e) {
-                    pageBuilder.setContentModal(editor.getContent());
-                    editor.changeHistory = true;
-                });
-            },
-            init_instance_callback: function (editor){
-                editor.is_initiatlized = true;
-            }
-        });
-    },
     initEditorInline: function () {
         tinymce.init({
             selector: '.pb-editable',
@@ -3153,42 +2787,42 @@ var pageBuilder = {
                     text: 'Heading',
                     icon: false,
                     menu: [
-                    {
-                        text: 'Heading 1', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h1 style="font-size: 36px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h1>');
+                        {
+                            text: 'Heading 1', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h1 style="font-size: 36px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h1>');
+                            }
+                        },
+                        {
+                            text: 'Heading 2', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h2 style="font-size: 30px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h2>');
+                            }
+                        },
+                        {
+                            text: 'Heading 3', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h3 style="font-size: 24px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h3>');
+                            }
+                        },
+                        {
+                            text: 'Heading 4', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h4 style="font-size: 18px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h4>');
+                            }
+                        },
+                        {
+                            text: 'Heading 5', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h5 style="font-size: 14px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h5>');
+                            }
+                        },
+                        {
+                            text: 'Heading 6', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h6 style="font-size: 13px; line-height: 125%; padding:0; margin: 0;">' + editor.selection.getContent() + '</h6>');
+                            }
+                        },
+                        {
+                            text: 'Paragraph', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<p>' + editor.selection.getContent() + '</p>');
+                            }
                         }
-                    },
-                    {
-                        text: 'Heading 2', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h2 style="font-size: 30px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h2>');
-                        }
-                    },
-                    {
-                        text: 'Heading 3', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h3 style="font-size: 24px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h3>');
-                        }
-                    },
-                    {
-                        text: 'Heading 4', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h4 style="font-size: 18px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h4>');
-                        }
-                    },
-                    {
-                        text: 'Heading 5', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h5 style="font-size: 14px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h5>');
-                        }
-                    },
-                    {
-                        text: 'Heading 6', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h6 style="font-size: 13px; line-height: 125%; padding:0; margin: 0;">' + editor.selection.getContent() + '</h6>');
-                        }
-                    },
-                    {
-                        text: 'Paragraph', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<p>' + editor.selection.getContent() + '</p>');
-                        }
-                    }
-                ]
+                    ]
                 });
 				// Add a custom field button
 				editor.addButton('cfbutton', {
@@ -3422,17 +3056,6 @@ var pageBuilder = {
                 ll_theme_manager.checkboxRadioButtons.check('#pb-panel__image .background_transparent', false);
             }
             pageBuilder.setOptionsImage();
-
-            $('#imageUrl').val(opt.url);
-            ll_combo_manager.set_selected_value('select#imageLinkTo', opt.imageLinkto);
-            ll_combo_manager.trigger_event_on_change('select#imageLinkTo');
-
-            /*if (opt.iconLinkto == "url"){
-                $('#image_view').show();
-                ll_combo_manager.set_selected_value('select#imageView', opt.imageView);
-                ll_combo_manager.trigger_event_on_change('select#imageView');
-            }*/
-
             setSettingCssWidget($('#pb-panel__image'));
             setSettingsResponsive($("#pb-panel__image"));
         } else if (type === 'image-group') {
@@ -3603,11 +3226,9 @@ var pageBuilder = {
             if($widget.hasClass('form-button')){
                 $('#button_link_to').hide();
                 $('#button_url').hide();
-                $('#button_view').hide();
             } else {
                 $('#button_link_to').show();
                 $('#button_url').show();
-                $('#button_view').show();
             }
             var backgroundColor = opt.backgroundColor;
             var borderWidth = opt.borderWidth;
@@ -3667,7 +3288,7 @@ var pageBuilder = {
                     $tpl.attr('data-json', JSON.stringify(opt));
                 });
                 */
-            }            
+            }
 
             $('#btnText').val(opt.buttonText);
             $('#btnUrl').val(opt.url);
@@ -4076,11 +3697,6 @@ var pageBuilder = {
         }else if (type === 'icon') {
             $('#iconColor').colpickSetColor(opt.color, true).css('background-color', opt.color);
             $('#iconHeight').val(opt.height);
-
-            $('#iconUrl').val(opt.url);
-            ll_combo_manager.set_selected_value('select#iconLinkTo', opt.iconLinkto);
-            ll_combo_manager.trigger_event_on_change('select#iconLinkTo');
-
             setSettingCssWidget($('#pb-panel__icon'));
             setSettingsResponsive($("#pb-panel__icon"));
         } else if (type === 'nav-items') {
@@ -4371,26 +3987,6 @@ var pageBuilder = {
             pageBuilder.setNewActionHistory();
             if (pageBuilder.isNewHistory())
                 pageBuilder.updateHistory();
-        });
-
-        //Image
-        $('#imageUrl').on('keyup change', function () {
-            getTplOpt();
-            opt.url = $.trim($(this).val());
-
-            if (opt.url === '') {
-                opt.url = '';
-                $tpl.find('a').attr('href', '#');
-            } else {
-                var url = opt.url;
-                if(opt.imageLinkto == 'email'){
-                    url = 'mailto:'+opt.url;
-                }
-                $tpl.find('a').attr('href', url);
-            }
-
-            $tpl.attr('data-json', JSON.stringify(opt));
-            pageBuilder.setNewActionHistory();
         });
 
         //Image Group
@@ -5145,24 +4741,6 @@ var pageBuilder = {
             getTplOpt();
             opt.height = $(this).val();
             $tpl.css('height', opt.height);
-            $tpl.attr('data-json', JSON.stringify(opt));
-            pageBuilder.setNewActionHistory();
-        });
-        $('#iconUrl').on('keyup change', function () {
-            getTplOpt();
-            opt.url = $.trim($(this).val());
-
-            if (opt.url === '') {
-                opt.url = '';
-                $tpl.find('a').attr('href', '#');
-            } else {
-                var url = opt.url;
-                if(opt.iconLinkto == 'email'){
-                    url = 'mailto:'+opt.url;
-                }
-                $tpl.find('a').attr('href', url);
-            }
-
             $tpl.attr('data-json', JSON.stringify(opt));
             pageBuilder.setNewActionHistory();
         });
@@ -8028,81 +7606,6 @@ var pageBuilder = {
 
     enabledBtnNewVersion: function ($btn) {
         $btn.removeClass('disabled');
-    },
-
-    checkIsLinkTo: function ($tpl, opt){
-        var $link = $tpl.find(".pb-widget__content a");
-        var html = "";
-        var $boxContent = $tpl.find('.pb-widget__content');
-
-        if(opt.imageLinkto) $boxContent = $boxContent.find('.pb-load-image');
-
-        if(opt.iconLinkto == "none" || opt.imageLinkto == "none"){
-            if($link.length){
-                html = $link.html();
-                $link.parent().html(html);
-            }
-        } else{
-            if(!$link.length){
-                html = $boxContent.html();
-                if(!opt.url) opt.url = "";
-                $boxContent.html("<a href='" + opt.url +"'>" + html + "</a>"); 
-            }
-        }
-    },
-
-    initModalLinkTo: function ($btn){
-        if($btn.attr("modal-id")) return false;
-        var id = new Date().valueOf();
-        var $template = $('#pb-template');
-
-        $btn.attr("modal-id", id);
-        
-        var htmlModal = "<div class='ll-lp-modal__fade' id='ll-lp-modal-" + id + "'><div class='ll-lp-modal__wrap'><div class='ll-lp-modal'><div class='ll-lp-modal__btn-close'></div><div class='ll-lp-modal__content'></div></div></div></div>";
-        $template.append(htmlModal);
-    },
-
-    destroyModalLinkTo: function ($btn){
-        if(!$btn.attr("modal-id")) return false;
-        var id = $btn.attr("modal-id");
-
-        $('#pb-template').find('#ll-lp-modal-' + id).remove();
-        $btn.removeAttr("modal-id");
-    },
-
-    resetModalLinkTo: function ($tpl, opt){
-        opt.modalView = "html";
-        opt.modalWidth = 500;
-        opt.modalHeight = 300;
-        opt.modalIFrameUrl = "";
-        $tpl.attr('data-json', JSON.stringify(opt));
-    },
-
-    getContentModal: function(val){
-        var $tpl = $('.pb-widget--selected');
-        var id = $tpl.find('.pb-widget__content a').attr('modal-id');
-        var html = $('#ll-lp-modal-' + id).find('.ll-lp-modal__content').html();
-
-        return html;
-    },
-
-    setContentModal: function(val){
-        var $tpl = $('.pb-widget--selected');
-        var opt = $tpl.data('json');
-        var id = $tpl.find('.pb-widget__content a').attr('modal-id');
-        var $modal = $('#ll-lp-modal-' + id);
-
-        $modal.find('.ll-lp-modal__content').html(val);
-
-        if(opt.modalView == "iframe"){
-            if($modal.find('iframe').length){
-                $modal.find('iframe').attr('src', opt.modalIFrameUrl);
-            } else{
-                $modal.find('.ll-lp-modal').prepend("<iframe src='" + opt.modalIFrameUrl + "'></iframe>");
-            }
-        } else{
-            $modal.find('.ll-lp-modal > iframe').remove();
-        }
     }
 };
 $(document).ready(function () {

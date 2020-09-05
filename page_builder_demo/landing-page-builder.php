@@ -2048,102 +2048,6 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                             <ul class="pb-list-image">
 
                                             </ul>
-                                            <div class="pb-field pb-field--vertical" id="image_link_to">
-                                                <label>Link To</label>
-                                                <div class="pb-right">
-                                                    <div class="pb-right__inner wFull">
-                                                        <select id="imageLinkTo">
-                                                            <option value="none">None</option>
-                                                            <option value="url">Web Address</option>
-                                                            <option value="email">Email Address</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="pb-field pb-field--vertical" id="image_view">
-                                                <label>View</label>
-                                                <div class="pb-right">
-                                                    <div class="pb-right__inner wFull">
-                                                        <select id="imageView">
-                                                            <option value="same">Same Page</option>
-                                                            <option value="tab">New Tab</option>
-                                                            <option value="modal">Modal</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="pb-field pb-field--vertical" id="image_url">
-                                                <label class="image_text">Web Address (URL)</label>
-                                                <div class="pb-right">
-                                                    <div class="pb-right__inner wFull">
-                                                        <input type="text" class="txt-field" id="imageUrl" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="pb-modal-settings">
-                                                <div class="list-elements__h">Modal</div>
-                                                <div class="pb-field">
-                                                    <label>Style</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner w60 pb-field-px">
-                                                            <label class="pb-label--left">Width</label>
-                                                            <input type="text" class="txt-field touch-spin-auto modalWidth"/>
-                                                        </div>
-                                                        <div class="pb-right__inner w60 pb-field-px">
-                                                            <label class="pb-label--left">Height</label>
-                                                            <input type="text" class="txt-field touch-spin-auto modalHeight"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field pb-field--vertical pb-field-modal-position">
-                                                    <label>Modal Position</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner wFull">
-                                                            <select class="pb-modal-position">
-                                                                <option value="top">Top</option>
-                                                                <option value="middle">Middle</option>
-                                                                <option value="bottom">Bottom</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field pb-filed-modal-bg-opacity">
-                                                    <label>Background Opacity</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner pb-field-px">
-                                                            <input type="text" class="txt-field touch-spin modalBgOpacity" />
-                                                            <span class="pb-field-px__label">%</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field pb-field--vertical pb-field-modal-content">
-                                                    <label>Content</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner wFull">
-                                                            <select class="pb-modal-content">
-                                                                <option value="html">HTML</option>
-                                                                <option value="iframe">iFrame</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field pb-field--vertical pb-field-modal-iframe-url">
-                                                    <label>iFrame (URL)</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner wFull">
-                                                            <input type="text" class="txt-field pb-modal-iframe-url" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field pb-field--vertical pb-field-modal-html">
-                                                    <label>HTML</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner wFull">
-                                                            <textarea class="pb-modal-html"></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div class="pb-tabs-panel__content">
                                             <div class="pb-field">
@@ -4131,7 +4035,7 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                             </div>
                                         </div>
                                         <div class="pb-tabs-panel__content">
-                                            <div class="element-link-to">
+                                            <div class="">
                                                 <div class="pb-field pb-field--vertical">
                                                     <label>Button Text</label>
                                                     <div class="pb-right">
@@ -4151,87 +4055,11 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="pb-field pb-field--vertical" id="button_view">
-                                                    <label>View</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner wFull">
-                                                            <select id="btnView">
-                                                                <option value="same">Same Page</option>
-                                                                <option value="tab">New Tab</option>
-                                                                <option value="modal">Modal</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <div class="pb-field pb-field--vertical" id="button_url">
                                                     <label class="btn_text">Web Address (URL)</label>
                                                     <div class="pb-right">
                                                         <div class="pb-right__inner wFull">
                                                             <input type="text" class="txt-field" id="btnUrl" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="pb-modal-settings">
-                                                <div class="list-elements__h">Modal</div>
-                                                <div class="pb-field">
-                                                    <label>Style</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner w60 pb-field-px">
-                                                            <label class="pb-label--left">Width</label>
-                                                            <input type="text" class="txt-field touch-spin-auto modalWidth"/>
-                                                        </div>
-                                                        <div class="pb-right__inner w60 pb-field-px">
-                                                            <label class="pb-label--left">Height</label>
-                                                            <input type="text" class="txt-field touch-spin-auto modalHeight"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field pb-field--vertical pb-field-modal-position">
-                                                    <label>Modal Position</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner wFull">
-                                                            <select class="pb-modal-position">
-                                                                <option value="top">Top</option>
-                                                                <option value="middle">Middle</option>
-                                                                <option value="bottom">Bottom</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field pb-filed-modal-bg-opacity">
-                                                    <label>Background Opacity</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner pb-field-px">
-                                                            <input type="text" class="txt-field touch-spin modalBgOpacity" />
-                                                            <span class="pb-field-px__label">%</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field pb-field--vertical pb-field-modal-content">
-                                                    <label>Content</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner wFull">
-                                                            <select class="pb-modal-content">
-                                                                <option value="html">HTML</option>
-                                                                <option value="iframe">iFrame</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field pb-field--vertical pb-field-modal-iframe-url">
-                                                    <label>iFrame (URL)</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner wFull">
-                                                            <input type="text" class="txt-field pb-modal-iframe-url" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field pb-field--vertical pb-field-modal-html">
-                                                    <label>HTML</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner wFull">
-                                                            <textarea class="pb-modal-html"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -6164,102 +5992,6 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                                     <div class="pb-right__inner w40">
                                                         <div class="wrap-color">
                                                             <div id="iconColor" style="background-color: #333333;" class="color-box" data-color-start="333333"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="pb-field pb-field--vertical" id="icon_link_to">
-                                                <label>Link To</label>
-                                                <div class="pb-right">
-                                                    <div class="pb-right__inner wFull">
-                                                        <select id="iconLinkTo">
-                                                            <option value="none">None</option>
-                                                            <option value="url">Web Address</option>
-                                                            <option value="email">Email Address</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="pb-field pb-field--vertical" id="icon_view">
-                                                <label>View</label>
-                                                <div class="pb-right">
-                                                    <div class="pb-right__inner wFull">
-                                                        <select id="iconView">
-                                                            <option value="same">Same Page</option>
-                                                            <option value="tab">New Tab</option>
-                                                            <option value="modal">Modal</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="pb-field pb-field--vertical" id="icon_url">
-                                                <label class="icon_text">Web Address (URL)</label>
-                                                <div class="pb-right">
-                                                    <div class="pb-right__inner wFull">
-                                                        <input type="text" class="txt-field" id="iconUrl" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="pb-modal-settings">
-                                                <div class="list-elements__h">Modal</div>
-                                                <div class="pb-field">
-                                                    <label>Style</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner w60 pb-field-px">
-                                                            <label class="pb-label--left">Width</label>
-                                                            <input type="text" class="txt-field touch-spin-auto modalWidth"/>
-                                                        </div>
-                                                        <div class="pb-right__inner w60 pb-field-px">
-                                                            <label class="pb-label--left">Height</label>
-                                                            <input type="text" class="txt-field touch-spin-auto modalHeight"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field pb-field--vertical pb-field-modal-position">
-                                                    <label>Modal Position</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner wFull">
-                                                            <select class="pb-modal-position">
-                                                                <option value="top">Top</option>
-                                                                <option value="middle">Middle</option>
-                                                                <option value="bottom">Bottom</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field pb-filed-modal-bg-opacity">
-                                                    <label>Background Opacity</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner pb-field-px">
-                                                            <input type="text" class="txt-field touch-spin modalBgOpacity" />
-                                                            <span class="pb-field-px__label">%</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field pb-field--vertical pb-field-modal-content">
-                                                    <label>Content</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner wFull">
-                                                            <select class="pb-modal-content">
-                                                                <option value="html">HTML</option>
-                                                                <option value="iframe">iFrame</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field pb-field--vertical pb-field-modal-iframe-url">
-                                                    <label>iFrame (URL)</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner wFull">
-                                                            <input type="text" class="txt-field pb-modal-iframe-url" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field pb-field--vertical pb-field-modal-html">
-                                                    <label>HTML</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner wFull">
-                                                            <textarea class="pb-modal-html"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>

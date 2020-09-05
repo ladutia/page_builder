@@ -97,14 +97,4 @@
   .hideBlockMobile{
       display: none!important;
   }
-  .ll-lp-modal__table{
-    padding: 15px 10px;
-  }
-  .ll-lp-modal__content{
-    padding: 10px;
-  }
-  .ll-lp-modal__btn-close{
-    right: -8px;
-    top: -8px;
-  }
 }

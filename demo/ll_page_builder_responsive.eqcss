@@ -97,8 +97,8 @@
   .hideBlockMobile{
       display: none!important;
   }
-  .ll-lp-modal__wrap{
-    margin: 15px 10px;
+  .ll-lp-modal__table{
+    padding: 15px 10px;
   }
   .ll-lp-modal__content{
     padding: 10px;

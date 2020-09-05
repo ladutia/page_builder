@@ -1025,22 +1025,31 @@ grammarly-btn > div{
     overflow-y: auto;
     outline: 0;
 }
-.ll-lp-modal__wrap{
+.ll-lp-modal__table{
   position: relative;
-  width: auto;
-  max-width: 500px;
-  margin: 30px auto;
+  padding: 25px;
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+.ll-lp-modal__table-cell{
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+.ll-lp-modal__fade.ll-lp-modal--pos-top .ll-lp-modal__table-cell{
+  vertical-align: top;
+}
+.ll-lp-modal__fade.ll-lp-modal--pos-bottom .ll-lp-modal__table-cell{
+  vertical-align: bottom;
 }
 .ll-lp-modal{
-  position: relative;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  display: inline-block;
   width: 100%;
-  max-width: 100%;
+  max-width: 500px;
   height: 300px;
-  pointer-events: auto;
+  vertical-align: top;
+  position: relative;
   background-color: #fff;
   border: 1px solid rgba(0,0,0,.2);
   border-radius: 4px;

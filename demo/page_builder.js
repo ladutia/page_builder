@@ -126,8 +126,14 @@ var pageBuilder = {
                 $settings.find('.pb-modal-settings').show();
                 ll_combo_manager.set_selected_value('#pb-panel__button select.pb-modal-content', opt.modalView);
                 ll_combo_manager.trigger_event_on_change('#pb-panel__button select.pb-modal-content');
+
+                opt.modalPosition = opt.modalPosition || 'middle';
+                ll_combo_manager.set_selected_value('#pb-panel__button select.pb-modal-position', opt.modalPosition);
+                ll_combo_manager.trigger_event_on_change('#pb-panel__button select.pb-modal-position');
                 opt.modalWidth = opt.modalWidth || 500;
                 opt.modalHeight = opt.modalHeight || 300;
+                opt.modalBgOpacity = opt.modalBgOpacity || 50;
+                $('#pb-panel__button .modalBgOpacity').val(opt.modalBgOpacity);
                 $('#pb-panel__button .modalWidth').val(opt.modalWidth);
                 $('#pb-panel__button .modalHeight').val(opt.modalHeight);
             } else{
@@ -199,8 +205,14 @@ var pageBuilder = {
                 $settings.find('.pb-modal-settings').show();
                 ll_combo_manager.set_selected_value('#pb-panel__icon select.pb-modal-content', opt.modalView);
                 ll_combo_manager.trigger_event_on_change('#pb-panel__icon select.pb-modal-content');
+
+                opt.modalPosition = opt.modalPosition || 'middle';
+                ll_combo_manager.set_selected_value('#pb-panel__icon select.pb-modal-position', opt.modalPosition);
+                ll_combo_manager.trigger_event_on_change('#pb-panel__icon select.pb-modal-position');
                 opt.modalWidth = opt.modalWidth || 500;
                 opt.modalHeight = opt.modalHeight || 300;
+                opt.modalBgOpacity = opt.modalBgOpacity || 50;
+                $('#pb-panel__icon .modalBgOpacity').val(opt.modalBgOpacity);
                 $('#pb-panel__icon .modalWidth').val(opt.modalWidth);
                 $('#pb-panel__icon .modalHeight').val(opt.modalHeight);
             } else{
@@ -273,8 +285,15 @@ var pageBuilder = {
                 $settings.find('.pb-modal-settings').show();
                 ll_combo_manager.set_selected_value('#pb-panel__image select.pb-modal-content', opt.modalView);
                 ll_combo_manager.trigger_event_on_change('#pb-panel__image select.pb-modal-content');
+
+                opt.modalPosition = opt.modalPosition || 'middle';
+                ll_combo_manager.set_selected_value('#pb-panel__image select.pb-modal-position', opt.modalPosition);
+                ll_combo_manager.trigger_event_on_change('#pb-panel__image select.pb-modal-position');
+
                 opt.modalWidth = opt.modalWidth || 500;
                 opt.modalHeight = opt.modalHeight || 300;
+                opt.modalBgOpacity = opt.modalBgOpacity || 50;
+                $('#pb-panel__image .modalBgOpacity').val(opt.modalBgOpacity);
                 $('#pb-panel__image .modalWidth').val(opt.modalWidth);
                 $('#pb-panel__image .modalHeight').val(opt.modalHeight);
             } else{
@@ -314,13 +333,34 @@ var pageBuilder = {
             $tpl.attr('data-json', JSON.stringify(opt));
         });
 
+        ll_combo_manager.event_on_change('select.pb-modal-position', function () {
+            var $tpl = $('.pb-widget--selected');
+            var opt = $tpl.data('json');
+            var id = $tpl.find('.pb-widget__content a').attr('modal-id');
+
+            opt.modalPosition = ll_combo_manager.get_selected_value('.pb-settings-panel:visible select.pb-modal-position');
+            pageBuilder.setModalPosition(id, opt.modalPosition);
+            $tpl.attr('data-json', JSON.stringify(opt));
+        });
+
+        $('.modalBgOpacity').on('change', function () {
+            var $tpl = $('.pb-widget--selected');
+            var opt = $tpl.data('json');
+            var id = $tpl.find('.pb-widget__content a').attr('modal-id');
+
+            opt.modalBgOpacity = $(this).val();
+            $('#ll-lp-modal-' + id).css('background-color', 'rgba(0,0,0, '+ opt.modalBgOpacity/100 +')');
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+
         $('.modalWidth').on('change', function () {
             var $tpl = $('.pb-widget--selected');
             var opt = $tpl.data('json');
             var id = $tpl.find('.pb-widget__content a').attr('modal-id');
 
             opt.modalWidth = $(this).val();
-            $('#ll-lp-modal-' + id).find('.ll-lp-modal__wrap').css('max-width', opt.modalWidth + 'px');
+            $('#ll-lp-modal-' + id).find('.ll-lp-modal').css('max-width', opt.modalWidth + 'px');
             $tpl.attr('data-json', JSON.stringify(opt));
             pageBuilder.setNewActionHistory();
         });
@@ -2932,7 +2972,7 @@ var pageBuilder = {
             });
 
             //clone Modal
-            $clone.find('.pb-widget__content > a[modal-id]').each(function(){
+            $clone.find('.pb-widget__content a[modal-id]').each(function(){
                 var idModal = $(this).attr('modal-id');
                 var newIdModal = new Date().valueOf();
                 var $cloneModal = $('#ll-lp-modal-' + idModal).clone();
@@ -2987,7 +3027,7 @@ var pageBuilder = {
         if ($widget.length) {
 
             //remove modal
-            $widget.find('.pb-widget__content > a[modal-id]').each(function(){
+            $widget.find('.pb-widget__content a[modal-id]').each(function(){
                 $('#ll-lp-modal-' + $(this).attr('modal-id')).remove();
             });
 
@@ -3153,42 +3193,42 @@ var pageBuilder = {
                     text: 'Heading',
                     icon: false,
                     menu: [
-                    {
-                        text: 'Heading 1', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h1 style="font-size: 36px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h1>');
+                        {
+                            text: 'Heading 1', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h1 style="font-size: 36px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h1>');
+                            }
+                        },
+                        {
+                            text: 'Heading 2', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h2 style="font-size: 30px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h2>');
+                            }
+                        },
+                        {
+                            text: 'Heading 3', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h3 style="font-size: 24px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h3>');
+                            }
+                        },
+                        {
+                            text: 'Heading 4', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h4 style="font-size: 18px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h4>');
+                            }
+                        },
+                        {
+                            text: 'Heading 5', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h5 style="font-size: 14px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h5>');
+                            }
+                        },
+                        {
+                            text: 'Heading 6', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h6 style="font-size: 13px; line-height: 125%; padding:0; margin: 0;">' + editor.selection.getContent() + '</h6>');
+                            }
+                        },
+                        {
+                            text: 'Paragraph', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<p>' + editor.selection.getContent() + '</p>');
+                            }
                         }
-                    },
-                    {
-                        text: 'Heading 2', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h2 style="font-size: 30px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h2>');
-                        }
-                    },
-                    {
-                        text: 'Heading 3', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h3 style="font-size: 24px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h3>');
-                        }
-                    },
-                    {
-                        text: 'Heading 4', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h4 style="font-size: 18px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h4>');
-                        }
-                    },
-                    {
-                        text: 'Heading 5', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h5 style="font-size: 14px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h5>');
-                        }
-                    },
-                    {
-                        text: 'Heading 6', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h6 style="font-size: 13px; line-height: 125%; padding:0; margin: 0;">' + editor.selection.getContent() + '</h6>');
-                        }
-                    },
-                    {
-                        text: 'Paragraph', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<p>' + editor.selection.getContent() + '</p>');
-                        }
-                    }
-                ]
+                    ]
                 });
 				// Add a custom field button
 				editor.addButton('cfbutton', {
@@ -8058,7 +8098,7 @@ var pageBuilder = {
 
         $btn.attr("modal-id", id);
         
-        var htmlModal = "<div class='ll-lp-modal__fade' id='ll-lp-modal-" + id + "'><div class='ll-lp-modal__wrap'><div class='ll-lp-modal'><div class='ll-lp-modal__btn-close'></div><div class='ll-lp-modal__content'></div></div></div></div>";
+        var htmlModal = "<div class='ll-lp-modal__fade' id='ll-lp-modal-" + id + "'><div class='ll-lp-modal__table'><div class='ll-lp-modal__table-cell'><div class='ll-lp-modal'><div class='ll-lp-modal__btn-close'></div><div class='ll-lp-modal__content'></div></div></div></div></div>";
         $template.append(htmlModal);
     },
 
@@ -8102,6 +8142,18 @@ var pageBuilder = {
             }
         } else{
             $modal.find('.ll-lp-modal > iframe').remove();
+        }
+    },
+
+    setModalPosition: function(id, position){
+        var $modal = $('#ll-lp-modal-' + id);
+
+        $modal.removeClass('ll-lp-modal--pos-top ll-lp-modal--pos-bottom');
+
+        if(position == "top"){
+            $modal.addClass('ll-lp-modal--pos-top');
+        } else if(position == "bottom"){
+            $modal.addClass('ll-lp-modal--pos-bottom');
         }
     }
 };

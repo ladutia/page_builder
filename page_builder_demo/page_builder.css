@@ -3462,3 +3462,12 @@ textarea.success_message, input.redirect_url, input.form_identifier{
 .pb-preview-box .pb-widget__btn-settings{
   display: none !important;
 }
+.pb-modal-settings .pb-field-px .txt-field{
+  width: 55px;
+}
+.pb-filed-modal-bg-opacity > label{
+  width: 160px;
+}
+.pb-filed-modal-bg-opacity > .pb-right{
+  margin-left: 160px;
+}

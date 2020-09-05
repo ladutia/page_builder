@@ -2095,6 +2095,27 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="pb-field pb-field--vertical pb-field-modal-position">
+                                                    <label>Modal Position</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner wFull">
+                                                            <select class="pb-modal-position">
+                                                                <option value="top">Top</option>
+                                                                <option value="middle">Middle</option>
+                                                                <option value="bottom">Bottom</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field pb-filed-modal-bg-opacity">
+                                                    <label>Background Opacity</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner pb-field-px">
+                                                            <input type="text" class="txt-field touch-spin modalBgOpacity" />
+                                                            <span class="pb-field-px__label">%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="pb-field pb-field--vertical pb-field-modal-content">
                                                     <label>Content</label>
                                                     <div class="pb-right">
@@ -4166,6 +4187,27 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="pb-field pb-field--vertical pb-field-modal-position">
+                                                    <label>Modal Position</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner wFull">
+                                                            <select class="pb-modal-position">
+                                                                <option value="top">Top</option>
+                                                                <option value="middle">Middle</option>
+                                                                <option value="bottom">Bottom</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field pb-filed-modal-bg-opacity">
+                                                    <label>Background Opacity</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner pb-field-px">
+                                                            <input type="text" class="txt-field touch-spin modalBgOpacity" />
+                                                            <span class="pb-field-px__label">%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="pb-field pb-field--vertical pb-field-modal-content">
                                                     <label>Content</label>
                                                     <div class="pb-right">
@@ -6170,6 +6212,27 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                                         <div class="pb-right__inner w60 pb-field-px">
                                                             <label class="pb-label--left">Height</label>
                                                             <input type="text" class="txt-field touch-spin-auto modalHeight"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field pb-field--vertical pb-field-modal-position">
+                                                    <label>Modal Position</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner wFull">
+                                                            <select class="pb-modal-position">
+                                                                <option value="top">Top</option>
+                                                                <option value="middle">Middle</option>
+                                                                <option value="bottom">Bottom</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field pb-filed-modal-bg-opacity">
+                                                    <label>Background Opacity</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner pb-field-px">
+                                                            <input type="text" class="txt-field touch-spin modalBgOpacity" />
+                                                            <span class="pb-field-px__label">%</span>
                                                         </div>
                                                     </div>
                                                 </div>

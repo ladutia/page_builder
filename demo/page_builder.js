@@ -387,7 +387,7 @@ var pageBuilder = {
             var id = $tpl.find('.pb-widget__content a').attr('modal-id');
 
             opt.modalIFrameUrl = $(this).val();
-            $('#ll-lp-modal-' + id).find('.ll-lp-modal > iframe').attr('src', opt.modalIFrameUrl);
+            $('#ll-lp-modal-' + id).attr('iframe-src', opt.modalIFrameUrl);
             $tpl.attr('data-json', JSON.stringify(opt));
             pageBuilder.setNewActionHistory();
         });
@@ -8139,11 +8139,12 @@ var pageBuilder = {
 
         if(opt.modalView == "iframe"){
             if($modal.find('iframe').length){
-                $modal.find('iframe').attr('src', opt.modalIFrameUrl);
+                $modal.attr('iframe-src', opt.modalIFrameUrl);
             } else{
-                $modal.find('.ll-lp-modal').prepend("<iframe src='" + opt.modalIFrameUrl + "'></iframe>");
+                $modal.find('.ll-lp-modal').prepend("<iframe></iframe>");
             }
         } else{
+            $modal.removeAttr('iframe-src');
             $modal.find('.ll-lp-modal > iframe').remove();
         }
     },

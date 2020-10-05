@@ -31,12 +31,25 @@ var pageBuilderPreview = {
     },
     initModal: function (){
         $('body').on('click', '.ll-lp-modal__btn-close', function(){
-            $(this).parents('.ll-lp-modal__fade').hide();
+            var $modal = $(this).parents('.ll-lp-modal__fade');
+            $modal.hide();
+            $modal.find('.ll-lp-modal > iframe').attr('src', '');
         });
         $('body').on('click', 'a[modal-id]', function(e){
             e.preventDefault();
             var id = $(this).attr("modal-id");
-            $('#ll-lp-modal-' + id).show();
+            var $modal = $('#ll-lp-modal-' + id);
+            var src = null;
+
+            if($modal.find('.ll-lp-modal > iframe').length > 0){
+                if($modal.attr('iframe-src')){
+                    src = $modal.attr('iframe-src');
+                } else {
+                    $modal.attr('iframe-src', $modal.find('.ll-lp-modal > iframe').attr('src'));
+                }
+            }
+
+            $modal.show().find('.ll-lp-modal > iframe').attr('src', src);
         });
     },
     bgVideoYT: function ($html) {

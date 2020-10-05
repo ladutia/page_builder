@@ -5,7 +5,7 @@ var pageBuilderPreview = {
         pageBuilderPreview.initialize_forms();
         pageBuilderPreview.toggleMenuMobile();
         pageBuilderPreview.initModal();
-
+	
         if (is_move_style_to_body) {
 			$html = $('body');
 			var $templateDiv = $html.find('#pb-template');
@@ -27,6 +27,16 @@ var pageBuilderPreview = {
             } else {
                 $menu.slideUp(); // or .hide();
             }
+        });
+    },
+    initModal: function (){
+        $('body').on('click', '.ll-lp-modal__btn-close', function(){
+            $(this).parents('.ll-lp-modal__fade').hide();
+        });
+        $('body').on('click', 'a[modal-id]', function(e){
+            e.preventDefault();
+            var id = $(this).attr("modal-id");
+            $('#ll-lp-modal-' + id).show();
         });
     },
     bgVideoYT: function ($html) {
@@ -193,17 +203,7 @@ var pageBuilderPreview = {
 			//ll_show_error_message("Please enter your name or email");
 		}
 		return false;
-	},
-    initModal: function (){
-        $('body').on('click', '.ll-lp-modal__btn-close', function(){
-            $(this).parents('.ll-lp-modal__fade').hide();
-        });
-        $('body').on('click', 'a[modal-id]', function(e){
-            e.preventDefault();
-            var id = $(this).attr("modal-id");
-            $('#ll-lp-modal-' + id).show();
-        });
-    }
+	}
 }
 $(function () {
 	var is_move_style_to_body = true;

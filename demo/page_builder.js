@@ -106,7 +106,7 @@ var pageBuilder = {
             var $settings = $('.pb-settings-panel:visible');
 
             opt.btnView = ll_combo_manager.get_selected_value('select#btnView');
-            
+
             if(opt.btnView == "same"){
                 $btn.attr('target', "_self");
                 $fieldUrl.show();
@@ -185,7 +185,7 @@ var pageBuilder = {
             var $settings = $('.pb-settings-panel:visible');
 
             opt.iconView = ll_combo_manager.get_selected_value('select#iconView');
-            
+
             if(opt.iconView == "same"){
                 $link.attr('target', "_self");
                 $settings.find('.pb-modal-settings').hide();
@@ -221,6 +221,7 @@ var pageBuilder = {
             }
 
             $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
         });
 
         ll_combo_manager.event_on_change('select#imageLinkTo', function () {
@@ -234,7 +235,7 @@ var pageBuilder = {
             if (opt.imageLinkto == 'email') {
                 url = 'mailto:' + opt.url;
                 $('label.image_text').text('Email Address');
-                
+
                 opt.imageView = "same";
                 $('#image_view').hide();
                 $("#image_url").show();
@@ -255,6 +256,7 @@ var pageBuilder = {
             $tpl.find('a').attr('href', url);
 
             $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
         });
 
         ll_combo_manager.event_on_change('select#imageView', function () {
@@ -265,7 +267,7 @@ var pageBuilder = {
             var $settings = $('#pb-panel__image');
 
             opt.imageView = ll_combo_manager.get_selected_value('select#imageView');
-            
+
             if(opt.imageView == "same"){
                 $link.attr('target', "_self");
                 $settings.find('.pb-modal-settings').hide();
@@ -302,6 +304,7 @@ var pageBuilder = {
             }
 
             $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
         });
 
         pageBuilder.initEditor('.pb-modal-html');
@@ -331,6 +334,7 @@ var pageBuilder = {
             }
 
             $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
         });
 
         ll_combo_manager.event_on_change('select.pb-modal-position', function () {
@@ -341,6 +345,7 @@ var pageBuilder = {
             opt.modalPosition = ll_combo_manager.get_selected_value('.pb-settings-panel:visible select.pb-modal-position');
             pageBuilder.setModalPosition(id, opt.modalPosition);
             $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
         });
 
         $('.modalBgOpacity').on('change', function () {
@@ -2053,8 +2058,9 @@ var pageBuilder = {
             dataJson = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "borderWidth":"0", "borderColor":"#ffffff", "borderType":"None", "borderRadius":"0", "width":"auto", "minHeight":"0", "maxWidth":"100%", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"15px", "paddingRight":"15px", "paddingTop":"10px", "paddingBottom":"10px"}';
             dataJsonContainer = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "borderWidth":"0", "borderColor":"#ffffff", "borderType":"None", "borderRadius":"0", "width":"100%", "minHeight":"0", "maxWidth":"100%", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0", "background_transparent":1}';
             dataJsonSVG = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"15px", "marginTop":"0", "marginBottom":"0"}';
-            dataJsonSvgToggle = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"0", "marginTop":"0", "marginBottom":"0"}';
-            dataJsonBtn = '{"buttonText":"Let&#39;s Go!","url":"","backgroundColor":"None", "backgroundImageUrl":"","fontTypeFace":"None","fontWeight":"None","fontSize":"None","color":"None","borderWidth":"0","borderColor":"None","borderType":"None","radius":"None","paddingX":"20","paddingY":"10", "width":"auto","maxWidth":"160px", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0"}';
+            //dataJsonSvgToggle = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"0", "marginTop":"0, "marginBottom":"0"}';
+			dataJsonSvgToggle = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"0", "marginTop":"0", "marginBottom":"0"}';
+			dataJsonBtn = '{"buttonText":"Let&#39;s Go!","url":"","backgroundColor":"None", "backgroundImageUrl":"","fontTypeFace":"None","fontWeight":"None","fontSize":"None","color":"None","borderWidth":"0","borderColor":"None","borderType":"None","radius":"None","paddingX":"20","paddingY":"10", "width":"auto","maxWidth":"160px", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0"}';
             dataJsonItems = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "fontTypeFace": "None", "fontWeight": "Normal", "fontSize": "16", "color":"#333333", "lineHeight": "125", "textAlign":"0", "width":"auto","maxWidth":"1000px", "marginLeft":"0", "marginRight":"0", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0", "background_transparent":1}';
             dataJsonItem = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "fontTypeFace": "None", "fontWeight": "None", "fontSize": "None", "color":"#333333", "lineHeight": "None", "textAlign":"1", "width":"auto","maxWidth":"1000px", "marginLeft":"0", "marginRight":"0", "marginTop":"0", "marginBottom":"0", "paddingLeft":"20px", "paddingRight":"20px", "paddingTop":"10px", "paddingBottom":"10px", "background_transparent":1}';
 
@@ -2430,8 +2436,9 @@ var pageBuilder = {
             dataJson = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "borderWidth":"0", "borderColor":"#ffffff", "borderType":"None", "borderRadius":"0", "width":"auto", "minHeight":"0", "maxWidth":"100%", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"15px", "paddingRight":"15px", "paddingTop":"10px", "paddingBottom":"10px"}';
             dataJsonContainer = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "borderWidth":"0", "borderColor":"#ffffff", "borderType":"None", "borderRadius":"0", "width":"100%", "minHeight":"0", "maxWidth":"100%", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0", "background_transparent":1}';
             dataJsonSVG = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"15px", "marginTop":"0", "marginBottom":"0"}';
-            dataJsonSvgToggle = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"0", "marginTop":"0", "marginBottom":"0"}';
-            dataJsonBtn = '{"buttonText":"Let&#39;s Go!","url":"","backgroundColor":"None", "backgroundImageUrl":"","fontTypeFace":"None","fontWeight":"None","fontSize":"None","color":"None","borderWidth":"0","borderColor":"None","borderType":"None","radius":"None","paddingX":"20","paddingY":"10", "width":"auto","maxWidth":"160px", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0"}';
+            //dataJsonSvgToggle = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"0", "marginTop":"0, "marginBottom":"0"}';
+			dataJsonSvgToggle = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"0", "marginTop":"0", "marginBottom":"0"}';
+			dataJsonBtn = '{"buttonText":"Let&#39;s Go!","url":"","backgroundColor":"None", "backgroundImageUrl":"","fontTypeFace":"None","fontWeight":"None","fontSize":"None","color":"None","borderWidth":"0","borderColor":"None","borderType":"None","radius":"None","paddingX":"20","paddingY":"10", "width":"auto","maxWidth":"160px", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0"}';
             dataJsonItems = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "fontTypeFace": "None", "fontWeight": "Normal", "fontSize": "16", "color":"#333333", "lineHeight": "125", "textAlign":"0", "width":"auto","maxWidth":"1000px", "marginLeft":"0", "marginRight":"0", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0", "background_transparent":1}';
             dataJsonItem = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "fontTypeFace": "None", "fontWeight": "None", "fontSize": "None", "color":"#333333", "lineHeight": "None", "textAlign":"1", "width":"auto","maxWidth":"1000px", "marginLeft":"0", "marginRight":"0", "marginTop":"0", "marginBottom":"0", "paddingLeft":"20px", "paddingRight":"20px", "paddingTop":"10px", "paddingBottom":"10px", "background_transparent":1}';
             dataImageJson = '{"backgroundColor":"#ffffff", "backgroundImageUrl":"", "textAlign":"0", "width":"200px","maxWidth":"100%", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0", "background_transparent":1}';
@@ -3025,7 +3032,6 @@ var pageBuilder = {
         var $parent = $widget.parent();
 
         if ($widget.length) {
-
             //remove modal
             $widget.find('.pb-widget__content a[modal-id]').each(function(){
                 $('#ll-lp-modal-' + $(this).attr('modal-id')).remove();
@@ -3107,42 +3113,42 @@ var pageBuilder = {
                     text: 'Heading',
                     icon: false,
                     menu: [
-                    {
-                        text: 'Heading 1', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h1 style="font-size: 36px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h1>');
+                        {
+                            text: 'Heading 1', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h1 style="font-size: 36px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h1>');
+                            }
+                        },
+                        {
+                            text: 'Heading 2', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h2 style="font-size: 30px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h2>');
+                            }
+                        },
+                        {
+                            text: 'Heading 3', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h3 style="font-size: 24px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h3>');
+                            }
+                        },
+                        {
+                            text: 'Heading 4', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h4 style="font-size: 18px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h4>');
+                            }
+                        },
+                        {
+                            text: 'Heading 5', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h5 style="font-size: 14px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h5>');
+                            }
+                        },
+                        {
+                            text: 'Heading 6', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h6 style="font-size: 13px; line-height: 125%; padding:0; margin: 0;">' + editor.selection.getContent() + '</h6>');
+                            }
+                        },
+                        {
+                            text: 'Paragraph', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<p>' + editor.selection.getContent() + '</p>');
+                            }
                         }
-                    },
-                    {
-                        text: 'Heading 2', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h2 style="font-size: 30px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h2>');
-                        }
-                    },
-                    {
-                        text: 'Heading 3', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h3 style="font-size: 24px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h3>');
-                        }
-                    },
-                    {
-                        text: 'Heading 4', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h4 style="font-size: 18px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h4>');
-                        }
-                    },
-                    {
-                        text: 'Heading 5', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h5 style="font-size: 14px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h5>');
-                        }
-                    },
-                    {
-                        text: 'Heading 6', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h6 style="font-size: 13px; line-height: 125%; padding:0; margin: 0;">' + editor.selection.getContent() + '</h6>');
-                        }
-                    },
-                    {
-                        text: 'Paragraph', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<p>' + editor.selection.getContent() + '</p>');
-                        }
-                    }
-                ]
+                    ]
                 });
                 editor.addButton('cfbutton', {
                     title : 'Fields',
@@ -3153,14 +3159,11 @@ var pageBuilder = {
                     }
                 });
                 editor.on('blur', function (e) {
-                    if (editor.changeHistory) {
-                        editor.changeHistory = false;
-                        pageBuilder.updateHistory();
-                    }
+                    pageBuilder.setNewActionHistory();
                 });
                 editor.on('change', function (e) {
                     pageBuilder.setContentModal(editor.getContent());
-                    editor.changeHistory = true;
+                    pageBuilder.setNewActionHistory();
                 });
             },
             init_instance_callback: function (editor){
@@ -3707,7 +3710,7 @@ var pageBuilder = {
                     $tpl.attr('data-json', JSON.stringify(opt));
                 });
                 */
-            }            
+            }
 
             $('#btnText').val(opt.buttonText);
             $('#btnUrl').val(opt.url);
@@ -8086,7 +8089,7 @@ var pageBuilder = {
             if(!$link.length){
                 html = $boxContent.html();
                 if(!opt.url) opt.url = "";
-                $boxContent.html("<a href='" + opt.url +"'>" + html + "</a>"); 
+                $boxContent.html("<a href='" + opt.url +"'>" + html + "</a>");
             }
         }
     },
@@ -8097,7 +8100,7 @@ var pageBuilder = {
         var $template = $('#pb-template');
 
         $btn.attr("modal-id", id);
-        
+
         var htmlModal = "<div class='ll-lp-modal__fade' id='ll-lp-modal-" + id + "'><div class='ll-lp-modal__table'><div class='ll-lp-modal__table-cell'><div class='ll-lp-modal'><div class='ll-lp-modal__btn-close'></div><div class='ll-lp-modal__content'></div></div></div></div></div>";
         $template.append(htmlModal);
     },

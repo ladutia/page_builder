@@ -544,26 +544,26 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                     <div class="leadboard__column-left">
                       <div class="leadboard__content" totalItems="20" nameColor="#000000" nameTypeFace="Arial, sans-serif" nameFontWeight="normal" nameFontSize="30px" nameLineHeight="150%" scoreColor="#000000" scoreTypeFace="Arial, sans-serif" scoreFontWeight="normal" scoreFontSize="30px" scoreLineHeight="150%">
                           <div class="list-leaders">
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Todd Smithster">1. Todd Smithster</span><span class="list-leaders__count">1500</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Ben Brooks">2. Ben Brooks</span><span class="list-leaders__count">1200</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Chris Tibbersoft">3. Chris Tibbersoft</span><span class="list-leaders__count">1050</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Bailey Biddle">4. Bailey Biddle</span><span class="list-leaders__count">990</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Julie Gibelstein">5. Julie Gibelstein</span><span class="list-leaders__count">950</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Jamir Garaphalo">6. Jamir Garaphalo</span><span class="list-leaders__count">920</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Margaret Thorton">7. Margaret Thorton</span><span class="list-leaders__count">900</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Michelle Rodriguez">8. Michelle Rodriguez</span><span class="list-leaders__count">880</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Cary Underwood">9. Cary Underwood</span><span class="list-leaders__count">840</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Gilligan Island">10. Gilligan Island</span><span class="list-leaders__count">810</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Julie Tibbersoft">11. Julie Smithster</span><span class="list-leaders__count">780</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Ben Smithster">12. Ben Smithster</span><span class="list-leaders__count">654</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Jamir Tibbersoft">13. Jamir Tibbersoft</span><span class="list-leaders__count">513</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Bailey Thorton">14. Bailey Thorton</span><span class="list-leaders__count">360</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Garaphalo Gibelstein">15. Garaphalo Gibelstein</span><span class="list-leaders__count">311</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Jamir Bailey">16. Jamir Bailey</span><span class="list-leaders__count">200</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Margaret Island">17. Margaret Island</span><span class="list-leaders__count">185</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Michelle Brooks">18. Michelle Brooks</span><span class="list-leaders__count">175</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Cary Todd">19. Cary Todd</span><span class="list-leaders__count">99</span></div>
-                              <div class="list-leaders__item"><span class="list-leaders__name" Fname="Gilligan Chris">20. Gilligan Chris</span><span class="list-leaders__count">12</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">1</span><span class="list-leaders__name" Fname="Todd Smithster">Todd Smithster</span><span class="list-leaders__count">1500</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">2</span><span class="list-leaders__name" Fname="Ben Brooks">Ben Brooks</span><span class="list-leaders__count">1200</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">3</span><span class="list-leaders__name" Fname="Chris Tibbersoft">Chris Tibbersoft</span><span class="list-leaders__count">1050</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">4</span><span class="list-leaders__name" Fname="Bailey Biddle">Bailey Biddle</span><span class="list-leaders__count">990</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">5</span><span class="list-leaders__name" Fname="Julie Gibelstein">Julie Gibelstein</span><span class="list-leaders__count">950</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">6</span><span class="list-leaders__name" Fname="Jamir Garaphalo">Jamir Garaphalo</span><span class="list-leaders__count">920</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">7</span><span class="list-leaders__name" Fname="Margaret Thorton">Margaret Thorton</span><span class="list-leaders__count">900</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">8</span><span class="list-leaders__name" Fname="Michelle Rodriguez">Michelle Rodriguez</span><span class="list-leaders__count">880</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">9</span><span class="list-leaders__name" Fname="Cary Underwood">Cary Underwood</span><span class="list-leaders__count">840</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">10</span><span class="list-leaders__name" Fname="Gilligan Island">Gilligan Island</span><span class="list-leaders__count">810</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">11</span><span class="list-leaders__name" Fname="Julie Tibbersoft">Julie Smithster</span><span class="list-leaders__count">780</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">12</span><span class="list-leaders__name" Fname="Ben Smithster">Ben Smithster</span><span class="list-leaders__count">654</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">13</span><span class="list-leaders__name" Fname="Jamir Tibbersoft">Jamir Tibbersoft</span><span class="list-leaders__count">513</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">14</span><span class="list-leaders__name" Fname="Bailey Thorton">Bailey Thorton</span><span class="list-leaders__count">360</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">15</span><span class="list-leaders__name" Fname="Garaphalo Gibelstein">Garaphalo Gibelstein</span><span class="list-leaders__count">311</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">16</span><span class="list-leaders__name" Fname="Jamir Bailey">Jamir Bailey</span><span class="list-leaders__count">200</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">17</span><span class="list-leaders__name" Fname="Margaret Island">Margaret Island</span><span class="list-leaders__count">185</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">18</span><span class="list-leaders__name" Fname="Michelle Brooks">Michelle Brooks</span><span class="list-leaders__count">175</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">19</span><span class="list-leaders__name" Fname="Cary Todd">19. Cary Todd</span><span class="list-leaders__count">99</span></div>
+                              <div class="list-leaders__item"><span class="list-leaders__number">20</span><span class="list-leaders__name" Fname="Gilligan Chris">Gilligan Chris</span><span class="list-leaders__count">12</span></div>
                           </div>
                       </div>
                     </div>
@@ -1081,6 +1081,89 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                             </div>
                         </div>
                     </div>
+                <div class="st-head">Row Style</div>
+                <div class="st-field">
+                    <label>Background Color</label>
+                    <div class="st-right">
+                        <div class="st-right__inner">
+                            <div class="wrap-color">
+                                <div id="rowBg" style="background-color: rgb(255, 255, 255);" class="color-box" data-color-start="ffffff"></div>
+                            </div>
+                            <div class="t-checkbox checked check-bg-transparent">
+                                <label>
+                                    <i class="icn-checkbox"></i>
+                                    <input type="checkbox"  checked id="rowCheckTransparent"> Transparent
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="st-field st-field--bg-opacity">
+                    <label>Background Opacity</label>
+                    <div class="st-right">
+                        <div class="st-right__inner inline-box w50">
+                          <input id="rowBgOpacity" type="text" value="100" class="txt-field touch-spin">
+                        </div>
+                        <span class="st-field__label-right">%</span>
+                    </div>
+                </div>
+                <div class="st-field">
+                    <label>Border</label>
+                    <div class="st-right">
+                        <div class="st-right__inner">
+                            <label>Type</label>
+                            <select id="rowBorderType">
+                                <option value="None" selected="selected">None</option>
+                                <option value="Solid">Solid</option>
+                                <option value="Dashed">Dashed</option>
+                                <option value="Dotted">Dotted</option>
+                                <option value="Double">Double</option>
+                                <option value="Groove">Groove</option>
+                                <option value="Ridge">Ridge</option>
+                                <option value="Inset">Inset</option>
+                                <option value="Outset">Outset</option>
+                            </select>
+                        </div>
+                        <div class="st-wrap-right">
+                            <div class="st-right__inner inline-box w50">
+                              <label>Width</label>
+                              <input id="rowBorderWidth" type="text" value="0" class="txt-field st-input-css">
+                            </div>
+                            <div class="st-right__inner inline-box w40">
+                              <label>Color</label>
+                              <div class="wrap-color">
+                                <div id="rowBorderColor" style="background-color: rgb(255, 255, 255);" class="color-box" data-color-start="ffffff"></div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="st-field">
+                    <label>Margin</label>
+                    <div class="st-right">
+                        <div class="st-right__inner inline-box w50">
+                          <label>Outer</label>
+                          <input id="rowMarginRight" type="text" value="0px" class="txt-field st-input-css">
+                        </div>
+                        <div class="st-right__inner inline-box w50">
+                          <label>Bottom</label>
+                          <input id="rowMarginBottom" type="text" value="0px" class="txt-field st-input-css">
+                        </div>
+                    </div>
+                </div>
+                <div class="st-field">
+                    <label>Padding</label>
+                    <div class="st-right">
+                        <div class="st-right__inner inline-box w50">
+                          <label>Left</label>
+                          <input id="rowPaddingLeft" type="text" value="0px" class="txt-field st-input-css">
+                        </div>
+                        <div class="st-right__inner inline-box w50">
+                          <label>Right</label>
+                          <input id="rowPaddingRight" type="text" value="0px" class="txt-field st-input-css">
+                        </div>
+                    </div>
+                </div>
                 <div class="st-head">Name Style</div>
                 <div class="st-field ">
                 <label>Color</label>
@@ -1229,6 +1312,18 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                       <option value="125">Slight</option>
                       <option value="150" selected="selected">1 1/2 Spacing</option>
                       <option value="200">Double Space</option>
+                    </select>
+                  </div>
+                </div>
+                </div>
+                <div class="st-field">
+                <label>Text Align</label>
+                <div class="st-right">
+                  <div class="st-right__inner">
+                    <select id="scoreLeaderTextAlign">
+                      <option value="left" selected="selected">Left</option>
+                      <option value="center">Center</option>
+                      <option value="right">Right</option>
                     </select>
                   </div>
                 </div>

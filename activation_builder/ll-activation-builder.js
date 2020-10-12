@@ -733,6 +733,11 @@ var ll_activation_builder = {
             ll_activation_builder.changeInputCss($this);
         });
 
+        $('.touch-spin').TouchSpin({
+            min: 0,
+            max: 100
+        });
+
         $(".select-type-bg").change(function() {
             var id = $(this).attr('id');
             var val = $(this).val();
@@ -847,10 +852,12 @@ var ll_activation_builder = {
                     $colLeft.append($leaderboardCol);
                     $colRight.append($HTMLCol);
                     $btnRight.removeClass("active");
+                    $wrap.removeClass('orderActive');
                 } else {
                     $colLeft.append($HTMLCol);
                     $colRight.append($leaderboardCol);
                     $btnLeft.removeClass("active");
+                    $wrap.addClass('orderActive');
                 }
                 ll_activation_builder.updateStyleInfo('leaderboardAlingment', $btn.attr('display-type'));
             }
@@ -2888,7 +2895,7 @@ var ll_activation_builder = {
     updateColorElTpl: function(el, hex) {
         var id = $(el).attr("id");
         var color = hex != 'transparent' ? "#" + hex : 'transparent';
-
+        var styleInfo = ll_activation_builder.styleInfo;
         if( hex != 'transparent') {
             $(el).attr("data-color-start", hex);
         }
@@ -2902,27 +2909,36 @@ var ll_activation_builder = {
         } else if (id === "leaderboardBg") {
             $(".leadboard__content").css("background-color", color);
         } else if (id === "highlightedLeaderboardBg") {
-            $(".leadboard__content .highlighted").css("background-color", color);
+            $(".leadboard__content .highlighted").find('.list-leaders__name, .list-leaders__number, .list-leaders__count').css("background-color", color);
         } else if (id === "nameLeaderColor") {
-            $(".list-leaders__item:not(.highlighted) .list-leaders__name").css("color", color);
+            $(".list-leaders__item:not(.highlighted)").find('.list-leaders__name, .list-leaders__number').css("color", color);
         } else if (id === "scoreLeaderColor") {
             $(".list-leaders__item:not(.highlighted) .list-leaders__count").css("color", color);
         } else if (id === "highlightedNameLeaderColor") {
-            $(".list-leaders__item.highlighted .list-leaders__name").css("color", color);
+            $(".list-leaders__item.highlighted").find('.list-leaders__name, .list-leaders__number').css("color", color);
         } else if (id === "highlightedScoreLeaderColor") {
             $(".list-leaders__item.highlighted .list-leaders__count").css("color", color);
         } else if (id === "captureScreenBg") {
             $("#capture-screen-html").css("background-color", color);
         } else if (id === "htmlBg") {
             $(".leadboard__html").css("background-color", color);
+        } else if (id === "rowBg") {
+            if(typeof styleInfo.rowCheckTransparent != 'undefined' && styleInfo.rowCheckTransparent == 0){
+                if(typeof styleInfo.rowBgOpacity != 'undefined'){
+                    color = ll_theme_manager.hex2rgba(color, styleInfo.rowBgOpacity);
+                }
+                $(".list-leaders__item:not(.highlighted)").find('.list-leaders__number, .list-leaders__name, .list-leaders__count').css("background-color", color);
+            }
+        } else if (id === "rowBorderColor") {
+            $(".list-leaders__item").find('.list-leaders__number, .list-leaders__name, .list-leaders__count').css("border-color", color);
         }
         ll_activation_builder.updateStyleInfo(id, hex);
     },
     changeOptions: function() {
         var $title = $(".leadboard__header h2");
-        var $leadersName = $(".list-leaders__item:not(.highlighted) .list-leaders__name");
+        var $leadersName = $(".list-leaders__item:not(.highlighted)").find(".list-leaders__number, .list-leaders__name");
         var $leadersScore = $(".list-leaders__item:not(.highlighted) .list-leaders__count");
-        var $highlightedLeadersName = $(".list-leaders__item.highlighted .list-leaders__name");
+        var $highlightedLeadersName = $(".list-leaders__item.highlighted").find(".list-leaders__number, .list-leaders__name");
         var $highlightedLeadersScore = $(".list-leaders__item.highlighted .list-leaders__count");
 
         $("#headerTitle").on("keyup", function() {
@@ -3016,30 +3032,89 @@ var ll_activation_builder = {
             });
         });
 
+        $('#rowCheckTransparent').on('change', function () {
+            var val = 0;
+            var styleInfo = ll_activation_builder.styleInfo;
+
+            if($(this).is(':checked')){
+                val = 1;
+                
+                $('.list-leaders__item:not(.highlighted)').find('.list-leaders__number, .list-leaders__name, .list-leaders__count').css('background-color', 'transparent');
+                ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
+            } else {
+                
+                ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
+                ll_activation_builder.updateColorElTpl($('#rowBg'), styleInfo.rowBg);
+            }
+        });
+        $('#rowBgOpacity').on('change', function () {
+            var val = $(this).val();
+            var styleInfo = ll_activation_builder.styleInfo;
+
+            ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
+            ll_activation_builder.updateColorElTpl($('#rowBg'), styleInfo.rowBg);
+        });
+        $("#rowBorderType").change(function() {
+            var val = $(this).val();
+            var $leaders = $(".list-leaders__item").find('.list-leaders__name, .list-leaders__number,  .list-leaders__count');
+            $leaders.css("border-style", val);
+            ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
+        });
+        $("#rowBorderWidth").change(function() {
+            var val = $(this).val();
+            var $leaders = $(".list-leaders__item").find('.list-leaders__name, .list-leaders__number,  .list-leaders__count');
+            $leaders.css("border-width", val);
+            ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
+        });
+        $("#rowMarginRight").change(function() {
+            var val = $(this).val();
+            var $leaders = $(".list-leaders__item").find('.list-leaders__name, .list-leaders__number');
+            $leaders.css("margin-right", val);
+            ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
+        });
+        $("#rowMarginBottom").change(function() {
+            var val = $(this).val();
+            var $leadersRow = $(".list-leaders__item");
+            $leadersRow.css("margin-bottom", val);
+            ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
+        });
+        $("#rowPaddingLeft").change(function() {
+            var val = $(this).val();
+            var $leaders = $(".list-leaders__item").find('.list-leaders__name, .list-leaders__number, .list-leaders__count');
+            $leaders.css("padding-left", val);
+            ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
+        });
+        $("#rowPaddingRight").change(function() {
+            var val = $(this).val();
+            var $leaders = $(".list-leaders__item").find('.list-leaders__name, .list-leaders__number, .list-leaders__count');
+            $leaders.css("padding-right", val);
+            ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
+        });
+
         $("#nameLeaderTypeFace").change(function() {
             var val = $(this).val();
-            var $leadersName = $(".list-leaders__item:not(.highlighted) .list-leaders__name");
+            var $leadersName = $(".list-leaders__item:not(.highlighted)").find('.list-leaders__name, .list-leaders__number');
             //$(".leadboard__content").attr("nameTypeFace", val + ", sans-serif");
             $leadersName.css("font-family", val + ", sans-serif");
             ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
         });
         $("#nameLeaderFontSize").change(function() {
             var val = $(this).val();
-            var $leadersName = $(".list-leaders__item:not(.highlighted) .list-leaders__name");
+            var $leadersName = $(".list-leaders__item:not(.highlighted)").find('.list-leaders__name, .list-leaders__number');
             //$(".leadboard__content").attr("nameFontSize", val + "px");
             $leadersName.css("font-size", val + "px");
             ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
         });
         $("#nameLeaderFontWeight").change(function() {
             var val = $(this).val();
-            var $leadersName = $(".list-leaders__item:not(.highlighted) .list-leaders__name");
+            var $leadersName = $(".list-leaders__item:not(.highlighted)").find('.list-leaders__name, .list-leaders__number');
             //$(".leadboard__content").attr("nameFontWeight", val);
             $leadersName.css("font-weight", val);
             ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
         });
         $("#nameLeaderLineHeight").change(function() {
             var val = $(this).val();
-            var $leadersName = $(".list-leaders__item:not(.highlighted) .list-leaders__name");
+            var $leadersName = $(".list-leaders__item:not(.highlighted)").find('.list-leaders__name, .list-leaders__number');
             //$(".leadboard__content").attr("nameLineHeight", val + "%");
             $leadersName.css("line-height", val + "%");
             ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
@@ -3073,32 +3148,38 @@ var ll_activation_builder = {
             $leadersScore.css("line-height", val + "%");
             ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
         });
+        $("#scoreLeaderTextAlign").change(function() {
+            var val = $(this).val();
+            var $leadersScore = $(".list-leaders__item .list-leaders__count");
+            $leadersScore.css("text-align", val);
+            ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
+        });
 
         // ---------- Highlighted
         $("#highlightedNameLeaderTypeFace").change(function() {
             var val = $(this).val();
-            var $highlightedLeadersName = $(".list-leaders__item.highlighted .list-leaders__name");
+            var $highlightedLeadersName = $(".list-leaders__item.highlighted").find('.list-leaders__number, .list-leaders__name');
             //$(".leadboard__content").attr("nameTypeFace", val + ", sans-serif");
             $highlightedLeadersName.css("font-family", val + ", sans-serif");
             ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
         });
         $("#highlightedNameLeaderFontSize").change(function() {
             var val = $(this).val();
-            var $highlightedLeadersName = $(".list-leaders__item.highlighted .list-leaders__name");
+            var $highlightedLeadersName = $(".list-leaders__item.highlighted").find('.list-leaders__number, .list-leaders__name');
             //$(".leadboard__content").attr("nameFontSize", val + "px");
             $highlightedLeadersName.css("font-size", val + "px");
             ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
         });
         $("#highlightedNameLeaderFontWeight").change(function() {
             var val = $(this).val();
-            var $highlightedLeadersName = $(".list-leaders__item.highlighted .list-leaders__name");
+            var $highlightedLeadersName = $(".list-leaders__item.highlighted").find('.list-leaders__number, .list-leaders__name');
             //$(".leadboard__content").attr("nameFontWeight", val);
             $highlightedLeadersName.css("font-weight", val);
             ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
         });
         $("#highlightedNameLeaderLineHeight").change(function() {
             var val = $(this).val();
-            var $highlightedLeadersName = $(".list-leaders__item.highlighted .list-leaders__name");
+            var $highlightedLeadersName = $(".list-leaders__item.highlighted").find('.list-leaders__number, .list-leaders__name');
             //$(".leadboard__content").attr("nameLineHeight", val + "%");
             $highlightedLeadersName.css("line-height", val + "%");
             ll_activation_builder.updateStyleInfo($(this).attr('id'), val);
@@ -3228,7 +3309,7 @@ var ll_activation_builder = {
 
     applyHighlightedStyles: function(){
 
-        $(".leadboard__content .highlighted").css("background-color", '#'+$('#highlightedLeaderboardBg').attr('data-color-start'));
+        $(".leadboard__content .highlighted").find('.list-leaders__number, .list-leaders__name, .list-leaders__count').css("background-color", '#'+$('#highlightedLeaderboardBg').attr('data-color-start'));
         $(".leadboard__content .highlighted .list-leaders__name").css("color", '#'+$('#highlightedNameLeaderColor').attr('data-color-start'));
         $(".leadboard__content .highlighted .list-leaders__count").css("color", '#'+$('#highlightedScoreLeaderColor').attr('data-color-start'));
 
@@ -3244,10 +3325,10 @@ var ll_activation_builder = {
     },
 
     removeHighlightedStyles: function(){
-
-        $(".leadboard__content .list-leaders__item").css("background-color", 'unset');
         $(".leadboard__content .list-leaders__name").css("color", '#'+$('#nameLeaderColor').attr('data-color-start'));
         $(".leadboard__content .list-leaders__count").css("color", '#'+$('#scoreLeaderColor').attr('data-color-start'));
+
+        $('#rowBgOpacity').change();
 
         $("#nameLeaderTypeFace").change();
         $("#nameLeaderFontSize").change();
@@ -3265,6 +3346,19 @@ var ll_activation_builder = {
     },
     populateStyleInfo: function(styleInfo){
         if(styleInfo && Object.keys(styleInfo).length){
+            //Remove
+            if(typeof styleInfo['rowBg'] == 'undefined') styleInfo['rowBg'] = 'ffffff';
+            if(typeof styleInfo['rowCheckTransparent'] == 'undefined') styleInfo['rowCheckTransparent'] = 1;
+            if(typeof styleInfo['rowBgOpacity'] == 'undefined') styleInfo['rowBgOpacity'] = '100';
+            if(typeof styleInfo['rowBorderType'] == 'undefined') styleInfo['rowBorderType'] = 'None';
+            if(typeof styleInfo['rowBorderWidth'] == 'undefined') styleInfo['rowBorderWidth'] = '0';
+            if(typeof styleInfo['rowBorderColor'] == 'undefined') styleInfo['rowBorderColor'] = 'ffffff';
+            if(typeof styleInfo['rowMarginOuter'] == 'undefined') styleInfo['rowMarginOuter'] = '0';
+            if(typeof styleInfo['rowMarginBottom'] == 'undefined') styleInfo['rowMarginBottom'] = '0';
+            if(typeof styleInfo['rowPaddingLeft'] == 'undefined') styleInfo['rowPaddingLeft'] = '0';
+            if(typeof styleInfo['rowPaddingRight'] == 'undefined') styleInfo['rowPaddingRight'] = '0';
+            if(typeof styleInfo['scoreLeaderTextAlign'] == 'undefined') styleInfo['scoreLeaderTextAlign'] = 'left';
+            //Remove
             for(var key in styleInfo){
                 if($.trim(styleInfo[key]) && $.trim(styleInfo[key]) != 'undefined' && $.trim(styleInfo[key]) != 'null') {
 
@@ -3281,6 +3375,13 @@ var ll_activation_builder = {
 
                         $('.display_leaderboard[display-type='+styleInfo[key]+']').trigger('click');
 
+                    } else if( key == 'rowCheckTransparent'){
+                        if(parseInt(styleInfo.rowCheckTransparent)){
+                            ll_theme_manager.checkboxRadioButtons.check('#rowCheckTransparent', true);
+                        } else {
+                            ll_theme_manager.checkboxRadioButtons.check('#rowCheckTransparent', false);
+                        }
+                        $('#rowCheckTransparent').change();
                     } else if ($('#' + key).length) {
                         switch ($('#' + key).prop("tagName")) {
                             case 'INPUT':
@@ -4026,6 +4127,7 @@ var ll_activation_builder = {
     go_to_save: function(_callback, is_exit){
         var data = ll_activation_builder.collect_data();
         var is_valid = ll_activation_builder.validData(data);
+
         if(is_valid){
             if(parseInt(EVENTS_PERMISSION) && (typeof ll_activation_builder.activation.event_id == 'undefined' || !parseInt(ll_activation_builder.activation.event_id)) && parseInt(data.event_id)) {
                 ll_confirm_popup_manager.open('Are you sure you want to associate your activation to this event? You will not be able to change it later.', function(){

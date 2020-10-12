@@ -55,6 +55,7 @@ var ll_activation_templates = {
         style['scoreLeaderFontWeight'] = 'Normal';
         style['scoreLeaderFontSize'] = '30';
         style['scoreLeaderLineHeight'] = '150';
+        style['scoreLeaderTextAlign'] = '150';
         style['highlightedLeaderboardBg'] = 'transparent';
         style['highlightedNameLeaderColor'] = '000000';
         style['highlightedNameLeaderTypeFace'] = 'Arial';
@@ -68,6 +69,16 @@ var ll_activation_templates = {
         style['highlightedscoreLeaderLineHeight'] = '150';
         style['leadersBgType'] = '0';
         style['htmlBgType'] = '0';
+        slyle['rowBg'] = 'ffffff';
+        style['rowCheckTransparent'] = 1;
+        style['rowBgOpacity'] = '100';
+        style['rowBorderType'] = 'None';
+        style['rowBorderWidth'] = '0';
+        style['rowBorderColor'] = 'ffffff';
+        style['rowMarginOuter'] = '0';
+        style['rowMarginBottom'] = '0';
+        style['rowPaddingLeft'] = '0';
+        style['rowPaddingRight'] = '0';
 
         return style;
     },
@@ -271,23 +282,58 @@ var ll_activation_templates = {
             ll_activation_templates.apply_leaders_style(style_info);
         }
     },
-
+    
     apply_leaders_style: function(style_info){
 
         if(typeof style_info != 'undefined' && style_info && Object.keys(style_info).length) {
+            // --- Row
+            if(typeof style_info.rowBg != 'undefined' && style_info.rowBg){
+                if(typeof style_info.rowCheckTransparent != 'undefined'){
+                    if(style_info.rowCheckTransparent == 0){
+                        var rgba = null;
 
-            // --- Name
+                        if(typeof style_info.rowBgOpacity != 'undefined')
+                            rgba = ll_theme_manager.hex2rgba('#' + style_info.rowBg, style_info.rowBgOpacity);
+                        else
+                            rgba = ll_theme_manager.hex2rgba('#' + style_info.rowBg, 100);
+
+                        $('.list-leaders__number, .list-leaders__name, .list-leaders__count').css('background-color',  rgba);
+                    }
+                }
+            }
+            if(typeof style_info.rowBorderType != 'undefined' && style_info.rowBorderType){
+                $('.list-leaders__number, .list-leaders__name, .list-leaders__count').css('border-style',  style_info.rowBorderType);
+            }
+            if(typeof style_info.rowBorderColor != 'undefined' && style_info.rowBorderColor){
+                $('.list-leaders__number, .list-leaders__name, .list-leaders__count').css('border-color',  '#' + style_info.rowBorderColor);
+            }
+            if(typeof style_info.rowBorderWidth != 'undefined' && style_info.rowBorderWidth){
+                $('.list-leaders__number, .list-leaders__name, .list-leaders__count').css('border-width',  style_info.rowBorderWidth + 'px');
+            }
+            if(typeof style_info.rowMarginBottom != 'undefined' && style_info.rowMarginBottom){
+                $('.list-leaders__item').css('margin-bottom',  style_info.rowMarginBottom + 'px');
+            }
+            if(typeof style_info.rowMarginOuter != 'undefined' && style_info.rowMarginOuter){
+                $('.list-leaders__number, .list-leaders__name').css('margin-right',  style_info.rowMarginOuter + 'px');
+            }
+            if(typeof style_info.rowPaddingLeft != 'undefined' && style_info.rowPaddingLeft){
+                $('.list-leaders__name, .list-leaders__count').css('padding-left',  style_info.rowPaddingLeft + 'px');
+            }
+            if(typeof style_info.rowPaddingRight != 'undefined' && style_info.rowPaddingRight){
+                $('.list-leaders__name, .list-leaders__count').css('padding-right',  style_info.rowPaddingRight + 'px');
+            }
+            // --- Name and Numbers
             if(typeof style_info.nameLeaderColor != 'undefined' && style_info.nameLeaderColor){
-                $('.list-leaders__name').css('color',  '#' + style_info.nameLeaderColor);
+                $('.list-leaders__name, .list-leaders__number').css('color',  '#' + style_info.nameLeaderColor);
             }
             if(typeof style_info.nameLeaderTypeFace != 'undefined' && style_info.nameLeaderTypeFace){
-                $('.list-leaders__name').css('font-family',  style_info.nameLeaderTypeFace + ", sans-serif");
+                $('.list-leaders__name, .list-leaders__number').css('font-family',  style_info.nameLeaderTypeFace + ", sans-serif");
             }
             if(typeof style_info.nameLeaderFontWeight != 'undefined' && style_info.nameLeaderFontWeight){
-                $('.list-leaders__name').css('font-weight',  style_info.nameLeaderFontWeight);
+                $('.list-leaders__name, .list-leaders__number').css('font-weight',  style_info.nameLeaderFontWeight);
             }
             if(typeof style_info.nameLeaderFontSize != 'undefined' && style_info.nameLeaderFontSize){
-                $('.list-leaders__name').css('font-size',  style_info.nameLeaderFontSize + 'px');
+                $('.list-leaders__name, .list-leaders__number').css('font-size',  style_info.nameLeaderFontSize + 'px');
             }
             // --- Score
             if(typeof style_info.scoreLeaderColor != 'undefined' && style_info.scoreLeaderColor){
@@ -301,6 +347,9 @@ var ll_activation_templates = {
             }
             if(typeof style_info.scoreLeaderFontSize != 'undefined' && style_info.scoreLeaderFontSize){
                 $('.list-leaders__count').css('font-size',  style_info.scoreLeaderFontSize + 'px');
+            }
+            if(typeof style_info.scoreLeaderTextAlign != 'undefined' && style_info.scoreLeaderFontSize){
+                $('.list-leaders__count').css('text-align',  style_info.scoreLeaderTextAlign);
             }
 
             // ------------ Highlighted
@@ -317,18 +366,18 @@ var ll_activation_templates = {
                     $('.highlighted').css('background-color', '#' + style_info.highlightedLeaderboardBg);
                 }
 
-                // --- Name
+                // --- Name and Number
                 if (typeof style_info.highlightedNameLeaderColor != 'undefined' && style_info.highlightedNameLeaderColor) {
-                    $('.highlighted .list-leaders__name').css('color', '#' + style_info.highlightedNameLeaderColor);
+                    $('.highlighted').find('.list-leaders__name, .list-leaders__number').css('color', '#' + style_info.highlightedNameLeaderColor);
                 }
                 if (typeof style_info.highlightedNameLeaderTypeFace != 'undefined' && style_info.highlightedNameLeaderTypeFace) {
-                    $('.highlighted .list-leaders__name').css('font-family', style_info.highlightedNameLeaderTypeFace + ", sans-serif");
+                    $('.highlighted').find('.list-leaders__name, .list-leaders__number').css('font-family', style_info.highlightedNameLeaderTypeFace + ", sans-serif");
                 }
                 if (typeof style_info.highlightedNameLeaderFontWeight != 'undefined' && style_info.highlightedNameLeaderFontWeight) {
-                    $('.highlighted .list-leaders__name').css('font-weight', style_info.highlightedNameLeaderFontWeight);
+                    $('.highlighted').find('.list-leaders__name, .list-leaders__number').css('font-weight', style_info.highlightedNameLeaderFontWeight);
                 }
                 if (typeof style_info.highlightedNameLeaderFontSize != 'undefined' && style_info.highlightedNameLeaderFontSize) {
-                    $('.highlighted .list-leaders__name').css('font-size', style_info.highlightedNameLeaderFontSize + 'px');
+                    $('.highlighted').find('.list-leaders__name, .list-leaders__number').css('font-size', style_info.highlightedNameLeaderFontSize + 'px');
                 }
                 // --- Score
                 if (typeof style_info.highlightedScoreLeaderColor != 'undefined' && style_info.highlightedScoreLeaderColor) {

@@ -724,7 +724,11 @@ var ll_theme_manager = {
 	zoom_screenshot: function(src){
 		$('.ll_theme_screenshot_zoom').css('display', 'inline-block').attr('href', src).html('<img src="'+ src +'" alt=""/>');
 		$('.ll_theme_screenshot_zoom').trigger('click');
-	}
+	},
+    hex2rgba: function(c, a) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(c);
+        return result ? 'rgba(' + parseInt(result[1], 16) + ',' + parseInt(result[2], 16) + ',' + parseInt(result[3], 16) + ',' + a / 100 + ')' : 'transparent';
+    }
 };
 var ll_svgs_manager = {
 	attr_identifier: 'data-svg-id',

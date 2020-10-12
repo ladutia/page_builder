@@ -1082,7 +1082,7 @@
   width: 50px;
 }
 .st-field .w50 {
-  width: 60px;
+  width: 58px;
 }
 .st-field .w70 {
   width: 80px;
@@ -1114,7 +1114,7 @@ st-field .w75 {
 }
 .st-field > .st-right .st-right__inner.inline-box {
   display: inline-block;
-  width: 58px;
+  vertical-align: top;
 }
 .st-field > .st-right .st-right__inner > label {
   height: 12px;
@@ -1184,6 +1184,7 @@ st-field .w75 {
 .pt15 {
   padding-top: 15px;
 }
+.touch-spin,
 .st-input-css {
   width: 100%;
   text-align: center;
@@ -2213,4 +2214,24 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 .prizes-inventory-box.manual .custom_probability{
   display: inline-block;
+}
+
+.st-field--bg-opacity > label {
+    width: 160px;
+}
+
+.st-field--bg-opacity > .st-right {
+    margin-left: 160px;
+}
+
+.st-field__label-right{
+  display: inline-block;
+  vertical-align: top;
+  line-height: 30px;
+  margin-top: 15px;
+}
+
+.check-bg-transparent{
+  margin-top: 6px;
+  margin-left: 4px;
 }

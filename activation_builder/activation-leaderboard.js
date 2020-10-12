@@ -187,18 +187,54 @@ var activation_leaderboard_manager = {
 
             var style_info = activation_leaderboard_manager.activation.style_info;
 
-            // --- Name
+            // --- Row
+            if(typeof style_info.rowBg != 'undefined' && style_info.rowBg){
+                if(typeof style_info.rowCheckTransparent != 'undefined'){
+                    if(style_info.rowCheckTransparent == 0){
+                        var rgba = null;
+
+                        if(typeof style_info.rowBgOpacity != 'undefined')
+                            rgba = ll_theme_manager.hex2rgba('#' + style_info.rowBg, style_info.rowBgOpacity);
+                        else
+                            rgba = ll_theme_manager.hex2rgba('#' + style_info.rowBg, 100);
+
+                        $('.list-leaders__number, .list-leaders__name, .list-leaders__count').css('background-color',  rgba);
+                    }
+                }
+            }
+            if(typeof style_info.rowBorderType != 'undefined' && style_info.rowBorderType){
+                $('.list-leaders__number, .list-leaders__name, .list-leaders__count').css('border-style',  style_info.rowBorderType);
+            }
+            if(typeof style_info.rowBorderColor != 'undefined' && style_info.rowBorderColor){
+                $('.list-leaders__number, .list-leaders__name, .list-leaders__count').css('border-color',  '#' + style_info.rowBorderColor);
+            }
+            if(typeof style_info.rowBorderWidth != 'undefined' && style_info.rowBorderWidth){
+                $('.list-leaders__number, .list-leaders__name, .list-leaders__count').css('border-width',  style_info.rowBorderWidth + 'px');
+            }
+            if(typeof style_info.rowMarginBottom != 'undefined' && style_info.rowMarginBottom){
+                $('.list-leaders__item').css('margin-bottom',  style_info.rowMarginBottom + 'px');
+            }
+            if(typeof style_info.rowMarginOuter != 'undefined' && style_info.rowMarginOuter){
+                $('.list-leaders__number, .list-leaders__name').css('margin-right',  style_info.rowMarginOuter + 'px');
+            }
+            if(typeof style_info.rowPaddingLeft != 'undefined' && style_info.rowPaddingLeft){
+                $('.list-leaders__name, .list-leaders__count').css('padding-left',  style_info.rowPaddingLeft + 'px');
+            }
+            if(typeof style_info.rowPaddingRight != 'undefined' && style_info.rowPaddingRight){
+                $('.list-leaders__name, .list-leaders__count').css('padding-right',  style_info.rowPaddingRight + 'px');
+            }
+            // --- Name and Numbers
             if(typeof style_info.nameLeaderColor != 'undefined' && style_info.nameLeaderColor){
-                $('.list-leaders__name').css('color',  '#' + style_info.nameLeaderColor);
+                $('.list-leaders__name, .list-leaders__number').css('color',  '#' + style_info.nameLeaderColor);
             }
             if(typeof style_info.nameLeaderTypeFace != 'undefined' && style_info.nameLeaderTypeFace){
-                $('.list-leaders__name').css('font-family',  style_info.nameLeaderTypeFace + ", sans-serif");
+                $('.list-leaders__name, .list-leaders__number').css('font-family',  style_info.nameLeaderTypeFace + ", sans-serif");
             }
             if(typeof style_info.nameLeaderFontWeight != 'undefined' && style_info.nameLeaderFontWeight){
-                $('.list-leaders__name').css('font-weight',  style_info.nameLeaderFontWeight);
+                $('.list-leaders__name, .list-leaders__number').css('font-weight',  style_info.nameLeaderFontWeight);
             }
             if(typeof style_info.nameLeaderFontSize != 'undefined' && style_info.nameLeaderFontSize){
-                $('.list-leaders__name').css('font-size',  style_info.nameLeaderFontSize + 'px');
+                $('.list-leaders__name, .list-leaders__number').css('font-size',  style_info.nameLeaderFontSize + 'px');
             }
             // --- Score
             if(typeof style_info.scoreLeaderColor != 'undefined' && style_info.scoreLeaderColor){
@@ -212,6 +248,9 @@ var activation_leaderboard_manager = {
             }
             if(typeof style_info.scoreLeaderFontSize != 'undefined' && style_info.scoreLeaderFontSize){
                 $('.list-leaders__count').css('font-size',  style_info.scoreLeaderFontSize + 'px');
+            }
+            if(typeof style_info.scoreLeaderTextAlign != 'undefined' && style_info.scoreLeaderFontSize){
+                $('.list-leaders__count').css('text-align',  style_info.scoreLeaderTextAlign);
             }
 
             // ------------ Highlighted
@@ -228,18 +267,18 @@ var activation_leaderboard_manager = {
                     $('.highlighted').css('background-color', '#' + style_info.highlightedLeaderboardBg);
                 }
 
-                // --- Name
+                // --- Name and Number
                 if (typeof style_info.highlightedNameLeaderColor != 'undefined' && style_info.highlightedNameLeaderColor) {
-                    $('.highlighted .list-leaders__name').css('color', '#' + style_info.highlightedNameLeaderColor);
+                    $('.highlighted').find('.list-leaders__name, .list-leaders__number').css('color', '#' + style_info.highlightedNameLeaderColor);
                 }
                 if (typeof style_info.highlightedNameLeaderTypeFace != 'undefined' && style_info.highlightedNameLeaderTypeFace) {
-                    $('.highlighted .list-leaders__name').css('font-family', style_info.highlightedNameLeaderTypeFace + ", sans-serif");
+                    $('.highlighted').find('.list-leaders__name, .list-leaders__number').css('font-family', style_info.highlightedNameLeaderTypeFace + ", sans-serif");
                 }
                 if (typeof style_info.highlightedNameLeaderFontWeight != 'undefined' && style_info.highlightedNameLeaderFontWeight) {
-                    $('.highlighted .list-leaders__name').css('font-weight', style_info.highlightedNameLeaderFontWeight);
+                    $('.highlighted').find('.list-leaders__name, .list-leaders__number').css('font-weight', style_info.highlightedNameLeaderFontWeight);
                 }
                 if (typeof style_info.highlightedNameLeaderFontSize != 'undefined' && style_info.highlightedNameLeaderFontSize) {
-                    $('.highlighted .list-leaders__name').css('font-size', style_info.highlightedNameLeaderFontSize + 'px');
+                    $('.highlighted').find('.list-leaders__name, .list-leaders__number').css('font-size', style_info.highlightedNameLeaderFontSize + 'px');
                 }
                 // --- Score
                 if (typeof style_info.highlightedScoreLeaderColor != 'undefined' && style_info.highlightedScoreLeaderColor) {
@@ -266,7 +305,8 @@ var activation_leaderboard_manager = {
             activation_leaderboard_manager.count_of_leaders = Object.keys(leaders).length;
             for(var i in leaders){
                 $('.list-leaders').append('<div class="list-leaders__item">' +
-                                        '    <span class="list-leaders__name">' + (parseInt(i) + 1) + '. ' + leaders[i].name + '</span>' +
+                                        '    <span class="list-leaders__number">' + (parseInt(i) + 1) + '.</span>' +
+                                        '    <span class="list-leaders__name">' + leaders[i].name + '</span>' +
                                         '    <span class="list-leaders__count">' + leaders[i].result + '</span>' +
                                         '</div>');
             }

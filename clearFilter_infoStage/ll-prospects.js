@@ -117,6 +117,12 @@ var smartpage = {
 			});
 		});
 		
+		$('.t-btn-filter-clear').bind('click', function(e){
+			e.stopPropagation();
+			$(this).closest('.t-btn-filter--on').removeClass('t-btn-filter--on');
+			//Clear Filter
+		});
+		
 		$('#removeSelected').click(function(){
 
 			var assets_ids = [];

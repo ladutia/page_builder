@@ -3661,6 +3661,7 @@ account-page{
 .deal-stage{
 	margin: 12px 0 0 0;
 	padding: 13px;
+	min-height: 44px;
 }
 .deal-stage .stage-box{
 	position: relative;
@@ -3803,6 +3804,19 @@ account-page{
 .deal-stage .toltip-stage > ul > li:hover a,
 .deal-stage .toltip-stage > ul > li.selected a{
 	color: #f27e38;
+}
+.deal-stage__info{
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	top: 13px;
+	right: 30px;
+	z-index: 1;
+	cursor: pointer;
+}
+.deal-stage__info img{
+	width: 100%;
+	height: auto;
 }
 @media (max-width: 1580px){
 

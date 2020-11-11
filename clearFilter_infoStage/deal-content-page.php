@@ -121,6 +121,9 @@
 		</div>
 	</div>
 	<div class="box-content deal-stage">
+        <a href="javascript:void(0);" class="deal-stage__info ll_std_tooltip pos_bottom tooltipstered" title="Info Deal Stage">
+            <img src="imgs/vvp/svgs/icn-info.svg">
+        </a>
 		<div id="stages"></div>
 	</div>
 </div>

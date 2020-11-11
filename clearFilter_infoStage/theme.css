@@ -2179,6 +2179,38 @@ label.inline, span.inline, div.inline, a.inline, img.inline{
 .t-btn-single.ll-icn-filter .icn svg path{
 	fill: #333333;
 }
+.t-btn-filter{
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+}
+.t-btn-filter.ll-fr{
+    margin-left: 10px;
+}
+.t-btn-filter .t-btn-single.ll-icn-filter .icn{
+    background: url('imgs/svg/big-funnel.svg') no-repeat center center;
+    background-size: 100% auto;
+}
+.t-btn-filter--on .t-btn-single.ll-icn-filter .icn{
+	background-image: url('imgs/svg/big-funnel-orange.svg');
+}
+.t-btn-filter-clear{
+	display: none;
+	color: #ffffff;
+	background: #fb8f04;
+	position: absolute;
+	top: -8px;
+	right: -4px;
+	padding: 1px 3px;
+	font-size: 11px;
+	line-height: 13px;
+	z-index: 1;
+	cursor: pointer;
+	border-radius: 2px;
+}
+.t-btn-filter--on .t-btn-filter-clear{
+	display: block;
+}
 /*other*/
 .ll-actions-top .t-btn,
 .ll-actions-top .t-actions-dropdown{

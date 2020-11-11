@@ -317,11 +317,12 @@ include "right-side.php";
 		<?php 
 		if($PROSPECT_CRITERIA && ll_customer_security_profiles_permissions::is_has_permission_as_user_from_session(ll_application_sections_items::SETUP_PROSPECT_CRITERIA)){
 		?>
-		<a href="javascript:void(0)" id="btn_create_criteria" class="t-btn-gray t-btn-single ll-icn-filter t-btn-big ll-icn-time-left ll-fr ll_std_tooltip" title="Filter Prospects">
-			<i class="icn">
-				<img src="imgs/svg/big-funnel.svg" style="width: 100%; height: 100%; vertical-align: top;" />
-			</i>
-		</a>
+		<span class="t-btn-filter ll-fr">
+			<span class="t-btn-filter-clear">Clear</span>
+			<a href="javascript:void(0)" id="btn_create_criteria" class="t-btn-gray t-btn-single ll-icn-filter t-btn-big ll-icn-time-left ll_std_tooltip" title="Filter Prospects">
+				<i class="icn"></i>
+			</a>
+		</span>
 		<?php 
 		}
 		?>

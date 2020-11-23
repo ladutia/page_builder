@@ -1385,6 +1385,10 @@ list-widgets__item .item__delete:hover {
   margin-top: 15px;
 }
 
+.pb-field > .pb-right .pb-right__inner.pb-field-mt20{
+  margin-top: 20px;
+}
+
 .pb-field > .pb-right .pb-right__inner > label {
   height: 12px;
   font-size: 11px;

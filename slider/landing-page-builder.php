@@ -5357,8 +5357,49 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                                 <label>Height</label>
                                                 <div class="pb-right">
                                                     <div class="pb-right__inner pb-field-px">
+                                                        <label class="pb-label--left">Desktop</label>
                                                         <input type="text" class="txt-field touch-spin-slideshow-height" id="slideshowHeight" />
                                                         <span class="pb-field-px__label">px</span>
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-px pb-field-mt20">
+                                                        <label class="pb-label--left">Tablet</label>
+                                                        <input type="text" class="txt-field touch-spin-slideshow-height" id="slideshowHeightTablet" />
+                                                        <span class="pb-field-px__label">px</span>
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-px pb-field-mt20">
+                                                        <label class="pb-label--left">Mobile</label>
+                                                        <input type="text" class="txt-field touch-spin-slideshow-height" id="slideshowHeightMobile" />
+                                                        <span class="pb-field-px__label">px</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Mode</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <select id="slideshowMode">
+                                                            <option value="auto">Auto</option>
+                                                            <option value="cover" selected="selected">Cover</option>
+                                                            <option value="contain">Contain</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field slideshow-position-image">
+                                                <label>Position Image</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <select id="slideshowPositionImage">
+                                                            <option value="leftTop">Left Top</option>
+                                                            <option value="leftCenter">Left Center</option>
+                                                            <option value="leftBottom">Left Bottom</option>
+                                                            <option value="rightTop">Right Top</option>
+                                                            <option value="rightCenter">Right Center</option>
+                                                            <option value="rightBottom">Right Bottom</option>
+                                                            <option value="centerTop">Center Top</option>
+                                                            <option value="centerCenter" selected="selected">Center Center</option>
+                                                            <option value="centerBottom">Center Bottom</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>

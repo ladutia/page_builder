@@ -3942,7 +3942,31 @@ var pageBuilder = {
             $('#slideshowBorderColor').colpickSetColor(opt.borderColor, true).css('background-color', opt.borderColor);
             $('#slideshowArrowsColor').colpickSetColor(opt.arrowsColor, true).css('background-color', opt.arrowsColor);
             $('#slideshowDotsColor').colpickSetColor(opt.dotsColor, true).css('background-color', opt.dotsColor);
-            $('#slideshowHeight').val(opt.height)
+
+            var isHeightNumber = opt.height.match(/\b(auto)\b|\b[0-9]{1,}(px|\u0025)?/g);
+
+            if (isHeightNumber != null) {
+                if (+isHeightNumber) opt.height = opt.height;
+            }
+
+            opt.heightTablet = opt.heightTablet || '';
+            opt.heightMobile = opt.heightMobile || '';
+
+            $widget.attr('heightdesktop', opt.height);
+
+            $('#slideshowHeight').val(opt.height);
+            $('#slideshowHeightTablet').val(opt.heightTablet) 
+            $('#slideshowHeightMobile').val(opt.heightMobile);
+
+            opt.mode = opt.mode || 'cover';
+            opt.positionImage = opt.positionImage || 'centerCenter';
+
+            $('#slideshowMode option[value="' + opt.mode + '"]').attr('selected', true);
+            $("#slideshowMode").trigger('liszt:updated');
+
+            $('#slideshowPositionImage option[value="' + opt.positionImage + '"]').attr('selected', true);
+            $("#slideshowPositionImage").trigger('liszt:updated');
+
             setSettingCssWidget($('#pb-panel__slideshow'));
             setSettingsBackgroundImage($('#pb-panel__slideshow'));
             setSettingsResponsive($("#pb-panel__slideshow"));
@@ -4881,10 +4905,45 @@ var pageBuilder = {
         $('#slideshowHeight').change(function () {
             getTplOpt();
             opt.height = $(this).val();
+            $tpl.css('height', opt.height + 'px');
             $tpl.find('.pb-widget__content').css('height', opt.height + 'px');
+            $tpl.attr('heightdesktop', opt.height);
             $tpl.attr('data-json', JSON.stringify(opt));
             pageBuilder.setNewActionHistory();
         });
+        $('#slideshowHeightTablet').change(function () {
+            getTplOpt();
+            opt.heightTablet = $(this).val();
+            $tpl.attr('heighttablet', opt.heightTablet);
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+        $('#slideshowHeightMobile').change(function () {
+            getTplOpt();
+            opt.heightMobile = $(this).val();
+            $tpl.attr('heightmobile', opt.heightMobile);
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+        $('#slideshowMode').change(function () {
+            getTplOpt();
+            opt.mode = $(this).val();
+
+            $tpl.removeClass('coverSize autoSize containSize');
+            $tpl.addClass(opt.mode + 'Size');
+
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+        $('#slideshowPositionImage').change(function () {
+            getTplOpt();
+            opt.positionImage = $(this).val();
+            $tpl.attr('data-json', JSON.stringify(opt));
+            $tpl.removeClass('leftTop leftCenter leftBottom rightTop rightCenter rightBottom centerTop centerCenter centerBottom');
+            $tpl.addClass(opt.positionImage);
+            pageBuilder.setNewActionHistory();
+        });
+
         //Container
         $('#containerBorderType').change(function () {
             getTplOpt();

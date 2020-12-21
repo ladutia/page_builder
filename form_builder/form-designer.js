@@ -995,6 +995,38 @@ var formBuilderpage = {
 			formBuilderpage.set_elemenet_data($tpl, opt);
 			$tpl.find('.fb-choice').css('font-size', opt.choicesSize  + 'px');
 		});
+		ll_combo_manager.make_combo('.fb-choice-hint-left-font');
+		ll_combo_manager.event_on_change('.fb-choice-hint-left-font', function(){
+			var $tpl = $('.tpl-block.selected');
+			var opt = $tpl.data('json');
+			opt.choicesHintLeftFont = ll_combo_manager.get_selected_value('.fb-choice-hint-left-font');
+			formBuilderpage.set_elemenet_data($tpl, opt);
+			$tpl.find('.tpl-choices__label-left').css('font-family', opt.choicesHintLeftFont);
+		});
+		ll_combo_manager.make_combo('.fb-choice-hint-right-font');
+		ll_combo_manager.event_on_change('.fb-choice-hint-right-font', function(){
+			var $tpl = $('.tpl-block.selected');
+			var opt = $tpl.data('json');
+			opt.choicesHintRightFont = ll_combo_manager.get_selected_value('.fb-choice-hint-right-font');
+			formBuilderpage.set_elemenet_data($tpl, opt);
+			$tpl.find('.tpl-choices__label-right').css('font-family', opt.choicesHintRightFont);
+		});
+		ll_combo_manager.make_combo('.fb-choice-hint-left-size');
+		ll_combo_manager.event_on_change('.fb-choice-hint-left-size', function(){
+			var $tpl = $('.tpl-block.selected');
+			var opt = $tpl.data('json');
+			opt.choicesHintLeftSize = ll_combo_manager.get_selected_value('.fb-choice-hint-left-size');
+			formBuilderpage.set_elemenet_data($tpl, opt);
+			$tpl.find('.tpl-choices__label-left').css('font-size', opt.choicesHintLeftSize  + 'px');
+		});
+		ll_combo_manager.make_combo('.fb-choice-hint-right-size');
+		ll_combo_manager.event_on_change('.fb-choice-hint-right-size', function(){
+			var $tpl = $('.tpl-block.selected');
+			var opt = $tpl.data('json');
+			opt.choicesHintRightSize = ll_combo_manager.get_selected_value('.fb-choice-hint-right-size');
+			formBuilderpage.set_elemenet_data($tpl, opt);
+			$tpl.find('.tpl-choices__label-right').css('font-size', opt.choicesHintRightSize  + 'px');
+		});
 		ll_combo_manager.make_combo('#form_resubmit_wait_period');
 		ll_combo_manager.make_combo('#fb-label-font-global');
 		ll_combo_manager.event_on_change('#fb-label-font-global', function(){
@@ -2000,6 +2032,31 @@ var formBuilderpage = {
 				formBuilderpage.checkRadioBoxColumn(ll_combo_manager.get_selected_value('.fb-number-columns-choices'), $tpl.find('.tpl-choices'));
 			}
 		});
+
+		$('input[name="choices-display"]').change(function(){
+			var $tpl = $('.tpl-block.selected');
+
+			formBuilderpage.change_field_data_json ('display', '', $(this).val());
+			if($(this).val() == 'classic'){
+				$tpl.removeClass('tpl-choices--survey');
+				$('#element_choices_survey_style').hide();
+				$('#choices-hint-left').hide();
+				$('#choices-hint-right').hide();
+				$tpl.find('.tpl-choices').find('.tpl-choices__labels, style.choices-survey-css').remove();
+			}else if($(this).val() == 'survey'){
+				$tpl.addClass('tpl-choices--survey');
+				$('#element_choices_survey_style').show();
+				$('#choices-hint-left').show();
+				$('#choices-hint-right').show();
+				if(!$tpl.find('.tpl-choices').find('.tpl-choices__labels').length){
+					$tpl.find('.tpl-choices').prepend('<div class="tpl-choices__labels clearfix"><div class="tpl-choices__label-left">NOT AT ALL LIKELY</div><div class="tpl-choices__label-right">EXTREMELY LIKELY</div></div>');
+				}
+				if(!$tpl.find('.tpl-choices').find('style.choices-survey-css').length){
+					formBuilderpage.updateChoicesStyleInline($tpl);
+				}
+			}
+		});
+		
 		
 		$('input[name="has_edit_permission"]').change(function(){
 			var value = 0;
@@ -3173,7 +3230,7 @@ var formBuilderpage = {
 				custom_type = "amount";
 				choices_json = {"1": {"option_name": "$5", "option_value": "5", "is_default": 0, "token": "", "type": "radio"}, "2": {"option_name": "$10", "option_value": "10", "is_default": 0, "token": "", "type": "radio"}, "3": {"option_name": "$15", "option_value": "15","is_default": 0, "token": "", "type": "radio"}, "4": {"option_name": "$20", "option_value": "20", "is_default": 0, "token": "", "type": "radio"}};
 			}
-			dataAll = {"element_id": formBuilderpage.element_current_id, "custom_type": custom_type, "fieldItemsDirection": "vertical", "numberColumns": "1", "randomize": "static", "choices": choices_json, "isRequired": 0, "isAlwaysDisplay": 0, "isConditional": 0, "isDonotPrefilled": 0, "isHidden": 0, "displayMode": 0, "defaultValue": "", "fieldErrorMessage": "", "cssClass": "", "containerCssClass": "", "guidelines": "", "mappingFieldIds": {}, "labelWidth":"None", "identifierCustom":"0", "identifier": identifier, "defaultIdentifier": identifier, "visible":"0", "choicesColor": "#333333", "choicesSize": "14", "choicesFont": "Open Sans", "labelText":"Radio Buttons", "fieldLength":"medium", "labelFont":"None", "labelSize":"None", "labelColor":"None", "labelPos":"None", "fieldBackground":"None", "fieldBorderStyle":"None", "fieldBorderWidth":"None", "fieldBorderColor":"None", "fieldFont":"None", "fieldSize":"None", "fieldColor":"None", 'llSingleFieldProcessType': '', "mergeType": element_merge_type, "hasEditPermission":1,"hasDeletePermission":1};
+			dataAll = {"element_id": formBuilderpage.element_current_id, "custom_type": custom_type, "display": "classic", "choicesBgColor": "#ffffff", "choicesBorderColor": "#c9c9c9", "choicesSelectedBgColor": "#c9c9c9", "choicesSelectedBorderColor": "#c9c9c9", "choicesSelectedFontColor": "#333333", "choicesHintLeft": "NOT AT ALL LIKELY", "choicesHintLeftColor": "#333333", "choicesHintLeftSize": "14", "choicesHintLeftFont": "Open Sans", "choicesHintRight": "EXTREMELY LIKELY", "choicesHintRightColor": "#333333", "choicesHintRightSize": "14", "choicesHintRightFont": "Open Sans", "fieldItemsDirection": "vertical", "numberColumns": "1", "randomize": "static", "choices": choices_json, "isRequired": 0, "isAlwaysDisplay": 0, "isConditional": 0, "isDonotPrefilled": 0, "isHidden": 0, "displayMode": 0, "defaultValue": "", "fieldErrorMessage": "", "cssClass": "", "containerCssClass": "", "guidelines": "", "mappingFieldIds": {}, "labelWidth":"None", "identifierCustom":"0", "identifier": identifier, "defaultIdentifier": identifier, "visible":"0", "choicesColor": "#333333", "choicesSize": "14", "choicesFont": "Open Sans", "labelText":"Radio Buttons", "fieldLength":"medium", "labelFont":"None", "labelSize":"None", "labelColor":"None", "labelPos":"None", "fieldBackground":"None", "fieldBorderStyle":"None", "fieldBorderWidth":"None", "fieldBorderColor":"None", "fieldFont":"None", "fieldSize":"None", "fieldColor":"None", 'llSingleFieldProcessType': '', "mergeType": element_merge_type, "hasEditPermission":1,"hasDeletePermission":1};
 			htmlEl = "<div data-element-id='"+formBuilderpage.element_current_id+"' id='"+identifier+"' data-json='"+JSON.stringify(dataAll)+"' class='tpl-block fb-add-new-el' data-type-el='multiple_choices'>"+
 				'<div class="tpl-block-content clearfix %%SHOW_ERROR_CLASS%%">'+
 				'<label><span>Radio Buttons</span></label>'+
@@ -3549,7 +3606,7 @@ var formBuilderpage = {
 			}
 			var identifier_base = 'Checkboxes_Question_';
 			identifier = this.generate_identifier('checkboxes', identifier_base);
-			dataAll = {"element_id": formBuilderpage.element_current_id, "fieldItemsDirection": "vertical", "numberColumns": "1", "choices": {"1": {"option_name": "First Option", "option_value": "First Option", "is_default": 0, "token": "", "type": "checkbox"}, "2": {"option_name": "Second Option", "option_value": "Second Option", "is_default": 0, "token": "", "type": "checkbox"}, "3": {"option_name": "Third Option", "option_value": "Third Option", "is_default": 0, "token": "", "type": "checkbox"}},"isRequired": 0, "isAlwaysDisplay": 0, "isConditional": 0, "isDonotPrefilled": 0, "isHidden": 0, "displayMode": 0, "defaultValue": "", "fieldErrorMessage": "", "cssClass": "", "containerCssClass": "", "guidelines": "", "mappingFieldIds": {}, "labelWidth":"None", "identifierCustom":"0", "identifier": identifier, "defaultIdentifier": identifier, "visible":"0", "labelText":"Checkboxes", "fieldLength":"medium", "labelFont":"None", "choicesColor": "#333333", "choicesSize": "14", "choicesFont": "Open Sans", "labelSize":"None", "labelColor":"None", "labelPos":"None", "fieldBackground":"None", "fieldBorderStyle":"None", "fieldBorderWidth":"None", "fieldBorderColor":"None", "fieldFont":"None", "fieldSize":"None", "fieldColor":"None", "mergeType": element_merge_type, "hasEditPermission":1,"hasDeletePermission":1};
+			dataAll = {"element_id": formBuilderpage.element_current_id, display: "classic", "choicesBgColor": "#ffffff", "choicesBorderColor": "#c9c9c9", "choicesSelectedBgColor": "#c9c9c9", "choicesSelectedBorderColor": "#c9c9c9", "choicesSelectedFontColor": "#333333", "choicesHintLeft": "NOT AT ALL LIKELY", "choicesHintLeftColor": "#333333", "choicesHintLeftSize": "14", "choicesHintLeftFont": "Open Sans", "choicesHintRight": "EXTREMELY LIKELY", "choicesHintRightColor": "#333333", "choicesHintRightSize": "14", "choicesHintRightFont": "Open Sans", "fieldItemsDirection": "vertical", "numberColumns": "1", "choices": {"1": {"option_name": "First Option", "option_value": "First Option", "is_default": 0, "token": "", "type": "checkbox"}, "2": {"option_name": "Second Option", "option_value": "Second Option", "is_default": 0, "token": "", "type": "checkbox"}, "3": {"option_name": "Third Option", "option_value": "Third Option", "is_default": 0, "token": "", "type": "checkbox"}},"isRequired": 0, "isAlwaysDisplay": 0, "isConditional": 0, "isDonotPrefilled": 0, "isHidden": 0, "displayMode": 0, "defaultValue": "", "fieldErrorMessage": "", "cssClass": "", "containerCssClass": "", "guidelines": "", "mappingFieldIds": {}, "labelWidth":"None", "identifierCustom":"0", "identifier": identifier, "defaultIdentifier": identifier, "visible":"0", "labelText":"Checkboxes", "fieldLength":"medium", "labelFont":"None", "choicesColor": "#333333", "choicesSize": "14", "choicesFont": "Open Sans", "labelSize":"None", "labelColor":"None", "labelPos":"None", "fieldBackground":"None", "fieldBorderStyle":"None", "fieldBorderWidth":"None", "fieldBorderColor":"None", "fieldFont":"None", "fieldSize":"None", "fieldColor":"None", "mergeType": element_merge_type, "hasEditPermission":1,"hasDeletePermission":1};
 			
 			htmlEl = "<div data-element-id='"+formBuilderpage.element_current_id+"' id='"+identifier+"' data-json='"+JSON.stringify(dataAll)+"' class='tpl-block fb-add-new-el' data-type-el='checkboxes'>"+
 				'<div class="tpl-block-content clearfix %%SHOW_ERROR_CLASS%%">'+
@@ -4601,6 +4658,10 @@ var formBuilderpage = {
 		$('#element_boolean_default_value').hide();
 		$('#drop_down_custom_style').css('padding-bottom', '0');
 		$('#element_choices_style').hide();
+		$('#element_choices_display').hide();
+		$('#element_choices_survey_style').hide();
+		$('#choices-hint-left').hide();
+		$('#choices-hint-right').hide();
 		$('#element_sort_alphabetic').hide();
 		$slide.find('#element_badge_type').hide();
 		$slide.find('#element_barcode_provider_types').hide();
@@ -4695,6 +4756,11 @@ var formBuilderpage = {
 					$('.options-style').show();
 				}
 				$('#element_choices_style').show();
+
+				if (typeof opt.display != 'undefined'){
+					$('#element_choices_display').show();
+				}
+				
 				ll_combo_manager.remove_option('.fb-label-pos', "2");
 				if(! allow_user_to_sfmc_mapping){
 					$('#element_common_map_rules').css('padding-bottom', '200px');
@@ -4748,6 +4814,13 @@ var formBuilderpage = {
 					$('.options-style-vertical-alignment').hide();
 				}
 				$('#element_choices_style').show();
+
+				if (typeof opt.display != 'undefined'){
+					$('#element_choices_display').show();
+					$slide.find('.fb-choise-hint-left-text').val(opt.choicesHintLeft);
+					$slide.find('.fb-choise-hint-right-text').val(opt.choicesHintRight);
+				}
+
 				ll_combo_manager.remove_option('.fb-label-pos',"2");
 				$('#element_field_style').hide();
 				formBuilderpage.fill_mapping_rules_fields('#element_common_map_rules select', datatype_aliases, element_id, '');
@@ -5388,6 +5461,22 @@ var formBuilderpage = {
 			if(typeof opt.choicesFont != 'undefined'){
 				ll_combo_manager.set_selected_value('.fb-choice-font', opt.choicesFont);
 			}
+
+			if(typeof opt.choicesHintLeftSize != 'undefined'){
+				ll_combo_manager.set_selected_value('.fb-choice-hint-left-size', opt.choicesHintLeftSize);
+			}
+			
+			if(typeof opt.choicesHintLeftFont != 'undefined'){
+				ll_combo_manager.set_selected_value('.fb-choice-hint-left-font', opt.choicesHintLeftFont);
+			}
+
+			if(typeof opt.choicesHintRightSize != 'undefined'){
+				ll_combo_manager.set_selected_value('.fb-choice-hint-right-size', opt.choicesHintRightSize);
+			}
+			
+			if(typeof opt.choicesHintRightFont != 'undefined'){
+				ll_combo_manager.set_selected_value('.fb-choice-hint-right-font', opt.choicesHintRightFont);
+			}
 			
 			$('input#element_url_parameter').val('');
 			if(typeof opt.urlParameter != 'undefined'){
@@ -5419,6 +5508,34 @@ var formBuilderpage = {
 			
 			if (typeof opt.choicesColor != 'undefined'){
 				$slide.find('.fb-choice-color').colpickSetColor(opt.choicesColor, true).css('background-color', opt.choicesColor);
+			}
+
+			if (typeof opt.choicesHintLeftColor != 'undefined'){
+				$slide.find('.fb-choice-hint-left-color').colpickSetColor(opt.choicesColor, true).css('background-color', opt.choicesHintLeftColor);
+			}
+
+			if (typeof opt.choicesHintRightColor != 'undefined'){
+				$slide.find('.fb-choice-hint-right-color').colpickSetColor(opt.choicesColor, true).css('background-color', opt.choicesHintRightColor);
+			}
+
+			if (typeof opt.choicesBgColor != 'undefined'){
+				$slide.find('.fb-choice-survey-bg-color').colpickSetColor(opt.choicesBgColor, true).css('background-color', opt.choicesBgColor);
+			}
+
+			if (typeof opt.choicesBorderColor != 'undefined'){
+				$slide.find('.fb-choice-survey-border-color').colpickSetColor(opt.choicesBorderColor, true).css('background-color', opt.choicesBorderColor);
+			}
+
+			if (typeof opt.choicesSelectedBgColor != 'undefined'){
+				$slide.find('.fb-choice-survey-selected-bg-color').colpickSetColor(opt.choicesSelectedBgColor, true).css('background-color', opt.choicesSelectedBgColor);
+			}
+
+			if (typeof opt.choicesSelectedBorderColor != 'undefined'){
+				$slide.find('.fb-choice-survey-selected-border-color').colpickSetColor(opt.choicesSelectedBorderColor, true).css('background-color', opt.choicesSelectedBorderColor);
+			}
+
+			if (typeof opt.choicesSelectedFontColor != 'undefined'){
+				$slide.find('.fb-choice-survey-selected-font-color').colpickSetColor(opt.choicesSelectedFontColor, true).css('background-color', opt.choicesSelectedFontColor);
 			}
 			
 			$slide.find('.fb-label-pos option[value="'+opt.labelPos+'"]').attr('selected', true);
@@ -5648,6 +5765,20 @@ var formBuilderpage = {
 				}else if(opt.fieldItemsDirection == 'horizontal') {
 					$('.fb-box-number-columns-radio').show();
 				}
+
+				if (typeof opt.display != 'undefined'){
+					if(opt.display == "classic"){
+						$('#element_choices_survey_style').hide();
+						$('#choices-hint-left').hide();
+						$('#choices-hint-right').hide();
+					} else{
+						$('#element_choices_survey_style').show();
+						$('#choices-hint-left').show();
+						$('#choices-hint-right').show();
+					}
+					ll_theme_manager.checkboxRadioButtons.check($('input[name="choices-display"][value="'+opt.display+'"]'),true);
+				}
+				
 				ll_combo_manager.set_selected_value('.fb-number-columns-choices', opt.numberColumns);
 				ll_theme_manager.checkboxRadioButtons.check($('input[name="multiple-direction"][value="'+opt.fieldItemsDirection+'"]'),true);
 				if(type == 'multiple_choices'){
@@ -7124,6 +7255,24 @@ var formBuilderpage = {
 				.css("text-align", align);
 			$tpl.attr("data-json", JSON.stringify(opt));
 		});
+		$('.fb-choise-hint-left-text').on('keyup change', function(){
+			var $tpl = $('.tpl-block.selected');
+			var opt = $tpl.data('json');
+			var val = $(this).val();
+			
+			opt.choicesHintLeft = val;
+			$tpl.find('.tpl-choices__label-left').text(val);
+			formBuilderpage.set_elemenet_data($tpl, opt)
+		});
+		$('.fb-choise-hint-right-text').on('keyup change', function(){
+			var $tpl = $('.tpl-block.selected');
+			var opt = $tpl.data('json');
+			var val = $(this).val();
+			
+			opt.choicesHintRight = val;
+			$tpl.find('.tpl-choices__label-right').text(val);
+			formBuilderpage.set_elemenet_data($tpl, opt)
+		});
 	},
 	align_field_without_hints: function($tpl, opt){
 		if(! opt.hints.nameFirst && ! opt.hints.nameLast){
@@ -7310,6 +7459,34 @@ var formBuilderpage = {
 			opt.choicesColor = '#' + hex;
 			$tpl.find('.tpl-block-content').find('.fb-choice').css('color', opt.choicesColor);
 			formBuilderpage.set_elemenet_data($tpl, opt)
+		} else if( $el.hasClass('fb-choice-hint-left-color') ){
+			opt.choicesHintLeftColor = '#' + hex;
+			$tpl.find('.tpl-block-content').find('.tpl-choices__label-left').css('color', opt.choicesHintLeftColor);
+			formBuilderpage.set_elemenet_data($tpl, opt)
+		} else if( $el.hasClass('fb-choice-hint-right-color') ){
+			opt.choicesHintRightColor = '#' + hex;
+			$tpl.find('.tpl-block-content').find('.tpl-choices__label-right').css('color', opt.choicesHintRightColor);
+			formBuilderpage.set_elemenet_data($tpl, opt)
+		} else if( $el.hasClass('fb-choice-survey-bg-color') ){
+			opt.choicesBgColor = '#' + hex;
+			$tpl.find('.tpl-choices .t-field label').css('background-color', opt.choicesBgColor);
+			formBuilderpage.set_elemenet_data($tpl, opt)
+		} else if( $el.hasClass('fb-choice-survey-border-color') ){
+			opt.choicesBorderColor = '#' + hex;
+			$tpl.find('.tpl-choices .t-field label').css('border-color', opt.choicesBorderColor);
+			formBuilderpage.set_elemenet_data($tpl, opt)
+		} else if( $el.hasClass('fb-choice-survey-selected-bg-color') ){
+			opt.choicesSelectedBgColor = '#' + hex;
+			formBuilderpage.set_elemenet_data($tpl, opt)
+			formBuilderpage.updateChoicesStyleInline($tpl, opt);
+		} else if( $el.hasClass('fb-choice-survey-selected-border-color') ){
+			opt.choicesSelectedBorderColor = '#' + hex;
+			formBuilderpage.set_elemenet_data($tpl, opt)
+			formBuilderpage.updateChoicesStyleInline($tpl, opt);
+		} else if( $el.hasClass('fb-choice-survey-selected-font-color') ){
+			opt.choicesSelectedFontColor = '#' + hex;
+			formBuilderpage.set_elemenet_data($tpl, opt)
+			formBuilderpage.updateChoicesStyleInline($tpl, opt);
 		} else if ( $el.hasClass('fb-field-background') ) {
 			opt.fieldBackground = '#' + hex;
 			$tpl.find('.txt-field').css('background-color', opt.fieldBackground);
@@ -10506,6 +10683,18 @@ var formBuilderpage = {
 			});
 		}
 	},
+
+	updateChoicesStyleInline: function($tpl, opt){
+		var id = $tpl.attr('id');
+		var opt = opt || $tpl.data('json');
+		var css = '#'+id+' .t-field label:hover, #'+id+' .t-field .checked label {background-color: '+opt.choicesSelectedBgColor+'!important; border-color: '+opt.choicesSelectedBorderColor+'!important;} #'+id+' .t-field label:hover .fb-choice, #'+id+' .t-field .checked label .fb-choice {color: '+opt.choicesSelectedFontColor+'!important;}';
+
+		if($tpl.find('.choices-survey-css').length){
+			$tpl.find('.choices-survey-css').html(css);
+		} else{
+			$tpl.find('.tpl-choices').prepend('<style class="choices-survey-css" id="'+id+'_survey-css">'+css+'</style>');
+		}
+	}
 	
 	/*get_custom_attributes: function(parent){
 	 var attributes = [];

@@ -3494,6 +3494,47 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="fb-field clearfix" id="element_choices_display">
+                                            <label>Display</label>
+                                            <div class="fb-right">
+                                                <div class="eb-inner-field">
+                                                    <div class="fb-checkboxes-wrap">
+                                                        <div class="t-field">
+                                                            <div class="t-radio">
+                                                                <label><i class="icn-radio"></i><input
+                                                                            name="choices-display"
+                                                                            id="fb-radio-classic" value="classic"
+                                                                            type="radio"><span class="fb-wrap-tooltip">Classic</span></label>
+
+                                                            </div>
+                                                            <div class="t-radio">
+                                                                <label><i class="icn-radio"></i><input
+                                                                            name="choices-display"
+                                                                            id="fb-radio-survey" value="survey"
+                                                                            type="radio"><span class="fb-wrap-tooltip">Survey</span></label>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="fb-field clearfix" id="choices-hint-left">
+                                            <label>Left Hint</label>
+                                            <div class="fb-right">
+                                                <div class="eb-inner-field">
+                                                    <input type="text" class="txt-field fb-choise-hint-left-text" value="NOT AT ALL LIKELY"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="fb-field clearfix" id="choices-hint-right">
+                                            <label>Right Hint</label>
+                                            <div class="fb-right">
+                                                <div class="eb-inner-field">
+                                                    <input type="text" class="txt-field fb-choise-hint-right-text" value="EXTREMELY LIKELY"/>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="fb-field clearfix" id="amount_title">
                                             <label>Amount Title</label>
                                             <div class="fb-right">
@@ -5289,6 +5330,210 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                                         <div class="wrap-color">
                                                             <div style="background-color: #333333;"
                                                                  class="color-box fb-choice-color"
+                                                                 data-color-start="333333"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="element_choices_survey_style">
+                                            <div class="fb-field">
+                                                <label>Border Radius</label>
+                                                <div class="fb-right">
+                                                    <div class="fb-inner-field">
+                                                        <div class="input-group bootstrap-touchspin">
+                                                            <span class="input-group-btn">
+                                                                <button class="btn btn-default bootstrap-touchspin-down"
+                                                                        type="button">-</button>
+                                                            </span>
+                                                            <span class="input-group-addon bootstrap-touchspin-prefix"
+                                                                  style="display: none;"></span>
+                                                            <input type="text" name="choice_survey_border_radius"
+                                                                   class="txt_field touch-spin fb-field-small form-control"
+                                                                   value="4" style="display: block;">
+                                                            <span class="input-group-addon bootstrap-touchspin-postfix"
+                                                                  style="display: none;"></span>
+                                                            <span class="input-group-btn"><button
+                                                                        class="btn btn-default bootstrap-touchspin-up"
+                                                                        type="button">+</button></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="fb-field clearfix">
+                                                <label>Background Color</label>
+                                                <div class="fb-right">
+                                                    <div class="fb-inner-field">
+                                                        <div class="wrap-color">
+                                                            <div style="background-color: #ffffff;"
+                                                                 class="color-box fb-choice-survey-bg-color"
+                                                                 data-color-start="ffffff"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="fb-field clearfix">
+                                                <label>Border Color</label>
+                                                <div class="fb-right">
+                                                    <div class="fb-inner-field">
+                                                        <div class="wrap-color">
+                                                            <div style="background-color: #c9c9c9;"
+                                                                 class="color-box fb-choice-survey-border-color"
+                                                                 data-color-start="c9c9c9"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="fb-field clearfix">
+                                                <label>Selected Background Color</label>
+                                                <div class="fb-right">
+                                                    <div class="fb-inner-field">
+                                                        <div class="wrap-color">
+                                                            <div style="background-color: #c9c9c9;"
+                                                                 class="color-box fb-choice-survey-selected-bg-color"
+                                                                 data-color-start="c9c9c9"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="fb-field clearfix">
+                                                <label>Selected Border Color</label>
+                                                <div class="fb-right">
+                                                    <div class="fb-inner-field">
+                                                        <div class="wrap-color">
+                                                            <div style="background-color: #c9c9c9;"
+                                                                 class="color-box fb-choice-survey-selected-border-color"
+                                                                 data-color-start="c9c9c9"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="fb-field clearfix">
+                                                <label>Selected Font Color</label>
+                                                <div class="fb-right">
+                                                    <div class="fb-inner-field">
+                                                        <div class="wrap-color">
+                                                            <div style="background-color: #333333;"
+                                                                 class="color-box fb-choice-survey-selected-font-color"
+                                                                 data-color-start="333333"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="fb-design-head not_first_child_fb_design">Hints Style</div>
+                                            <div class="fb-field clearfix">
+                                                <label>Left Hint</label>
+                                                <div class="fb-right">
+                                                    <div class="fb-inner-field">
+                                                        <label>Typeface</label>
+                                                        <select class="fb-w130 fb-choice-hint-left-font cf-select-font-name">
+                                                            <option standard_font='1' value="Open Sans">None</option>
+                                                            <option standard_font='1' value="Arial">Arial</option>
+                                                            <option standard_font='1' value="Comic Sans MS">Comic Sans
+                                                                MS
+                                                            </option>
+                                                            <option standard_font='1' value="Courier New">Courier New
+                                                            </option>
+                                                            <option standard_font='1' value="Georgia">Georgia</option>
+                                                            <option standard_font='1' value="Lucida Sans Unicode">
+                                                                Lucida
+                                                            </option>
+                                                            <option standard_font='1' value="Tahoma">Tahoma</option>
+                                                            <option standard_font='1' value="Times New Roman">Times New
+                                                                Roman
+                                                            </option>
+                                                            <option standard_font='1' value="Trebuchet MS">Trebuchet
+                                                                MS
+                                                            </option>
+                                                            <option standard_font='1' value="Verdana">Verdana</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="fb-inner-field">
+                                                        <label>Size</label>
+                                                        <select class="fb-w70 fb-choice-hint-left-size">
+                                                            <option value="None">None</option>
+                                                            <option value="9">9px</option>
+                                                            <option value="10">10px</option>
+                                                            <option value="11">11px</option>
+                                                            <option value="12">12px</option>
+                                                            <option value="13">13px</option>
+                                                            <option value="14" selected>14px</option>
+                                                            <option value="16">16px</option>
+                                                            <option value="18">18px</option>
+                                                            <option value="20">20px</option>
+                                                            <option value="22">22px</option>
+                                                            <option value="24">24px</option>
+                                                            <option value="26">26px</option>
+                                                            <option value="28">28px</option>
+                                                            <option value="30">30px</option>
+                                                            <option value="36">36px</option>
+                                                            <option value="48">48px</option>
+                                                            <option value="64">64px</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="fb-inner-field">
+                                                        <div class="wrap-color">
+                                                            <div style="background-color: #333333;"
+                                                                 class="color-box fb-choice-hint-left-color"
+                                                                 data-color-start="333333"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="fb-field clearfix">
+                                                <label>Right Hint</label>
+                                                <div class="fb-right">
+                                                    <div class="fb-inner-field">
+                                                        <label>Typeface</label>
+                                                        <select class="fb-w130 fb-choice-hint-right-font cf-select-font-name">
+                                                            <option standard_font='1' value="Open Sans">None</option>
+                                                            <option standard_font='1' value="Arial">Arial</option>
+                                                            <option standard_font='1' value="Comic Sans MS">Comic Sans
+                                                                MS
+                                                            </option>
+                                                            <option standard_font='1' value="Courier New">Courier New
+                                                            </option>
+                                                            <option standard_font='1' value="Georgia">Georgia</option>
+                                                            <option standard_font='1' value="Lucida Sans Unicode">
+                                                                Lucida
+                                                            </option>
+                                                            <option standard_font='1' value="Tahoma">Tahoma</option>
+                                                            <option standard_font='1' value="Times New Roman">Times New
+                                                                Roman
+                                                            </option>
+                                                            <option standard_font='1' value="Trebuchet MS">Trebuchet
+                                                                MS
+                                                            </option>
+                                                            <option standard_font='1' value="Verdana">Verdana</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="fb-inner-field">
+                                                        <label>Size</label>
+                                                        <select class="fb-w70  fb-choice-hint-right-size">
+                                                            <option value="None">None</option>
+                                                            <option value="9">9px</option>
+                                                            <option value="10">10px</option>
+                                                            <option value="11">11px</option>
+                                                            <option value="12">12px</option>
+                                                            <option value="13">13px</option>
+                                                            <option value="14" selected>14px</option>
+                                                            <option value="16">16px</option>
+                                                            <option value="18">18px</option>
+                                                            <option value="20">20px</option>
+                                                            <option value="22">22px</option>
+                                                            <option value="24">24px</option>
+                                                            <option value="26">26px</option>
+                                                            <option value="28">28px</option>
+                                                            <option value="30">30px</option>
+                                                            <option value="36">36px</option>
+                                                            <option value="48">48px</option>
+                                                            <option value="64">64px</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="fb-inner-field">
+                                                        <div class="wrap-color">
+                                                            <div style="background-color: #333333;"
+                                                                 class="color-box fb-choice-hint-right-color"
                                                                  data-color-start="333333"></div>
                                                         </div>
                                                     </div>

@@ -270,7 +270,7 @@ var init_page = {
                 
                 var $box = jQuery_LL_Embedded(_selector).parents('.t-checkbox, .t-radio');
                 if(!$box.hasClass('checked')){
-                    $box.addClass('checked');
+                    $box.addClass('checked').parent().addClass('parent-checked');
                     if ( jQuery_LL_Embedded(_selector).attr('type') == 'radio' ){
                         var radio_name = jQuery_LL_Embedded(_selector).attr('name');
                         if (typeof radio_name != 'undefined' && radio_name){
@@ -284,14 +284,14 @@ var init_page = {
                 jQuery_LL_Embedded(_selector).removeAttr('checked').trigger('change');
                 var $box = jQuery_LL_Embedded(_selector).parents('.t-checkbox, .t-radio');
                 if($box.hasClass('checked')){
-                    $box.removeClass('checked');
+                    $box.removeClass('checked').parent().removeClass('parent-checked');
                 }
             }
         },
         isChecked: function($checkbox, trigger){
             var $box = jQuery_LL_Embedded($checkbox).parents('.t-checkbox, .t-radio');
             if ( $checkbox.is(':checked') ){
-                $box.addClass('checked');
+                $box.addClass('checked').parent().addClass('parent-checked');
                 if ( $checkbox.attr('type') == 'radio' ){
                     if(trigger){
                         jQuery_LL_Embedded('input[type="radio"]').add(['name="'+$checkbox.attr('name')+'"']).each(function(){
@@ -300,7 +300,7 @@ var init_page = {
                     }
                 }
             } else {
-                $box.removeClass('checked');
+                $box.removeClass('checked').parent().removeClass('parent-checked');
             }
         }
     },

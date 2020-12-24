@@ -607,17 +607,31 @@ var dataSpring_panel_manager = {
         });
     },
 
+    draw_settings_dropdown: function(){
+        var _html = '';
+        _html = '<div class="ll-actions-small-dropdown ll-actions-small-dropdown-orange ll-default-dd ll-fr">';
+        _html += '    <a href="javascript:void(0);" class="t-btn-white t-toggle-btn"><i class="icn"><i></i><i></i><i></i></i></a>';
+        _html += '    <div class="ll-actions-dropdown">';
+        _html += '        <ul>';
+        _html += '            <li class="li-upload-values"><a href="javascript:void(0);" class="upload-values ll-link">Upload</a></li>';
+        _html += '            <li class="li-clear-field"><a href="javascript:void(0);" class="clear-field ll-link ll-link">Clear</a></li>';
+        _html += '         </ul>';
+        _html += '    </div>';
+        _html += '</div>';
+
+        return _html;
+    },
+
     draw_fields: function () {
 
         var _html = '';
         _html += '<div class="col prospect-search">';
-
+        _html += '<div class="wrap-fields clearfix">';
         _html += '  <div class="t-field auto-create" criteria="states">';
         _html += '      <label>State';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="e.g. Texas" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '<a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '<a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += dataSpring_panel_manager.get_states_options();
@@ -627,8 +641,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Country';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="e.g. United States" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += dataSpring_panel_manager.get_countries_options();
@@ -636,8 +649,7 @@ var dataSpring_panel_manager = {
         _html += '  </div>';
         _html += '  <div class="t-field auto-create" criteria="jobTitles">';
         _html += '      <label>Job Title';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '      </label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '      </select>';
@@ -646,7 +658,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Department';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="e.g. Marketing" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '          <option>Administration<\option>';
@@ -665,7 +677,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Role';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="e.g. VP, Manager" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '          <option>CxO<\option>';
@@ -686,15 +698,13 @@ var dataSpring_panel_manager = {
         // _html += '  </div>';
         _html += '  <div class="t-field auto-create" criteria="companyNames">';
         _html += '      <label>Company Name';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '      </label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '  </div>';
         _html += '  <div class="t-field auto-create" criteria="companyExcludeNames">';
         _html += '      <label>Company Exclude Names';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '      </label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '  </div>';
@@ -702,8 +712,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Company Domain';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="e.g. microsoft.com, www.microsoft.com" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '      </select>';
@@ -712,8 +721,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Company Industry';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="e.g. Marketing and Advertising, Business Services, Computer Software" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += dataSpring_panel_manager.get_industries_options();
@@ -723,7 +731,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Company Size (Employee Range)';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="Helps identify companies of a specific size." ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '          <option value="A">1<\option>';
@@ -740,31 +748,31 @@ var dataSpring_panel_manager = {
 
         _html += '  <div class="t-field advanced-search" criteria="firstName">';
         _html += '      <label>First Name';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <input type="text" class="txt-field" placeholder=" " />';
         _html += '  </div>';
         _html += '  <div class="t-field advanced-search" criteria="lastName">';
         _html += '      <label>Last Name';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <input type="text" class="txt-field" placeholder=" " />';
         _html += '  </div>';
         _html += '  <div class="t-field advanced-search" criteria="fullName">';
         _html += '      <label>Full Name';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <input type="text" class="txt-field" placeholder=" " />';
         _html += '  </div>';
         _html += '  <div class="t-field advanced-search" criteria="alias">';
         _html += '      <label>Alias';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <input type="text" class="txt-field" placeholder=" " />';
         _html += '  </div>';
         _html += '  <div class="t-field advanced-search" criteria="email">';
         _html += '      <label>Email Address';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <input type="text" class="txt-field" placeholder=" " />';
         _html += '  </div>';
@@ -772,7 +780,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Email Quality';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="Email quality is our confidence in the accuracy of the information. For example, an email with \'High\' confidence will most likely be accurate. An email with \'Low\' confidence may be inaccurate due to its age and other factors." ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '          <option>High<\option>';
@@ -784,7 +792,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Phone Quality';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="Phone quality is our confidence in the accuracy of the information. For example, a phone with \'High\' confidence will most likely be accurate. A phone with \'Low\' confidence may be inaccurate due to its age and other factors." ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '          <option>High<\option>';
@@ -794,8 +802,7 @@ var dataSpring_panel_manager = {
         _html += '  </div>';
         _html += '  <div class="t-field  auto-create advanced-search" criteria="cities">';
         _html += '      <label>City';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '      </select>';
@@ -804,7 +811,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Region';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="e.g. EMEA" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '          <option>EMEA<\option>';
@@ -814,8 +821,7 @@ var dataSpring_panel_manager = {
         _html += '  </div>';
         _html += '  <div class="t-field auto-create advanced-search" criteria="excludeJobTitles">';
         _html += '      <label>Exclude Job Titles';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '      </select>';
@@ -824,7 +830,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Seniority';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="Artificial Intelligence (AI) driven seniority insights" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '          <option>Entry-Level<\option>';
@@ -839,8 +845,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Skills';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="e.g. Analytics" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '          <option>Algorithms<\option>';
@@ -932,20 +937,19 @@ var dataSpring_panel_manager = {
         _html += '  </div>';
         _html += '  <div class="t-field advanced-search" criteria="ageFrom">';
         _html += '      <label>Age (From)';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <input type="number" class="txt-field" placeholder=" " />';
         _html += '  </div>';
         _html += '  <div class="t-field advanced-search" criteria="ageTo">';
         _html += '      <label>Age (To)';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <input type="number" class="txt-field" placeholder=" " />';
         _html += '  </div>';
         _html += '  <div class="t-field auto-create advanced-search" criteria="companySites">';
         _html += '      <label>Company Website';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '      </select>';
@@ -954,8 +958,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Exclude Company Domains';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="e.g. microsoft.com, www.microsoft.com" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '      </select>';
@@ -964,7 +967,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Revenue (Minimum)';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="e.g. 100,000" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <input type="number" class="txt-field" placeholder=" " />';
         _html += '  </div>';
@@ -972,7 +975,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Revenue (Maximum)';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="e.g. 100,000,000" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <input type="number" class="txt-field" placeholder=" " />';
         _html += '  </div>';
@@ -980,12 +983,12 @@ var dataSpring_panel_manager = {
         _html += '      <label>Company Technologies';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="Technologies used in company. e.g. JIRA, Ubuntu, Oracle, WordPress" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" " name="company_technology">';
         _html += '      </select>';
         _html += '  </div>';
+        _html += '</div>';
         _html += '<a href="javascript:void(0);" class="show-hide-options">Show advanced filters</a>';
         _html += '</div>';
 
@@ -993,20 +996,18 @@ var dataSpring_panel_manager = {
     },
 
     draw_company_fields: function () {
-
         var _html = '';
         _html += '<div class="col company-search">';
+        _html += '<div class="wrap-fields clearfix">';
         _html += '  <div class="t-field auto-create company-field" criteria="companySearchNames">';
         _html += '      <label>Name';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '  </div>';
         _html += '  <div class="t-field auto-create company-field" criteria="companySearchExcludeNames">';
         _html += '      <label>Exclude Names';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '  </div>';
@@ -1014,8 +1015,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Domains';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="e.g. microsoft.com, www.microsoft.com" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '      </select>';
@@ -1024,8 +1024,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Industries';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="e.g. Marketing and Advertising, Business Services" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += dataSpring_panel_manager.get_industries_options();
@@ -1033,8 +1032,7 @@ var dataSpring_panel_manager = {
         _html += '  </div>';
         _html += '  <div class="t-field  auto-create company-field" criteria="companySearchCities">';
         _html += '      <label>City';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '      </select>';
@@ -1043,8 +1041,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>State';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="e.g. Texas" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += dataSpring_panel_manager.get_states_options();
@@ -1054,8 +1051,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Country';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="e.g. United States" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += dataSpring_panel_manager.get_countries_options();
@@ -1065,7 +1061,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Revenue (Minimum)';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="e.g. 100,000" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <input type="number" class="txt-field" placeholder=" " />';
         _html += '  </div>';
@@ -1073,7 +1069,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Revenue (Maximum)';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="e.g. 100,000,000" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <input type="number" class="txt-field" placeholder=" " />';
         _html += '  </div>';
@@ -1081,7 +1077,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Size (Employee Range)';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="Helps identify companies of a specific size." ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '          <option value="A">1<\option>';
@@ -1099,24 +1095,21 @@ var dataSpring_panel_manager = {
         _html += '      <label>SIC Code';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="Standard Industrial Classification Code" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '      </select>';
         _html += '  </div>';
         _html += '  <div class="t-field auto-create company-field" criteria="companySearchNAICS">';
         _html += '      <label>NAICS Code';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '      </select>';
         _html += '  </div>';
         _html += '  <div class="t-field auto-create company-field company-advanced-search" criteria="companySearchSites">';
         _html += '      <label>Websites';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '      </select>';
@@ -1125,8 +1118,7 @@ var dataSpring_panel_manager = {
         _html += '      <label>Technologies';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="Technologies used in company. e.g. JIRA, Ubuntu, Oracle, WordPress" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" " name="company_technology">';
         _html += '      </select>';
@@ -1135,16 +1127,14 @@ var dataSpring_panel_manager = {
         _html += '      <label>Exclude Domains';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="e.g. microsoft.com, www.microsoft.com" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '      </select>';
         _html += '  </div>';
         _html += '  <div class="t-field  auto-create company-field company-advanced-search" criteria="companySearchExcludeIndustries">';
         _html += '      <label>Exclude Industries';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += dataSpring_panel_manager.get_industries_options();
@@ -1152,13 +1142,13 @@ var dataSpring_panel_manager = {
         _html += '  </div>';
         _html += '  <div class="t-field company-field company-advanced-search" criteria="companySearchSizeFrom">';
         _html += '      <label>Number of Employees (Minimum)';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <input type="number" class="txt-field" placeholder=" " />';
         _html += '  </div>';
         _html += '  <div class="t-field company-field company-advanced-search" criteria="companySearchSizeTo">';
         _html += '      <label>Number of Employees (Maximum)';
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <input type="number" class="txt-field" placeholder=" " />';
         _html += '  </div>';
@@ -1166,12 +1156,12 @@ var dataSpring_panel_manager = {
         _html += '      <label>ISIC Code';
         _html += '          <img src="imgs/vvp/svgs/icn-info.svg" title="International Standard Industrial Classification" ' +
             'class="info_icon ll_std_tooltip ll_std_click_tooltip"/>'
-        _html += '          <a href="javascript:void(0);" class="clear-field ll-link">Clear</a>';
-        _html += '          <a href="javascript:void(0);" class="upload-values ll-link">Upload</a>';
+        _html += dataSpring_panel_manager.draw_settings_dropdown();
         _html += '</label>';
         _html += '      <select multiple data-placeholder=" ">';
         _html += '      </select>';
         _html += '  </div>';
+        _html += '</div>';
         _html += '<a href="javascript:void(0);" class="show-hide-company-options">Show advanced filters</a>';
         _html += '</div>';
 

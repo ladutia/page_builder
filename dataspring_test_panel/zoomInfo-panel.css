@@ -287,17 +287,10 @@
     padding-top: 0px;
 }
 .full-width .general-search-fields .col {
-    width: 50%;
-    float: left;
     padding-left: 10px;
-    vertical-align: top;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-}
-.full-width .general-search-fields .col:first-child {
-    padding-right: 10px;
-    padding-left: 0;
 }
 .general-search-fields .t-field > label {
     font-size: 12px;
@@ -622,3 +615,90 @@
     float: right;
     padding-right: 10px;
 }
+
+.cognism .ll-actions-small-dropdown.ll-actions-small-dropdown-orange .ll-actions-dropdown{
+    margin-top: 0;
+    min-width: 120px;
+}
+
+.cognism .ll-actions-small-dropdown .t-toggle-btn{
+    width: 16px;
+    height: 16px;
+    display: block;
+}
+
+.cognism .ll-actions-small-dropdown .t-toggle-btn .icn{
+    height: 9px;
+    width: 16px;
+    margin-top: -4.5px;
+    margin-left: -8px;
+    border: 0;
+}
+
+.cognism .ll-actions-small-dropdown .t-toggle-btn .icn > i{
+    width: 4px;
+    height: 4px;
+    display: inline-block;
+    margin: 2px 0 2px 2px;
+    vertical-align: top;
+    background-color: #959595;
+    border-radius: 50%;
+}
+
+.cognism .ll-actions-small-dropdown .t-toggle-btn .icn > i:first-child{
+    margin-left: 0;
+}
+
+.cognism .ll-actions-small-dropdown .ll-actions-dropdown li a{
+    float: none;
+}
+
+.cognism .general-search-fields .chzn-container-multi .chzn-choices{
+    min-height: 28px;
+}
+
+.cognism div[criteria="companySearchRevenueFrom"] .li-upload-values,
+.cognism div[criteria="companySearchRevenueTo"] .li-upload-values,
+.cognism div[criteria="companySearchSize"] .li-upload-values,
+.cognism div[criteria="companySearchSizeFrom"] .li-upload-values,
+.cognism div[criteria="companySearchSizeTo"] .li-upload-values,
+.cognism div[criteria="departments"] .li-upload-values,
+.cognism div[criteria="roles"] .li-upload-values,
+.cognism div[criteria="companySize"] .li-upload-values,
+.cognism div[criteria="firstName"] .li-upload-values,
+.cognism div[criteria="lastName"] .li-upload-values,
+.cognism div[criteria="fullName"] .li-upload-values,
+.cognism div[criteria="alias"] .li-upload-values,
+.cognism div[criteria="email"] .li-upload-values,
+.cognism div[criteria="emailScore"] .li-upload-values,
+.cognism div[criteria="phoneScore"] .li-upload-values,
+.cognism div[criteria="regions"] .li-upload-values,
+.cognism div[criteria="seniority"] .li-upload-values,
+.cognism div[criteria="ageFrom"] .li-upload-values,
+.cognism div[criteria="ageTo"] .li-upload-values,
+.cognism div[criteria="companyRevenueFrom"] .li-upload-values,
+.cognism div[criteria="companyRevenueTo"] .li-upload-values{
+    display: none;
+}
+
+@media screen and (min-width: 992px) {
+    .full-width .general-search-fields .wrap-fields{
+        margin-left: -15px;
+    }
+    .full-width .general-search-fields .wrap-fields .t-field{
+        float: left;
+        width: 50%;
+        padding-left: 15px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .zoom-info.full-width, .cognism.full-width{
+        min-width: 343px;
+    }
+}
+
+

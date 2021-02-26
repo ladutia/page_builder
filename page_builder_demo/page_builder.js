@@ -4,37 +4,37 @@
  * Local Storage sometimes run out of storage or does not work in private browsing for Safari, so solution is to use the code below to store the local storage in memory.
  */
 (function () {
-	function isSupported() {
-		var item = 'localStoragePollyfill';
-		try {
-			localStorage.setItem(item, item);
-			localStorage.removeItem(item);
-			return true;
-		} catch (e) {
-			return false;
-		}
-	}
-	
-	if (!isSupported()) {
-		try {
-			Storage.prototype._data = {};
-			
-			Storage.prototype.setItem = function (id, val) {
-				return this._data[id] = String(val);
-			};
-			Storage.prototype.getItem = function (id) {
-				return this._data.hasOwnProperty(id) ? this._data[id] : undefined;
-			},
-            Storage.prototype.removeItem = function (id) {
-                return delete this._data[id];
+    function isSupported() {
+        var item = 'localStoragePollyfill';
+        try {
+            localStorage.setItem(item, item);
+            localStorage.removeItem(item);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    if (!isSupported()) {
+        try {
+            Storage.prototype._data = {};
+
+            Storage.prototype.setItem = function (id, val) {
+                return this._data[id] = String(val);
+            };
+            Storage.prototype.getItem = function (id) {
+                return this._data.hasOwnProperty(id) ? this._data[id] : undefined;
             },
-            Storage.prototype.clear = function () {
-                return this._data = {};
-            }
-		} catch (e) {
-			console.error('localStorage pollyfill error: ', e);
-		}
-	}
+                Storage.prototype.removeItem = function (id) {
+                    return delete this._data[id];
+                },
+                Storage.prototype.clear = function () {
+                    return this._data = {};
+                }
+        } catch (e) {
+            console.error('localStorage pollyfill error: ', e);
+        }
+    }
 }());
 var pageBuilder = {
 
@@ -106,7 +106,7 @@ var pageBuilder = {
             var $settings = $('.pb-settings-panel:visible');
 
             opt.btnView = ll_combo_manager.get_selected_value('select#btnView');
-            
+
             if(opt.btnView == "same"){
                 $btn.attr('target', "_self");
                 $fieldUrl.show();
@@ -185,7 +185,7 @@ var pageBuilder = {
             var $settings = $('.pb-settings-panel:visible');
 
             opt.iconView = ll_combo_manager.get_selected_value('select#iconView');
-            
+
             if(opt.iconView == "same"){
                 $link.attr('target', "_self");
                 $settings.find('.pb-modal-settings').hide();
@@ -221,6 +221,7 @@ var pageBuilder = {
             }
 
             $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
         });
 
         ll_combo_manager.event_on_change('select#imageLinkTo', function () {
@@ -234,7 +235,7 @@ var pageBuilder = {
             if (opt.imageLinkto == 'email') {
                 url = 'mailto:' + opt.url;
                 $('label.image_text').text('Email Address');
-                
+
                 opt.imageView = "same";
                 $('#image_view').hide();
                 $("#image_url").show();
@@ -255,6 +256,7 @@ var pageBuilder = {
             $tpl.find('a').attr('href', url);
 
             $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
         });
 
         ll_combo_manager.event_on_change('select#imageView', function () {
@@ -265,7 +267,7 @@ var pageBuilder = {
             var $settings = $('#pb-panel__image');
 
             opt.imageView = ll_combo_manager.get_selected_value('select#imageView');
-            
+
             if(opt.imageView == "same"){
                 $link.attr('target', "_self");
                 $settings.find('.pb-modal-settings').hide();
@@ -302,6 +304,7 @@ var pageBuilder = {
             }
 
             $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
         });
 
         pageBuilder.initEditor('.pb-modal-html');
@@ -320,6 +323,7 @@ var pageBuilder = {
             if(opt.modalView == "html"){
                 content = pageBuilder.getContentModal();
                 $settings.find('.pb-field-modal-iframe-url').hide();
+                $settings.find('.pb-field-modal-iframe-loading').hide();
                 $settings.find('.pb-field-modal-html').show();
                 editor.setContent(content);
                 pageBuilder.setContentModal(content);
@@ -328,9 +332,16 @@ var pageBuilder = {
                 pageBuilder.setContentModal('');
                 $settings.find('.pb-field-modal-html').hide();
                 $settings.find('.pb-field-modal-iframe-url').show().find('.pb-modal-iframe-url').val(opt.modalIFrameUrl);
+                $settings.find('.pb-field-modal-iframe-loading').show();
+                if(typeof opt.modalIFrameLoading == 'undefined'){
+                    opt.modalIFrameLoading = 'popup';
+                }
+                ll_combo_manager.set_selected_value('.pb-settings-panel:visible .pb-field-modal-iframe-loading select', opt.modalIFrameLoading);
+                ll_combo_manager.event_on_change('.pb-settings-panel:visible .pb-field-modal-iframe-loading select');
             }
 
             $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
         });
 
         ll_combo_manager.event_on_change('select.pb-modal-position', function () {
@@ -341,6 +352,7 @@ var pageBuilder = {
             opt.modalPosition = ll_combo_manager.get_selected_value('.pb-settings-panel:visible select.pb-modal-position');
             pageBuilder.setModalPosition(id, opt.modalPosition);
             $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
         });
 
         $('.modalBgOpacity').on('change', function () {
@@ -380,12 +392,28 @@ var pageBuilder = {
             var $tpl = $('.pb-widget--selected');
             var opt = $tpl.data('json');
             var id = $tpl.find('.pb-widget__content a').attr('modal-id');
+            var $modal = $('#ll-lp-modal-' + id);
 
             opt.modalIFrameUrl = $(this).val();
-            $('#ll-lp-modal-' + id).find('.ll-lp-modal > iframe').attr('src', opt.modalIFrameUrl);
+
             $tpl.attr('data-json', JSON.stringify(opt));
             pageBuilder.setNewActionHistory();
+
+            pageBuilder.refreshModalIframeOptions(opt.modalIFrameLoading, opt.modalIFrameUrl, $modal);
         });
+
+        ll_combo_manager.event_on_change('.pb-field-modal-iframe-loading select', function () {
+            var $tpl = $('.pb-widget--selected');
+            var opt = $tpl.data('json');
+            var id = $tpl.find('.pb-widget__content a').attr('modal-id');
+            var $modal = $('#ll-lp-modal-' + id);
+
+            opt.modalIFrameLoading = ll_combo_manager.get_selected_value('.pb-settings-panel:visible .pb-field-modal-iframe-loading select');
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+
+            pageBuilder.refreshModalIframeOptions(opt.modalIFrameLoading, opt.modalIFrameUrl, $modal);
+        })
 
         $('.pb-tabs__item').on('click', function () {
             var $this = $(this);
@@ -722,7 +750,7 @@ var pageBuilder = {
             //pageBuilder.svgBox.setEditorHTML();
             $tpl.attr('data-json', JSON.stringify(opt));
         });
-        
+
         $('.pb-list-image').on('click', '.pb-image__link-remove', function (e) {
             e.stopPropagation();
             var $item = $(this).parents('.pb-image__item');
@@ -751,7 +779,7 @@ var pageBuilder = {
 
         $('.pb-btn-upload-svg').on('click', function () {
             pageBuilder.openUploader(function (){
-                
+
             }, true);
         });
 
@@ -894,7 +922,7 @@ var pageBuilder = {
         $('body').on('dblclick', '.pb-blocks .pb-editable', function (e) {
             pageBuilder.showHideEditorInline($(this));
         });
-		$('body').on('click', '.pb-blocks .pb-widget__btn-remove', function (e) {
+        $('body').on('click', '.pb-blocks .pb-widget__btn-remove', function (e) {
             e.stopPropagation();
             pageBuilder.removeWidget($('.pb-widget--selected'));
         });
@@ -937,7 +965,7 @@ var pageBuilder = {
             if (type === 'container' || type === 'two-column-grid' || type === 'three-column-grid' || type === 'uneven-grid' || type === 'vertical-form' || type === 'horizontal-form')
                 pageBuilder.dragDropColumns();
 
-            ll_custom_elements_manager.open(CUSTOM_ELEMENT_FOR_LANDING_PAGE, $('.temp_to_clean_widget').html());
+            ll_custom_elements_manager.open(0,CUSTOM_ELEMENT_FOR_LANDING_PAGE, $('.temp_to_clean_widget').html());
             $('.temp_to_clean_widget').remove();
             return false;
         });
@@ -1037,26 +1065,26 @@ var pageBuilder = {
             e.preventDefault();
             pageBuilder.previewBox();
         });
-	
-	
-		$('#ll_popup_insert_token_cancel').bind('click', function(){
-			ll_popup_manager.close('#ll_popup_insert_token')
-		})
-		$('#ll_popup_insert_token_save').bind('click', function(){
+
+
+        $('#ll_popup_insert_token_cancel').bind('click', function(){
+            ll_popup_manager.close('#ll_popup_insert_token')
+        })
+        $('#ll_popup_insert_token_save').bind('click', function(){
             var insert_ll_field = ll_combo_manager.get_selected_value('#ll_popup_insert_token #select_insert_ll_field');
             if(typeof insert_ll_field != 'undefined' && insert_ll_field != ''){
-				pageBuilder.InsertToken(insert_ll_field)
+                pageBuilder.InsertToken(insert_ll_field)
                 ll_popup_manager.close('#ll_popup_insert_token')
             } else {
                 show_error_message ('Please Select Field');
             }
-		})
-        
+        })
+
         /*$('#pb-preview-box__iframe').on("load", function () {
             pageBuilder.iframePreviewContent = $("#pb-preview-box__iframe").contents();
             $('#pbBtnPreview').removeClass('disabled');
         });*/
-		pageBuilder.addIframePreview();
+        pageBuilder.addIframePreview();
 
         /*$('.pb-blocks').on('dblclick.uploadBackground', function (e) {
             e.stopPropagation();
@@ -1072,10 +1100,10 @@ var pageBuilder = {
         });*/
 
     },
-	InsertToken: function(placeholder) {
-		placeholder = '%%' + placeholder + '%%';
-		pageBuilder.active_html_editor.execCommand('mceInsertContent', false, placeholder);
-	},
+    InsertToken: function(placeholder) {
+        placeholder = '%%' + placeholder + '%%';
+        pageBuilder.active_html_editor.execCommand('mceInsertContent', false, placeholder);
+    },
     initMoreEvents: function () {
         $('.pb-widget:not(.pb-widget--svg):not(.pb-widget--icon):not(.pb-widget--field):not(.pb-widget--video):not(.pb-widget--button):not(.pb-widget--code)').each(function (){
             pageBuilder.dropFreeImages($(this));
@@ -1115,10 +1143,10 @@ var pageBuilder = {
             }
         );
     },
-	dropFreeImages: function ($el) {
-		var $el = $el || $('#pb-template, .pb-widget:not(.pb-widget--svg):not(.pb-widget--icon):not(.pb-widget--field):not(.pb-widget--video):not(.pb-widget--button):not(.pb-widget--code)');
-		$el.each(function () {
-			var type = $el.data('type');
+    dropFreeImages: function ($el) {
+        var $el = $el || $('#pb-template, .pb-widget:not(.pb-widget--svg):not(.pb-widget--icon):not(.pb-widget--field):not(.pb-widget--video):not(.pb-widget--button):not(.pb-widget--code)');
+        $el.each(function () {
+            var type = $el.data('type');
             /*$el.find('.pb-load-image').droppable(
              { accept: '.list-free-images > ul > li', hoverClass: 'pb-widget--drop-free-image', greedy: true },
              {
@@ -1134,37 +1162,37 @@ var pageBuilder = {
              }
              }
              });*/
-			$el.add($el.find('.pb-load-image')).droppable(
-				{ accept: '.list-free-images > ul > li', hoverClass: 'pb-widget--drop-free-image', greedy: true },
-				{
-					drop: function (event, ui) {
-						var url = $(ui.helper).attr('data-url');
-						if ($(this).hasClass('pb-load-image')) {
-							
-							if (type != 'slideshow' && type != 'vertical-slideshow') {
-								$imgBoxTpl = $(this);
-								$imgBoxTpl.find('img.pb-img').attr('src', url);
-								$imgBoxTpl.removeClass('pb-load-image--none');
-								$imgBoxTpl.removeAttr('image-inserted-by-media-manager');
-							}
-						} else {
-							var $tpl = $el;
-							var opt = $tpl.data('json');
-							opt.backgroundImageUrl = url;
-							if ($tpl.hasClass('pb-widget--calendar') || $tpl.hasClass('pb-widget--social-share') || $tpl.hasClass('pb-widget--social-follow')) {
-								$tpl.children('.pb-widget__content').children('.pb-social-btns').css('background-image', 'url("' + opt.backgroundImageUrl + '")');
-							} else if ($tpl.hasClass('pb-widget--nav-item')) {
-								$tpl.css('background-image', 'url("' + opt.backgroundImageUrl + '")');
-							} else {
-								$tpl.css('background-image', 'url("' + opt.backgroundImageUrl + '")');
-							}
-							$tpl.attr('data-json', JSON.stringify(opt));
-						}
-						$('.pb-widget--drop-free-image').removeClass('pb-widget--drop-free-image');
-						pageBuilder.updateHistory();
-					}
-				});
-		});
+            $el.add($el.find('.pb-load-image')).droppable(
+                { accept: '.list-free-images > ul > li', hoverClass: 'pb-widget--drop-free-image', greedy: true },
+                {
+                    drop: function (event, ui) {
+                        var url = $(ui.helper).attr('data-url');
+                        if ($(this).hasClass('pb-load-image')) {
+
+                            if (type != 'slideshow' && type != 'vertical-slideshow') {
+                                $imgBoxTpl = $(this);
+                                $imgBoxTpl.find('img.pb-img').attr('src', url);
+                                $imgBoxTpl.removeClass('pb-load-image--none');
+                                $imgBoxTpl.removeAttr('image-inserted-by-media-manager');
+                            }
+                        } else {
+                            var $tpl = $el;
+                            var opt = $tpl.data('json');
+                            opt.backgroundImageUrl = url;
+                            if ($tpl.hasClass('pb-widget--calendar') || $tpl.hasClass('pb-widget--social-share') || $tpl.hasClass('pb-widget--social-follow')) {
+                                $tpl.children('.pb-widget__content').children('.pb-social-btns').css('background-image', 'url("' + opt.backgroundImageUrl + '")');
+                            } else if ($tpl.hasClass('pb-widget--nav-item')) {
+                                $tpl.css('background-image', 'url("' + opt.backgroundImageUrl + '")');
+                            } else {
+                                $tpl.css('background-image', 'url("' + opt.backgroundImageUrl + '")');
+                            }
+                            $tpl.attr('data-json', JSON.stringify(opt));
+                        }
+                        $('.pb-widget--drop-free-image').removeClass('pb-widget--drop-free-image');
+                        pageBuilder.updateHistory();
+                    }
+                });
+        });
         /*$el.droppable(
          { accept: '.list-free-images > ul > li', hoverClass: 'pb-widget--drop-free-image', greedy: true, },
          {
@@ -1174,7 +1202,7 @@ var pageBuilder = {
          pageBuilder.updateHistory();
          }
          });*/
-	},
+    },
     draggableFreeImages: function () {
         $('.list-free-images > ul > li:not(.ui-draggable)').draggable({
             helper: 'clone',
@@ -1239,7 +1267,7 @@ var pageBuilder = {
 
                 var type = pageBuilder.getTypeElement($(ui.item));
                 //if(type != 'custom-form'){
-                    pageBuilder.updateHistory();
+                pageBuilder.updateHistory();
                 //}
             },
             change: function () {
@@ -1774,8 +1802,8 @@ var pageBuilder = {
                 '</div>';
         } else if (type === 'social-share') {
             dataJson = '{"containerBackground":"#ffffff", "backgroundImageUrl":"", "containerBorderType":"None", "containerBorderWidth":"0", "containerBorderColor":"#ffffff", "btnBackground":"#fafafa", "btnBorderType":"Solid", "btnBorderWidth":"1", "btnBorderColor":"#cccccc", "btnBorderRadius":"5", "fontTypeFace": "Arial", "fontWeight":"Normal", "fontSize":"12", "color":"#505050", "lineHeight":"None","align": "0", "width":"1","styleIcon":"0", "layout": "1", "contentToShare":"1", "shareCustomUrl":"0", "shareLink":"%%webversion_url_encoded%%", "shareDesc":"", "backgroundColor": "#ffffff", "background_transparent": 1}';
-            var masSocialText = ['Share', 'Tweet', 'Share', '+1'];
-            var masSocialLink = ['http://www.facebook.com/sharer/sharer.php?u=', 'http://twitter.com/intent/tweet?text=', 'http://www.linkedin.com/shareArticle?url=', 'https://plus.google.com/share?url='];
+            var masSocialText = ['Share', 'Tweet', 'Share'];
+            var masSocialLink = ['http://www.facebook.com/sharer/sharer.php?u=', 'http://twitter.com/intent/tweet?text=', 'http://www.linkedin.com/shareArticle?url='];
 
             html = "<div class='pb-widget pb-widget--init pb-widget--social-share' data-type='" + type + "' data-json='" + dataJson + "'>" +
                 '<div class="pb-widget__content">' +
@@ -1789,13 +1817,9 @@ var pageBuilder = {
                 '<span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/black/tw.png" alt=""></span>' +
                 '<span class="pb-social-btn__text">' + masSocialText[1] + '</span>' +
                 '</a></div>' +
-                '<div class="pb-wrap-social-btn" data-type-social="3"><a href="' + masSocialLink[2] + "%%webversion_url_encoded%%" + '" class="pb-social-btn">' +
+                '<div class="pb-wrap-social-btn" data-type-social="2"><a href="' + masSocialLink[2] + "%%webversion_url_encoded%%" + '" class="pb-social-btn">' +
                 '<span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/black/in.png" alt=""></span>' +
                 '<span class="pb-social-btn__text">' + masSocialText[2] + '</span>' +
-                '</a></div>' +
-                '<div class="pb-wrap-social-btn" data-type-social="2"><a href="' + masSocialLink[3] + "%%webversion_url_encoded%%" + '" class="pb-social-btn">' +
-                '<span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/black/gg.png" alt=""></span>' +
-                '<span class="pb-social-btn__text">' + masSocialText[3] + '</span>' +
                 '</a></div>' +
                 '</div></div>' +
                 '</div>' +
@@ -1806,8 +1830,8 @@ var pageBuilder = {
                 '</div>';
         } else if (type === 'social-follow') {
             dataJson = '{"containerBackground":"#ffffff", "backgroundImageUrl":"", "containerBorderType":"None", "containerBorderWidth":"0", "containerBorderColor":"#ffffff", "btnBackground":"#ffffff", "btnBorderType":"None", "btnBorderWidth":"0", "btnBorderColor":"#ffffff", "btnBorderRadius":"5", "fontTypeFace": "Arial", "fontWeight":"Normal", "fontSize":"12", "color":"#505050", "lineHeight":"None","align": "0", "width":"1","styleIcon":"0", "display":"0", "layout": "2", "contentToShare":"0", "shareCustomUrl":"0", "shareLink":"", "shareDesc":"", "backgroundColor": "#ffffff", "background_transparent": 1}';
-            var masSocialText = ['Facebook', 'Twitter', 'LinkedIn', 'Google Plus'];
-            var masSocialLink = ['http://www.facebook.com/', 'http://www.twitter.com/', 'http://www.linkedin.com/', 'http://plus.google.com/'];
+            var masSocialText = ['Facebook', 'Twitter', 'LinkedIn'];
+            var masSocialLink = ['http://www.facebook.com/', 'http://www.twitter.com/', 'http://www.linkedin.com/'];
 
             html = "<div class='pb-widget pb-widget--init pb-widget--social-follow' data-type='" + type + "' data-json='" + dataJson + "'>" +
                 '<div class="pb-widget__content">' +
@@ -1821,13 +1845,9 @@ var pageBuilder = {
                 '<span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/black/tw.png" alt=""></span>' +
                 '<span class="pb-social-btn__text">' + masSocialText[1] + '</span>' +
                 '</a></div>' +
-                '<div class="pb-wrap-social-btn" data-type-social="3"><a href="' + masSocialLink[2] + '" class="pb-social-btn">' +
+                '<div class="pb-wrap-social-btn" data-type-social="2"><a href="' + masSocialLink[2] + '" class="pb-social-btn">' +
                 '<span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/black/in.png" alt=""></span>' +
                 '<span class="pb-social-btn__text">' + masSocialText[2] + '</span>' +
-                '</a></div>' +
-                '<div class="pb-wrap-social-btn" data-type-social="2"><a href="' + masSocialLink[3] + '" class="pb-social-btn">' +
-                '<span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/black/gg.png" alt=""></span>' +
-                '<span class="pb-social-btn__text">' + masSocialText[3] + '</span>' +
                 '</a></div>' +
                 '</div></div>' +
                 '</div>' +
@@ -1845,15 +1865,15 @@ var pageBuilder = {
                 '<div class="pb-widget__content">' +
                 '<div class="pb-social-btns pb-social-btns--icn-only pb-social-btns--calendar">' +
                 '<div class="pb-social-btns__table"><div class="pb-social-btns__row">' +
-                '<div class="pb-wrap-social-btn" data-type-social="12"><a href="' + masSocialLink[0] + '" class="pb-social-btn">' +
+                '<div class="pb-wrap-social-btn" data-type-social="11"><a href="' + masSocialLink[0] + '" class="pb-social-btn">' +
                 '<span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/calendar_btns/black/google.png" alt=""/></span>' +
                 '<span class="pb-social-btn__text">' + masSocialText[0] + '</span>' +
                 '</a></div>' +
-                '<div class="pb-wrap-social-btn" data-type-social="13"><a href="' + masSocialLink[1] + '" class="pb-social-btn">' +
+                '<div class="pb-wrap-social-btn" data-type-social="12"><a href="' + masSocialLink[1] + '" class="pb-social-btn">' +
                 '<span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/calendar_btns/black/outlook.png" alt=""></span>' +
                 '<span class="pb-social-btn__text">' + masSocialText[1] + '</span>' +
                 '</a></div>' +
-                '<div class="pb-wrap-social-btn" data-type-social="16"><a href="' + masSocialLink[2] + '" class="pb-social-btn">' +
+                '<div class="pb-wrap-social-btn" data-type-social="15"><a href="' + masSocialLink[2] + '" class="pb-social-btn">' +
                 '<span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/calendar_btns/black/yahoo.png" alt=""></span>' +
                 '<span class="pb-social-btn__text">' + masSocialText[2] + '</span>' +
                 '</a></div>' +
@@ -2040,7 +2060,7 @@ var pageBuilder = {
                 pageBuilder.getWidgetHTMLLabel(type) +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>';
-         }else if (type === 'icon') {
+        }else if (type === 'icon') {
             var icnHTML = $el.find('.search-results-list-icon').html();
             dataJson = '{"color":"#333333", "height":"auto", "width":"80px", "maxWidth":"100%", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0"}';
             html = "<div class='pb-widget pb-widget--init pb-widget--icon' data-type='" + type + "' data-json='" + dataJson + "'>" +
@@ -2053,6 +2073,7 @@ var pageBuilder = {
             dataJson = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "borderWidth":"0", "borderColor":"#ffffff", "borderType":"None", "borderRadius":"0", "width":"auto", "minHeight":"0", "maxWidth":"100%", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"15px", "paddingRight":"15px", "paddingTop":"10px", "paddingBottom":"10px"}';
             dataJsonContainer = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "borderWidth":"0", "borderColor":"#ffffff", "borderType":"None", "borderRadius":"0", "width":"100%", "minHeight":"0", "maxWidth":"100%", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0", "background_transparent":1}';
             dataJsonSVG = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"15px", "marginTop":"0", "marginBottom":"0"}';
+            //dataJsonSvgToggle = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"0", "marginTop":"0, "marginBottom":"0"}';
             dataJsonSvgToggle = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"0", "marginTop":"0", "marginBottom":"0"}';
             dataJsonBtn = '{"buttonText":"Let&#39;s Go!","url":"","backgroundColor":"None", "backgroundImageUrl":"","fontTypeFace":"None","fontWeight":"None","fontSize":"None","color":"None","borderWidth":"0","borderColor":"None","borderType":"None","radius":"None","paddingX":"20","paddingY":"10", "width":"auto","maxWidth":"160px", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0"}';
             dataJsonItems = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "fontTypeFace": "None", "fontWeight": "Normal", "fontSize": "16", "color":"#333333", "lineHeight": "125", "textAlign":"0", "width":"auto","maxWidth":"1000px", "marginLeft":"0", "marginRight":"0", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0", "background_transparent":1}';
@@ -2060,26 +2081,26 @@ var pageBuilder = {
 
             html = "<div class='pb-widget pb-widget--init pb-widget--container pb-widget--header-mode pb-container-contains-widget' data-type2='header-1' data-type='" + type + "' data-json='" + dataJson + "' style='padding: 10px 15px;'>" +
                 '<div class="pb-widget__content pb-container-grid">' +
-                    //Container
+                //Container
                 "<div class='pb-widget pb-widget--init pb-widget--container pb-container-contains-widget' data-type='container' data-json='" + dataJsonContainer + "'>" +
                 '<div class="pb-widget__content pb-container-grid clearfix">' +
-                    //SVG
+                //SVG
                 "<div class='pb-widget pb-widget--no-remove ui-widget-disabled pb-widget--init pb-widget--logo pb-widget--svg pb-widget--svg-on' data-type='svg' data-json='" + dataJsonSVG + "' style='width: 40px; height: 40px; margin-left: 0; margin-right: 15px; margin-top: 0; margin-bottom: 0;'>" +
                 '<div class="pb-widget__content pb-svg-box"><div class="pb-load-svg"><svg width="84px" height="84px" viewBox="0 0 84 84" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <defs></defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Cover-with-title,-subtitle-and-logo" transform="translate(-558.000000, -203.000000)"  class="pb-svg-fill" fill="#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'" fill-rule="nonzero"> <g id="Group" transform="translate(558.000000, 203.000000)"> <path d="M42,83.8534652 C18.8849695,83.8534652 0.146534832,65.1150305 0.146534832,42 C0.146534832,18.8849695 18.8849695,0.146534832 42,0.146534832 C65.1150305,0.146534832 83.8534652,18.8849695 83.8534652,42 C83.8534652,65.1150305 65.1150305,83.8534652 42,83.8534652 Z M42,80.1465348 C63.0677494,80.1465348 80.1465348,63.0677494 80.1465348,42 C80.1465348,20.9322506 63.0677494,3.85346517 42,3.85346517 C20.9322506,3.85346517 3.85346517,20.9322506 3.85346517,42 C3.85346517,63.0677494 20.9322506,80.1465348 42,80.1465348 Z M41.9746252,21.6923077 C41.8481455,21.6989846 41.7216675,21.7123402 41.6018442,21.7457265 C41.0626434,21.8525641 40.6099807,22.2064632 40.3769921,22.707265 L34.8385306,34.0320513 L22.2704832,35.9017094 C21.6514008,36.0152239 21.1388273,36.4626068 20.9524367,37.0702462 C20.7593881,37.6778855 20.9191514,38.3389419 21.3651578,38.7863248 L30.3651578,47.6538462 L28.2882347,60.1538462 C28.1817258,60.7881949 28.4346853,61.4358974 28.9539152,61.8231846 C29.4731468,62.2037932 30.1654545,62.2638889 30.7379388,61.9700855 L41.9213708,56.0405983 L53.1048028,61.9700855 C53.6772888,62.2638889 54.3695965,62.2037932 54.8888264,61.8231846 C55.408058,61.4358974 55.6610158,60.7881949 55.5545069,60.1538462 L53.4775838,47.6538462 L62.4775838,38.7863248 C62.9235902,38.3389419 63.0833535,37.6778855 62.8903066,37.0702462 C62.703916,36.4626068 62.1913408,36.0152239 61.5722584,35.9017094 L49.004211,34.0320513 L43.4657495,22.707265 C43.1994773,22.1129812 42.626993,21.7190171 41.9746252,21.6923077 Z M41.9213708,27.3547009 L46.3947436,36.3824786 C46.647703,36.8766034 47.126993,37.217147 47.6728501,37.2905983 L57.63143,38.7863248 L50.4420809,45.8376068 C50.0293598,46.2182154 49.8296548,46.7791128 49.9095365,47.3333333 L51.6136785,57.3226496 L42.7201874,52.6217949 C42.2209266,52.3547009 41.621815,52.3547009 41.1225542,52.6217949 L32.2290631,57.3226496 L33.9332051,47.3333333 C34.0130868,46.7791128 33.8133835,46.2182154 33.4006607,45.8376068 L26.2113116,38.7863248 L36.1698915,37.2905983 C36.7157504,37.217147 37.1950403,36.8766034 37.447998,36.3824786 L41.9213708,27.3547009 Z" id="Combined-Shape"></path> </g> </g> </g> </svg></div></div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('svg') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //END SVG
-                    //SVG Toggle
+                //END SVG
+                //SVG Toggle
                 "<div class='pb-widget pb-widget--no-remove ui-widget-disabled pb-widget--init pb-widget--mobile-toggle pb-widget--svg pb-widget--svg-on' data-type='svg' data-json='" + dataJsonSvgToggle + "' style='width: 40px; height: 40px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;'>" +
                 '<div class="pb-widget__content pb-svg-box"><div class="pb-load-svg"><svg fill="#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'" height="512px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M417.4,224H94.6C77.7,224,64,238.3,64,256c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,238.3,434.3,224,417.4,224z"/><path d="M417.4,96H94.6C77.7,96,64,110.3,64,128c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,110.3,434.3,96,417.4,96z"/><path d="M417.4,352H94.6C77.7,352,64,366.3,64,384c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,366.3,434.3,352,417.4,352z"/></g></svg></div></div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('svg') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //END SVG Toggle
-                    //Items
+                //END SVG Toggle
+                //Items
                 "<div class='pb-header-items pb-header-items--right pb-widget pb-widget--init pb-widget--no-remove pb-widget--nav-items ui-widget-disabled' data-type='nav-items' data-json='" + dataJsonItems + "'>" +
                 '<div class="pb-widget__content">' +
                 "<a href='#' class='pb-header-items__item pb-widget pb-widget--nav-item pb-widget--init ui-widget-disabled' data-type='nav-item' data-json='" + dataJsonItem + "'>" +
@@ -2097,7 +2118,7 @@ var pageBuilder = {
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('nav-item') +
                 '</a>' +
-                    //Button
+                //Button
                 "<div class='pb-widget ui-widget-disabled pb-widget--init pb-widget--button pb-widget--button-inline' data-type='button' data-json='" + dataJsonBtn + "' style='margin-top: 0; margin-bottom: 0; margin-left: auto; margin-right: auto; padding: 0; max-width: 160px; width: auto;'>" +
                 '<div class="pb-widget__content">' +
                 '<a href="javascript:void(0);" class="pb-btn" style="padding: 10px 20px; border-width: 0;">Let&#39;s Go!</a>' +
@@ -2106,18 +2127,18 @@ var pageBuilder = {
                 pageBuilder.getWidgetHTMLLabel('button') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //End Button
+                //End Button
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('nav-items') +
                 '</div>' +
-                    //End Items
+                //End Items
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('container') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //End Container
+                //End Container
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel(type) +
@@ -2134,10 +2155,10 @@ var pageBuilder = {
 
             html = "<div class='pb-widget pb-widget--init pb-widget--container pb-widget--header-mode pb-container-contains-widget' data-type2='header-1' data-type='" + type + "' data-json='" + dataJson + "' style='padding:10px 15px;'>" +
                 '<div class="pb-widget__content pb-container-grid">' +
-                    //Container
+                //Container
                 "<div class='pb-widget pb-widget--init pb-widget--container pb-container-contains-widget' data-type='container' data-json='" + dataJsonContainer + "' style=''>" +
                 '<div class="pb-widget__content pb-container-grid clearfix">' +
-                    //Text
+                //Text
                 "<div class='pb-widget pb-widget--no-remove pb-widget--logo pb-widget--init pb-widget--text' data-type='text' data-json='" + dataJsonText + "' style='margin-bottom: 2px; margin-top: 2px; font-size: 24px; line-height: 150%; color: #"+LL_INSTANCE_DEFAULT_THEME_COLOR+"; font-weight: bold;'>" +
                 '<div class="pb-widget__content">' +
                 '<div class="pb-editable">' +
@@ -2148,16 +2169,16 @@ var pageBuilder = {
                 pageBuilder.getWidgetHTMLLabel('text') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //END TExt
-                    //SVG Toggle
+                //END TExt
+                //SVG Toggle
                 "<div class='pb-widget pb-widget--no-remove ui-widget-disabled pb-widget--init pb-widget--mobile-toggle pb-widget--svg pb-widget--svg-on' data-type='svg' data-json='" + dataJsonSvgToggle + "' style='width: 40px; height: 40px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;'>" +
                 '<div class="pb-widget__content pb-svg-box"><div class="pb-load-svg"><svg fill="#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'" height="512px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M417.4,224H94.6C77.7,224,64,238.3,64,256c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,238.3,434.3,224,417.4,224z"/><path d="M417.4,96H94.6C77.7,96,64,110.3,64,128c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,110.3,434.3,96,417.4,96z"/><path d="M417.4,352H94.6C77.7,352,64,366.3,64,384c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,366.3,434.3,352,417.4,352z"/></g></svg></div></div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('svg') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //END SVG Toggle
-                    //Items
+                //END SVG Toggle
+                //Items
                 "<div class='pb-header-items pb-header-items--right pb-widget pb-widget--init pb-widget--no-remove pb-widget--nav-items ui-widget-disabled' data-type='nav-items' data-json='" + dataJsonItems + "'>" +
                 '<div class="pb-widget__content">' +
                 "<a href='#' class='pb-header-items__item pb-widget pb-widget--nav-item pb-widget--init ui-widget-disabled' data-type='nav-item' data-json='" + dataJsonItem + "'>" +
@@ -2175,7 +2196,7 @@ var pageBuilder = {
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('nav-item') +
                 '</a>' +
-                    //Button
+                //Button
                 "<div class='pb-widget ui-widget-disabled pb-widget--init pb-widget--button pb-widget--button-inline' data-type='button' data-json='" + dataJsonBtn + "' style='margin-top: 0; margin-bottom: 0; margin-left: auto; margin-right: auto; padding: 0; max-width: 160px; width: auto;'>" +
                 '<div class="pb-widget__content">' +
                 '<a href="javascript:void(0);" class="pb-btn" style="padding: 10px 20px; border-width: 0;">Let&#39;s Go!</a>' +
@@ -2184,18 +2205,18 @@ var pageBuilder = {
                 pageBuilder.getWidgetHTMLLabel('button') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //End Button
+                //End Button
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('nav-items') +
                 '</div>' +
-                    //End Items
+                //End Items
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('container') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //End Container
+                //End Container
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel(type) +
@@ -2211,26 +2232,26 @@ var pageBuilder = {
 
             html = "<div class='pb-widget pb-widget--init pb-widget--container pb-widget--header-mode pb-container-contains-widget' data-type2='header-1' data-type='" + type + "' data-json='" + dataJson + "' style='padding:10px 15px;'>" +
                 '<div class="pb-widget__content pb-container-grid">' +
-                    //Container
+                //Container
                 "<div class='pb-widget pb-widget--init pb-widget--container pb-container-contains-widget' data-type='container' data-json='" + dataJsonContainer + "'>" +
                 '<div class="pb-widget__content pb-container-grid clearfix" style="min-height: 40px">' +
-                    //SVG
+                //SVG
                 "<div class='pb-widget pb-widget--no-remove ui-widget-disabled pb-widget--init pb-widget--logo pb-widget--logo-right pb-widget--svg pb-widget--svg-on' data-type='svg' data-json='" + dataJsonSVG + "' style='width: 40px; height: 40px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;'>" +
                 '<div class="pb-widget__content pb-svg-box"><div class="pb-load-svg"><svg width="84px" height="84px" viewBox="0 0 84 84" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <defs></defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Cover-with-title,-subtitle-and-logo" transform="translate(-558.000000, -203.000000)"  class="pb-svg-fill" fill="#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'" fill-rule="nonzero"> <g id="Group" transform="translate(558.000000, 203.000000)"> <path d="M42,83.8534652 C18.8849695,83.8534652 0.146534832,65.1150305 0.146534832,42 C0.146534832,18.8849695 18.8849695,0.146534832 42,0.146534832 C65.1150305,0.146534832 83.8534652,18.8849695 83.8534652,42 C83.8534652,65.1150305 65.1150305,83.8534652 42,83.8534652 Z M42,80.1465348 C63.0677494,80.1465348 80.1465348,63.0677494 80.1465348,42 C80.1465348,20.9322506 63.0677494,3.85346517 42,3.85346517 C20.9322506,3.85346517 3.85346517,20.9322506 3.85346517,42 C3.85346517,63.0677494 20.9322506,80.1465348 42,80.1465348 Z M41.9746252,21.6923077 C41.8481455,21.6989846 41.7216675,21.7123402 41.6018442,21.7457265 C41.0626434,21.8525641 40.6099807,22.2064632 40.3769921,22.707265 L34.8385306,34.0320513 L22.2704832,35.9017094 C21.6514008,36.0152239 21.1388273,36.4626068 20.9524367,37.0702462 C20.7593881,37.6778855 20.9191514,38.3389419 21.3651578,38.7863248 L30.3651578,47.6538462 L28.2882347,60.1538462 C28.1817258,60.7881949 28.4346853,61.4358974 28.9539152,61.8231846 C29.4731468,62.2037932 30.1654545,62.2638889 30.7379388,61.9700855 L41.9213708,56.0405983 L53.1048028,61.9700855 C53.6772888,62.2638889 54.3695965,62.2037932 54.8888264,61.8231846 C55.408058,61.4358974 55.6610158,60.7881949 55.5545069,60.1538462 L53.4775838,47.6538462 L62.4775838,38.7863248 C62.9235902,38.3389419 63.0833535,37.6778855 62.8903066,37.0702462 C62.703916,36.4626068 62.1913408,36.0152239 61.5722584,35.9017094 L49.004211,34.0320513 L43.4657495,22.707265 C43.1994773,22.1129812 42.626993,21.7190171 41.9746252,21.6923077 Z M41.9213708,27.3547009 L46.3947436,36.3824786 C46.647703,36.8766034 47.126993,37.217147 47.6728501,37.2905983 L57.63143,38.7863248 L50.4420809,45.8376068 C50.0293598,46.2182154 49.8296548,46.7791128 49.9095365,47.3333333 L51.6136785,57.3226496 L42.7201874,52.6217949 C42.2209266,52.3547009 41.621815,52.3547009 41.1225542,52.6217949 L32.2290631,57.3226496 L33.9332051,47.3333333 C34.0130868,46.7791128 33.8133835,46.2182154 33.4006607,45.8376068 L26.2113116,38.7863248 L36.1698915,37.2905983 C36.7157504,37.217147 37.1950403,36.8766034 37.447998,36.3824786 L41.9213708,27.3547009 Z" id="Combined-Shape"></path> </g> </g> </g> </svg></div></div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('svg') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //END SVG
-                    //SVG Toggle
+                //END SVG
+                //SVG Toggle
                 "<div class='pb-widget pb-widget--no-remove ui-widget-disabled pb-widget--init pb-widget--mobile-toggle pb-widget--mobile-toggle-left pb-widget--svg pb-widget--svg-on' data-type='svg' data-json='" + dataJsonSvgToggle + "' style='width: 40px; height: 40px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;'>" +
                 '<div class="pb-widget__content pb-svg-box"><div class="pb-load-svg"><svg fill="#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'" height="512px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M417.4,224H94.6C77.7,224,64,238.3,64,256c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,238.3,434.3,224,417.4,224z"/><path d="M417.4,96H94.6C77.7,96,64,110.3,64,128c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,110.3,434.3,96,417.4,96z"/><path d="M417.4,352H94.6C77.7,352,64,366.3,64,384c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,366.3,434.3,352,417.4,352z"/></g></svg></div></div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('svg') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //END SVG Toggle
-                    //Items
+                //END SVG Toggle
+                //Items
                 "<div class='pb-header-items pb-header-items--left pb-widget pb-widget--init pb-widget--no-remove pb-widget--nav-items ui-widget-disabled' data-type='nav-items' data-json='" + dataJsonItems + "'>" +
                 '<div class="pb-widget__content">' +
                 "<a href='#' class='pb-header-items__item pb-widget pb-widget--nav-item pb-widget--init ui-widget-disabled' data-type='nav-item' data-json='" + dataJsonItem + "'>" +
@@ -2252,13 +2273,13 @@ var pageBuilder = {
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('nav-items') +
                 '</div>' +
-                    //End Items
+                //End Items
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('container') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //End Container
+                //End Container
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel(type) +
@@ -2273,18 +2294,18 @@ var pageBuilder = {
 
             html = "<div class='pb-widget pb-widget--init pb-widget--container pb-widget--header-mode pb-container-contains-widget' data-type2='header-1' data-type='" + type + "' data-json='" + dataJson + "' style='padding: 10px 15px;'>" +
                 '<div class="pb-widget__content pb-container-grid">' +
-                    //Container
+                //Container
                 "<div class='pb-widget pb-widget--init pb-widget--container pb-container-contains-widget' data-type='container' data-json='" + dataJsonContainer + "'>" +
                 '<div class="pb-widget__content pb-container-grid clearfix" style="min-height: 40px">' +
-                    //SVG Toggle
+                //SVG Toggle
                 "<div class='pb-widget pb-widget--no-remove ui-widget-disabled pb-widget--init pb-widget--mobile-toggle pb-widget--mobile-toggle-left pb-widget--svg pb-widget--svg-on' data-type='svg' data-json='" + dataJsonSvgToggle + "' style='width: 40px; height: 40px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;'>" +
                 '<div class="pb-widget__content pb-svg-box"><div class="pb-load-svg"><svg fill="#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'" height="512px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M417.4,224H94.6C77.7,224,64,238.3,64,256c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,238.3,434.3,224,417.4,224z"/><path d="M417.4,96H94.6C77.7,96,64,110.3,64,128c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,110.3,434.3,96,417.4,96z"/><path d="M417.4,352H94.6C77.7,352,64,366.3,64,384c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,366.3,434.3,352,417.4,352z"/></g></svg></div></div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('svg') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //END SVG Toggle
-                    //Items
+                //END SVG Toggle
+                //Items
                 "<div class='pb-header-items pb-widget pb-widget--init pb-widget--no-remove pb-widget--nav-items ui-widget-disabled' data-type='nav-items' data-json='" + dataJsonItems + "'>" +
                 '<div class="pb-widget__content">' +
                 "<a href='#' class='pb-header-items__item pb-widget pb-widget--nav-item pb-widget--init ui-widget-disabled' data-type='nav-item' data-json='" + dataJsonItem + "'>" +
@@ -2306,13 +2327,13 @@ var pageBuilder = {
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('nav-items') +
                 '</div>' +
-                    //End Items
+                //End Items
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('container') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //End Container
+                //End Container
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel(type) +
@@ -2327,18 +2348,18 @@ var pageBuilder = {
 
             html = "<div class='pb-widget pb-widget--init pb-widget--container pb-widget--header-mode pb-container-contains-widget' data-type2='header-1' data-type='" + type + "' data-json='" + dataJson + "' style='padding: 10px 15px;'>" +
                 '<div class="pb-widget__content pb-container-grid">' +
-                    //Container
+                //Container
                 "<div class='pb-widget pb-widget--init pb-widget--container pb-container-contains-widget' data-type='container' data-json='" + dataJsonContainer + "'>" +
                 '<div class="pb-widget__content pb-container-grid clearfix" style="min-height: 40px">' +
-                    //SVG Toggle
+                //SVG Toggle
                 "<div class='pb-widget pb-widget--no-remove ui-widget-disabled pb-widget--init pb-widget--mobile-toggle pb-widget--mobile-toggle-left pb-widget--svg pb-widget--svg-on' data-type='svg' data-json='" + dataJsonSvgToggle + "' style='width: 40px; height: 40px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;'>" +
                 '<div class="pb-widget__content pb-svg-box"><div class="pb-load-svg"><svg fill="#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'" height="512px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M417.4,224H94.6C77.7,224,64,238.3,64,256c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,238.3,434.3,224,417.4,224z"/><path d="M417.4,96H94.6C77.7,96,64,110.3,64,128c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,110.3,434.3,96,417.4,96z"/><path d="M417.4,352H94.6C77.7,352,64,366.3,64,384c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,366.3,434.3,352,417.4,352z"/></g></svg></div></div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('svg') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //END SVG Toggle
-                    //Items
+                //END SVG Toggle
+                //Items
                 "<div class='pb-header-items pb-widget pb-widget--init pb-widget--no-remove pb-widget--nav-items ui-widget-disabled' data-type='nav-items' data-json='" + dataJsonItems + "' style='text-align: center;'>" +
                 '<div class="pb-widget__content">' +
                 "<a href='#' class='pb-header-items__item pb-widget pb-widget--nav-item pb-widget--init ui-widget-disabled' data-type='nav-item' data-json='" + dataJsonItem + "'>" +
@@ -2360,13 +2381,13 @@ var pageBuilder = {
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('nav-items') +
                 '</div>' +
-                    //End Items
+                //End Items
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('container') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //End Container
+                //End Container
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel(type) +
@@ -2381,18 +2402,18 @@ var pageBuilder = {
 
             html = "<div class='pb-widget pb-widget--init pb-widget--container pb-widget--header-mode pb-container-contains-widget' data-type2='header-1' data-type='" + type + "' data-json='" + dataJson + "' style='padding:10px 15px;'>" +
                 '<div class="pb-widget__content pb-container-grid">' +
-                    //Container
+                //Container
                 "<div class='pb-widget pb-widget--init pb-widget--container pb-container-contains-widget' data-type='container' data-json='" + dataJsonContainer + "'>" +
                 '<div class="pb-widget__content pb-container-grid clearfix" style="min-height: 40px">' +
-                    //SVG Toggle
+                //SVG Toggle
                 "<div class='pb-widget pb-widget--no-remove ui-widget-disabled pb-widget--init pb-widget--mobile-toggle pb-widget--mobile-toggle-left pb-widget--svg pb-widget--svg-on' data-type='svg' data-json='" + dataJsonSvgToggle + "' style='width: 40px; height: 40px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;'>" +
                 '<div class="pb-widget__content pb-svg-box"><div class="pb-load-svg"><svg fill="#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'" height="512px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M417.4,224H94.6C77.7,224,64,238.3,64,256c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,238.3,434.3,224,417.4,224z"/><path d="M417.4,96H94.6C77.7,96,64,110.3,64,128c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,110.3,434.3,96,417.4,96z"/><path d="M417.4,352H94.6C77.7,352,64,366.3,64,384c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,366.3,434.3,352,417.4,352z"/></g></svg></div></div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('svg') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //END SVG Toggle
-                    //Items
+                //END SVG Toggle
+                //Items
                 "<div class='pb-header-items pb-widget pb-widget--init pb-widget--no-remove pb-widget--nav-items ui-widget-disabled' data-type='nav-items' data-json='" + dataJsonItems + "' style='text-align: right;'>" +
                 '<div class="pb-widget__content">' +
                 "<a href='#' class='pb-header-items__item pb-widget pb-widget--nav-item pb-widget--init ui-widget-disabled' data-type='nav-item' data-json='" + dataJsonItem + "'>" +
@@ -2414,13 +2435,13 @@ var pageBuilder = {
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('nav-items') +
                 '</div>' +
-                    //End Items
+                //End Items
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('container') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //End Container
+                //End Container
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel(type) +
@@ -2430,6 +2451,7 @@ var pageBuilder = {
             dataJson = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "borderWidth":"0", "borderColor":"#ffffff", "borderType":"None", "borderRadius":"0", "width":"auto", "minHeight":"0", "maxWidth":"100%", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"15px", "paddingRight":"15px", "paddingTop":"10px", "paddingBottom":"10px"}';
             dataJsonContainer = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "borderWidth":"0", "borderColor":"#ffffff", "borderType":"None", "borderRadius":"0", "width":"100%", "minHeight":"0", "maxWidth":"100%", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0", "background_transparent":1}';
             dataJsonSVG = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"15px", "marginTop":"0", "marginBottom":"0"}';
+            //dataJsonSvgToggle = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"0", "marginTop":"0, "marginBottom":"0"}';
             dataJsonSvgToggle = '{"width":"40", "height":"40", "fillColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "strokeColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "count":"1", "marginLeft":"0", "marginRight":"0", "marginTop":"0", "marginBottom":"0"}';
             dataJsonBtn = '{"buttonText":"Let&#39;s Go!","url":"","backgroundColor":"None", "backgroundImageUrl":"","fontTypeFace":"None","fontWeight":"None","fontSize":"None","color":"None","borderWidth":"0","borderColor":"None","borderType":"None","radius":"None","paddingX":"20","paddingY":"10", "width":"auto","maxWidth":"160px", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0"}';
             dataJsonItems = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "fontTypeFace": "None", "fontWeight": "Normal", "fontSize": "16", "color":"#333333", "lineHeight": "125", "textAlign":"0", "width":"auto","maxWidth":"1000px", "marginLeft":"0", "marginRight":"0", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0", "background_transparent":1}';
@@ -2437,12 +2459,12 @@ var pageBuilder = {
             dataImageJson = '{"backgroundColor":"#ffffff", "backgroundImageUrl":"", "textAlign":"0", "width":"200px","maxWidth":"100%", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0", "background_transparent":1}';
             html = "<div class='pb-widget pb-widget--init pb-widget--container pb-widget--header-mode pb-container-contains-widget' data-type2='header-7' data-type='" + type + "' data-json='" + dataJson + "' style='padding: 10px 15px;'>" +
                 '<div class="pb-widget__content pb-container-grid">' +
-                    //Container
+                //Container
                 "<div class='pb-widget pb-widget--init pb-widget--container pb-container-contains-widget' data-type='container' data-json='" + dataJsonContainer + "' style='    min-height: 53px;'>" +
                 '<div class="pb-widget__content pb-container-grid clearfix">' +
-                    //SVG
-                    //END SVG
-             "<div class='pb-widget pb-widget--init pb-widget--image' data-type='image' data-json='" + dataImageJson + "' style='width: 200px; float: left; height: 52px;'>" +
+                //SVG
+                //END SVG
+                "<div class='pb-widget pb-widget--init pb-widget--image' data-type='image' data-json='" + dataImageJson + "' style='width: 200px; float: left; height: 52px;'>" +
                 '<div class="pb-widget__content" style="height: 53px;">' +
                 '<div class="pb-load-image pb-load-image--none" style="background-size: 70px; min-height: 50px; height: 52px; border: none; background-position: 50%;"><img src="" class="pb-img"></div>' +
                 '</div>' +
@@ -2450,15 +2472,15 @@ var pageBuilder = {
                 pageBuilder.getWidgetHTMLLabel('image') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //SVG Toggle
+                //SVG Toggle
                 "<div class='pb-widget pb-widget--no-remove ui-widget-disabled pb-widget--init pb-widget--mobile-toggle pb-widget--svg pb-widget--svg-on' data-type='svg' data-json='" + dataJsonSvgToggle + "' style='width: 40px; height: 40px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;'>" +
                 '<div class="pb-widget__content pb-svg-box"><div class="pb-load-svg"><svg fill="#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'" height="512px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M417.4,224H94.6C77.7,224,64,238.3,64,256c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,238.3,434.3,224,417.4,224z"/><path d="M417.4,96H94.6C77.7,96,64,110.3,64,128c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,110.3,434.3,96,417.4,96z"/><path d="M417.4,352H94.6C77.7,352,64,366.3,64,384c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,366.3,434.3,352,417.4,352z"/></g></svg></div></div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('svg') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //END SVG Toggle
-                    //Items
+                //END SVG Toggle
+                //Items
                 "<div class='pb-header-items pb-header-items--right pb-widget pb-widget--init pb-widget--no-remove pb-widget--nav-items ui-widget-disabled' data-type='nav-items' data-json='" + dataJsonItems + "'>" +
                 '<div class="pb-widget__content">' +
                 "<a href='#' class='pb-header-items__item pb-widget pb-widget--nav-item pb-widget--init ui-widget-disabled' data-type='nav-item' data-json='" + dataJsonItem + "'>" +
@@ -2476,7 +2498,7 @@ var pageBuilder = {
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('nav-item') +
                 '</a>' +
-                    //Button
+                //Button
                 "<div class='pb-widget ui-widget-disabled pb-widget--init pb-widget--button pb-widget--button-inline' data-type='button' data-json='" + dataJsonBtn + "' style='margin-top: 0; margin-bottom: 0; margin-left: auto; margin-right: auto; padding: 0; max-width: 160px; width: auto;'>" +
                 '<div class="pb-widget__content">' +
                 '<a href="javascript:void(0);" class="pb-btn" style="padding: 10px 20px; border-width: 0;">Let&#39;s Go!</a>' +
@@ -2485,18 +2507,18 @@ var pageBuilder = {
                 pageBuilder.getWidgetHTMLLabel('button') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //End Button
+                //End Button
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('nav-items') +
                 '</div>' +
-                    //End Items
+                //End Items
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel('container') +
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>' +
-                    //End Container
+                //End Container
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel(type) +
@@ -2507,7 +2529,7 @@ var pageBuilder = {
             dataJsonText = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "fontTypeFace": "None", "fontWeight": "Bold", "fontSize": "36", "color":"#333333", "lineHeight": "125", "textAlign":"1", "width":"auto","maxWidth":"1000px", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0", "background_transparent" :1}';
             dataJsonText2 = '{"backgroundColor": "#ffffff", "backgroundImageUrl":"", "fontTypeFace": "None", "fontWeight": "None", "fontSize": "20", "color":"#636363", "lineHeight": "125", "textAlign":"1", "width":"auto","maxWidth":"1000px", "marginLeft":"auto", "marginRight":"auto", "marginTop":"20px", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0", "background_transparent" :1}';
             dataJsonBtn = '{"buttonText":"hello@info.com","url":"mailto:hello@info.com","backgroundColor":"#ffffff", "backgroundImageUrl":"","fontTypeFace":"None","fontWeight":"Bold","fontSize":"16","color":"#333333","borderWidth":"0","borderColor":"#ffffff","borderType":"Solid","radius":"4","paddingX":"30","paddingY":"15", "width":"100%","maxWidth":"200px", "marginLeft":"auto", "marginRight":"auto", "marginTop":"35px", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0"}';
-                
+
             html = "<div class='pb-widget pb-widget--init pb-widget--container pb-widget--header-mode pb-container-contains-widget' data-type2='header-1' data-type='" + type + "' data-json='" + dataJson + "' style='background-color: rgb(225, 225, 225);'>" +
                 '<div class="pb-widget__content pb-container-grid" style="padding: 110px 15px 120px;">' +
                 //Text
@@ -2550,13 +2572,13 @@ var pageBuilder = {
                 pageBuilder.getWidgetHTMLBtnRemove() +
                 '</div>';
         } else if (type === 'container' && type2 === 'footer-1') {
-            html = '<div class="pb-widget pb-widget--init pb-widget--two-column-grid" data-type="two-column-grid" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;borderWidth&quot;:&quot;0&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;borderType&quot;:&quot;None&quot;,&quot;width&quot;:&quot;100%&quot;,&quot;minHeight&quot;:&quot;0&quot;,&quot;maxWidth&quot;:&quot;100%&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;15px&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;15px&quot;,&quot;paddingBottom&quot;:&quot;20px&quot;,&quot;gridSize1&quot;:&quot;50&quot;,&quot;gridSize2&quot;:&quot;50&quot;,&quot;background_transparent&quot;:0}" style="display: block; width: 100%; max-width: 100%; padding-top: 15px; padding-bottom: 20px; padding-left: 15px; background-color: rgb(255, 255, 255);"><div class="pb-layout-grid pb-layout-grid--2 pb-clearfix"><div class="pb-layout-grid__cell pb-cell-contains-widget"><div class="pb-helper-drag-drop pb-helper-drag-drop--small" style=""><div class="pb-helper-drag-drop__inner"><div class="pb-helper-drag-drop__text">Drop your elements here</div></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Bold&quot;,&quot;fontSize&quot;:&quot;18&quot;,&quot;color&quot;:&quot;#333333&quot;,&quot;lineHeight&quot;:&quot;150&quot;,&quot;textAlign&quot;:&quot;0&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="margin-top: 0px; font-family: Arial, sans-serif; font-weight: bold; font-size: 18px; line-height: 1.5; color: rgb(51, 51, 51); text-align: left;"><div class="pb-widget__content"><div class="pb-editable"><div>Text Logo<br></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;14&quot;,&quot;color&quot;:&quot;#333333&quot;,&quot;lineHeight&quot;:&quot;150&quot;,&quot;textAlign&quot;:&quot;0&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;15px&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="font-family: Arial, sans-serif; font-weight: normal; font-size: 14px; line-height: 1.5; color: rgb(51, 51, 51); text-align: left;"><div class="pb-widget__content"><div class="pb-editable"><div>PO Box 1016<br>Allen, Texas 75013-0017<br>United States<br><br>info@business.com<br></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-layout-grid__cell pb-cell-contains-widget pb-blocks--start-sortable"><div class="pb-helper-drag-drop pb-helper-drag-drop--small" style=""><div class="pb-helper-drag-drop__inner"><div class="pb-helper-drag-drop__text">Drop your elements here</div></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Bold&quot;,&quot;fontSize&quot;:&quot;18&quot;,&quot;color&quot;:&quot;#333333&quot;,&quot;lineHeight&quot;:&quot;150&quot;,&quot;textAlign&quot;:&quot;2&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;15px&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="font-family: Arial, sans-serif; font-weight: bold; font-size: 18px; line-height: 1.5; color: rgb(51, 51, 51); text-align: right; margin-top: 0px;"><div class="pb-widget__content" style="padding-right: 15px;"><div class="pb-editable"><div>Follow Us!<br></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--social-follow" data-type="social-follow" data-json="{&quot;containerBackground&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;containerBorderType&quot;:&quot;None&quot;,&quot;containerBorderWidth&quot;:&quot;0&quot;,&quot;containerBorderColor&quot;:&quot;#ffffff&quot;,&quot;btnBackground&quot;:&quot;#ffffff&quot;,&quot;btnBorderType&quot;:&quot;None&quot;,&quot;btnBorderWidth&quot;:&quot;0&quot;,&quot;btnBorderColor&quot;:&quot;#ffffff&quot;,&quot;btnBorderRadius&quot;:&quot;5&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;12&quot;,&quot;color&quot;:&quot;#505050&quot;,&quot;lineHeight&quot;:&quot;None&quot;,&quot;align&quot;:&quot;2&quot;,&quot;width&quot;:&quot;1&quot;,&quot;styleIcon&quot;:4,&quot;display&quot;:&quot;0&quot;,&quot;layout&quot;:&quot;2&quot;,&quot;contentToShare&quot;:&quot;0&quot;,&quot;shareCustomUrl&quot;:&quot;0&quot;,&quot;shareLink&quot;:&quot;&quot;,&quot;shareDesc&quot;:&quot;&quot;,&quot;background_transparent&quot;:1}" style="text-align: right;"><div class="pb-widget__content"><div class="pb-social-btns pb-social-btns--icn-only pb-social-btns--follow" style="background: #fffff; border-color: #ffffff;"><div class="pb-social-btns__table"><div class="pb-social-btns__row"><div class="pb-wrap-social-btn" data-type-social="0"><a href="http://www.facebook.com/" class="pb-social-btn"><span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/gray/fb.png" alt=""></span><span class="pb-social-btn__text">Facebook</span></a></div><div class="pb-wrap-social-btn" data-type-social="1"><a href="http://www.twitter.com/" class="pb-social-btn"><span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/gray/tw.png" alt=""></span><span class="pb-social-btn__text">Twitter</span></a></div><div class="pb-wrap-social-btn" data-type-social="3"><a href="http://www.linkedin.com/" class="pb-social-btn"><span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/gray/in.png" alt=""></span><span class="pb-social-btn__text">LinkedIn</span></a></div></div></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Social Follow</div><div class="pb-widget__btn-remove"></div></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Two column grid</div><div class="pb-widget__btn-remove"></div></div>';
+            html = '<div class="pb-widget pb-widget--init pb-widget--two-column-grid" data-type="two-column-grid" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;borderWidth&quot;:&quot;0&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;borderType&quot;:&quot;None&quot;,&quot;width&quot;:&quot;100%&quot;,&quot;minHeight&quot;:&quot;0&quot;,&quot;maxWidth&quot;:&quot;100%&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;15px&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;15px&quot;,&quot;paddingBottom&quot;:&quot;20px&quot;,&quot;gridSize1&quot;:&quot;50&quot;,&quot;gridSize2&quot;:&quot;50&quot;,&quot;background_transparent&quot;:0}" style="display: block; width: 100%; max-width: 100%; padding-top: 15px; padding-bottom: 20px; padding-left: 15px; background-color: rgb(255, 255, 255);"><div class="pb-layout-grid pb-layout-grid--2 pb-clearfix"><div class="pb-layout-grid__cell pb-cell-contains-widget"><div class="pb-helper-drag-drop pb-helper-drag-drop--small" style=""><div class="pb-helper-drag-drop__inner"><div class="pb-helper-drag-drop__text">Drop your elements here</div></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Bold&quot;,&quot;fontSize&quot;:&quot;18&quot;,&quot;color&quot;:&quot;#333333&quot;,&quot;lineHeight&quot;:&quot;150&quot;,&quot;textAlign&quot;:&quot;0&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="margin-top: 0px; font-family: Arial, sans-serif; font-weight: bold; font-size: 18px; line-height: 1.5; color: rgb(51, 51, 51); text-align: left;"><div class="pb-widget__content"><div class="pb-editable"><div>Text Logo<br></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;14&quot;,&quot;color&quot;:&quot;#333333&quot;,&quot;lineHeight&quot;:&quot;150&quot;,&quot;textAlign&quot;:&quot;0&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;15px&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="font-family: Arial, sans-serif; font-weight: normal; font-size: 14px; line-height: 1.5; color: rgb(51, 51, 51); text-align: left;"><div class="pb-widget__content"><div class="pb-editable"><div>PO Box 1016<br>Allen, Texas 75013-0017<br>United States<br><br>info@business.com<br></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-layout-grid__cell pb-cell-contains-widget pb-blocks--start-sortable"><div class="pb-helper-drag-drop pb-helper-drag-drop--small" style=""><div class="pb-helper-drag-drop__inner"><div class="pb-helper-drag-drop__text">Drop your elements here</div></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Bold&quot;,&quot;fontSize&quot;:&quot;18&quot;,&quot;color&quot;:&quot;#333333&quot;,&quot;lineHeight&quot;:&quot;150&quot;,&quot;textAlign&quot;:&quot;2&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;15px&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="font-family: Arial, sans-serif; font-weight: bold; font-size: 18px; line-height: 1.5; color: rgb(51, 51, 51); text-align: right; margin-top: 0px;"><div class="pb-widget__content" style="padding-right: 15px;"><div class="pb-editable"><div>Follow Us!<br></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--social-follow" data-type="social-follow" data-json="{&quot;containerBackground&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;containerBorderType&quot;:&quot;None&quot;,&quot;containerBorderWidth&quot;:&quot;0&quot;,&quot;containerBorderColor&quot;:&quot;#ffffff&quot;,&quot;btnBackground&quot;:&quot;#ffffff&quot;,&quot;btnBorderType&quot;:&quot;None&quot;,&quot;btnBorderWidth&quot;:&quot;0&quot;,&quot;btnBorderColor&quot;:&quot;#ffffff&quot;,&quot;btnBorderRadius&quot;:&quot;5&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;12&quot;,&quot;color&quot;:&quot;#505050&quot;,&quot;lineHeight&quot;:&quot;None&quot;,&quot;align&quot;:&quot;2&quot;,&quot;width&quot;:&quot;1&quot;,&quot;styleIcon&quot;:4,&quot;display&quot;:&quot;0&quot;,&quot;layout&quot;:&quot;2&quot;,&quot;contentToShare&quot;:&quot;0&quot;,&quot;shareCustomUrl&quot;:&quot;0&quot;,&quot;shareLink&quot;:&quot;&quot;,&quot;shareDesc&quot;:&quot;&quot;,&quot;background_transparent&quot;:1}" style="text-align: right;"><div class="pb-widget__content"><div class="pb-social-btns pb-social-btns--icn-only pb-social-btns--follow" style="background: #fffff; border-color: #ffffff;"><div class="pb-social-btns__table"><div class="pb-social-btns__row"><div class="pb-wrap-social-btn" data-type-social="0"><a href="http://www.facebook.com/" class="pb-social-btn"><span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/gray/fb.png" alt=""></span><span class="pb-social-btn__text">Facebook</span></a></div><div class="pb-wrap-social-btn" data-type-social="1"><a href="http://www.twitter.com/" class="pb-social-btn"><span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/gray/tw.png" alt=""></span><span class="pb-social-btn__text">Twitter</span></a></div><div class="pb-wrap-social-btn" data-type-social="2"><a href="http://www.linkedin.com/" class="pb-social-btn"><span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/gray/in.png" alt=""></span><span class="pb-social-btn__text">LinkedIn</span></a></div></div></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Social Follow</div><div class="pb-widget__btn-remove"></div></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Two column grid</div><div class="pb-widget__btn-remove"></div></div>';
         } else if (type === 'container' && type2 === 'footer-2') {
             html = '<div class="pb-widget pb-widget--init pb-widget--container pb-container-contains-widget" data-type="container" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;borderWidth&quot;:&quot;0&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;borderType&quot;:&quot;None&quot;,&quot;borderRadius&quot;:&quot;0&quot;,&quot;width&quot;:&quot;100%&quot;,&quot;minHeight&quot;:&quot;0&quot;,&quot;maxWidth&quot;:&quot;100%&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;25px&quot;,&quot;paddingBottom&quot;:&quot;30px&quot;,&quot;background_transparent&quot;:0}" style="background-color: rgb(255, 255, 255); padding-bottom: 30px; padding-top: 25px;"><div class="pb-widget__content pb-container-grid pb-blocks--start-sortable"><div class="pb-widget pb-widget--init pb-widget--container pb-container-contains-widget" data-type="container" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;borderWidth&quot;:&quot;0&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;borderType&quot;:&quot;None&quot;,&quot;borderRadius&quot;:&quot;0&quot;,&quot;width&quot;:&quot;100%&quot;,&quot;minHeight&quot;:&quot;0&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="max-width: 1000px;"><div class="pb-widget__content pb-container-grid pb-blocks--start-sortable"><div class="pb-widget pb-widget--init pb-widget--two-column-grid" data-type="two-column-grid" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;borderWidth&quot;:&quot;0&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;borderType&quot;:&quot;None&quot;,&quot;width&quot;:&quot;100%&quot;,&quot;minHeight&quot;:&quot;0&quot;,&quot;maxWidth&quot;:&quot;600px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;gridSize1&quot;:20,&quot;gridSize2&quot;:20,&quot;numberColumns&quot;:5,&quot;gridSize3&quot;:20,&quot;gridSize4&quot;:20,&quot;background_transparent&quot;:1}" style="width: 100%; max-width: 600px;"><div class="pb-layout-grid pb-clearfix pb-layout-grid--5"><div class="pb-layout-grid__cell pb-cell-contains-widget" style="width: 19.2%;"><div class="pb-helper-drag-drop pb-helper-drag-drop--small" style=""><div class="pb-helper-drag-drop__inner"><div class="pb-helper-drag-drop__text">Drop your elements here</div></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;18&quot;,&quot;color&quot;:&quot;#333333&quot;,&quot;lineHeight&quot;:&quot;150&quot;,&quot;textAlign&quot;:&quot;1&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;15px&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="font-family: Arial, sans-serif; font-weight: normal; font-size: 18px; line-height: 1.5; color: rgb(51, 51, 51); text-align: center;"><div class="pb-widget__content"><div class="pb-editable"><div>Help</div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-layout-grid__cell pb-cell-contains-widget" style="width: 19.2%;"><div class="pb-helper-drag-drop pb-helper-drag-drop--small" style=""><div class="pb-helper-drag-drop__inner"><div class="pb-helper-drag-drop__text">Drop your elements here</div></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;18&quot;,&quot;color&quot;:&quot;#333333&quot;,&quot;lineHeight&quot;:&quot;150&quot;,&quot;textAlign&quot;:&quot;1&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;15px&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="font-family: Arial, sans-serif; font-weight: normal; font-size: 18px; line-height: 1.5; color: rgb(51, 51, 51); text-align: center;"><div class="pb-widget__content"><div class="pb-editable"><div>Blog</div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-layout-grid__cell pb-cell-contains-widget" style="width: 19.2%;"><div class="pb-helper-drag-drop pb-helper-drag-drop--small" style=""><div class="pb-helper-drag-drop__inner"><div class="pb-helper-drag-drop__text">Drop your elements here</div></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;18&quot;,&quot;color&quot;:&quot;#333333&quot;,&quot;lineHeight&quot;:&quot;150&quot;,&quot;textAlign&quot;:&quot;1&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;15px&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="font-family: Arial, sans-serif; font-weight: normal; font-size: 18px; line-height: 1.5; color: rgb(51, 51, 51); text-align: center;"><div class="pb-widget__content"><div class="pb-editable"><div>About</div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-layout-grid__cell pb-cell-contains-widget" style="width: 19.2%;"><div class="pb-helper-drag-drop pb-helper-drag-drop--small" style=""><div class="pb-helper-drag-drop__inner"><div class="pb-helper-drag-drop__text">Drop your elements here</div></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;18&quot;,&quot;color&quot;:&quot;#333333&quot;,&quot;lineHeight&quot;:&quot;150&quot;,&quot;textAlign&quot;:&quot;1&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;15px&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="font-family: Arial, sans-serif; font-weight: normal; font-size: 18px; line-height: 1.5; color: rgb(51, 51, 51); text-align: center;"><div class="pb-widget__content"><div class="pb-editable"><div>Privacy</div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-layout-grid__cell pb-cell-contains-widget" style="width: 19.2%;"><div class="pb-helper-drag-drop pb-helper-drag-drop--small" style=""><div class="pb-helper-drag-drop__inner"><div class="pb-helper-drag-drop__text">Drop your elements here</div></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;18&quot;,&quot;color&quot;:&quot;#333333&quot;,&quot;lineHeight&quot;:&quot;150&quot;,&quot;textAlign&quot;:&quot;1&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;15px&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="font-family: Arial, sans-serif; font-weight: normal; font-size: 18px; line-height: 1.5; color: rgb(51, 51, 51); text-align: center;"><div class="pb-widget__content"><div class="pb-editable"><div>Terms</div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Two column grid</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;14&quot;,&quot;color&quot;:&quot;#333333&quot;,&quot;lineHeight&quot;:&quot;None&quot;,&quot;textAlign&quot;:&quot;1&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;15px&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="display: block; text-align: center; font-family: Arial, sans-serif; font-weight: normal; font-size: 14px; color: rgb(51, 51, 51); margin-top: 15px;"><div class="pb-widget__content" style="padding-top: 0px;"><div class="pb-editable"><div>© 2017 yourcompany<br>All Rights Reserved<br></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Container</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Container</div><div class="pb-widget__btn-remove"></div></div>';
         } else if (type === 'container' && type2 === 'footer-5') {
-            html = '<div class="pb-widget pb-widget--init pb-widget--container pb-container-contains-widget" data-type="container" data-json="{&quot;backgroundColor&quot;:&quot;#232222&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;borderWidth&quot;:&quot;0&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;borderType&quot;:&quot;None&quot;,&quot;borderRadius&quot;:&quot;0&quot;,&quot;width&quot;:&quot;100%&quot;,&quot;minHeight&quot;:&quot;0&quot;,&quot;maxWidth&quot;:&quot;100%&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;70px&quot;,&quot;paddingBottom&quot;:&quot;70px&quot;,&quot;background_transparent&quot;:0}" style="background-color: rgb(35, 34, 34); padding-top: 70px; padding-bottom: 70px;"><div class="pb-widget__content pb-container-grid pb-blocks--start-sortable"><div class="pb-widget pb-widget--init pb-widget--two-column-grid" data-type="two-column-grid" data-json="{&quot;backgroundColor&quot;: &quot;#ffffff&quot;, &quot;backgroundImageUrl&quot;:&quot;&quot;, &quot;borderWidth&quot;:&quot;0&quot;, &quot;borderColor&quot;:&quot;#ffffff&quot;, &quot;borderType&quot;:&quot;None&quot;, &quot;width&quot;:&quot;90%&quot;, &quot;minHeight&quot;:&quot;0&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;, &quot;marginLeft&quot;:&quot;auto&quot;, &quot;marginRight&quot;:&quot;auto&quot;, &quot;marginTop&quot;:&quot;0&quot;, &quot;marginBottom&quot;:&quot;0&quot;, &quot;paddingLeft&quot;:&quot;0&quot;, &quot;paddingRight&quot;:&quot;0&quot;, &quot;paddingTop&quot;:&quot;0&quot;, &quot;paddingBottom&quot;:&quot;0&quot;, &quot;gridSize1&quot;: &quot;50&quot;, &quot;gridSize2&quot;: &quot;50&quot;,&quot;background_transparent&quot;:1}" style="display: block;"><div class="pb-layout-grid pb-layout-grid--2 pb-clearfix"><div class="pb-layout-grid__cell pb-cell-contains-widget"><div class="pb-helper-drag-drop pb-helper-drag-drop--small" style=""><div class="pb-helper-drag-drop__inner"><div class="pb-helper-drag-drop__text">Drop your elements here</div></div></div><div class="pb-widget pb-widget--init pb-widget--container" data-type="container" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;'+LL_APP_HTTPS+'/imgs/page_builder/footers/bg/footer_5.jpg&quot;,&quot;borderWidth&quot;:&quot;0&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;borderType&quot;:&quot;None&quot;,&quot;borderRadius&quot;:&quot;0&quot;,&quot;width&quot;:&quot;100%&quot;,&quot;minHeight&quot;:&quot;200&quot;,&quot;maxWidth&quot;:&quot;100%&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="background-image: url(&quot;'+LL_APP_HTTPS+'/imgs/page_builder/footers/bg/footer_5.jpg&quot;);"><div class="pb-widget__content pb-container-grid" style="min-height: 200px;"></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Container</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-layout-grid__cell pb-cell-contains-widget"><div class="pb-helper-drag-drop pb-helper-drag-drop--small" style=""><div class="pb-helper-drag-drop__inner"><div class="pb-helper-drag-drop__text">Drop your elements here</div></div></div><div class="pb-widget pb-widget--init pb-widget--container pb-container-contains-widget" data-type="container" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;borderWidth&quot;:&quot;0&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;borderType&quot;:&quot;None&quot;,&quot;borderRadius&quot;:&quot;0&quot;,&quot;width&quot;:&quot;100%&quot;,&quot;minHeight&quot;:&quot;0&quot;,&quot;maxWidth&quot;:&quot;100%&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;5%&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="display: block;"><div class="pb-widget__content pb-container-grid" style="padding-left: 5%;"><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Bold&quot;,&quot;fontSize&quot;:&quot;18&quot;,&quot;color&quot;:&quot;#ffffff&quot;,&quot;lineHeight&quot;:&quot;150&quot;,&quot;textAlign&quot;:&quot;0&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;15px&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="margin-top: 0px; font-family: Arial, sans-serif; font-weight: bold; font-size: 18px; line-height: 1.5; color: rgb(255, 255, 255); text-align: left; display: block;"><div class="pb-widget__content" style="padding-left: 15px;"><div class="pb-editable"><div>Follow Us!<br></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;14&quot;,&quot;color&quot;:&quot;#ffffff&quot;,&quot;lineHeight&quot;:&quot;150&quot;,&quot;textAlign&quot;:&quot;0&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;10px&quot;,&quot;marginBottom&quot;:&quot;3px&quot;,&quot;paddingLeft&quot;:&quot;15px&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1,&quot;background_transparent&quot;:1}" style="color: rgb(255, 255, 255); font-family: Arial, sans-serif; font-weight: normal; font-size: 14px; line-height: 1.5; text-align: left; margin-top: 10px; display: block; margin-bottom: 3px;"><div class="pb-widget__content" style="padding-left: 15px;"><div class="pb-editable"><div>Provide you accurate and live campaign. Scale your infastructure with our simple service. Provide you accurate and live campaign.<br></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--social-follow" data-type="social-follow" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;containerBorderType&quot;:&quot;None&quot;,&quot;containerBorderWidth&quot;:&quot;0&quot;,&quot;containerBorderColor&quot;:&quot;#ffffff&quot;,&quot;btnBackground&quot;:&quot;#ffffff&quot;,&quot;btnBorderType&quot;:&quot;None&quot;,&quot;btnBorderWidth&quot;:&quot;0&quot;,&quot;btnBorderColor&quot;:&quot;#ffffff&quot;,&quot;btnBorderRadius&quot;:&quot;5&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;12&quot;,&quot;color&quot;:&quot;#505050&quot;,&quot;lineHeight&quot;:&quot;None&quot;,&quot;align&quot;:&quot;0&quot;,&quot;width&quot;:&quot;1&quot;,&quot;styleIcon&quot;:5,&quot;display&quot;:&quot;0&quot;,&quot;layout&quot;:2,&quot;contentToShare&quot;:&quot;0&quot;,&quot;shareCustomUrl&quot;:&quot;0&quot;,&quot;shareLink&quot;:&quot;&quot;,&quot;shareDesc&quot;:&quot;&quot;,&quot;background_transparent&quot;:1}"><div class="pb-widget__content"><div class="pb-social-btns pb-social-btns--follow pb-social-btns--icn-only" style="background: #fffff; border-color: #ffffff;"><div class="pb-social-btns__table"><div class="pb-social-btns__row"><div class="pb-wrap-social-btn" data-type-social="0"><a href="http://www.facebook.com/" class="pb-social-btn"><span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/white/fb.png" alt=""></span><span class="pb-social-btn__text">Facebook</span></a></div><div class="pb-wrap-social-btn" data-type-social="1"><a href="http://www.twitter.com/" class="pb-social-btn"><span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/white/tw.png" alt=""></span><span class="pb-social-btn__text">Twitter</span></a></div><div class="pb-wrap-social-btn" data-type-social="3"><a href="http://www.linkedin.com/" class="pb-social-btn"><span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/white/in.png" alt=""></span><span class="pb-social-btn__text">LinkedIn</span></a></div></div></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Social Follow</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;14&quot;,&quot;color&quot;:&quot;#ffffff&quot;,&quot;lineHeight&quot;:&quot;None&quot;,&quot;textAlign&quot;:&quot;0&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;2px&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;15px&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="font-family: Arial, sans-serif; font-weight: normal; font-size: 14px; color: rgb(255, 255, 255); text-align: left; margin-top: 2px;"><div class="pb-widget__content" style="padding-left: 15px;"><div class="pb-editable"><div>info@business.com<br></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Container</div><div class="pb-widget__btn-remove"></div></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Two column grid</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Container</div><div class="pb-widget__btn-remove"></div></div>';
+            html = '<div class="pb-widget pb-widget--init pb-widget--container pb-container-contains-widget" data-type="container" data-json="{&quot;backgroundColor&quot;:&quot;#232222&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;borderWidth&quot;:&quot;0&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;borderType&quot;:&quot;None&quot;,&quot;borderRadius&quot;:&quot;0&quot;,&quot;width&quot;:&quot;100%&quot;,&quot;minHeight&quot;:&quot;0&quot;,&quot;maxWidth&quot;:&quot;100%&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;70px&quot;,&quot;paddingBottom&quot;:&quot;70px&quot;,&quot;background_transparent&quot;:0}" style="background-color: rgb(35, 34, 34); padding-top: 70px; padding-bottom: 70px;"><div class="pb-widget__content pb-container-grid pb-blocks--start-sortable"><div class="pb-widget pb-widget--init pb-widget--two-column-grid" data-type="two-column-grid" data-json="{&quot;backgroundColor&quot;: &quot;#ffffff&quot;, &quot;backgroundImageUrl&quot;:&quot;&quot;, &quot;borderWidth&quot;:&quot;0&quot;, &quot;borderColor&quot;:&quot;#ffffff&quot;, &quot;borderType&quot;:&quot;None&quot;, &quot;width&quot;:&quot;90%&quot;, &quot;minHeight&quot;:&quot;0&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;, &quot;marginLeft&quot;:&quot;auto&quot;, &quot;marginRight&quot;:&quot;auto&quot;, &quot;marginTop&quot;:&quot;0&quot;, &quot;marginBottom&quot;:&quot;0&quot;, &quot;paddingLeft&quot;:&quot;0&quot;, &quot;paddingRight&quot;:&quot;0&quot;, &quot;paddingTop&quot;:&quot;0&quot;, &quot;paddingBottom&quot;:&quot;0&quot;, &quot;gridSize1&quot;: &quot;50&quot;, &quot;gridSize2&quot;: &quot;50&quot;,&quot;background_transparent&quot;:1}" style="display: block;"><div class="pb-layout-grid pb-layout-grid--2 pb-clearfix"><div class="pb-layout-grid__cell pb-cell-contains-widget"><div class="pb-helper-drag-drop pb-helper-drag-drop--small" style=""><div class="pb-helper-drag-drop__inner"><div class="pb-helper-drag-drop__text">Drop your elements here</div></div></div><div class="pb-widget pb-widget--init pb-widget--container" data-type="container" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;'+LL_APP_HTTPS+'/imgs/page_builder/footers/bg/footer_5.jpg&quot;,&quot;borderWidth&quot;:&quot;0&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;borderType&quot;:&quot;None&quot;,&quot;borderRadius&quot;:&quot;0&quot;,&quot;width&quot;:&quot;100%&quot;,&quot;minHeight&quot;:&quot;200&quot;,&quot;maxWidth&quot;:&quot;100%&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="background-image: url(&quot;'+LL_APP_HTTPS+'/imgs/page_builder/footers/bg/footer_5.jpg&quot;);"><div class="pb-widget__content pb-container-grid" style="min-height: 200px;"></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Container</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-layout-grid__cell pb-cell-contains-widget"><div class="pb-helper-drag-drop pb-helper-drag-drop--small" style=""><div class="pb-helper-drag-drop__inner"><div class="pb-helper-drag-drop__text">Drop your elements here</div></div></div><div class="pb-widget pb-widget--init pb-widget--container pb-container-contains-widget" data-type="container" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;borderWidth&quot;:&quot;0&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;borderType&quot;:&quot;None&quot;,&quot;borderRadius&quot;:&quot;0&quot;,&quot;width&quot;:&quot;100%&quot;,&quot;minHeight&quot;:&quot;0&quot;,&quot;maxWidth&quot;:&quot;100%&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;5%&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="display: block;"><div class="pb-widget__content pb-container-grid" style="padding-left: 5%;"><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Bold&quot;,&quot;fontSize&quot;:&quot;18&quot;,&quot;color&quot;:&quot;#ffffff&quot;,&quot;lineHeight&quot;:&quot;150&quot;,&quot;textAlign&quot;:&quot;0&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;15px&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="margin-top: 0px; font-family: Arial, sans-serif; font-weight: bold; font-size: 18px; line-height: 1.5; color: rgb(255, 255, 255); text-align: left; display: block;"><div class="pb-widget__content" style="padding-left: 15px;"><div class="pb-editable"><div>Follow Us!<br></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;14&quot;,&quot;color&quot;:&quot;#ffffff&quot;,&quot;lineHeight&quot;:&quot;150&quot;,&quot;textAlign&quot;:&quot;0&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;10px&quot;,&quot;marginBottom&quot;:&quot;3px&quot;,&quot;paddingLeft&quot;:&quot;15px&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1,&quot;background_transparent&quot;:1}" style="color: rgb(255, 255, 255); font-family: Arial, sans-serif; font-weight: normal; font-size: 14px; line-height: 1.5; text-align: left; margin-top: 10px; display: block; margin-bottom: 3px;"><div class="pb-widget__content" style="padding-left: 15px;"><div class="pb-editable"><div>Provide you accurate and live campaign. Scale your infastructure with our simple service. Provide you accurate and live campaign.<br></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--social-follow" data-type="social-follow" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;containerBorderType&quot;:&quot;None&quot;,&quot;containerBorderWidth&quot;:&quot;0&quot;,&quot;containerBorderColor&quot;:&quot;#ffffff&quot;,&quot;btnBackground&quot;:&quot;#ffffff&quot;,&quot;btnBorderType&quot;:&quot;None&quot;,&quot;btnBorderWidth&quot;:&quot;0&quot;,&quot;btnBorderColor&quot;:&quot;#ffffff&quot;,&quot;btnBorderRadius&quot;:&quot;5&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;12&quot;,&quot;color&quot;:&quot;#505050&quot;,&quot;lineHeight&quot;:&quot;None&quot;,&quot;align&quot;:&quot;0&quot;,&quot;width&quot;:&quot;1&quot;,&quot;styleIcon&quot;:5,&quot;display&quot;:&quot;0&quot;,&quot;layout&quot;:2,&quot;contentToShare&quot;:&quot;0&quot;,&quot;shareCustomUrl&quot;:&quot;0&quot;,&quot;shareLink&quot;:&quot;&quot;,&quot;shareDesc&quot;:&quot;&quot;,&quot;background_transparent&quot;:1}"><div class="pb-widget__content"><div class="pb-social-btns pb-social-btns--follow pb-social-btns--icn-only" style="background: #fffff; border-color: #ffffff;"><div class="pb-social-btns__table"><div class="pb-social-btns__row"><div class="pb-wrap-social-btn" data-type-social="0"><a href="http://www.facebook.com/" class="pb-social-btn"><span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/white/fb.png" alt=""></span><span class="pb-social-btn__text">Facebook</span></a></div><div class="pb-wrap-social-btn" data-type-social="1"><a href="http://www.twitter.com/" class="pb-social-btn"><span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/white/tw.png" alt=""></span><span class="pb-social-btn__text">Twitter</span></a></div><div class="pb-wrap-social-btn" data-type-social="2"><a href="http://www.linkedin.com/" class="pb-social-btn"><span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/white/in.png" alt=""></span><span class="pb-social-btn__text">LinkedIn</span></a></div></div></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Social Follow</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;14&quot;,&quot;color&quot;:&quot;#ffffff&quot;,&quot;lineHeight&quot;:&quot;None&quot;,&quot;textAlign&quot;:&quot;0&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;2px&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;15px&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="font-family: Arial, sans-serif; font-weight: normal; font-size: 14px; color: rgb(255, 255, 255); text-align: left; margin-top: 2px;"><div class="pb-widget__content" style="padding-left: 15px;"><div class="pb-editable"><div>info@business.com<br></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Container</div><div class="pb-widget__btn-remove"></div></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Two column grid</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Container</div><div class="pb-widget__btn-remove"></div></div>';
         } else if (type === 'container' && type2 === 'footer-6') {
-            html = '<div class="pb-widget pb-widget--init pb-widget--container pb-container-contains-widget" data-type="container" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;imgs/page_builder/footers/bg/footer_6.jpg&quot;,&quot;borderWidth&quot;:&quot;0&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;borderType&quot;:&quot;None&quot;,&quot;borderRadius&quot;:&quot;0&quot;,&quot;width&quot;:&quot;100%&quot;,&quot;minHeight&quot;:&quot;0&quot;,&quot;maxWidth&quot;:&quot;100%&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;15px&quot;,&quot;paddingRight&quot;:&quot;15px&quot;,&quot;paddingTop&quot;:&quot;90px&quot;,&quot;paddingBottom&quot;:&quot;50px&quot;,&quot;background_transparent&quot;:1}" style="background-image: url(&quot;'+LL_APP_HTTPS+'/imgs/page_builder/footers/bg/footer_6.jpg&quot;); padding: 90px 15px 50px;"><div class="pb-widget__content pb-container-grid"><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Bold&quot;,&quot;fontSize&quot;:&quot;48&quot;,&quot;color&quot;:&quot;#ffffff&quot;,&quot;lineHeight&quot;:&quot;150&quot;,&quot;textAlign&quot;:&quot;1&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="margin-top: 0px; font-family: Arial, sans-serif; font-weight: bold; font-size: 48px; color: rgb(255, 255, 255); text-align: center; line-height: 1.5; margin-bottom: 0px;"><div class="pb-widget__content"><div class="pb-editable"><div>Contact Us</div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;20&quot;,&quot;color&quot;:&quot;#ffffff&quot;,&quot;lineHeight&quot;:&quot;None&quot;,&quot;textAlign&quot;:&quot;1&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;15px&quot;,&quot;marginBottom&quot;:&quot;15px&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="font-weight: normal; font-family: Arial, sans-serif; font-size: 20px; text-align: center; color: rgb(255, 255, 255); margin-bottom: 15px; margin-top: 15px;"><div class="pb-widget__content"><div class="pb-editable"><div>Have any questions or just want to say hi?</div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--social-follow" data-type="social-follow" data-json="{&quot;containerBackground&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;containerBorderType&quot;:&quot;None&quot;,&quot;containerBorderWidth&quot;:&quot;0&quot;,&quot;containerBorderColor&quot;:&quot;#ffffff&quot;,&quot;btnBackground&quot;:&quot;#ffffff&quot;,&quot;btnBorderType&quot;:&quot;None&quot;,&quot;btnBorderWidth&quot;:&quot;0&quot;,&quot;btnBorderColor&quot;:&quot;#ffffff&quot;,&quot;btnBorderRadius&quot;:&quot;5&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;12&quot;,&quot;color&quot;:&quot;#505050&quot;,&quot;lineHeight&quot;:&quot;None&quot;,&quot;align&quot;:&quot;1&quot;,&quot;width&quot;:&quot;1&quot;,&quot;styleIcon&quot;:5,&quot;display&quot;:&quot;0&quot;,&quot;layout&quot;:3,&quot;contentToShare&quot;:&quot;0&quot;,&quot;shareCustomUrl&quot;:&quot;0&quot;,&quot;shareLink&quot;:&quot;&quot;,&quot;shareDesc&quot;:&quot;&quot;,&quot;background_transparent&quot;:1}" style="text-align: center;"><div class="pb-widget__content"><div class="pb-social-btns pb-social-btns--follow pb-social-btns--icn-large pb-social-btns--icn-only" style="background: #fffff; border-color: #ffffff;"><div class="pb-social-btns__table"><div class="pb-social-btns__row"><div class="pb-wrap-social-btn" data-type-social="0" style="/*! margin-left: 0; */"><a href="http://www.facebook.com/" class="pb-social-btn"><span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/white/fb.png" alt=""></span><span class="pb-social-btn__text">Facebook</span></a></div><div class="pb-wrap-social-btn" data-type-social="1"><a href="http://www.twitter.com/" class="pb-social-btn"><span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/white/tw.png" alt=""></span><span class="pb-social-btn__text">Twitter</span></a></div><div class="pb-wrap-social-btn" data-type-social="3"><a href="http://www.linkedin.com/" class="pb-social-btn"><span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/white/in.png" alt=""></span><span class="pb-social-btn__text">LinkedIn</span></a></div></div></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Social Follow</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;14&quot;,&quot;color&quot;:&quot;#ffffff&quot;,&quot;lineHeight&quot;:&quot;None&quot;,&quot;textAlign&quot;:&quot;1&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;50px&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="font-family: Arial, sans-serif; font-weight: normal; font-size: 14px; color: rgb(255, 255, 255); text-align: center; display: block; margin-top: 50px;"><div class="pb-widget__content"><div class="pb-editable"><div>Write us: yourcompany@gmail.com<br></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Container</div><div class="pb-widget__btn-remove"></div></div>';
+            html = '<div class="pb-widget pb-widget--init pb-widget--container pb-container-contains-widget" data-type="container" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;imgs/page_builder/footers/bg/footer_6.jpg&quot;,&quot;borderWidth&quot;:&quot;0&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;borderType&quot;:&quot;None&quot;,&quot;borderRadius&quot;:&quot;0&quot;,&quot;width&quot;:&quot;100%&quot;,&quot;minHeight&quot;:&quot;0&quot;,&quot;maxWidth&quot;:&quot;100%&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;15px&quot;,&quot;paddingRight&quot;:&quot;15px&quot;,&quot;paddingTop&quot;:&quot;90px&quot;,&quot;paddingBottom&quot;:&quot;50px&quot;,&quot;background_transparent&quot;:1}" style="background-image: url(&quot;'+LL_APP_HTTPS+'/imgs/page_builder/footers/bg/footer_6.jpg&quot;); padding: 90px 15px 50px;"><div class="pb-widget__content pb-container-grid"><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Bold&quot;,&quot;fontSize&quot;:&quot;48&quot;,&quot;color&quot;:&quot;#ffffff&quot;,&quot;lineHeight&quot;:&quot;150&quot;,&quot;textAlign&quot;:&quot;1&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="margin-top: 0px; font-family: Arial, sans-serif; font-weight: bold; font-size: 48px; color: rgb(255, 255, 255); text-align: center; line-height: 1.5; margin-bottom: 0px;"><div class="pb-widget__content"><div class="pb-editable"><div>Contact Us</div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;20&quot;,&quot;color&quot;:&quot;#ffffff&quot;,&quot;lineHeight&quot;:&quot;None&quot;,&quot;textAlign&quot;:&quot;1&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;15px&quot;,&quot;marginBottom&quot;:&quot;15px&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="font-weight: normal; font-family: Arial, sans-serif; font-size: 20px; text-align: center; color: rgb(255, 255, 255); margin-bottom: 15px; margin-top: 15px;"><div class="pb-widget__content"><div class="pb-editable"><div>Have any questions or just want to say hi?</div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--social-follow" data-type="social-follow" data-json="{&quot;containerBackground&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;containerBorderType&quot;:&quot;None&quot;,&quot;containerBorderWidth&quot;:&quot;0&quot;,&quot;containerBorderColor&quot;:&quot;#ffffff&quot;,&quot;btnBackground&quot;:&quot;#ffffff&quot;,&quot;btnBorderType&quot;:&quot;None&quot;,&quot;btnBorderWidth&quot;:&quot;0&quot;,&quot;btnBorderColor&quot;:&quot;#ffffff&quot;,&quot;btnBorderRadius&quot;:&quot;5&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;12&quot;,&quot;color&quot;:&quot;#505050&quot;,&quot;lineHeight&quot;:&quot;None&quot;,&quot;align&quot;:&quot;1&quot;,&quot;width&quot;:&quot;1&quot;,&quot;styleIcon&quot;:5,&quot;display&quot;:&quot;0&quot;,&quot;layout&quot;:3,&quot;contentToShare&quot;:&quot;0&quot;,&quot;shareCustomUrl&quot;:&quot;0&quot;,&quot;shareLink&quot;:&quot;&quot;,&quot;shareDesc&quot;:&quot;&quot;,&quot;background_transparent&quot;:1}" style="text-align: center;"><div class="pb-widget__content"><div class="pb-social-btns pb-social-btns--follow pb-social-btns--icn-large pb-social-btns--icn-only" style="background: #fffff; border-color: #ffffff;"><div class="pb-social-btns__table"><div class="pb-social-btns__row"><div class="pb-wrap-social-btn" data-type-social="0" style="/*! margin-left: 0; */"><a href="http://www.facebook.com/" class="pb-social-btn"><span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/white/fb.png" alt=""></span><span class="pb-social-btn__text">Facebook</span></a></div><div class="pb-wrap-social-btn" data-type-social="1"><a href="http://www.twitter.com/" class="pb-social-btn"><span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/white/tw.png" alt=""></span><span class="pb-social-btn__text">Twitter</span></a></div><div class="pb-wrap-social-btn" data-type-social="2"><a href="http://www.linkedin.com/" class="pb-social-btn"><span class="pb-social-btn__icn"><img src="'+LL_APP_HTTPS+'/imgs/imgs_email_builder/social_btns/white/in.png" alt=""></span><span class="pb-social-btn__text">LinkedIn</span></a></div></div></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Social Follow</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;14&quot;,&quot;color&quot;:&quot;#ffffff&quot;,&quot;lineHeight&quot;:&quot;None&quot;,&quot;textAlign&quot;:&quot;1&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;1000px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;50px&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="font-family: Arial, sans-serif; font-weight: normal; font-size: 14px; color: rgb(255, 255, 255); text-align: center; display: block; margin-top: 50px;"><div class="pb-widget__content"><div class="pb-editable"><div>Write us: yourcompany@gmail.com<br></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Container</div><div class="pb-widget__btn-remove"></div></div>';
         } else if (type === 'container' && type2 === 'cover-1') {
             html = '<div class="pb-widget pb-widget--init pb-widget--container pb-container-contains-widget" data-type="container" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;imgs/page_builder/covers/bg/cover_1.jpg&quot;,&quot;borderWidth&quot;:&quot;0&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;borderType&quot;:&quot;None&quot;,&quot;borderRadius&quot;:&quot;0&quot;,&quot;width&quot;:&quot;100%&quot;,&quot;minHeight&quot;:&quot;0&quot;,&quot;maxWidth&quot;:&quot;100%&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;15px&quot;,&quot;paddingRight&quot;:&quot;15px&quot;,&quot;paddingTop&quot;:&quot;190px&quot;,&quot;paddingBottom&quot;:&quot;230px&quot;,&quot;background_transparent&quot;:1}" style="padding: 190px 15px 230px; background-image: url(&quot;'+LL_APP_HTTPS+'/imgs/page_builder/covers/bg/cover_1.jpg&quot;);"><div class="pb-widget__content pb-container-grid pb-blocks--start-sortable"><div class="pb-widget pb-widget--init pb-widget--container pb-container-contains-widget" data-type="container" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;borderWidth&quot;:&quot;0&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;borderType&quot;:&quot;None&quot;,&quot;borderRadius&quot;:&quot;0&quot;,&quot;width&quot;:&quot;100%&quot;,&quot;minHeight&quot;:&quot;0&quot;,&quot;maxWidth&quot;:&quot;960px&quot;,&quot;marginLeft&quot;:&quot;auto&quot;,&quot;marginRight&quot;:&quot;auto&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="max-width: 960px;"><div class="pb-widget__content pb-container-grid" style=""><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Bold&quot;,&quot;fontSize&quot;:&quot;36&quot;,&quot;color&quot;:&quot;#ffffff&quot;,&quot;lineHeight&quot;:&quot;125&quot;,&quot;textAlign&quot;:&quot;0&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;515px&quot;,&quot;marginLeft&quot;:&quot;0&quot;,&quot;marginRight&quot;:&quot;0&quot;,&quot;marginTop&quot;:&quot;40px&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="max-width: 515px; font-family: Arial, sans-serif; font-weight: bold; font-size: 36px; color: rgb(255, 255, 255); text-align: left; line-height: 1.25; margin-top: 40px; margin-left: 0px; margin-right: 0px;"><div class="pb-widget__content"><div class="pb-editable"><div>Service for medium business</div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--text" data-type="text" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Normal&quot;,&quot;fontSize&quot;:&quot;20&quot;,&quot;color&quot;:&quot;#ffffff&quot;,&quot;lineHeight&quot;:&quot;150&quot;,&quot;textAlign&quot;:&quot;0&quot;,&quot;width&quot;:&quot;auto&quot;,&quot;maxWidth&quot;:&quot;515px&quot;,&quot;marginLeft&quot;:&quot;0&quot;,&quot;marginRight&quot;:&quot;0&quot;,&quot;marginTop&quot;:&quot;30px&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;background_transparent&quot;:1}" style="font-family: Arial, sans-serif; font-weight: normal; font-size: 20px; color: rgb(255, 255, 255); text-align: left; max-width: 515px; line-height: 1.5; margin-top: 30px; display: block; margin-left: 0px; margin-right: 0px;"><div class="pb-widget__content"><div class="pb-editable"><div>Provide you accurate and live campaign. Scale your infrastructure with our simple service. Provide you accurate and live campaign.</div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Text</div><div class="pb-widget__btn-remove"></div></div><div class="pb-widget pb-widget--init pb-widget--two-column-grid" data-type="two-column-grid" data-json="{&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;borderWidth&quot;:&quot;0&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;borderType&quot;:&quot;None&quot;,&quot;width&quot;:&quot;100%&quot;,&quot;minHeight&quot;:&quot;0&quot;,&quot;maxWidth&quot;:&quot;330px&quot;,&quot;marginLeft&quot;:&quot;0&quot;,&quot;marginRight&quot;:&quot;0&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;30px&quot;,&quot;paddingBottom&quot;:&quot;0&quot;,&quot;gridSize1&quot;:&quot;50&quot;,&quot;gridSize2&quot;:&quot;50&quot;,&quot;background_transparent&quot;:1}" style="max-width: 330px; margin-left: 0px; margin-right: 0px; width: 100%; margin-top: 0px;"><div class="pb-layout-grid pb-layout-grid--2 pb-clearfix" style="padding-top: 30px;"><div class="pb-layout-grid__cell pb-cell-contains-widget" style=""><div class="pb-helper-drag-drop pb-helper-drag-drop--small" style=""><div class="pb-helper-drag-drop__inner"><div class="pb-helper-drag-drop__text">Drop your elements here</div></div></div><div class="pb-widget pb-widget--init pb-widget--button" data-type="button" data-json="{&quot;buttonText&quot;:&quot;Let&#39;s Go!&quot;,&quot;url&quot;:&quot;&quot;,&quot;backgroundColor&quot;:&quot;None&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Bold&quot;,&quot;fontSize&quot;:&quot;16&quot;,&quot;color&quot;:&quot;#ffffff&quot;,&quot;borderWidth&quot;:&quot;None&quot;,&quot;borderColor&quot;:&quot;None&quot;,&quot;borderType&quot;:&quot;None&quot;,&quot;radius&quot;:&quot;0&quot;,&quot;paddingX&quot;:&quot;None&quot;,&quot;paddingY&quot;:&quot;13&quot;,&quot;width&quot;:&quot;100%&quot;,&quot;maxWidth&quot;:&quot;100%&quot;,&quot;marginLeft&quot;:&quot;0&quot;,&quot;marginRight&quot;:&quot;0&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;0&quot;,&quot;paddingRight&quot;:&quot;4px&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;}" style="margin-left: 0px; margin-right: 0px; max-width: 100%; padding: 0px 4px 0px 0px;"><div class="pb-widget__content"><a href="javascript:void(0);" class="pb-btn" style="border-radius: 0px; font-family: Arial, sans-serif; font-weight: bold; font-size: 16px; color: rgb(255, 255, 255); padding-top: 13px; padding-bottom: 13px;">Let&#39;s Go!</a></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Button</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-layout-grid__cell pb-cell-contains-widget" style=""><div class="pb-helper-drag-drop pb-helper-drag-drop--small" style=""><div class="pb-helper-drag-drop__inner"><div class="pb-helper-drag-drop__text">Drop your elements here</div></div></div><div class="pb-widget pb-widget--init pb-widget--button" data-type="button" data-json="{&quot;buttonText&quot;:&quot;How It Works&quot;,&quot;url&quot;:&quot;&quot;,&quot;backgroundColor&quot;:&quot;#ffffff&quot;,&quot;backgroundImageUrl&quot;:&quot;&quot;,&quot;fontTypeFace&quot;:&quot;Arial&quot;,&quot;fontWeight&quot;:&quot;Bold&quot;,&quot;fontSize&quot;:&quot;16&quot;,&quot;color&quot;:&quot;#333333&quot;,&quot;borderWidth&quot;:&quot;None&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;borderType&quot;:&quot;None&quot;,&quot;radius&quot;:&quot;0&quot;,&quot;paddingX&quot;:&quot;None&quot;,&quot;paddingY&quot;:&quot;13&quot;,&quot;width&quot;:&quot;100%&quot;,&quot;maxWidth&quot;:&quot;100%&quot;,&quot;marginLeft&quot;:&quot;0&quot;,&quot;marginRight&quot;:&quot;0&quot;,&quot;marginTop&quot;:&quot;0&quot;,&quot;marginBottom&quot;:&quot;0&quot;,&quot;paddingLeft&quot;:&quot;4px&quot;,&quot;paddingRight&quot;:&quot;0&quot;,&quot;paddingTop&quot;:&quot;0&quot;,&quot;paddingBottom&quot;:&quot;0&quot;}" style="margin-left: 0px; margin-right: 0px; max-width: 100%; padding: 0px 0px 0px 4px;"><div class="pb-widget__content"><a href="javascript:void(0);" class="pb-btn" style="background-color: rgb(255, 255, 255); border-color: rgb(255, 255, 255); font-family: Arial, sans-serif; font-weight: bold; font-size: 16px; color: rgb(51, 51, 51); border-radius: 0px; padding-top: 13px; padding-bottom: 13px;">How It Works</a></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Button</div><div class="pb-widget__btn-remove"></div></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Two column grid</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Container</div><div class="pb-widget__btn-remove"></div></div></div><div class="pb-widget__placeholder"></div><div class="pb-widget__shadow-label">Container</div><div class="pb-widget__btn-remove"></div></div>';
         } else if (type === 'container' && type2 === 'cover-2') {
@@ -3025,7 +3047,6 @@ var pageBuilder = {
         var $parent = $widget.parent();
 
         if ($widget.length) {
-
             //remove modal
             $widget.find('.pb-widget__content a[modal-id]').each(function(){
                 $('#ll-lp-modal-' + $(this).attr('modal-id')).remove();
@@ -3107,42 +3128,42 @@ var pageBuilder = {
                     text: 'Heading',
                     icon: false,
                     menu: [
-                    {
-                        text: 'Heading 1', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h1 style="font-size: 36px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h1>');
+                        {
+                            text: 'Heading 1', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h1 style="font-size: 36px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h1>');
+                            }
+                        },
+                        {
+                            text: 'Heading 2', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h2 style="font-size: 30px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h2>');
+                            }
+                        },
+                        {
+                            text: 'Heading 3', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h3 style="font-size: 24px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h3>');
+                            }
+                        },
+                        {
+                            text: 'Heading 4', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h4 style="font-size: 18px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h4>');
+                            }
+                        },
+                        {
+                            text: 'Heading 5', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h5 style="font-size: 14px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h5>');
+                            }
+                        },
+                        {
+                            text: 'Heading 6', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<h6 style="font-size: 13px; line-height: 125%; padding:0; margin: 0;">' + editor.selection.getContent() + '</h6>');
+                            }
+                        },
+                        {
+                            text: 'Paragraph', onclick: function () {
+                                editor.execCommand('mceInsertTemplate', false, '<p>' + editor.selection.getContent() + '</p>');
+                            }
                         }
-                    },
-                    {
-                        text: 'Heading 2', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h2 style="font-size: 30px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h2>');
-                        }
-                    },
-                    {
-                        text: 'Heading 3', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h3 style="font-size: 24px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h3>');
-                        }
-                    },
-                    {
-                        text: 'Heading 4', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h4 style="font-size: 18px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h4>');
-                        }
-                    },
-                    {
-                        text: 'Heading 5', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h5 style="font-size: 14px; line-height: 125%; padding:0; margin: 0 0 15px 0;">' + editor.selection.getContent() + '</h5>');
-                        }
-                    },
-                    {
-                        text: 'Heading 6', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<h6 style="font-size: 13px; line-height: 125%; padding:0; margin: 0;">' + editor.selection.getContent() + '</h6>');
-                        }
-                    },
-                    {
-                        text: 'Paragraph', onclick: function () {
-                            editor.execCommand('mceInsertTemplate', false, '<p>' + editor.selection.getContent() + '</p>');
-                        }
-                    }
-                ]
+                    ]
                 });
                 editor.addButton('cfbutton', {
                     title : 'Fields',
@@ -3153,14 +3174,11 @@ var pageBuilder = {
                     }
                 });
                 editor.on('blur', function (e) {
-                    if (editor.changeHistory) {
-                        editor.changeHistory = false;
-                        pageBuilder.updateHistory();
-                    }
+                    pageBuilder.setNewActionHistory();
                 });
                 editor.on('change', function (e) {
                     pageBuilder.setContentModal(editor.getContent());
-                    editor.changeHistory = true;
+                    pageBuilder.setNewActionHistory();
                 });
             },
             init_instance_callback: function (editor){
@@ -3230,16 +3248,16 @@ var pageBuilder = {
                         }
                     ]
                 });
-				// Add a custom field button
-				editor.addButton('cfbutton', {
-					title : 'Fields',
-					text: 'Fields',
-					onclick : function() {
-						//javascript: ShowCustomFields('html', 'myDevEditControl', '%%PAGE%%'); return false;
-						pageBuilder.active_html_editor = editor;
-						ll_popup_manager.open('#ll_popup_insert_token')
-					}
-				});
+                // Add a custom field button
+                editor.addButton('cfbutton', {
+                    title : 'Fields',
+                    text: 'Fields',
+                    onclick : function() {
+                        //javascript: ShowCustomFields('html', 'myDevEditControl', '%%PAGE%%'); return false;
+                        pageBuilder.active_html_editor = editor;
+                        ll_popup_manager.open('#ll_popup_insert_token')
+                    }
+                });
                 editor.on('init', function (e) {
                     tinymce.get(editor.id).hide();
                 });
@@ -3254,22 +3272,22 @@ var pageBuilder = {
                     editor.changeHistory = true;
                 });
             },
-			init_instance_callback: function (editor){
-				editor.is_initiatlized = true;
-			}
+            init_instance_callback: function (editor){
+                editor.is_initiatlized = true;
+            }
         });
     },
     showHideEditorInline: function ($editor) {
         var $box = $editor.parents('.pb-widget');
         var idEditor = $editor.attr('id');
         var editor = tinymce.get(idEditor)
-        
+
         if (typeof editor != 'undefined' && editor && typeof editor.is_initiatlized != 'undefined' && editor.is_initiatlized) {
-			if (!$box.hasClass('ui-widget-disabled')) {
-				$box.addClass('ui-widget-disabled');
-				tinymce.get(idEditor).show();
-				tinymce.get(idEditor).focus();
-			}
+            if (!$box.hasClass('ui-widget-disabled')) {
+                $box.addClass('ui-widget-disabled');
+                tinymce.get(idEditor).show();
+                tinymce.get(idEditor).focus();
+            }
         }
     },
     disabledEditorInline: function ($editor, idEditor) {
@@ -3707,7 +3725,7 @@ var pageBuilder = {
                     $tpl.attr('data-json', JSON.stringify(opt));
                 });
                 */
-            }            
+            }
 
             $('#btnText').val(opt.buttonText);
             $('#btnUrl').val(opt.url);
@@ -3916,7 +3934,31 @@ var pageBuilder = {
             $('#slideshowBorderColor').colpickSetColor(opt.borderColor, true).css('background-color', opt.borderColor);
             $('#slideshowArrowsColor').colpickSetColor(opt.arrowsColor, true).css('background-color', opt.arrowsColor);
             $('#slideshowDotsColor').colpickSetColor(opt.dotsColor, true).css('background-color', opt.dotsColor);
-            $('#slideshowHeight').val(opt.height)
+
+            var isHeightNumber = opt.height.match(/\b(auto)\b|\b[0-9]{1,}(px|\u0025)?/g);
+
+            if (isHeightNumber != null) {
+                if (+isHeightNumber) opt.height = opt.height;
+            }
+
+            opt.heightTablet = opt.heightTablet || '';
+            opt.heightMobile = opt.heightMobile || '';
+
+            $widget.attr('heightdesktop', opt.height);
+
+            $('#slideshowHeight').val(opt.height);
+            $('#slideshowHeightTablet').val(opt.heightTablet)
+            $('#slideshowHeightMobile').val(opt.heightMobile);
+
+            opt.mode = opt.mode || 'cover';
+            opt.positionImage = opt.positionImage || 'centerCenter';
+
+            $('#slideshowMode option[value="' + opt.mode + '"]').attr('selected', true);
+            $("#slideshowMode").trigger('liszt:updated');
+
+            $('#slideshowPositionImage option[value="' + opt.positionImage + '"]').attr('selected', true);
+            $("#slideshowPositionImage").trigger('liszt:updated');
+
             setSettingCssWidget($('#pb-panel__slideshow'));
             setSettingsBackgroundImage($('#pb-panel__slideshow'));
             setSettingsResponsive($("#pb-panel__slideshow"));
@@ -4855,8 +4897,42 @@ var pageBuilder = {
         $('#slideshowHeight').change(function () {
             getTplOpt();
             opt.height = $(this).val();
+            $tpl.css('height', opt.height + 'px');
             $tpl.find('.pb-widget__content').css('height', opt.height + 'px');
+            $tpl.attr('heightdesktop', opt.height);
             $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+        $('#slideshowHeightTablet').change(function () {
+            getTplOpt();
+            opt.heightTablet = $(this).val();
+            $tpl.attr('heighttablet', opt.heightTablet);
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+        $('#slideshowHeightMobile').change(function () {
+            getTplOpt();
+            opt.heightMobile = $(this).val();
+            $tpl.attr('heightmobile', opt.heightMobile);
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+        $('#slideshowMode').change(function () {
+            getTplOpt();
+            opt.mode = $(this).val();
+
+            $tpl.removeClass('coverSize autoSize containSize');
+            $tpl.addClass(opt.mode + 'Size');
+
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+        $('#slideshowPositionImage').change(function () {
+            getTplOpt();
+            opt.positionImage = $(this).val();
+            $tpl.attr('data-json', JSON.stringify(opt));
+            $tpl.removeClass('leftTop leftCenter leftBottom rightTop rightCenter rightBottom centerTop centerCenter centerBottom');
+            $tpl.addClass(opt.positionImage);
             pageBuilder.setNewActionHistory();
         });
         //Container
@@ -5776,15 +5852,15 @@ var pageBuilder = {
             '<li class="' + cssHide + '">' +
             '<a href="javascript:void(0);" class="pb-image__link-edit">Edit</a>' +
             '</li>';
-            if(type == 'image'){
-                html += '<li class="' + cssHide + '">' +
+        if(type == 'image'){
+            html += '<li class="' + cssHide + '">' +
                 '<a href="javascript:void(0);" class="pb-image__link-link">Link</a>' +
                 '</li>' +
                 '<li class="' + cssHide + '">' +
                 '<a href="javascript:void(0);" class="pb-image__link-alt">Alt</a>' +
                 '</li>';
-            }
-            html += '<li class="' + cssHideRemove + '">' +
+        }
+        html += '<li class="' + cssHideRemove + '">' +
             '<a href="javascript:void(0);" class="pb-image__link-remove">Remove</a>' +
             '</li>' +
             '</ul>' +
@@ -6085,33 +6161,32 @@ var pageBuilder = {
         var optionsCalendar = '';
         var isFollow = false;
         var isCalendar = false;
-        var masDefaultFollowText = ['Facebook', 'Twitter', 'Google Plus', 'LinkedIn', 'Pinterest', 'Forward to Friend', 'YouTube', 'Instagram', 'Vimeo', 'RSS', 'Email', 'Website', 'Google Calendar', 'Outlook', 'Outlook Online', 'iCalendar', 'Yahoo! Calendar'];
+        var masDefaultFollowText = ['Facebook', 'Twitter', 'LinkedIn', 'Pinterest', 'Forward to Friend', 'YouTube', 'Instagram', 'Vimeo', 'RSS', 'Email', 'Website', 'Google Calendar', 'Outlook', 'Outlook Online', 'iCalendar', 'Yahoo! Calendar'];
 
         if ($tpl.attr('data-type') == 'social-follow') {
             isFollow = true;
-            optionsFollow = '<option value="6">YouTube</option>' +
-                '<option value="7">Instagram</option>' +
-                '<option value="8">Vimeo</option>' +
-                '<option value="9">RSS</option>' +
-                '<option value="10">Email</option>' +
-                '<option value="11">Website</option>';
+            optionsFollow = '<option value="5">YouTube</option>' +
+                '<option value="6">Instagram</option>' +
+                '<option value="7">Vimeo</option>' +
+                '<option value="8">RSS</option>' +
+                '<option value="9">Email</option>' +
+                '<option value="10">Website</option>';
         } else if ($tpl.attr('data-type') == 'calendar') {
             isCalendar = true;
-            optionsCalendar = '<option value="12">Google</option>' +
-                '<option value="13">Outlook</option>' +
-                '<option value="14">Outlook Online</option>' +
-                '<option value="15">iCalendar</option>' +
-                '<option value="16">Yahoo!</option>';
+            optionsCalendar = '<option value="11">Google</option>' +
+                '<option value="12">Outlook</option>' +
+                '<option value="13">Outlook Online</option>' +
+                '<option value="14">iCalendar</option>' +
+                '<option value="15">Yahoo!</option>';
         } else {
-            optionsShare = '<option value="5">Forward to Friend</option>';
+            optionsShare = '<option value="4">Forward to Friend</option>';
         }
 
         if (!isCalendar) {
             optionsSocial = '<option value="0">Facebook</option>' +
                 '<option value="1">Twitter</option>' +
-                '<option value="2">Google +1</option>' +
-                '<option value="3">LinkedIn</option>' +
-                '<option value="4">Pinterest</option>';
+                '<option value="2">LinkedIn</option>' +
+                '<option value="3">Pinterest</option>';
         }
         $('.pb-list-group-social:not(.custom_meta_data) li').remove();
 
@@ -6121,7 +6196,7 @@ var pageBuilder = {
             var $text = $btn.find('.pb-social-btn__text');
             var link = '';
             var text = '';
-            var masTextLabel = ['Facebook Page URL', 'Twitter URL or Username', 'Google Plus Profile URL', 'LinkedIn Profile URL', 'Pinterest Board URL', 'Friend Profile URL', 'YouTube Channel URL', 'Instagram Profile URL', 'Vimeo URL', 'RSS URL', 'Email Address', 'Page URL', 'Google Calendar URL', 'Outlook URL', 'Outlook Online URL', 'iCalendar URL', 'Yahoo! Calendar URL'];
+            var masTextLabel = ['Facebook Page URL', 'Twitter URL or Username', 'LinkedIn Profile URL', 'Pinterest Board URL', 'Friend Profile URL', 'YouTube Channel URL', 'Instagram Profile URL', 'Vimeo URL', 'RSS URL', 'Email Address', 'Page URL', 'Google Calendar URL', 'Outlook URL', 'Outlook Online URL', 'iCalendar URL', 'Yahoo! Calendar URL'];
 
             if ($btn.length) {
                 link = $btn.find('.pb-social-btn').attr('href');
@@ -6190,7 +6265,7 @@ var pageBuilder = {
             $box.addClass('pb-list-group-social--one-item');
 
         if (type === 'social-follow') {
-            if ($box.children('li').length < 11)
+            if ($box.children('li').length < 10)
                 $btn.show();
             else
                 $btn.hide();
@@ -6200,7 +6275,7 @@ var pageBuilder = {
             else
                 $btn.hide();
         } else {
-            if ($box.children('li').length < 6)
+            if ($box.children('li').length < 5)
                 $btn.show();
             else
                 $btn.hide();
@@ -6223,33 +6298,32 @@ var pageBuilder = {
 
             if (type === 'social-follow') {
                 isFollow = true;
-                optionsFollow = '<option value="6">YouTube</option>' +
-                    '<option value="7">Instagram</option>' +
-                    '<option value="8">Vimeo</option>' +
-                    '<option value="9">RSS</option>' +
-                    '<option value="10">Email</option>' +
-                    '<option value="11">Website</option>';
+                optionsFollow = '<option value="5">YouTube</option>' +
+                    '<option value="6">Instagram</option>' +
+                    '<option value="7">Vimeo</option>' +
+                    '<option value="8">RSS</option>' +
+                    '<option value="9">Email</option>' +
+                    '<option value="10">Website</option>';
             } else if (type === 'calendar') {
                 isCalendar = true;
-                indexIcon = 12;
+                indexIcon = 11;
                 labelDefault = 'Google Calendar URL';
                 urlDefault = '#';
                 textDefault = 'Google Calendar';
-                optionsCalendar = '<option value="12">Google</option>' +
-                    '<option value="13">Outlook</option>' +
-                    '<option value="14">Outlook Online</option>' +
-                    '<option value="15">iCalendar</option>' +
-                    '<option value="16">Yahoo!</option>';
+                optionsCalendar = '<option value="11">Google</option>' +
+                    '<option value="12">Outlook</option>' +
+                    '<option value="13">Outlook Online</option>' +
+                    '<option value="14">iCalendar</option>' +
+                    '<option value="15">Yahoo!</option>';
             } else {
-                optionsShare = '<option value="5">Forward to Friend</option>';
+                optionsShare = '<option value="4">Forward to Friend</option>';
             }
 
             if (!isCalendar) {
                 optionsSocial = '<option value="0">Facebook</option>' +
                     '<option value="1">Twitter</option>' +
-                    '<option value="2">Google +1</option>' +
-                    '<option value="3">LinkedIn</option>' +
-                    '<option value="4">Pinterest</option>';
+                    '<option value="2">LinkedIn</option>' +
+                    '<option value="3">Pinterest</option>';
             }
 
             $('.pb-list-group-social:not(.custom_meta_data)').append(
@@ -6329,7 +6403,7 @@ var pageBuilder = {
             var typeIcon = $li.attr('idx');
             var $btn = $tpl.find('.pb-social-btn').eq($li.attr('datasortid'));
             var val = $(this).val();
-            var masDefaultFollowText = ['Facebook', 'Twitter', 'Google Plus', 'LinkedIn', 'Pinterest', 'Forward to Friend', 'YouTube', 'Instagram', 'Vimeo', 'RSS', 'Email', 'Website', 'Google Calendar', 'Outlook', 'Outlook Online', 'iCalendar', 'Yahoo! Calendar'];
+            var masDefaultFollowText = ['Facebook', 'Twitter', 'LinkedIn', 'Pinterest', 'Forward to Friend', 'YouTube', 'Instagram', 'Vimeo', 'RSS', 'Email', 'Website', 'Google Calendar', 'Outlook', 'Outlook Online', 'iCalendar', 'Yahoo! Calendar'];
 
             if (val == '') val = masDefaultFollowText[typeIcon];
 
@@ -6588,12 +6662,12 @@ var pageBuilder = {
         var type = $tpl.attr('data-type');
         var $li = $el.closest('.pb-list-group-social__item');
         var $containerBtn = $tpl.find('.pb-wrap-social-btn').eq($li.attr('datasortid'));
-        var masIcon = ['fb.png', 'tw.png', 'gg.png', 'in.png', 'pinterest.png', 'forward.png', 'youtube.png', 'inst.png', 'vimeo.png', 'rss.png', 'email.png', 'website.png', 'google.png', 'outlook.png', 'outlook_online.png', 'icalendar.png', 'yahoo.png'];
-        var masTextLabel = ['Facebook Page URL', 'Twitter URL or Username', 'Google Plus Profile URL', 'LinkedIn Profile URL', 'Pinterest Board URL', 'Friend Profile URL', 'YouTube Channel URL', 'Instagram Profile URL', 'Vimeo URL', 'RSS URL', 'Email Address', 'Page URL', 'Google Calendar URL', 'Outlook URL', 'Outlook Online URL', 'iCalendar URL', 'Yahoo! Calendar URL'];
-        var masDefaultFollowText = ['Facebook', 'Twitter', 'Google Plus', 'LinkedIn', 'Pinterest', 'Forward to Friend', 'YouTube', 'Instagram', 'Vimeo', 'RSS', 'Email', 'Website', 'Google Calendar', 'Outlook', 'Outlook Online', 'iCalendar', 'Yahoo! Calendar'];
-        var masDefaultShareText = ['Share', 'Tweet', '+1', 'Share', 'Pin', 'Forward'];
-        var masDefaultShareUrl = ['http://www.facebook.com/sharer/sharer.php?u=', 'http://twitter.com/intent/tweet?text=', 'https://plus.google.com/share?url=', 'http://www.linkedin.com/shareArticle?url=', 'https://www.pinterest.com/pin/find/?url=', 'mailto:?body='];
-        var masDefaultFollowUrl = ['http://www.facebook.com/', 'http://www.twitter.com/', 'http://plus.google.com/', 'http://www.linkedin.com/', 'http://www.pinterest.com/', '', 'http://www.youtube.com/', 'http://instagram.com/', 'https://vimeo.com/', 'http://www.yourfeedurl.com/', 'your@email.com', 'http://www.yourwebsite.com/', '#', '#', '#', '#', '#'];
+        var masIcon = ['fb.png', 'tw.png', 'in.png', 'pinterest.png', 'forward.png', 'youtube.png', 'inst.png', 'vimeo.png', 'rss.png', 'email.png', 'website.png', 'google.png', 'outlook.png', 'outlook_online.png', 'icalendar.png', 'yahoo.png'];
+        var masTextLabel = ['Facebook Page URL', 'Twitter URL or Username', 'LinkedIn Profile URL', 'Pinterest Board URL', 'Friend Profile URL', 'YouTube Channel URL', 'Instagram Profile URL', 'Vimeo URL', 'RSS URL', 'Email Address', 'Page URL', 'Google Calendar URL', 'Outlook URL', 'Outlook Online URL', 'iCalendar URL', 'Yahoo! Calendar URL'];
+        var masDefaultFollowText = ['Facebook', 'Twitter', 'LinkedIn', 'Pinterest', 'Forward to Friend', 'YouTube', 'Instagram', 'Vimeo', 'RSS', 'Email', 'Website', 'Google Calendar', 'Outlook', 'Outlook Online', 'iCalendar', 'Yahoo! Calendar'];
+        var masDefaultShareText = ['Share', 'Tweet', 'Share', 'Pin', 'Forward'];
+        var masDefaultShareUrl = ['http://www.facebook.com/sharer/sharer.php?u=', 'http://twitter.com/intent/tweet?text=', 'http://www.linkedin.com/shareArticle?url=', 'https://www.pinterest.com/pin/find/?url=', 'mailto:?body='];
+        var masDefaultFollowUrl = ['http://www.facebook.com/', 'http://www.twitter.com/', 'http://www.linkedin.com/', 'http://www.pinterest.com/', '', 'http://www.youtube.com/', 'http://instagram.com/', 'https://vimeo.com/', 'http://www.yourfeedurl.com/', 'your@email.com', 'http://www.yourwebsite.com/', '#', '#', '#', '#', '#'];
         var $boxFields = $li.find('.pb-list-group-social__fields');
         var $btnText = $containerBtn.find('.pb-social-btn__text');
         var $btnUrl = $containerBtn.find('.pb-social-btn');
@@ -6624,7 +6698,7 @@ var pageBuilder = {
         var $tpl = $('.pb-widget--selected');
         var opt = $tpl.data('json');
         var $containerBtn = $tpl.find('.pb-wrap-social-btn');
-        var masDefaultShareUrl = ['http://www.facebook.com/sharer/sharer.php?u=', 'http://twitter.com/intent/tweet?text=', 'https://plus.google.com/share?url=', 'http://www.linkedin.com/shareArticle?url=', 'https://www.pinterest.com/pin/find/?url=', 'mailto:?body='];
+        var masDefaultShareUrl = ['http://www.facebook.com/sharer/sharer.php?u=', 'http://twitter.com/intent/tweet?text=', 'http://www.linkedin.com/shareArticle?url=', 'https://www.pinterest.com/pin/find/?url=', 'mailto:?body='];
         var href = '';
         var customLink = '';
         var customDesc = '';
@@ -6669,8 +6743,8 @@ var pageBuilder = {
         var opt = $tpl.data('json');
         var $conatinerBtns = $tpl.find('.pb-social-btns');
         var $containerBtn = $tpl.find('.pb-wrap-social-btn');
-        var masIcon = ['fb.png', 'tw.png', 'gg.png', 'in.png', 'pinterest.png', 'forward.png', 'youtube.png', 'inst.png', 'vimeo.png', 'rss.png', 'email.png', 'website.png', 'google.png', 'outlook.png', 'outlook_online.png', 'icalendar.png', 'yahoo.png'];
-        var masDefaultFollowText = ['Facebook', 'Twitter', 'Google Plus', 'LinkedIn', 'Pinterest', 'Forward to Friend', 'YouTube', 'Instagram', 'Vimeo', 'RSS', 'Email', 'Website', 'Google Calendar', 'Outlook', 'Outlook Online', 'iCalendar', 'Yahoo! Calendar'];
+        var masIcon = ['fb.png', 'tw.png', 'in.png', 'pinterest.png', 'forward.png', 'youtube.png', 'inst.png', 'vimeo.png', 'rss.png', 'email.png', 'website.png', 'google.png', 'outlook.png', 'outlook_online.png', 'icalendar.png', 'yahoo.png'];
+        var masDefaultFollowText = ['Facebook', 'Twitter', 'LinkedIn', 'Pinterest', 'Forward to Friend', 'YouTube', 'Instagram', 'Vimeo', 'RSS', 'Email', 'Website', 'Google Calendar', 'Outlook', 'Outlook Online', 'iCalendar', 'Yahoo! Calendar'];
         var link = '';
         var imgSrc = '';
         var id = '';
@@ -7572,13 +7646,13 @@ var pageBuilder = {
         $html.find('.pb-widget__placeholder, .pb-widget__shadow-label, .pb-helper-drag-drop').remove();
 
         if (is_move_style_to_body) {
-			//$html = $('body');
-			var $templateDiv = $html.find('#pb-template');
-			var style = $templateDiv.attr('style');
-			var id = $templateDiv.attr('id');
-			$html.attr('id', id).attr('style', style);
-			$templateDiv.removeAttr('style').removeAttr('id');
-		}
+            //$html = $('body');
+            var $templateDiv = $html.find('#pb-template');
+            var style = $templateDiv.attr('style');
+            var id = $templateDiv.attr('id');
+            $html.attr('id', id).attr('style', style);
+            $templateDiv.removeAttr('style').removeAttr('id');
+        }
     },
     openUploaderInit: function(){
         $('.pb-btn-upload-image-computer').on('click', function(){
@@ -7721,7 +7795,7 @@ var pageBuilder = {
         if((_history.variants[variant_id].versions).length > 20) {
             _history.variants[variant_id].versions = _history.variants[variant_id].versions.slice((_history.variants[variant_id].versions).length - 20)
         }
-         //(_history.variants[variant_id].versions).push($('.wrap-pb-template').html());
+        //(_history.variants[variant_id].versions).push($('.wrap-pb-template').html());
         /*
          * Noha Azab: we replaced the above code line by the below code line, because jquery strips the script tag from the html.
          */
@@ -8028,15 +8102,15 @@ var pageBuilder = {
     },
 
     generateLetter: function ($btn) {
-		/*
+        /*
         var countCurrentBtns = pageBuilder.getCountCurrentBtns($btn);
-		return pageBuilder.startCharCode + countCurrentBtns;
-		*/
-		var currentCharCode = $.trim($btn.parent().find('.t-btn:not(.pb-btn-add-new-version):last').html()).toUpperCase().charCodeAt(0);
-		if (currentCharCode < pageBuilder.startCharCode) {
-			currentCharCode = pageBuilder.startCharCode;
+        return pageBuilder.startCharCode + countCurrentBtns;
+        */
+        var currentCharCode = $.trim($btn.parent().find('.t-btn:not(.pb-btn-add-new-version):last').html()).toUpperCase().charCodeAt(0);
+        if (currentCharCode < pageBuilder.startCharCode) {
+            currentCharCode = pageBuilder.startCharCode;
         }
-		return currentCharCode + 1;
+        return currentCharCode + 1;
     },
 
     refreshAllLetters: function ($btns) {
@@ -8086,7 +8160,7 @@ var pageBuilder = {
             if(!$link.length){
                 html = $boxContent.html();
                 if(!opt.url) opt.url = "";
-                $boxContent.html("<a href='" + opt.url +"'>" + html + "</a>"); 
+                $boxContent.html("<a href='" + opt.url +"'>" + html + "</a>");
             }
         }
     },
@@ -8097,7 +8171,7 @@ var pageBuilder = {
         var $template = $('#pb-template');
 
         $btn.attr("modal-id", id);
-        
+
         var htmlModal = "<div class='ll-lp-modal__fade' id='ll-lp-modal-" + id + "'><div class='ll-lp-modal__table'><div class='ll-lp-modal__table-cell'><div class='ll-lp-modal'><div class='ll-lp-modal__btn-close'></div><div class='ll-lp-modal__content'></div></div></div></div></div>";
         $template.append(htmlModal);
     },
@@ -8136,12 +8210,35 @@ var pageBuilder = {
 
         if(opt.modalView == "iframe"){
             if($modal.find('iframe').length){
-                $modal.find('iframe').attr('src', opt.modalIFrameUrl);
+                if(typeof opt.modalIFrameLoading == 'undefined' || opt.modalIFrameLoading == 'page'){
+                    $modal.find('iframe').attr('src', opt.modalIFrameUrl);
+                } else {
+                    $modal.attr('iframe-src', opt.modalIFrameUrl);
+                }
             } else{
-                $modal.find('.ll-lp-modal').prepend("<iframe src='" + opt.modalIFrameUrl + "'></iframe>");
+                if(typeof opt.modalIFrameLoading == 'undefined' || opt.modalIFrameLoading == 'page'){
+                    $modal.find('.ll-lp-modal').prepend("<iframe onload='this.contentWindow.focus()' class='page_loading' src='" + opt.modalIFrameUrl + "'></iframe>");
+                } else {
+                    $modal.find('.ll-lp-modal').prepend("<iframe onload='this.contentWindow.focus()' class='popup_loading'></iframe>");
+                }
             }
         } else{
+            $modal.removeAttr('iframe-src');
             $modal.find('.ll-lp-modal > iframe').remove();
+        }
+    },
+
+    refreshModalIframeOptions: function (modalIFrameLoading, modalIFrameUrl, $modal){
+        $modal.find('.ll-lp-modal > iframe').removeClass('page_loading').removeClass('popup_loading');
+        $modal.removeAttr('iframe-src');
+        $modal.find('.ll-lp-modal > iframe').removeAttr('src');
+        if(typeof modalIFrameLoading == 'undefined' || modalIFrameLoading == 'page'){
+            $modal.find('.ll-lp-modal > iframe').attr('src', modalIFrameUrl);
+            $modal.find('.ll-lp-modal > iframe').addClass('page_loading')
+        } else {
+            console.log("hehhehe")
+            $modal.attr('iframe-src', modalIFrameUrl);
+            $modal.find('.ll-lp-modal > iframe').addClass('popup_loading')
         }
     },
 

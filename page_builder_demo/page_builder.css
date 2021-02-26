@@ -285,8 +285,8 @@ textarea.txt-field {
 .pb-top-header .pb-btn-view,
 .pb-top-header .btn-settings{
   position: relative;
-  width: 32px;
-  height: 32px;
+  width: 32px !important;
+  height: 32px !important;
   padding: 0;
   min-width: auto;
 }
@@ -1385,6 +1385,10 @@ list-widgets__item .item__delete:hover {
   margin-top: 15px;
 }
 
+.pb-field > .pb-right .pb-right__inner.pb-field-mt20{
+  margin-top: 20px;
+}
+
 .pb-field > .pb-right .pb-right__inner > label {
   height: 12px;
   font-size: 11px;
@@ -2271,62 +2275,58 @@ list-widgets__item .item__delete:hover {
 }
 
 .pb-list-group-social .pb-item__icon--2 {
-  background-image: url("../../imgs/imgs_email_builder/social_btns/color/gg.png");
-}
-
-.pb-list-group-social .pb-item__icon--3 {
   background-image: url("../../imgs/imgs_email_builder/social_btns/color/in.png");
 }
 
-.pb-list-group-social .pb-item__icon--4 {
+.pb-list-group-social .pb-item__icon--3 {
   background-image: url("../../imgs/imgs_email_builder/social_btns/color/pinterest.png");
 }
 
-.pb-list-group-social .pb-item__icon--5 {
+.pb-list-group-social .pb-item__icon--4 {
   background-image: url("../../imgs/imgs_email_builder/social_btns/color/forward.png");
 }
 
-.pb-list-group-social .pb-item__icon--6 {
+.pb-list-group-social .pb-item__icon--5 {
   background-image: url("../../imgs/imgs_email_builder/social_btns/color/youtube.png");
 }
 
-.pb-list-group-social .pb-item__icon--7 {
+.pb-list-group-social .pb-item__icon--6 {
   background-image: url("../../imgs/imgs_email_builder/social_btns/color/inst.png");
 }
 
-.pb-list-group-social .pb-item__icon--8 {
+.pb-list-group-social .pb-item__icon--7 {
   background-image: url("../../imgs/imgs_email_builder/social_btns/color/vimeo.png");
 }
 
-.pb-list-group-social .pb-item__icon--9 {
+.pb-list-group-social .pb-item__icon--8 {
   background-image: url("../../imgs/imgs_email_builder/social_btns/color/rss.png");
 }
 
-.pb-list-group-social .pb-item__icon--10 {
+.pb-list-group-social .pb-item__icon--9 {
   background-image: url("../../imgs/imgs_email_builder/social_btns/color/email.png");
 }
 
-.pb-list-group-social .pb-item__icon--11 {
+.pb-list-group-social .pb-item__icon--10 {
   background-image: url("../../imgs/imgs_email_builder/social_btns/color/website.png");
 }
 
-.pb-list-group-social .pb-item__icon--12 {
+.pb-list-group-social .pb-item__icon--11 {
   background-image: url("../../imgs/imgs_email_builder/calendar_btns/color/google.png");
 }
 
-.pb-list-group-social .pb-item__icon--13 {
+.pb-list-group-social .pb-item__icon--12 {
   background-image: url("../../imgs/imgs_email_builder/calendar_btns/color/outlook.png");
 }
 
-.pb-list-group-social .pb-item__icon--14 {
+.pb-list-group-social .pb-item__icon--13 {
   background-image: url("../../imgs/imgs_email_builder/calendar_btns/color/outlook_online.png");
 }
 
-.pb-list-group-social .pb-item__icon--15 {
+.pb-list-group-social .pb-item__icon--14 {
   background-image: url("../../imgs/imgs_email_builder/calendar_btns/color/icalendar.png");
 }
 
-.pb-list-group-social .pb-item__icon--16 {
+.pb-list-group-social .pb-item__icon--15 {
   background-image: url("../../imgs/imgs_email_builder/calendar_btns/color/yahoo.png");
 }
 

@@ -814,6 +814,14 @@ var pageBuilder = {
             min: 0,
             max: 100
         });
+        $('.touch-spin-decimals-2').TouchSpin({
+            min: 0,
+            max: 100,
+            step: 0.1,
+            decimals: 2,
+            boostat: 5,
+            maxboostedstep: 10
+        });
         $('.touch-spin-slideshow-height').TouchSpin({
             min: 150,
             max: 600
@@ -1099,6 +1107,7 @@ var pageBuilder = {
                 pageBuilder.openUploader();
         });*/
 
+        pageBuilder.initEditor('.pb-editor-point-content');
     },
     InsertToken: function(placeholder) {
         placeholder = '%%' + placeholder + '%%';
@@ -1108,6 +1117,11 @@ var pageBuilder = {
         $('.pb-widget:not(.pb-widget--svg):not(.pb-widget--icon):not(.pb-widget--field):not(.pb-widget--video):not(.pb-widget--button):not(.pb-widget--code)').each(function (){
             pageBuilder.dropFreeImages($(this));
         });
+
+        $('.pb-widget.pb-widget--image, .pb-widget--image-group, .pb-widget--text-column-with-image, .pb-widget--image-caption-1, .pb-widget--image-caption-2, .pb-widget--columns-caption, .pb-widget--slideshow').each(function (){
+            pageBuilder.dropPointImages($(this));
+        });
+
         pageBuilder.globalBackGroundSetFreeImages();
         pageBuilder.updateInlineCss('button');
         pageBuilder.updateInlineCss('link');
@@ -1115,6 +1129,7 @@ var pageBuilder = {
         //pageBuilder.dropFreeImages();
         $(".pb-layout-grid__cell.ui-sortable, .pb-container-grid.ui-sortable, .pb-form-grid.ui-sortable").removeClass('ui-sortable');
         pageBuilder.dragDropElements();
+        pageBuilder.draggablePointImages();
         pageBuilder.initGlobalOptions();
         pageBuilder.openUploaderInit();
         pageBuilder.loadImage();
@@ -1123,6 +1138,72 @@ var pageBuilder = {
         if ($('.pb-editable').length > 0) {
             pageBuilder.initEditorInline();
         }
+    },
+    dropPointImages: function ($el) {
+        var $el = $el || $('.pb-widget.pb-widget--image, .pb-widget--image-group, .pb-widget--text-column-with-image, .pb-widget--image-caption-1, .pb-widget--image-caption-2, .pb-widget--columns-caption, .pb-widget--slideshow');
+        $el.each(function () {
+            var $boxs = $(this).find('.pb-load-image');
+            $boxs.each(function(){
+                $(this).droppable(
+                    { accept: '.list-elements__item--image-point', hoverClass: 'pb-widget--drop-point-image', greedy: true },
+                    {
+                        drop: function (event, ui) {
+                            var $box = $(this);
+
+                            if (!$box.hasClass('pb-load-image--none')) {
+                                var widthBox = $box.width();
+                                var heightBox = $box.height();
+                                var left = (event.pageX - $(event.target).offset().left) / widthBox * 100;
+                                var top = (event.pageY - $(event.target).offset().top) / heightBox * 100;
+
+                                var dataJson = '{"backgroundImageUrl":"", "isShowBtn":"false", "modalBgColor":"#fefefe", "bgColor":"#ffffff", "btnText":"", "btnUrl":"", "btnBackgroundColor":"#fb8f04", "btnBorderColor":"#fb8f04", "btnColor":"#ffffff", "btnBorderType":"Solid", "btnBorderWidth":"1", "btnRadius":"0", "btnFontTypeFace":"Arial", "btnFontWeight":"Normal", "btnFontSize":"14", "btnPaddingX":"5", "btnPaddingY":"5", "positionLeft":"'+left.toFixed(2)+'", "positionTop":"'+top.toFixed(2)+'"}';
+                                $box.append("<div class='ll-lp-point-image pb-widget--init ll-pulsetrigger pb-widget pb-widget--point' data-json='" + dataJson + "' data-type='point' style='left: "+ left.toFixed(2) +"%; top: "+ top.toFixed(2) +"%;'><div class='ll-lp-point-image__inner'></div><div class='pb-widget__btn-remove'></div></div>");
+                                
+                                var $initWidget = $('.ll-lp-point-image.pb-widget--init');
+                                var idx = pageBuilder.getIdxWidget($initWidget);
+
+                                $('#pb-template').append(
+                                    '<div class="ll-lp-popup-point hideBtnPoint" data-idx="'+idx+'">'+
+                                        '<div class="ll-lp-popup-point__close"></div>'+
+                                        '<div class="ll-lp-popup-point__arrows">'+
+                                            '<div class="ll-lp-popup-point__arrow-left"></div>'+
+                                            '<div class="ll-lp-popup-point__arrow-right"></div>'+
+                                        '</div>'+
+                                        '<div class="ll-lp-popup-point__image"></div>'+
+                                        '<div class="ll-lp-popup-point__content">'+
+                                            '<div class="ll-lp-popup-point__html"></div>'+
+                                            '<div class="ll-lp-popup-point__wrap-button">'+
+                                                '<a href="#" target="_blank"></a>'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>');
+                                $initWidget.attr('data-idx', idx);
+                                $initWidget.attr('data-idx-popup', idx);
+                                $initWidget.removeClass('pb-widget--init');
+
+                                $('.pb-widget--drop-point-image').removeClass('pb-widget--drop-point-image');
+                                pageBuilder.updateHistory();
+                            }
+                        }
+                    }
+                );
+            });
+        });
+    },
+    draggablePointImages: function () {
+        $('.list-elements__item--image-point:not(.ui-draggable)').draggable({
+            helper: 'clone',
+            cursorAt: {top: 15, left: 15},
+            appendTo: '.page-builder-editor'
+        });
+    },
+    setContentPoint: function(val){
+        var idx = $('.pb-widget--selected').attr('data-idx');
+        $('.ll-lp-popup-point[data-idx='+ idx +']').find('.ll-lp-popup-point__html').html(val);
+    },
+    getContentPoint: function(){
+        var idx = $('.pb-widget--selected').attr('data-idx');
+        return $('.ll-lp-popup-point[data-idx='+ idx +']').find('.ll-lp-popup-point__html').html();
     },
     globalBackGroundSetFreeImages: function(){
         $('#pb-template').droppable(
@@ -1211,7 +1292,7 @@ var pageBuilder = {
         });
     },
     dragableElements: function () {
-        $(".list-elements__item, .list-free-icons .dib, .list-ready-made__item").draggable({
+        $(".list-elements__item:not('.list-elements__item--image-point'), .list-free-icons .dib, .list-ready-made__item").draggable({
             helper: 'clone',
             appendTo: '.page-builder-editor',
             start: function (event, ui) {
@@ -2693,6 +2774,10 @@ var pageBuilder = {
             if (type !== 'svg' && type !== 'field' && type !== 'video' && type !== 'button' && type !== 'code' && type !== 'icon'){
                 pageBuilder.dropFreeImages($this);
             }
+
+            if (type === 'image' || type === 'image-group' || type === 'text-column-with-image' || type === 'image-caption-1' || type === 'image-caption-2' || type === 'pb-widget--columns-caption' || type === 'slideshow'){
+                pageBuilder.dropPointImages($this);
+            }
         });
         $('.pb-widget--init').removeClass('pb-widget--init');
     },
@@ -2748,7 +2833,7 @@ var pageBuilder = {
                     console.log(hex);
                     $(el).css('background-color', '#' + hex);
                     $(el).colpickHide();
-                    pageBuilder.updateColorElTpl(el, hex);
+                    pageBuilder.updateColorElTpl(el, hex, rgb);
                 }
             }).css('background-color', '#' + color);
         });
@@ -3052,6 +3137,12 @@ var pageBuilder = {
                 $('#ll-lp-modal-' + $(this).attr('modal-id')).remove();
             });
 
+            if(type == 'point') $('.ll-lp-popup-point[data-idx='+idx+']').remove();
+
+            $widget.find('.ll-lp-point-image').each(function(){
+                $('.ll-lp-popup-point[data-idx='+ $(this).attr('data-idx-popup') +']').remove();
+            });
+
             $widget.remove();
             $widgetTreeItem.remove();
 
@@ -3177,7 +3268,14 @@ var pageBuilder = {
                     pageBuilder.setNewActionHistory();
                 });
                 editor.on('change', function (e) {
-                    pageBuilder.setContentModal(editor.getContent());
+                    var idPanel = $(editor.editorContainer).closest('.pb-settings-panel').attr('id');
+
+                    if(idPanel == 'pb-panel__point') {
+                        pageBuilder.setContentPoint(editor.getContent());
+                    } else{
+                        pageBuilder.setContentModal(editor.getContent());
+                    }
+                    
                     pageBuilder.setNewActionHistory();
                 });
             },
@@ -4218,6 +4316,48 @@ var pageBuilder = {
             setSettingCssWidget($('#pb-panel__nav-item'));
             setSettingsBackgroundImage($('#pb-panel__nav-item'));
             setSettingsResponsive($("#pb-panel__nav-item"));
+        } else if (type === 'point') {
+            if (opt.backgroundImageUrl === '') {
+                $(".pb-box-btn-upload-bg-image--point").addClass('pb-box-btn-upload-bg-image--none');
+            } else {
+                $(".pb-box-btn-upload-bg-image--point").removeClass('pb-box-btn-upload-bg-image--none');
+                $(".pb-box-btn-upload-bg-image--point").find('.pb-unload-bg-image__title').text(pageBuilder.getBgImageName(opt.backgroundImageUrl));
+            }
+
+            var $settings = $('.pb-settings-panel:visible');
+            var idEditor = $settings.find('.pb-editor-point-content').attr('id');
+            var editor = tinyMCE.get(idEditor);
+            var content = pageBuilder.getContentPoint();
+
+            editor.setContent(content);
+
+            if (opt.isShowBtn == true || opt.isShowBtn == "true" || opt.isShowBtn === undefined)
+                $('.switch-isShowBtnPoint').val('on').attr('checked', true);
+            else
+                $('.switch-isShowBtnPoint').val('off').removeAttr('checked');
+
+            $('#btnPointText').val(opt.btnText);
+            $('#btnPointUrl').val(opt.btnUrl);
+
+            $('#btnPointBackground').colpickSetColor(opt.btnBackgroundColor, true).css('background-color', opt.btnBackgroundColor);
+            $('#btnPointBorderColor').colpickSetColor(opt.btnBorderColor, true).css('background-color', opt.btnBorderColor);
+            $('#btnPointTextColor').colpickSetColor(opt.btnColor, true).css('background-color', opt.btnColor);
+            $('#pointModalBgColor').colpickSetColor(opt.modalBgColor, true).css('background-color', opt.modalBgColor);
+            $('#pointBgColor').colpickSetColor(opt.bgColor, true).css('background-color', opt.bgColor);
+            
+            ll_combo_manager.set_selected_value('#btnPointBorderType', opt.btnBorderType);
+            $('#btnPointBorderWidth').val(opt.btnBorderWidth);
+            $('#btnPointBorderRadius').val(opt.btnRadius);
+            ll_combo_manager.set_selected_value('#btnPointTypeFace', opt.btnFontTypeFace);
+            ll_combo_manager.set_selected_value('#btnPointWeight', opt.btnFontWeight);
+            ll_combo_manager.set_selected_value('#btnPointSize', opt.btnFontSize);
+            $('#btnPointPaddingX').val(opt.btnPaddingX);
+            $('#btnPointPaddingY').val(opt.btnPaddingY);
+            $('#pointPositionLeft').val(opt.positionLeft);
+            $('#pointPositionTop').val(opt.positionTop);
+
+            setSettingCssWidget($('#pb-panel__point'));
+            setSettingsResponsive($("#pb-panel__point"));
         }
         function setSettingCssWidget($panel) {
             $panel.find('.pb-widget-width').val(opt.width);
@@ -5329,6 +5469,209 @@ var pageBuilder = {
             $tpl.attr('data-json', JSON.stringify(opt));
             pageBuilder.setNewActionHistory();
         });
+        //Point
+        $('.switch-isShowBtnPoint').change(function(){
+            getTplOpt();
+            var val = $(this).prop('checked');
+            var $popup = pageBuilder.currentPointPopup($tpl);
+
+            val ? $popup.removeClass('hideBtnPoint') : $popup.addClass('hideBtnPoint');
+
+            opt.isShowBtn = val;
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+
+        $('#btnPointText').change(function(){
+            getTplOpt();
+            var val = $(this).val();
+            var $popup = pageBuilder.currentPointPopup($tpl);
+
+            $popup.find('.ll-lp-popup-point__wrap-button a').text(val);
+
+            opt.btnText = val;
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+
+        $('#btnPointUrl').change(function(){
+            getTplOpt();
+            var val = $(this).val();
+            var $popup = pageBuilder.currentPointPopup($tpl);
+
+            $popup.find('.ll-lp-popup-point__wrap-button a').attr('href', val);
+            
+            opt.btnUrl = val;
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+        $('#btnPointBorderType').change(function () {
+            getTplOpt();
+            opt.btnBorderType = $(this).val();
+            var $popup = pageBuilder.currentPointPopup($tpl);
+            var $btn = $popup.find('.ll-lp-popup-point__wrap-button > a');
+
+            $popup.find('.ll-lp-popup-point__wrap-button a')
+            if (opt.btnBorderType === 'None')
+                $btn.css('border-style', '');
+            else
+                $btn.css('border-style', opt.btnBorderType);
+
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+        $('#btnPointBorderWidth').change(function () {
+            getTplOpt();
+            opt.btnBorderWidth = $(this).val();
+            var $popup = pageBuilder.currentPointPopup($tpl);
+            var $btn = $popup.find('.ll-lp-popup-point__wrap-button > a');
+
+            if (opt.btnBorderWidth === '') {
+                $btn.css('border-width', '');
+                opt.btnBorderWidth = 'None';
+            } else {
+                $btn.css('border-width', opt.btnBorderWidth + 'px');
+            }
+
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+        $('#btnPointBorderRadius').change(function () {
+            getTplOpt();
+            opt.btnRadius = $(this).val();
+            var $popup = pageBuilder.currentPointPopup($tpl);
+            var $btn = $popup.find('.ll-lp-popup-point__wrap-button > a');
+
+            if (opt.btnRadius === '') {
+                $btn.css('border-radius', '');
+                opt.btnRadius = 'None';
+            } else {
+                $btn.css('border-radius', opt.btnRadius + 'px');
+            }
+
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+        $('#btnPointTypeFace').change(function () {
+            getTplOpt();
+            opt.btnFontTypeFace = $(this).val();
+            var $popup = pageBuilder.currentPointPopup($tpl);
+            var $btn = $popup.find('.ll-lp-popup-point__wrap-button > a');
+
+            if (opt.btnFontTypeFace === 'None') {
+                $btn.css('font-family', '');
+            } else {
+                if($.inArray(opt.btnFontTypeFace, STANDARD_FONTS)== -1){
+                    $btn.css('font-family', opt.btnFontTypeFace);
+                } else {
+                    $btn.css('font-family', opt.btnFontTypeFace + ', sans-serif');
+                }
+            }
+
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+        $('#btnPointWeight').change(function () {
+            getTplOpt();
+            opt.btnFontWeight = $(this).val();
+            var $popup = pageBuilder.currentPointPopup($tpl);
+            var $btn = $popup.find('.ll-lp-popup-point__wrap-button > a');
+
+            if (opt.btnFontWeight === 'None')
+                $btn.css('font-weight', '');
+            else
+                $btn.css('font-weight', opt.btnFontWeight);
+
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+        $('#btnPointSize').change(function () {
+            getTplOpt();
+            opt.btnFontSize = $(this).val();
+            var $popup = pageBuilder.currentPointPopup($tpl);
+            var $btn = $popup.find('.ll-lp-popup-point__wrap-button > a');
+
+            if (opt.btnFontSize === 'None')
+                $btn.css('font-size', '');
+            else
+                $btn.css('font-size', opt.btnFontSize + 'px');
+
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+        $('#btnPointPaddingX').change(function () {
+            getTplOpt();
+            opt.btnPaddingX = $(this).val();
+            var $popup = pageBuilder.currentPointPopup($tpl);
+            var $btn = $popup.find('.ll-lp-popup-point__wrap-button > a');
+
+            if (opt.btnPaddingX === '') {
+                $btn
+                    .css('padding-left', '')
+                    .css('padding-right', '');
+                opt.btnPaddingX = 'None';
+            } else {
+                $btn
+                    .css('padding-left', opt.btnPaddingX + 'px')
+                    .css('padding-right', opt.btnPaddingX + 'px');
+            }
+
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+        $('#btnPointPaddingY').change(function () {
+            getTplOpt();
+            opt.btnPaddingY = $(this).val();
+            var $popup = pageBuilder.currentPointPopup($tpl);
+            var $btn = $popup.find('.ll-lp-popup-point__wrap-button > a');
+
+            if (opt.btnPaddingY === '') {
+                $btn
+                    .css('padding-top', '')
+                    .css('padding-bottom', '');
+                opt.btnPaddingY = 'None';
+            } else {
+                $btn
+                    .css('padding-top', opt.btnPaddingY + 'px')
+                    .css('padding-bottom', opt.btnPaddingY + 'px');
+            }
+
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+
+        $('#pointPositionLeft').change(function () {
+            getTplOpt();
+            opt.positionLeft = $(this).val();
+            
+            if (opt.positionLeft === '') {
+                $tpl.css('left', '1%');
+                opt.positionLeft = '1';
+            } else {
+                $tpl.css('left', opt.positionLeft + '%');
+            }
+
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+        $('#pointPositionTop').change(function () {
+            getTplOpt();
+            opt.positionTop = $(this).val();
+            
+
+            if (opt.positionTop === '') {
+                $tpl.css('top', '1%');
+                opt.positionTop = '1';
+            } else {
+                $tpl.css('top', opt.positionTop + '%');
+            }
+
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+    },
+    currentPointPopup: function($tpl){
+        return $('.ll-lp-popup-point[data-idx='+ $tpl.attr('data-idx') +']');
     },
     updateGlobalOptions: function () {
         var $tpl = $('#pb-template');
@@ -5456,7 +5799,7 @@ var pageBuilder = {
         });
 
     },
-    updateColorElTpl: function (el, hex) {
+    updateColorElTpl: function (el, hex, rgb) {
         var $tpl = $('.pb-widget--selected');
         var $tplGlobal = $('#pb-template');
         var opt = $tpl.data('json');
@@ -5690,6 +6033,37 @@ var pageBuilder = {
         } else if (id == 'iconColor') {
             opt.color = '#' + hex;
             $tpl.find('svg path').css('fill', opt.color);
+            $tpl.attr('data-json', JSON.stringify(opt));
+        } else if (id == 'btnPointBackground') {
+            opt.btnBackgroundColor = '#' + hex;
+            var $popup = pageBuilder.currentPointPopup($tpl);
+
+            $popup.find('.ll-lp-popup-point__wrap-button a').css('background-color', opt.btnBackgroundColor);
+            $tpl.attr('data-json', JSON.stringify(opt));
+        } else if (id == 'btnPointBorderColor') {
+            opt.btnBorderColor = '#' + hex;
+            var $popup = pageBuilder.currentPointPopup($tpl);
+
+            $popup.find('.ll-lp-popup-point__wrap-button a').css('border-color', opt.btnBorderColor);
+            $tpl.attr('data-json', JSON.stringify(opt));
+        } else if (id == 'btnPointTextColor') {
+            opt.btnColor = '#' + hex;
+            var $popup = pageBuilder.currentPointPopup($tpl);
+
+            $popup.find('.ll-lp-popup-point__wrap-button a').css('color', opt.btnColor);
+            $tpl.attr('data-json', JSON.stringify(opt));
+        } else if (id == 'pointModalBgColor') {
+            opt.modalBgColor = '#' + hex;
+            var $popup = pageBuilder.currentPointPopup($tpl);
+
+            $popup.css('background-color', opt.modalBgColor);
+            $popup.find('.ll-lp-popup-point__arrows .ll-lp-popup-point__arrow-left').css('border-right-color', opt.modalBgColor);
+            $popup.find('.ll-lp-popup-point__arrows .ll-lp-popup-point__arrow-right').css('border-left-color', opt.modalBgColor);
+            $tpl.attr('data-json', JSON.stringify(opt));
+        } else if (id == 'pointBgColor') {
+            opt.bgColor = '#' + hex;
+
+            $tpl.css('border-color', 'rgba('+ rgb.r +', ' + rgb.g +', '+ rgb.b +', 0.5');
             $tpl.attr('data-json', JSON.stringify(opt));
         }
 
@@ -7115,6 +7489,9 @@ var pageBuilder = {
                 $tpl.children('.pb-widget__content').children('.pb-social-btns').css('background-image', 'url("' + opt.backgroundImageUrl + '")');
             } else if ($tpl.hasClass('pb-widget--nav-item')) {
                 $tpl.css('background-image', 'url("' + opt.backgroundImageUrl + '")');
+            } else if ($tpl.hasClass('pb-widget--point')) {
+                var idx = $tpl.attr('data-idx');
+                $('.ll-lp-popup-point[data-idx='+ idx +']').find('.ll-lp-popup-point__image').html('<img src="' + opt.backgroundImageUrl + '" />');
             } else {
                 //$tpl.children('.pb-widget__content, .pb-layout-grid').css('background-image', 'url("' + opt.backgroundImageUrl + '")');
                 $tpl.css('background-image', 'url("' + opt.backgroundImageUrl + '")');
@@ -7157,6 +7534,10 @@ var pageBuilder = {
         }*/
 
         if ($tpl.hasClass('pb-widget--calendar') || $tpl.hasClass('pb-widget--social-share') || $tpl.hasClass('pb-widget--social-follow')) {
+            $tpl.children('.pb-widget__content').children('.pb-social-btns').css('background-image', '');
+        } else if ($tpl.hasClass('pb-widget--point')) {
+            var idx = $tpl.attr('data-idx');
+            $('.ll-lp-popup-point[data-idx='+ idx +']').find('.ll-lp-popup-point__image').html('');
             $tpl.children('.pb-widget__content').children('.pb-social-btns').css('background-image', '');
         } else {
             $tpl.css('background-image', '');

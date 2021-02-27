@@ -565,6 +565,11 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                                          data-type="video">
                                                         <div class="list-elements__item-text">Video</div>
                                                     </div>
+													<div class="list-elements__item list-elements__item--image-point
+                                                    " draggable="true" data-parent="list-elements--multimedia" data-idx="7"
+                                                         data-type="image-point">
+                                                        <div class="list-elements__item-text">Image Point</div>
+                                                    </div>
                                                 </div>
                                                 <div class="list-elements__h">Columns</div>
                                                 <div class="list-elements__inner clearfix" id="list-elements--columns">
@@ -4484,4 +4489,2901 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                 </div>
                             </div>
                             <div class="pb-settings-panel" id="pb-panel__divider">
-       
+                                <div class="pb-settings-panel__header">
+                                    <span class="pb-settings-panel__header-text">Divider</span>
+                                    <a href="javascript:void(0);" class="pb-settings-panel__savecancel">Save</a>
+                                </div>
+                                <div class="pb-settings-panel__content">
+                                    <div class="pb-wrap-tabs-panel">
+                                        <div class="pb-tabs-panel">
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--selected pb-tabs-panel__tab--style">
+                                                <i class="icn"></i>
+                                                Style
+                                            </div>
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--settings">
+                                                <i class="icn"></i>
+                                                Settings
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="">
+                                                <div class="pb-field">
+                                                    <label>Background Color</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner w40">
+                                                            <div class="wrap-color">
+                                                                <div id="dividerBackground" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                            </div>
+                                                            <div class="t-checkbox check-bg-transparent">
+                                                                <label><i class="icn-checkbox"></i><input class="background_transparent" type="checkbox" />Transparent</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field pb-field--vertical">
+                                                    <label>Background Image</label>
+                                                    <div class="pb-right ">
+                                                        <div class="pb-right__inner pb-box-btn-upload-bg-image pb-box-btn-upload-bg-image--none">
+                                                            <a href="javascript:void(0);" class="t-btn-gray pb-btn-upload-bg-image">Upload Image</a>
+                                                            <a href="javascript:void(0);" class="pb-image__link-free-image">Unsplash</a>
+                                                            <div class="pb-unload-bg-image">
+                                                                <span class="pb-unload-bg-image__title">icon svg</span>
+                                                                <span class="pb-unload-bg-image__remove"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field">
+                                                    <label>Border Top</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner wFull">
+                                                            <label class="pb-label--left">Type</label>
+                                                            <select id="dividerBorderType">
+                                                                <option value="None">None</option>
+                                                                <option value="Solid" selected="selected">Solid</option>
+                                                                <option value="Dashed">Dashed</option>
+                                                                <option value="Dotted">Dotted</option>
+                                                                <option value="Double">Double</option>
+                                                                <option value="Groove">Groove</option>
+                                                                <option value="Ridge">Ridge</option>
+                                                                <option value="Inset">Inset</option>
+                                                                <option value="Outset">Outset</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="pb-wrap-right">
+                                                            <div class="pb-right__inner w40">
+                                                                <label>Width</label>
+                                                                <input type="text" class="txt-field touch-spin" id="dividerBorderWidth" />
+                                                            </div>
+                                                            <div class="pb-right__inner w40">
+                                                                <label>Color</label>
+                                                                <div class="wrap-color">
+                                                                    <div id="dividerBorderColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field">
+                                                <label>Width</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-width" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Max Width</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-max-width" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Margins</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Left</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-left" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Right</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-right" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Top</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-top" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Bottom</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-bottom" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Padding</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Left</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-left" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Right</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-right" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Top</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-top" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Bottom</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-bottom" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>Responsive Options</label>
+                                                <div class="pb-right__inner">
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isDesktop-divider" name="switch-isDesktop-divider" checked value="on" class="switch-isDesktop cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isDesktop-divider"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Desktop</div>
+                                                    </div>
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isTablet-divider" name="switch-isTablet-divider" checked value="on" class="switch-isTablet cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isTablet-divider"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Tablet</div>
+                                                    </div>
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isMobile-divider" name="switch-isMobile-divider" checked value="on" class="switch-isMobile cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isMobile-divider"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Mobile</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-settings-panel" id="pb-panel__code">
+                                <div class="pb-settings-panel__header">
+                                    <span class="pb-settings-panel__header-text">Code</span>
+                                    <a href="javascript:void(0);" class="pb-settings-panel__savecancel">Save</a>
+                                </div>
+                                <div class="pb-settings-panel__content">
+                                    <div class="pb-code-editor">
+                                        <textarea id="pb-code-editor" name="pb-code"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-settings-panel" id="pb-panel__social-calendar-btns">
+                                <div class="pb-settings-panel__header">
+                                    <span class="pb-settings-panel__header-text">Social Share</span>
+                                    <a href="javascript:void(0);" class="pb-settings-panel__savecancel">Save</a>
+                                </div>
+                                <div class="pb-settings-panel__content">
+                                    <div class="pb-wrap-tabs-panel">
+                                        <div class="pb-tabs-panel">
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--selected pb-tabs-panel__tab--content">
+                                                <i class="icn"></i>
+                                                Content
+                                            </div>
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--style">
+                                                <i class="icn"></i>
+                                                Style
+                                            </div>
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--settings">
+                                                <i class="icn"></i>
+                                                Settings
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-content-to-share">
+                                                <div class="pb-field pb-field--vertical">
+                                                    <label>Content to share</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner wFull">
+                                                            <select id="pb-select-content-to-share">
+                                                                <option value="0">Page URL</option>
+                                                                <option value="1">Custom URL</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-content-to-share__custom">
+                                                    <div class="pb-field pb-field--vertical">
+                                                        <label>Custom URL to share</label>
+                                                        <div class="pb-right">
+                                                            <div class="pb-right__inner wFull">
+                                                                <input id="shareCustomLink" type="text" class="txt-field" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--<div class="pb-field pb-field--vertical">
+                                                        <label>Short Description</label>
+                                                        <div class="pb-right">
+                                                            <div class="pb-right__inner wFull">
+                                                                <input id="shareShortDesc" type="text" class="txt-field" />
+                                                            </div>
+                                                        </div>
+                                                    </div>-->
+                                                </div>
+                                            </div>
+                                            <ul class="pb-list-group-social">
+                                                <li class="pb-list-group-social__item">
+                                                    <div class="pb-item__line">
+                                                        <a href="javascript:void(0);" class="t-btn-gray pb-item__btn-move">
+                                                            <i class="icn"></i>
+                                                        </a>
+                                                        <a href="javascript:void(0);" class="t-btn-gray pb-item__btn-remove">
+                                                            <i class="icn"></i>
+                                                        </a>
+                                                        <div class="pb-item__icon pb-item__icon--0"></div>
+                                                        <select class="pb-social-list">
+                                                            <option value="0">Facebook</option>
+                                                            <option value="1">Twitter</option>
+                                                            <option value="2">Google +1</option>
+                                                            <option value="3">LinkedIn</option>
+                                                            <option value="4">Pinterest</option>
+                                                            <option value="5">Forward to Friend</option>
+                                                            <option value="6">YouTube</option>
+                                                            <option value="7">Instagram</option>
+                                                            <option value="8">Vimeo</option>
+                                                            <option value="9">RSS</option>
+                                                            <option value="10">Email</option>
+                                                            <option value="11">Website</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="pb-list-group-social__fields">
+                                                        <div class="pb-field pb-field--vertical">
+                                                            <label>Facebook Page URL</label>
+                                                            <div class="pb-right">
+                                                                <div class="pb-right__inner wFull">
+                                                                    <input type="text" class="txt-field" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pb-field pb-field--vertical">
+                                                            <label>Line Text</label>
+                                                            <div class="pb-right">
+                                                                <div class="pb-right__inner wFull">
+                                                                    <input type="text" class="txt-field" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <div class="pb-add-button pb-add-social-list">
+                                                <img src="imgs/imgs_email_builder/icn_add.png"> Add Another Service
+                                            </div>
+                                            <div class="pb-calendar-fields">
+                                                <div class="pb-field pb-field--vertical">
+                                                    <label>Event title</label>
+                                                    <input type="text" id="" class="txt-field" name="calendar_event_title"/>
+                                                </div>
+                                                <div class="pb-field pb-field--vertical">
+                                                    <label>Start date</label>
+                                                    <input type="text" id="pb-start-datetime-calendar" class="txt-field" name="calendar_event_start_date"/>
+                                                </div>
+                                                <div class="pb-field pb-field--vertical">
+                                                    <label>End date</label>
+                                                    <input type="text" id="pb-end-datetime-calendar" class="txt-field" name="calendar_event_end_date"/>
+                                                </div>
+                                                <div class="pb-field pb-field--vertical">
+                                                    <label>Timezone</label>
+                                                    <select id="pb-calendarTimezone">
+                                                        <?php
+                                                        foreach ($supported_calendar_timezones as $k => $v) {
+                                                            $selected = (stripos($time_zone_info['description'], $k) !== false) ? "selected='selected'" : "";
+                                                            echo "<option value='{$k}' $selected>{$v}</option>";
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                                <div class="pb-field pb-field--vertical">
+                                                    <label>Location</label>
+                                                    <input type="text" id="" class="txt-field" name="calendar_event_location"/>
+                                                </div>
+                                                <div class="pb-field pb-field--vertical">
+                                                    <label>Organizer</label>
+                                                    <input type="text" id="" class="txt-field" name="calendar_event_organizer"/>
+                                                </div>
+                                                <div class="pb-field pb-field--vertical">
+                                                    <label>Email</label>
+                                                    <input type="text" id="" class="txt-field" name="calendar_event_email"/>
+                                                </div>
+                                                <div class="pb-field pb-field--vertical">
+                                                    <label>Event description</label>
+                                                    <textarea class="txt-field" name="calendar_event_description"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="pb-wrap-btn-update-calendar-email">
+                                                <a href="javascript:void(0);" class="t-btn-gray t-btn-big">Update</a>
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field">
+                                                <label>Container Background Color</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner w40">
+                                                        <div class="wrap-color">
+                                                            <div id="socialContainerBackground" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                        </div>
+                                                        <div class="t-checkbox check-bg-transparent">
+                                                            <label><i class="icn-checkbox"></i><input class="background_transparent" type="checkbox" />Transparent</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>Container Background Image</label>
+                                                <div class="pb-right ">
+                                                    <div class="pb-right__inner pb-box-btn-upload-bg-image pb-box-btn-upload-bg-image--none">
+                                                        <a href="javascript:void(0);" class="t-btn-gray pb-btn-upload-bg-image">Upload Image</a>
+                                                        <a href="javascript:void(0);" class="pb-image__link-free-image">Unsplash</a>
+                                                        <div class="pb-unload-bg-image">
+                                                            <span class="pb-unload-bg-image__title">icon svg</span>
+                                                            <span class="pb-unload-bg-image__remove"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Container Border</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <label class="pb-label--left">Type</label>
+                                                        <select id="socialContainerBorderType">
+                                                            <option value="None">None</option>
+                                                            <option value="Solid" selected="selected">Solid</option>
+                                                            <option value="Dashed">Dashed</option>
+                                                            <option value="Dotted">Dotted</option>
+                                                            <option value="Double">Double</option>
+                                                            <option value="Groove">Groove</option>
+                                                            <option value="Ridge">Ridge</option>
+                                                            <option value="Inset">Inset</option>
+                                                            <option value="Outset">Outset</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="pb-wrap-right">
+                                                        <div class="pb-right__inner w40">
+                                                            <label>Width</label>
+                                                            <input type="text" class="txt-field touch-spin" id="socialContainerBorderWidth" />
+                                                        </div>
+                                                        <div class="pb-right__inner w40">
+                                                            <label>Color</label>
+                                                            <div class="wrap-color">
+                                                                <div id="socialContainerBorderColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--large">
+                                                <label>Buttons Background Color</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner w40">
+                                                        <div class="wrap-color">
+                                                            <div id="socialButtonBackground" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Buttons Border</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <label class="pb-label--left">Type</label>
+                                                        <select id="socialButtonBorderType">
+                                                            <option value="None">None</option>
+                                                            <option value="Solid" selected="selected">Solid</option>
+                                                            <option value="Dashed">Dashed</option>
+                                                            <option value="Dotted">Dotted</option>
+                                                            <option value="Double">Double</option>
+                                                            <option value="Groove">Groove</option>
+                                                            <option value="Ridge">Ridge</option>
+                                                            <option value="Inset">Inset</option>
+                                                            <option value="Outset">Outset</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="pb-wrap-right">
+                                                        <div class="pb-right__inner w40">
+                                                            <label>Width</label>
+                                                            <input type="text" class="txt-field touch-spin" id="socialButtonBorderWidth" />
+                                                        </div>
+                                                        <div class="pb-right__inner w40">
+                                                            <label>Color</label>
+                                                            <div class="wrap-color">
+                                                                <div id="socialButtonBorderColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--large">
+                                                <label>Buttons Border Radius</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner w40">
+                                                        <input type="text" class="txt-field touch-spin" id="socialButtonBorderRadius" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Font</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <label class="pb-label--left">Typeface</label>
+                                                        <select id="socialButtonTypeFace" class="cf-select-font-name">
+                                                            <option standard_font='1' value="Arial">Arial</option>
+                                                            <option standard_font='1' value="Comic Sans MS">Comic Sans MS</option>
+                                                            <option standard_font='1' value="Courier New">Courier New</option>
+                                                            <option standard_font='1' value="Georgia">Georgia</option>
+                                                            <option standard_font='1' value="Lucida Sans Unicode">Lucida</option>
+                                                            <option standard_font='1' value="Roboto">Roboto</option>
+                                                            <option standard_font='1' value="Tahoma">Tahoma</option>
+                                                            <option standard_font='1' value="Times New Roman">Times New Roman</option>
+                                                            <option standard_font='1' value="Trebuchet MS">Trebuchet MS</option>
+                                                            <option standard_font='1' value="Verdana">Verdana</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="pb-wrap-right">
+                                                        <div class="pb-right__inner wFull">
+                                                            <label class="pb-label--left">Weight</label>
+                                                            <select id="socialButtonWeight">
+                                                                <option value="Normal">Normal</option>
+                                                                <option value="Bold">Bold</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pb-wrap-right">
+                                                        <div class="pb-right__inner w70">
+                                                            <label class="pb-label--left">Size</label>
+                                                            <select id="socialButtonSize">
+                                                                <option value="9">9px</option>
+                                                                <option value="10">10px</option>
+                                                                <option value="11">11px</option>
+                                                                <option value="12">12px</option>
+                                                                <option value="13">13px</option>
+                                                                <option value="14" selected>14px</option>
+                                                                <option value="16">16px</option>
+                                                                <option value="18">18px</option>
+                                                                <option value="20">20px</option>
+                                                                <option value="24">24px</option>
+                                                                <option value="30">30px</option>
+                                                                <option value="36">36px</option>
+                                                                <option value="48">48px</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="pb-right__inner w40">
+                                                            <label>Color</label>
+                                                            <div class="wrap-color">
+                                                                <div id="socialButtonTextColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field ">
+                                                <label>Line Height</label>
+                                                <div class="pb-right ">
+                                                    <div class="pb-right__inner wFull ">
+                                                        <select class="lineHeight" id="socialButtonLineHeight">
+                                                            <option value="None">Not Specified</option>
+                                                            <option value="100">Normal</option>
+                                                            <option value="125">Slight</option>
+                                                            <option value="150">1 1/2 Spacing</option>
+                                                            <option value="200">Double Space</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field">
+                                                <label>Align</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <select id="socialBtnAlign">
+                                                            <option value="0">Left</option>
+                                                            <option value="1">Center</option>
+                                                            <option value="2">Right</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Width</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <select id="socialBtnWidth">
+                                                            <option value="0">Fit To Size</option>
+                                                            <option value="1">Full Width</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--social-btn-display">
+                                                <label>Display</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <select id="socialBtnDisplay">
+                                                            <option value="0">Icon only</option>
+                                                            <option value="1">Text only</option>
+                                                            <option value="2">Both icon and text</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>Layout</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <ul class="pb-layout-social pb-layout-social--icn-text-share clearfix">
+                                                            <li class="pb-layout-social__item l-1 pb-layout-social__item--selected">
+                                                                <img src="imgs/imgs_email_builder/social_btns/social-it-iv-r.png" />
+                                                            </li>
+                                                            <li class="pb-layout-social__item l-2">
+                                                                <img src="imgs/imgs_email_builder/social_btns/social-it-ih-r.png" />
+                                                            </li>
+                                                        </ul>
+                                                        <ul class="pb-layout-social pb-layout-social--icn-only clearfix">
+                                                            <li class="pb-layout-social__item l-1">
+                                                                <img src="imgs/imgs_email_builder/social_btns/social_i_sv_r.png" />
+                                                            </li>
+                                                            <li class="pb-layout-social__item l-2">
+                                                                <img src="imgs/imgs_email_builder/social_btns/social_i_iv_r.png" />
+                                                            </li>
+                                                            <li class="pb-layout-social__item l-3">
+                                                                <img src="imgs/imgs_email_builder/social_btns/social_i_ih_r.png" />
+                                                            </li>
+                                                            <li class="pb-layout-social__item l-4">
+                                                                <img src="imgs/imgs_email_builder/social_btns/social_i_sh_r.png" />
+                                                            </li>
+                                                        </ul>
+                                                        <ul class="pb-layout-social pb-layout-social--text-only clearfix">
+                                                            <li class="pb-layout-social__item l-1">
+                                                                <img src="imgs/imgs_email_builder/social_btns/social-t-iv-r.png" />
+                                                            </li>
+                                                            <li class="pb-layout-social__item l-2">
+                                                                <img src="imgs/imgs_email_builder/social_btns/social-t-ih-r.png" />
+                                                            </li>
+                                                        </ul>
+                                                        <ul class="pb-layout-social pb-layout-social--icn-text clearfix">
+                                                            <li class="pb-layout-social__item l-1">
+                                                                <img src="imgs/imgs_email_builder/social_btns/social-it-sv-r.png" />
+                                                            </li>
+                                                            <li class="pb-layout-social__item l-2">
+                                                                <img src="imgs/imgs_email_builder/social_btns/social-it-iv-r.png" />
+                                                            </li>
+                                                            <li class="pb-layout-social__item l-3">
+                                                                <img src="imgs/imgs_email_builder/social_btns/social-it-ih-r.png" />
+                                                            </li>
+                                                            <li class="pb-layout-social__item l-4">
+                                                                <img src="imgs/imgs_email_builder/social_btns/social-it-sh-r.png" />
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>Icon Style</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <ul class="pb-social-style-icn clearfix">
+                                                            <li class="clearfix pb-social-style-icn__item pb-social-style-icn__item--selected">
+                                                                <img src="imgs/imgs_email_builder/social_btns/black/fb.png" />
+                                                                <img src="imgs/imgs_email_builder/social_btns/black/tw.png" />
+                                                                <img src="imgs/imgs_email_builder/social_btns/black/in.png" />
+                                                                <img src="imgs/imgs_email_builder/social_btns/black/pinterest.png" />
+                                                                <img class="pb-icn-share" src="imgs/imgs_email_builder/social_btns/black/forward.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/black/youtube.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/black/inst.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/black/vimeo.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/black/rss.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/black/email.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/black/website.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/black/google.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/black/outlook.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/black/outlook_online.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/black/icalendar.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/black/yahoo.png" />
+                                                            </li>
+                                                            <li class="pb-social-style-icn__item clearfix">
+                                                                <img src="imgs/imgs_email_builder/social_btns/black_border/fb.png" />
+                                                                <img src="imgs/imgs_email_builder/social_btns/black_border/tw.png" />
+                                                                <img src="imgs/imgs_email_builder/social_btns/black_border/in.png" />
+                                                                <img src="imgs/imgs_email_builder/social_btns/black_border/pinterest.png" />
+                                                                <img class="eb-icn-share" src="imgs/imgs_email_builder/social_btns/black_border/forward.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/black_border/youtube.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/black_border/inst.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/black_border/vimeo.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/black_border/rss.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/black_border/email.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/black_border/website.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/black_border/google.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/black_border/outlook.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/black_border/outlook_online.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/black_border/icalendar.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/black_border/yahoo.png" />
+                                                            </li>
+                                                            <li class="pb-social-style-icn__item clearfix">
+                                                                <img src="imgs/imgs_email_builder/social_btns/border/fb.png" />
+                                                                <img src="imgs/imgs_email_builder/social_btns/border/tw.png" />
+                                                                <img src="imgs/imgs_email_builder/social_btns/border/in.png" />
+                                                                <img src="imgs/imgs_email_builder/social_btns/border/pinterest.png" />
+                                                                <img class="pb-icn-share" src="imgs/imgs_email_builder/social_btns/border/forward.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/border/youtube.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/border/inst.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/border/vimeo.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/border/rss.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/border/email.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/border/website.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/border/google.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/border/outlook.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/border/outlook_online.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/border/icalendar.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/border/yahoo.png" />
+                                                            </li>
+                                                            <li class="pb-social-style-icn__item clearfix">
+                                                                <img src="imgs/imgs_email_builder/social_btns/color/fb.png" />
+                                                                <img src="imgs/imgs_email_builder/social_btns/color/tw.png" />
+                                                                <img src="imgs/imgs_email_builder/social_btns/color/in.png" />
+                                                                <img src="imgs/imgs_email_builder/social_btns/color/pinterest.png" />
+                                                                <img class="pb-icn-share" src="imgs/imgs_email_builder/social_btns/color/forward.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/color/youtube.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/color/inst.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/color/vimeo.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/color/rss.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/color/email.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/color/website.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/color/google.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/color/outlook.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/color/outlook_online.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/color/icalendar.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/color/yahoo.png" />
+                                                            </li>
+                                                            <li class="pb-social-style-icn__item clearfix">
+                                                                <img src="imgs/imgs_email_builder/social_btns/gray/fb.png" />
+                                                                <img src="imgs/imgs_email_builder/social_btns/gray/tw.png" />
+                                                                <img src="imgs/imgs_email_builder/social_btns/gray/in.png" />
+                                                                <img src="imgs/imgs_email_builder/social_btns/gray/pinterest.png" />
+                                                                <img class="pb-icn-share" src="imgs/imgs_email_builder/social_btns/gray/forward.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/gray/youtube.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/gray/inst.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/gray/vimeo.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/gray/rss.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/gray/email.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/gray/website.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/gray/google.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/gray/outlook.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/gray/outlook_online.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/gray/icalendar.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/gray/yahoo.png" />
+                                                            </li>
+                                                            <li class="pb-social-style-icn__item clearfix pb-social-style-icn__item--white">
+                                                                <img src="imgs/imgs_email_builder/social_btns/white/fb.png" />
+                                                                <img src="imgs/imgs_email_builder/social_btns/white/tw.png" />
+                                                                <img src="imgs/imgs_email_builder/social_btns/white/in.png" />
+                                                                <img src="imgs/imgs_email_builder/social_btns/white/pinterest.png" />
+                                                                <img class="pb-icn-share" src="imgs/imgs_email_builder/social_btns/white/forward.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/white/youtube.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/white/inst.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/white/vimeo.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/white/rss.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/white/email.png" />
+                                                                <img class="pb-icn-follow" src="imgs/imgs_email_builder/social_btns/white/website.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/white/google.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/white/outlook.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/white/outlook_online.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/white/icalendar.png" />
+                                                                <img class="pb-icn-calendar" src="imgs/imgs_email_builder/calendar_btns/white/yahoo.png" />
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>Responsive Options</label>
+                                                <div class="pb-right__inner">
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isDesktop-social-calendar-btns" name="switch-isDesktop-social-calendar-btns" checked value="on" class="switch-isDesktop cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isDesktop-social-calendar-btns"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Desktop</div>
+                                                    </div>
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isTablet-social-calendar-btns" name="switch-isTablet-social-calendar-btns" checked value="on" class="switch-isTablet cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isTablet-social-calendar-btns"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Tablet</div>
+                                                    </div>
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isMobile-social-calendar-btns" name="switch-isMobile-social-calendar-btns" checked value="on" class="switch-isMobile cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isMobile-social-calendar-btns"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Mobile</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-settings-panel" id="pb-panel__slideshow">
+                                <div class="pb-settings-panel__header">
+                                    <span class="pb-settings-panel__header-text">Slideshow</span>
+                                    <a href="javascript:void(0);" class="pb-settings-panel__savecancel">Save</a>
+                                </div>
+                                <div class="pb-settings-panel__content">
+                                    <div class="pb-wrap-tabs-panel">
+                                        <div class="pb-tabs-panel">
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--selected pb-tabs-panel__tab--content">
+                                                <i class="icn"></i>
+                                                Content
+                                            </div>
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--style">
+                                                <i class="icn"></i>
+                                                Style
+                                            </div>
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--settings">
+                                                <i class="icn"></i>
+                                                Settings
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <ul class="pb-list-image pb-list-image--slideshow">
+
+                                            </ul>
+                                            <div class="pb-add-slide">
+                                                <img src="imgs/imgs_email_builder/icn_add.png"> Add Slide
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="">
+                                                <div class="pb-field">
+                                                    <label>Background Color</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner w40">
+                                                            <div class="wrap-color">
+                                                                <div id="slideshowBackground" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                            </div>
+                                                            <div class="t-checkbox check-bg-transparent">
+                                                                <label><i class="icn-checkbox"></i><input class="background_transparent" type="checkbox" />Transparent</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field pb-field--vertical">
+                                                    <label>Background Image</label>
+                                                    <div class="pb-right ">
+                                                        <div class="pb-right__inner pb-box-btn-upload-bg-image pb-box-btn-upload-bg-image--none">
+                                                            <a href="javascript:void(0);" class="t-btn-gray pb-btn-upload-bg-image">Upload Image</a>
+                                                            <a href="javascript:void(0);" class="pb-image__link-free-image">Unsplash</a>
+                                                            <div class="pb-unload-bg-image">
+                                                                <span class="pb-unload-bg-image__title">icon svg</span>
+                                                                <span class="pb-unload-bg-image__remove"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field">
+                                                    <label>Arrows Color</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner w40">
+                                                            <div class="wrap-color">
+                                                                <div id="slideshowArrowsColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field">
+                                                    <label>Dots Color</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner w40">
+                                                            <div class="wrap-color">
+                                                                <div id="slideshowDotsColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field">
+                                                    <label>Border</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner wFull">
+                                                            <label class="pb-label--left">Type</label>
+                                                            <select id="slideshowBorderType">
+                                                                <option value="None">None</option>
+                                                                <option value="Solid" selected="selected">Solid</option>
+                                                                <option value="Dashed">Dashed</option>
+                                                                <option value="Dotted">Dotted</option>
+                                                                <option value="Double">Double</option>
+                                                                <option value="Groove">Groove</option>
+                                                                <option value="Ridge">Ridge</option>
+                                                                <option value="Inset">Inset</option>
+                                                                <option value="Outset">Outset</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="pb-wrap-right">
+                                                            <div class="pb-right__inner w40">
+                                                                <label>Width</label>
+                                                                <input type="text" class="txt-field touch-spin" id="slideshowBorderWidth" />
+                                                            </div>
+                                                            <div class="pb-right__inner w40">
+                                                                <label>Color</label>
+                                                                <div class="wrap-color">
+                                                                    <div id="slideshowBorderColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field">
+                                                <label>Width</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-width" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Max Width</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-max-width" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Height</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-px">
+                                                        <label class="pb-label--left">Desktop</label>
+                                                        <input type="text" class="txt-field touch-spin-slideshow-height" id="slideshowHeight" />
+                                                        <span class="pb-field-px__label">px</span>
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-px pb-field-mt20">
+                                                        <label class="pb-label--left">Tablet</label>
+                                                        <input type="text" class="txt-field touch-spin-slideshow-height" id="slideshowHeightTablet" />
+                                                        <span class="pb-field-px__label">px</span>
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-px pb-field-mt20">
+                                                        <label class="pb-label--left">Mobile</label>
+                                                        <input type="text" class="txt-field touch-spin-slideshow-height" id="slideshowHeightMobile" />
+                                                        <span class="pb-field-px__label">px</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Mode</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <select id="slideshowMode">
+                                                            <option value="auto">Auto</option>
+                                                            <option value="cover" selected="selected">Cover</option>
+                                                            <option value="contain">Contain</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field slideshow-position-image">
+                                                <label>Position Image</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <select id="slideshowPositionImage">
+                                                            <option value="leftTop">Left Top</option>
+                                                            <option value="leftCenter">Left Center</option>
+                                                            <option value="leftBottom">Left Bottom</option>
+                                                            <option value="rightTop">Right Top</option>
+                                                            <option value="rightCenter">Right Center</option>
+                                                            <option value="rightBottom">Right Bottom</option>
+                                                            <option value="centerTop">Center Top</option>
+                                                            <option value="centerCenter" selected="selected">Center Center</option>
+                                                            <option value="centerBottom">Center Bottom</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Margins</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Left</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-left" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Right</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-right" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Top</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-top" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Bottom</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-bottom" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Padding</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Left</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-left" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Right</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-right" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Top</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-top" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Bottom</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-bottom" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>Responsive Options</label>
+                                                <div class="pb-right__inner">
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isDesktop-slideshow" name="switch-isDesktop-slideshow" checked value="on" class="switch-isDesktop cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isDesktop-slideshow"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Desktop</div>
+                                                    </div>
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isTablet-slideshow" name="switch-isTablet-slideshow" checked value="on" class="switch-isTablet cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isTablet-slideshow"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Tablet</div>
+                                                    </div>
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isMobile-slideshow" name="switch-isMobile-slideshow" checked value="on" class="switch-isMobile cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isMobile-slideshow"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Mobile</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-settings-panel" id="pb-panel__vertical-form">
+                                <div class="pb-settings-panel__header">
+                                    <span class="pb-settings-panel__header-text">Vertical Form</span>
+                                    <a href="javascript:void(0);" class="pb-settings-panel__savecancel">Save</a>
+                                </div>
+                                <div class="pb-settings-panel__content">
+                                    <div class="pb-wrap-tabs-panel">
+                                        <div class="pb-tabs-panel">
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--style">
+                                                <i class="icn"></i>
+                                                Style
+                                            </div>
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--settings">
+                                                <i class="icn"></i>
+                                                Settings
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field">
+                                                <label>Background Color</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner w40">
+                                                        <div class="wrap-color">
+                                                            <div id="formBackground" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                        </div>
+                                                        <div class="t-checkbox check-bg-transparent">
+                                                            <label><i class="icn-checkbox"></i><input class="background_transparent" type="checkbox" />Transparent</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>Background Image</label>
+                                                <div class="pb-right ">
+                                                    <div class="pb-right__inner pb-box-btn-upload-bg-image pb-box-btn-upload-bg-image--none">
+                                                        <a href="javascript:void(0);" class="t-btn-gray pb-btn-upload-bg-image">Upload Image</a>
+                                                        <a href="javascript:void(0);" class="pb-image__link-free-image">Unsplash</a>
+                                                        <div class="pb-unload-bg-image">
+                                                            <span class="pb-unload-bg-image__title">icon svg</span>
+                                                            <span class="pb-unload-bg-image__remove"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field ">
+                                                <label>Color</label>
+                                                <div class="pb-right ">
+                                                    <div class="pb-right__inner w40">
+                                                        <div class="wrap-color">
+                                                            <div id="formColor" style="background-color: #333333;" class="color-box" data-color-start="333333"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Border</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <label class="pb-label--left">Type</label>
+                                                        <select id="formBorderType">
+                                                            <option value="None">None</option>
+                                                            <option value="Solid" selected="selected">Solid</option>
+                                                            <option value="Dashed">Dashed</option>
+                                                            <option value="Dotted">Dotted</option>
+                                                            <option value="Double">Double</option>
+                                                            <option value="Groove">Groove</option>
+                                                            <option value="Ridge">Ridge</option>
+                                                            <option value="Inset">Inset</option>
+                                                            <option value="Outset">Outset</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="pb-wrap-right">
+                                                        <div class="pb-right__inner w40">
+                                                            <label>Width</label>
+                                                            <input type="text" class="txt-field touch-spin" id="formBorderWidth" />
+                                                        </div>
+                                                        <div class="pb-right__inner w40">
+                                                            <label>Color</label>
+                                                            <div class="wrap-color">
+                                                                <div id="formBorderColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Border Radius</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner w40">
+                                                        <input type="text" class="txt-field touch-spin" id="formBorderRadius" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field ">
+                                                <label>Font</label>
+                                                <div class="pb-right ">
+                                                    <div class="pb-right__inner wFull ">
+	                                                    <label class="pb-label--left">Typeface</label>
+                                                        <select id="formTypeFace" class="cf-select-font-name">
+                                                            <option standard_font='1' value="None">None</option>
+                                                            <option standard_font='1' value="Arial">Arial</option>
+                                                            <option standard_font='1' value="Comic Sans MS">Comic Sans MS</option>
+                                                            <option standard_font='1' value="Courier New">Courier New</option>
+                                                            <option standard_font='1' value="Georgia">Georgia</option>
+                                                            <option standard_font='1' value="Lucida Sans Unicode">Lucida</option>
+                                                            <option standard_font='1' value="Roboto">Roboto</option>
+                                                            <option standard_font='1' value="Tahoma">Tahoma</option>
+                                                            <option standard_font='1' value="Times New Roman">Times New Roman</option>
+                                                            <option standard_font='1' value="Trebuchet MS">Trebuchet MS</option>
+                                                            <option standard_font='1' value="Verdana">Verdana</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field ">
+                                                <label>Weight</label>
+                                                <div class="pb-right ">
+                                                    <div class="pb-right__inner wFull ">
+                                                        <select id="formFontWeight">
+                                                            <option value="None">None</option>
+                                                            <option value="Normal">Normal</option>
+                                                            <option value="Bold">Bold</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field ">
+                                                <label>Size</label>
+                                                <div class="pb-right ">
+                                                    <div class="pb-right__inner w80 ">
+                                                        <select id="formFontSize">
+                                                            <option value="None">None</option>
+                                                            <option value="9">9px</option>
+                                                            <option value="10">10px</option>
+                                                            <option value="11">11px</option>
+                                                            <option value="12">12px</option>
+                                                            <option value="13">13px</option>
+                                                            <option value="14" selected>14px</option>
+                                                            <option value="16">16px</option>
+                                                            <option value="18">18px</option>
+                                                            <option value="20">20px</option>
+                                                            <option value="24">24px</option>
+                                                            <option value="30">30px</option>
+                                                            <option value="36">36px</option>
+                                                            <option value="48">48px</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field ">
+                                                <label>Line Height</label>
+                                                <div class="pb-right ">
+                                                    <div class="pb-right__inner wFull ">
+                                                        <select class="lineHeight" id="formLineHeight">
+                                                            <option value="None">Not Specified</option>
+                                                            <option value="100">Normal</option>
+                                                            <option value="125">Slight</option>
+                                                            <option value="150">1 1/2 Spacing</option>
+                                                            <option value="200">Double Space</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field ">
+                                                <label>Align</label>
+                                                <div class="pb-right ">
+                                                    <div class="pb-right__inner wFull ">
+                                                        <ul class="pb-text-align" id="formAlign">
+                                                            <li data-indx="0" class="pb-text-align--alg-left "></li>
+                                                            <li data-indx="1" class="pb-text-align--alg-center "></li>
+                                                            <li data-indx="2" class="pb-text-align--alg-right "></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field" id="form_identifier">
+                                                <label>Identifier</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field form_identifier" readonly/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Success Message</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <textarea class="txt-field success_message">Thanks for subscribing! We look forward to communicating with you.</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Redirect URL</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field redirect_url" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Width</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-width" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Max Width</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-max-width" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Margins</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Left</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-left" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Right</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-right" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Top</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-top" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Bottom</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-bottom" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Padding</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Left</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-left" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Right</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-right" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Top</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-top" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Bottom</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-bottom" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>Responsive Options</label>
+                                                <div class="pb-right__inner">
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isDesktop-vertical-form" name="switch-isDesktop-vertical-form" checked value="on" class="switch-isDesktop cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isDesktop-vertical-form"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Desktop</div>
+                                                    </div>
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isTablet-vertical-form" name="switch-isTablet-vertical-form" checked value="on" class="switch-isTablet cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isTablet-vertical-form"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Tablet</div>
+                                                    </div>
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isMobile-vertical-form" name="switch-isMobile-vertical-form" checked value="on" class="switch-isMobile cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isMobile-vertical-form"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Mobile</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-settings-panel" id="pb-panel__custom-form">
+                                <div class="pb-settings-panel__header">
+                                    <span class="pb-settings-panel__header-text">Custom Form</span>
+                                    <a href="javascript:void(0);" class="pb-settings-panel__savecancel">Save</a>
+                                </div>
+                                <div class="pb-settings-panel__content">
+                                    <div class="pb-wrap-tabs-panel">
+                                        <div class="pb-tabs-panel">
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--settings">
+                                                <i class="icn"></i>
+                                                Settings
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field">
+                                                <label>Width</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-width" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Max Width</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-max-width" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Margins</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Left</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-left" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Right</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-right" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Top</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-top" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Bottom</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-bottom" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Padding</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Left</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-left" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Right</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-right" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Top</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-top" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Bottom</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-bottom" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>Responsive Options</label>
+                                                <div class="pb-right__inner">
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isDesktop-custom-form" name="switch-isDesktop-custom-form" checked value="on" class="switch-isDesktop cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isDesktop-custom-form"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Desktop</div>
+                                                    </div>
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isTablet-custom-form" name="switch-isTablet-custom-form" checked value="on" class="switch-isTablet cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isTablet-custom-form"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Tablet</div>
+                                                    </div>
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isMobile-custom-form" name="switch-isMobile-custom-form" checked value="on" class="switch-isMobile cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isMobile-custom-form"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Mobile</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-settings-panel" id="pb-panel__activation">
+                                <div class="pb-settings-panel__header">
+                                    <span class="pb-settings-panel__header-text">Activation</span>
+                                    <a href="javascript:void(0);" class="pb-settings-panel__savecancel">Save</a>
+                                </div>
+                                <div class="pb-settings-panel__content">
+                                    <div class="pb-wrap-tabs-panel">
+                                        <div class="pb-tabs-panel">
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--settings">
+                                                <i class="icn"></i>
+                                                Settings
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field">
+                                                <label>Width</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-width" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Max Width</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-max-width" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Margins</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Left</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-left" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Right</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-right" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Top</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-top" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Bottom</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-bottom" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Padding</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Left</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-left" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Right</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-right" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Top</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-top" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Bottom</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-bottom" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-settings-panel" id="pb-panel__field">
+                                <div class="pb-settings-panel__header">
+                                    <span class="pb-settings-panel__header-text">Field</span>
+                                    <a href="javascript:void(0);" class="pb-settings-panel__savecancel">Save</a>
+                                </div>
+                                <div class="pb-settings-panel__content">
+                                    <div class="pb-wrap-tabs-panel">
+                                        <div class="pb-tabs-panel">
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--content">
+                                                <i class="icn"></i>
+                                                Content
+                                            </div>
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--style">
+                                                <i class="icn"></i>
+                                                Style
+                                            </div>
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--settings">
+                                                <i class="icn"></i>
+                                                Settings
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>Placeholder</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <input type="text" class="txt-field" id="fieldPlaceholder" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <div class="ll-switch switch-small">
+                                                            <div class="switch">
+                                                                <input id="field_hide" name="field_hide" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                                                                <label for="field_hide"></label>
+                                                            </div>
+                                                            <div class="ll-switch-lb">
+                                                                Hide
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field">
+                                                <label>Background Color</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner w40">
+                                                        <div class="wrap-color">
+                                                            <div id="fieldBackground" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Border</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <label class="pb-label--left">Type</label>
+                                                        <select id="fieldBorderType">
+                                                            <option value="None">None</option>
+                                                            <option value="Solid" selected="selected">Solid</option>
+                                                            <option value="Dashed">Dashed</option>
+                                                            <option value="Dotted">Dotted</option>
+                                                            <option value="Double">Double</option>
+                                                            <option value="Groove">Groove</option>
+                                                            <option value="Ridge">Ridge</option>
+                                                            <option value="Inset">Inset</option>
+                                                            <option value="Outset">Outset</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="pb-wrap-right">
+                                                        <div class="pb-right__inner w40">
+                                                            <label>Width</label>
+                                                            <input type="text" class="txt-field touch-spin" id="fieldBorderWidth" />
+                                                        </div>
+                                                        <div class="pb-right__inner w40">
+                                                            <label>Color</label>
+                                                            <div class="wrap-color">
+                                                                <div id="fieldBorderColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Border Radius</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner w40">
+                                                        <input type="text" class="txt-field touch-spin" id="fieldBorderRadius" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Font</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <label class="pb-label--left">Typeface</label>
+                                                        <select id="fieldTypeFace" class="cf-select-font-name">
+                                                            <option standard_font='1' value="None">None</option>
+                                                            <option standard_font='1' value="Arial">Arial</option>
+                                                            <option standard_font='1' value="Comic Sans MS">Comic Sans MS</option>
+                                                            <option standard_font='1' value="Courier New">Courier New</option>
+                                                            <option standard_font='1' value="Georgia">Georgia</option>
+                                                            <option standard_font='1' value="Lucida Sans Unicode">Lucida</option>
+                                                            <option standard_font='1' value="Roboto">Roboto</option>
+                                                            <option standard_font='1' value="Tahoma">Tahoma</option>
+                                                            <option standard_font='1' value="Times New Roman">Times New Roman</option>
+                                                            <option standard_font='1' value="Trebuchet MS">Trebuchet MS</option>
+                                                            <option standard_font='1' value="Verdana">Verdana</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="pb-wrap-right">
+                                                        <div class="pb-right__inner w75">
+                                                            <label class="pb-label--left">Size</label>
+                                                            <select id="fieldFontSize">
+                                                                <option value="None">None</option>
+                                                                <option value="9">9px</option>
+                                                                <option value="10">10px</option>
+                                                                <option value="11">11px</option>
+                                                                <option value="12">12px</option>
+                                                                <option value="13">13px</option>
+                                                                <option value="14" selected>14px</option>
+                                                                <option value="16">16px</option>
+                                                                <option value="18">18px</option>
+                                                                <option value="20">20px</option>
+                                                                <option value="24">24px</option>
+                                                                <option value="30">30px</option>
+                                                                <option value="36">36px</option>
+                                                                <option value="48">48px</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="pb-right__inner w40">
+                                                            <label>Color</label>
+                                                            <div class="wrap-color">
+                                                                <div id="fieldTextColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Padding</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner w50">
+                                                        <label class="pb-label--left">Left/Right</label>
+                                                        <input type="text" class="txt-field touch-spin" id="fieldPaddingX" />
+                                                    </div>
+                                                    <div class="pb-right__inner w50">
+                                                        <label class="pb-label--left">Top/Bottom</label>
+                                                        <input type="text" class="txt-field touch-spin" id="fieldPaddingY" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <!--
+                                            <div class="pb-field">
+                                                <label>Type</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <select id="fieldType">
+                                                            <option value="name">Name</option>
+                                                            <option value="email">Email</option>
+                                                            //<option value="password">Password</option>
+                                                            //<option value="hidden">Hidden</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            -->
+                                            <div class="pb-field">
+                                                <label>Width</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-width" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Max Width</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-max-width" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Margins</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Left</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-left" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Right</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-right" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Top</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-top" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Bottom</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-bottom" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Padding</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Left</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-left" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Right</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-right" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Top</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-top" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Bottom</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-bottom" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>Responsive Options</label>
+                                                <div class="pb-right__inner">
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isDesktop-field" name="switch-isDesktop-field" checked value="on" class="switch-isDesktop cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isDesktop-field"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Desktop</div>
+                                                    </div>
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isTablet-field" name="switch-isTablet-field" checked value="on" class="switch-isTablet cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isTablet-field"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Tablet</div>
+                                                    </div>
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isMobile-field" name="switch-isMobile-field" checked value="on" class="switch-isMobile cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isMobile-field"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Mobile</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-settings-panel" id="pb-panel__icon">
+                                <div class="pb-settings-panel__header">
+                                    <span class="pb-settings-panel__header-text">Icon</span>
+                                    <a href="javascript:void(0);" class="pb-settings-panel__savecancel">Save</a>
+                                </div>
+                                <div class="pb-settings-panel__content">
+                                    <div class="pb-wrap-tabs-panel">
+                                        <div class="pb-tabs-panel">
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--content pb-tabs-panel__tab--selected">
+                                                <i class="icn"></i>
+                                                Content
+                                            </div>
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--style">
+                                                <i class="icn"></i>
+                                                Style
+                                            </div>
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--settings">
+                                                <i class="icn"></i>
+                                                Settings
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field">
+                                                <div class="pb-field pb-field--vertical" id="icon_link_to">
+                                                    <label>Link To</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner wFull">
+                                                            <select id="iconLinkTo">
+                                                                <option value="none">None</option>
+                                                                <option value="url">Web Address</option>
+                                                                <option value="email">Email Address</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field pb-field--vertical" id="icon_view">
+                                                    <label>View</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner wFull">
+                                                            <select id="iconView">
+                                                                <option value="same">Same Page</option>
+                                                                <option value="tab">New Tab</option>
+                                                                <option value="modal">Modal</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field pb-field--vertical" id="icon_url">
+                                                    <label class="icon_text">Web Address (URL)</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner wFull">
+                                                            <input type="text" class="txt-field" id="iconUrl" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-modal-settings">
+                                                    <div class="list-elements__h">Modal</div>
+                                                    <div class="pb-field">
+                                                        <label>Style</label>
+                                                        <div class="pb-right">
+                                                            <div class="pb-right__inner w60 pb-field-px">
+                                                                <label class="pb-label--left">Width</label>
+                                                                <input type="text" class="txt-field touch-spin-auto modalWidth"/>
+                                                            </div>
+                                                            <div class="pb-right__inner w60 pb-field-px">
+                                                                <label class="pb-label--left">Height</label>
+                                                                <input type="text" class="txt-field touch-spin-auto modalHeight"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pb-field pb-field--vertical pb-field-modal-position">
+                                                        <label>Modal Position</label>
+                                                        <div class="pb-right">
+                                                            <div class="pb-right__inner wFull">
+                                                                <select class="pb-modal-position">
+                                                                    <option value="top">Top</option>
+                                                                    <option value="middle">Middle</option>
+                                                                    <option value="bottom">Bottom</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pb-field pb-filed-modal-bg-opacity">
+                                                        <label>Background Opacity</label>
+                                                        <div class="pb-right">
+                                                            <div class="pb-right__inner pb-field-px">
+                                                                <input type="text" class="txt-field touch-spin modalBgOpacity" />
+                                                                <span class="pb-field-px__label">%</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pb-field pb-field--vertical pb-field-modal-content">
+                                                        <label>Content</label>
+                                                        <div class="pb-right">
+                                                            <div class="pb-right__inner wFull">
+                                                                <select class="pb-modal-content">
+                                                                    <option value="html">HTML</option>
+                                                                    <option value="iframe">iFrame</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pb-field pb-field--vertical pb-field-modal-iframe-url">
+                                                        <label>iFrame (URL)</label>
+                                                        <div class="pb-right">
+                                                            <div class="pb-right__inner wFull">
+                                                                <input type="text" class="txt-field pb-modal-iframe-url" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pb-field pb-field--vertical pb-field-modal-iframe-loading">
+                                                        <label>Load iFrame With</label>
+                                                        <div class="pb-right">
+                                                            <div class="pb-right__inner wFull">
+                                                                <select class="pb-modal-iframe-loading">
+                                                                    <option value="page">Page Load</option>
+                                                                    <option value="popup">Popup Open</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pb-field pb-field--vertical pb-field-modal-html">
+                                                        <label>HTML</label>
+                                                        <div class="pb-right">
+                                                            <div class="pb-right__inner wFull">
+                                                                <textarea class="pb-modal-html"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field">
+                                                <label>Color</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner w40">
+                                                        <div class="wrap-color">
+                                                            <div id="iconColor" style="background-color: #333333;" class="color-box" data-color-start="333333"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field">
+                                                <label>Width</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-width" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Height</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" id="iconHeight" class="txt-field pb-input-css" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Margins</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Left</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-left" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Right</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-right" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Top</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-top" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Bottom</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-bottom" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>Responsive Options</label>
+                                                <div class="pb-right__inner">
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isDesktop-icon" name="switch-isDesktop-icon" checked value="on" class="switch-isDesktop cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isDesktop-icon"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Desktop</div>
+                                                    </div>
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isTablet-icon" name="switch-isTablet-icon" checked value="on" class="switch-isTablet cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isTablet-icon"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Tablet</div>
+                                                    </div>
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isMobile-icon" name="switch-isMobile-icon" checked value="on" class="switch-isMobile cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isMobile-icon"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Mobile</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--<div class="pb-field">
+                                                <label>Padding</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Left</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-left" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Right</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-right" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Top</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-top" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Bottom</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-bottom" />
+                                                    </div>
+                                                </div>
+                                            </div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-settings-panel" id="pb-panel__nav-items">
+                                <div class="pb-settings-panel__header">
+                                    <span class="pb-settings-panel__header-text">Items</span>
+                                    <a href="javascript:void(0);" class="pb-settings-panel__savecancel">Save</a>
+                                </div>
+                                <div class="pb-settings-panel__content">
+                                    <div class="pb-wrap-tabs-panel">
+                                        <div class="pb-tabs-panel">
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--content pb-tabs-panel__tab--selected">
+                                                <i class="icn"></i>
+                                                Content
+                                            </div>
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--style pb-tabs-panel__tab--selected">
+                                                <i class="icn"></i>
+                                                Style
+                                            </div>
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--settings">
+                                                <i class="icn"></i>
+                                                Settings
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="t-btn-gray pb-btn-open-menu">Open Menu</div>
+                                            <div class="clearfix">
+                                                <div class="pb-wrap-btn-item">
+                                                    <div class="t-btn-gray pb-btn-add-menu-item">Add Menu Item</div>
+                                                </div>
+                                                <div class="pb-wrap-btn-item">
+                                                    <div class="t-btn-gray pb-btn-delete-menu-item">Delete Item</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="">
+                                                <div class="pb-field ">
+                                                    <label>Background Color</label>
+                                                    <div class="pb-right ">
+                                                        <div class="pb-right__inner w40">
+                                                            <div class="wrap-color">
+                                                                <div id="itemsBackground" style="background-color: #333333;" class="color-box" data-color-start="333333"></div>
+                                                            </div>
+                                                            <div class="t-checkbox check-bg-transparent">
+                                                                <label><i class="icn-checkbox"></i><input class="background_transparent" type="checkbox" />Transparent</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field pb-field--vertical">
+                                                    <label>Background Image</label>
+                                                    <div class="pb-right ">
+                                                        <div class="pb-right__inner pb-box-btn-upload-bg-image pb-box-btn-upload-bg-image--none">
+                                                            <a href="javascript:void(0);" class="t-btn-gray pb-btn-upload-bg-image">Upload Image</a>
+                                                            <a href="javascript:void(0);" class="pb-image__link-free-image">Unsplash</a>
+                                                            <div class="pb-unload-bg-image">
+                                                                <span class="pb-unload-bg-image__title">icon svg</span>
+                                                                <span class="pb-unload-bg-image__remove"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field ">
+                                                    <label>Color</label>
+                                                    <div class="pb-right ">
+                                                        <div class="pb-right__inner w40">
+                                                            <div class="wrap-color">
+                                                                <div id="itemsColor" style="background-color: #333333;" class="color-box" data-color-start="333333"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field ">
+                                                    <label>Font</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner wFull ">
+                                                            <label class="pb-label--left">Typeface</label>
+                                                            <select id="itemsTypeFace" class="cf-select-font-name">
+                                                                <option standard_font='1' value="None">None</option>
+                                                                <option standard_font='1' value="Arial">Arial</option>
+                                                                <option standard_font='1' value="Comic Sans MS">Comic Sans MS</option>
+                                                                <option standard_font='1' value="Courier New">Courier New</option>
+                                                                <option standard_font='1' value="Georgia">Georgia</option>
+                                                                <option standard_font='1' value="Lucida Sans Unicode">Lucida</option>
+                                                                <option standard_font='1' value="Roboto">Roboto</option>
+                                                                <option standard_font='1' value="Tahoma">Tahoma</option>
+                                                                <option standard_font='1' value="Times New Roman">Times New Roman</option>
+                                                                <option standard_font='1' value="Trebuchet MS">Trebuchet MS</option>
+                                                                <option standard_font='1' value="Verdana">Verdana</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field ">
+                                                    <label>Weight</label>
+                                                    <div class="pb-right ">
+                                                        <div class="pb-right__inner wFull ">
+                                                            <select id="itemsFontWeight">
+                                                                <option value="None">None</option>
+                                                                <option value="Normal">Normal</option>
+                                                                <option value="Bold">Bold</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field ">
+                                                    <label>Size</label>
+                                                    <div class="pb-right ">
+                                                        <div class="pb-right__inner w80 ">
+                                                            <select id="itemsFontSize">
+                                                                <option value="None">None</option>
+                                                                <option value="9">9px</option>
+                                                                <option value="10">10px</option>
+                                                                <option value="11">11px</option>
+                                                                <option value="12">12px</option>
+                                                                <option value="13">13px</option>
+                                                                <option value="14" selected>14px</option>
+                                                                <option value="16">16px</option>
+                                                                <option value="18">18px</option>
+                                                                <option value="20">20px</option>
+                                                                <option value="24">24px</option>
+                                                                <option value="30">30px</option>
+                                                                <option value="36">36px</option>
+                                                                <option value="48">48px</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field ">
+                                                    <label>Line Height</label>
+                                                    <div class="pb-right ">
+                                                        <div class="pb-right__inner wFull ">
+                                                            <select class="lineHeight" id="itemsLineHeight">
+                                                                <option value="None">Not Specified</option>
+                                                                <option value="100">Normal</option>
+                                                                <option value="125">Slight</option>
+                                                                <option value="150">1 1/2 Spacing</option>
+                                                                <option value="200">Double Space</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field ">
+                                                    <label>Align</label>
+                                                    <div class="pb-right ">
+                                                        <div class="pb-right__inner wFull ">
+                                                            <ul class="pb-text-align" id="itemsAlign">
+                                                                <li data-indx="0" class="pb-text-align--alg-left "></li>
+                                                                <li data-indx="1" class="pb-text-align--alg-center "></li>
+                                                                <li data-indx="2" class="pb-text-align--alg-right "></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field">
+                                                <label>Width</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-width" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Max Width</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-max-width" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Margins</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Left</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-left" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Right</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-right" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Top</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-top" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Bottom</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-bottom" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Padding</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Left</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-left" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Right</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-right" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Top</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-top" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Bottom</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-bottom" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>Responsive Options</label>
+                                                <div class="pb-right__inner">
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isDesktop-nav-items" name="switch-isDesktop-nav-items" checked value="on" class="switch-isDesktop cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isDesktop-nav-items"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Desktop</div>
+                                                    </div>
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isTablet-nav-items" name="switch-isTablet-nav-items" checked value="on" class="switch-isTablet cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isTablet-nav-items"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Tablet</div>
+                                                    </div>
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isMobile-nav-items" name="switch-isMobile-nav-items" checked value="on" class="switch-isMobile cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isMobile-nav-items"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Mobile</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-settings-panel" id="pb-panel__nav-item">
+                                <div class="pb-settings-panel__header">
+                                    <span class="pb-settings-panel__header-text">Item</span>
+                                    <a href="javascript:void(0);" class="pb-settings-panel__savecancel">Save</a>
+                                </div>
+                                <div class="pb-settings-panel__content">
+                                    <div class="pb-wrap-tabs-panel">
+                                        <div class="pb-tabs-panel">
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--content pb-tabs-panel__tab--selected">
+                                                <i class="icn"></i>
+                                                Content
+                                            </div>
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--style pb-tabs-panel__tab--selected">
+                                                <i class="icn"></i>
+                                                Style
+                                            </div>
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--settings">
+                                                <i class="icn"></i>
+                                                Settings
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="t-btn-gray pb-btn-open-menu">Open Menu</div>
+                                            <div class="pb-field pb-field--vertical ">
+                                                <label>Item Name</label>
+                                                <div class="pb-right ">
+                                                    <div class="pb-right__inner wFull ">
+                                                        <input type="text" class="txt-field pb-field-item-name">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical ">
+                                                <label>Item Link</label>
+                                                <div class="pb-right ">
+                                                    <div class="pb-right__inner wFull ">
+                                                        <input type="text" class="txt-field pb-field-item-link">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="pb-wrap-btn-item">
+                                                    <div class="t-btn-gray pb-btn-add-menu-item">Add Menu Item</div>
+                                                </div>
+                                                <div class="pb-wrap-btn-item">
+                                                    <div class="t-btn-gray pb-btn-delete-menu-item">Delete Item</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="">
+                                                <div class="pb-field ">
+                                                    <label>Background Color</label>
+                                                    <div class="pb-right ">
+                                                        <div class="pb-right__inner w40">
+                                                            <div class="wrap-color">
+                                                                <div id="itemBackground" style="background-color: #333333;" class="color-box" data-color-start="333333"></div>
+                                                            </div>
+                                                            <div class="t-checkbox check-bg-transparent">
+                                                                <label><i class="icn-checkbox"></i><input class="background_transparent" type="checkbox" />Transparent</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field pb-field--vertical">
+                                                    <label>Background Image</label>
+                                                    <div class="pb-right ">
+                                                        <div class="pb-right__inner pb-box-btn-upload-bg-image pb-box-btn-upload-bg-image--none">
+                                                            <a href="javascript:void(0);" class="t-btn-gray pb-btn-upload-bg-image">Upload Image</a>
+                                                            <a href="javascript:void(0);" class="pb-image__link-free-image">Unsplash</a>
+                                                            <div class="pb-unload-bg-image">
+                                                                <span class="pb-unload-bg-image__title">icon svg</span>
+                                                                <span class="pb-unload-bg-image__remove"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field ">
+                                                    <label>Color</label>
+                                                    <div class="pb-right ">
+                                                        <div class="pb-right__inner w40">
+                                                            <div class="wrap-color">
+                                                                <div id="itemColor" style="background-color: #333333;" class="color-box" data-color-start="333333"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field ">
+                                                    <label>Font</label>
+                                                    <div class="pb-right ">
+                                                        <div class="pb-right__inner wFull ">
+                                                            <label class="pb-label--left">Typeface</label>
+                                                            <select id="itemTypeFace" class="cf-select-font-name">
+                                                                <option standard_font='1' value="None">None</option>
+                                                                <option standard_font='1' value="Arial">Arial</option>
+                                                                <option standard_font='1' value="Comic Sans MS">Comic Sans MS</option>
+                                                                <option standard_font='1' value="Courier New">Courier New</option>
+                                                                <option standard_font='1' value="Georgia">Georgia</option>
+                                                                <option standard_font='1' value="Lucida Sans Unicode">Lucida</option>
+                                                                <option standard_font='1' value="Roboto">Roboto</option>
+                                                                <option standard_font='1' value="Tahoma">Tahoma</option>
+                                                                <option standard_font='1' value="Times New Roman">Times New Roman</option>
+                                                                <option standard_font='1' value="Trebuchet MS">Trebuchet MS</option>
+                                                                <option standard_font='1' value="Verdana">Verdana</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field ">
+                                                    <label>Weight</label>
+                                                    <div class="pb-right ">
+                                                        <div class="pb-right__inner wFull ">
+                                                            <select id="itemFontWeight">
+                                                                <option value="None">None</option>
+                                                                <option value="Normal">Normal</option>
+                                                                <option value="Bold">Bold</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field ">
+                                                    <label>Size</label>
+                                                    <div class="pb-right ">
+                                                        <div class="pb-right__inner w80 ">
+                                                            <select id="itemFontSize">
+                                                                <option value="None">None</option>
+                                                                <option value="9">9px</option>
+                                                                <option value="10">10px</option>
+                                                                <option value="11">11px</option>
+                                                                <option value="12">12px</option>
+                                                                <option value="13">13px</option>
+                                                                <option value="14" selected>14px</option>
+                                                                <option value="16">16px</option>
+                                                                <option value="18">18px</option>
+                                                                <option value="20">20px</option>
+                                                                <option value="24">24px</option>
+                                                                <option value="30">30px</option>
+                                                                <option value="36">36px</option>
+                                                                <option value="48">48px</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field ">
+                                                    <label>Line Height</label>
+                                                    <div class="pb-right ">
+                                                        <div class="pb-right__inner wFull ">
+                                                            <select class="lineHeight" id="itemLineHeight">
+                                                                <option value="None">Not Specified</option>
+                                                                <option value="100">Normal</option>
+                                                                <option value="125">Slight</option>
+                                                                <option value="150">1 1/2 Spacing</option>
+                                                                <option value="200">Double Space</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field ">
+                                                    <label>Align</label>
+                                                    <div class="pb-right ">
+                                                        <div class="pb-right__inner wFull ">
+                                                            <ul class="pb-text-align" id="itemAlign">
+                                                                <li data-indx="0" class="pb-text-align--alg-left "></li>
+                                                                <li data-indx="1" class="pb-text-align--alg-center "></li>
+                                                                <li data-indx="2" class="pb-text-align--alg-right "></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field">
+                                                <label>Width</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-width" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Max Width</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-max-width" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Margins</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Left</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-left" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Right</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-right" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Top</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-top" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Bottom</label>
+                                                        <input type="text" class="txt-field pb-input-css pb-widget-margin-bottom" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Padding</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Left</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-left" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Right</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-right" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Top</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-top" />
+                                                    </div>
+                                                    <div class="pb-right__inner pb-field-css">
+                                                        <label>Bottom</label>
+                                                        <input type="text" class="txt-field pb-input-css  pb-widget-padding-bottom" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>Responsive Options</label>
+                                                <div class="pb-right__inner">
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isDesktop-nav-item" name="switch-isDesktop-nav-item" checked value="on" class="switch-isDesktop cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isDesktop-nav-item"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Desktop</div>
+                                                    </div>
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isTablet-nav-item" name="switch-isTablet-nav-item" checked value="on" class="switch-isTablet cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isTablet-nav-item"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Tablet</div>
+                                                    </div>
+                                                    <div class="ll-switch ll-switch-is-hide-responsive">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isMobile-nav-item" name="switch-isMobile-nav-item" checked value="on" class="switch-isMobile cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isMobile-nav-item"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Mobile</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-settings-panel" id="pb-panel__point">
+                                <div class="pb-settings-panel__header">
+                                    <span class="pb-settings-panel__header-text">Image Point</span>
+                                    <a href="javascript:void(0);" class="pb-settings-panel__savecancel">Save</a>
+                                </div>
+                                <div class="pb-settings-panel__content">
+                                    <div class="pb-wrap-tabs-panel">
+                                        <div class="pb-tabs-panel">
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--content pb-tabs-panel__tab--selected">
+                                                <i class="icn"></i>
+                                                Content
+                                            </div>
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--style pb-tabs-panel__tab--selected">
+                                                <i class="icn"></i>
+                                                Style
+                                            </div>
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--settings">
+                                                <i class="icn"></i>
+                                                Settings
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>Image</label>
+                                                <div class="pb-right ">
+                                                    <div class="pb-right__inner pb-box-btn-upload-bg-image pb-box-btn-upload-bg-image--none pb-box-btn-upload-bg-image--point">
+                                                        <a href="javascript:void(0);" class="t-btn-gray pb-btn-upload-bg-image">Upload Image</a>
+                                                        <div class="pb-unload-bg-image">
+                                                            <span class="pb-unload-bg-image__title">icon svg</span>
+                                                            <span class="pb-unload-bg-image__remove"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>HTML</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-editor-point-content"></div>
+                                                </div>
+                                            </div>
+                                            <div class="list-elements__h">Button</div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>Button Text</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <input type="text" class="txt-field" id="btnPointText" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical" id="button_url">
+                                                <label class="btn_text">Web Address (URL)</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <input type="text" class="txt-field" id="btnPointUrl" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field">
+                                                <label>Point Color</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner w40">
+                                                        <div class="wrap-color">
+                                                            <div id="pointBgColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Modal Background</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner w40">
+                                                        <label>Color</label>
+                                                        <div class="wrap-color">
+                                                            <div id="pointModalBgColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list-elements__h">Button</div>
+                                            <div>
+                                                <div class="pb-field">
+                                                    <label>Background Color</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner w40">
+                                                            <div class="wrap-color">
+                                                                <div id="btnPointBackground" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field">
+                                                    <label>Border</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner wFull">
+                                                            <label class="pb-label--left">Type</label>
+                                                            <select id="btnPointBorderType">
+                                                                <option value="None">None</option>
+                                                                <option value="Solid" selected="selected">Solid</option>
+                                                                <option value="Dashed">Dashed</option>
+                                                                <option value="Dotted">Dotted</option>
+                                                                <option value="Double">Double</option>
+                                                                <option value="Groove">Groove</option>
+                                                                <option value="Ridge">Ridge</option>
+                                                                <option value="Inset">Inset</option>
+                                                                <option value="Outset">Outset</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="pb-wrap-right">
+                                                            <div class="pb-right__inner w40">
+                                                                <label>Width</label>
+                                                                <input type="text" class="txt-field touch-spin" id="btnPointBorderWidth" />
+                                                            </div>
+                                                            <div class="pb-right__inner w40">
+                                                                <label>Color</label>
+                                                                <div class="wrap-color">
+                                                                    <div id="btnPointBorderColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field">
+                                                    <label>Border Radius</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner w40">
+                                                            <input type="text" class="txt-field touch-spin" id="btnPointBorderRadius" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field">
+                                                    <label>Font</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner wFull">
+                                                            <label class="pb-label--left">Typeface</label>
+                                                            <select id="btnPointTypeFace" class="cf-select-font-name">
+                                                                <option standard_font='1' value="None">None</option>
+                                                                <option standard_font='1' value="Arial">Arial</option>
+                                                                <option standard_font='1' value="Comic Sans MS">Comic Sans MS</option>
+                                                                <option standard_font='1' value="Courier New">Courier New</option>
+                                                                <option standard_font='1' value="Georgia">Georgia</option>
+                                                                <option standard_font='1' value="Lucida Sans Unicode">Lucida</option>
+                                                                <option standard_font='1' value="Roboto">Roboto</option>
+                                                                <option standard_font='1' value="Tahoma">Tahoma</option>
+                                                                <option standard_font='1' value="Times New Roman">Times New Roman</option>
+                                                                <option standard_font='1' value="Trebuchet MS">Trebuchet MS</option>
+                                                                <option standard_font='1' value="Verdana">Verdana</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="pb-wrap-right">
+                                                            <div class="pb-right__inner wFull">
+                                                                <label class="pb-label--left">Weight</label>
+                                                                <select id="btnPointWeight">
+                                                                    <option value="None">None</option>
+                                                                    <option value="Normal">Normal</option>
+                                                                    <option value="Bold">Bold</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pb-wrap-right">
+                                                            <div class="pb-right__inner w75">
+                                                                <label class="pb-label--left">Size</label>
+                                                                <select id="btnPointSize">
+                                                                    <option value="None">None</option>
+                                                                    <option value="9">9px</option>
+                                                                    <option value="10">10px</option>
+                                                                    <option value="11">11px</option>
+                                                                    <option value="12">12px</option>
+                                                                    <option value="13">13px</option>
+                                                                    <option value="14" selected>14px</option>
+                                                                    <option value="16">16px</option>
+                                                                    <option value="18">18px</option>
+                                                                    <option value="20">20px</option>
+                                                                    <option value="24">24px</option>
+                                                                    <option value="30">30px</option>
+                                                                    <option value="36">36px</option>
+                                                                    <option value="48">48px</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="pb-right__inner w40">
+                                                                <label>Color</label>
+                                                                <div class="wrap-color">
+                                                                    <div id="btnPointTextColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field">
+                                                    <label>Padding</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner w50">
+                                                            <label class="pb-label--left">Left/Right</label>
+                                                            <input type="text" class="txt-field touch-spin" id="btnPointPaddingX" />
+                                                        </div>
+                                                        <div class="pb-right__inner w50">
+                                                            <label class="pb-label--left">Top/Bottom</label>
+                                                            <input type="text" class="txt-field touch-spin" id="btnPointPaddingY" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field">
+                                                <label>Point Position</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner w60">
+                                                        <label class="pb-label--left">Left (%)</label>
+                                                        <input type="text" class="txt-field touch-spin-decimals-2" id="pointPositionLeft" />
+                                                    </div>
+                                                    <div class="pb-right__inner w60">
+                                                        <label class="pb-label--left">Top (%)</label>
+                                                        <input type="text" class="txt-field touch-spin-decimals-2" id="pointPositionTop" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>Button Options</label>
+                                                <div class="pb-right__inner">
+                                                    <div class="ll-switch ll-switch-is">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isShowBtnPoint" name="switch-isShowBtnPoint" checked value="on" class="switch-isShowBtnPoint cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isShowBtnPoint"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Popup</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!---->
+                        </div>
+                        <div>
+                            <form>
+                                <input class="pb-btn-upload-image-computer" type="file"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pb-preview-box">
+                <div class="pb-media-screen">
+                    <div class="pb-media-screen__item pb-media-screen__item--full" data-media="1920">
+                        <span class="item__size item__size--right">Full Screen</span>
+                        <span class="item__size item__size">Full Screen</span>
+                <span class="item__icn">
+                    <svg width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <defs></defs>
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="-" transform="translate(-202.000000, -73.000000)" class="svg-fill" fill="#9C66D3" fill-rule="nonzero">
+                                <path d="M202.615385,73 C202.276442,73 202,73.2858666 202,73.6363636 L202,83.8181818 C202,84.1686788 202.276442,84.4545455 202.615385,84.4545455 L217.384615,84.4545455 C217.723558,84.4545455 218,84.1686788 218,83.8181818 L218,73.6363636 C218,73.2858666 217.723558,73 217.384615,73 L202.615385,73 Z M203.230769,74.2727273 L216.769231,74.2727273 L216.769231,82.5454545 L203.230769,82.5454545 L203.230769,74.2727273 Z M208.153846,85.0909091 C207.814904,85.0909091 207.538462,85.7272727 207.538462,85.7272727 L207.538462,86.3636364 L204.461538,86.3636364 C204.122596,86.3636364 203.846154,86.6818182 203.846154,87 L216.153846,87 C216.153846,86.649503 215.877404,86.3636364 215.538462,86.3636364 L212.461538,86.3636364 L212.461538,85.7272727 C212.461538,85.3767757 212.185096,85.0909091 211.846154,85.0909091 L208.153846,85.0909091 Z"
+                                      id="full-screen"></path>
+                            </g>
+                        </g>
+                    </svg>
+                </span>
+                    </div>
+                    <div class="pb-media-screen__item pb-media-screen__item--selected pb-media-screen__item--1024" data-media="1024">
+                        <span class="item__size item__size--right">1024px</span>
+                        <span class="item__size item__size">1024px</span>
+                <span class="item__icn">
+                    <svg width="18px" height="14px" viewBox="0 0 18 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <defs></defs>
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="-" transform="translate(-151.000000, -103.000000)" class="svg-fill" fill="#FF6F94" fill-rule="nonzero">
+                                <path d="M152.384615,103 C151.619291,103 151,103.626172 151,104.4 L151,115.6 C151,116.373828 151.619291,117 152.384615,117 L167.615385,117 C168.380709,117 169,116.373828 169,115.6 L169,104.4 C169,103.626172 168.380709,103 167.615385,103 L152.384615,103 Z M153.076923,105.1 L166.923077,105.1 L166.923077,114.9 L153.076923,114.9 L153.076923,105.1 Z M152.060096,109.43125 C152.365685,109.43125 152.600962,109.691016 152.600962,110 C152.600962,110.308984 152.365685,110.56875 152.060096,110.56875 C151.754507,110.56875 151.497596,110.308984 151.497596,110 C151.497596,109.691016 151.754507,109.43125 152.060096,109.43125 Z"
+                                      id="tablet_hor"></path>
+                            </g>
+                        </g>
+                    </svg>
+                </span>
+                    </div>
+                    <div class="pb-media-screen__item pb-media-screen__item--768" data-media="768">
+                        <span class="item__size item__size--right">768px</span>
+                        <span class="item__size item__size">768px</span>
+                <span class="item__icn">
+                    <svg width="14px" height="18px" viewBox="0 0 14 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <defs></defs>
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="-" transform="translate(-180.000000, -101.000000)" class="svg-fill" fill="#3AD893" fill-rule="nonzero">
+                                <path d="M179.384615,103 C178.619291,103 178,103.626172 178,104.4 L178,115.6 C178,116.373828 178.619291,117 179.384615,117 L194.615385,117 C195.380709,117 196,116.373828 196,115.6 L196,104.4 C196,103.626172 195.380709,103 194.615385,103 L179.384615,103 Z M180.076923,105.1 L193.923077,105.1 L193.923077,114.9 L180.076923,114.9 L180.076923,105.1 Z M179.060096,109.43125 C179.365685,109.43125 179.600962,109.691016 179.600962,110 C179.600962,110.308984 179.365685,110.56875 179.060096,110.56875 C178.754507,110.56875 178.497596,110.308984 178.497596,110 C178.497596,109.691016 178.754507,109.43125 179.060096,109.43125 Z"
+                                      id="tablet_vert" transform="translate(187.000000, 110.000000) rotate(-90.000000) translate(-187.000000, -110.000000) "></path>
+                            </g>
+                        </g>
+                    </svg>
+                </span>
+                    </div>
+                    <div class="pb-media-screen__item pb-media-screen__item--480" data-media="480">
+                        <span class="item__size item__size--right">480px</span>
+                        <span class="item__size item__size">480px</span>
+                <span class="item__icn">
+                    <svg width="15px" height="10px" viewBox="0 0 15 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <defs></defs>
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="-" transform="translate(-232.000000, -105.000000)" class="svg-fill" fill="#F9DD57" fill-rule="nonzero">
+                                <path d="M243.754325,103.875 C243.754325,103.875 244.066825,103 239.379325,103 C234.691825,103 235.004325,103.875 235.004325,103.875 L235.004325,116.125 C235.004325,116.125 234.691825,117 239.379325,117 C244.066825,117 243.754325,116.125 243.754325,116.125 L243.754325,103.875 Z M239.379325,103.583333 C239.567313,103.583333 239.691825,103.699544 239.691825,103.875 C239.691825,104.050456 239.567313,104.166667 239.379325,104.166667 C239.191337,104.166667 239.066825,104.050456 239.066825,103.875 C239.066825,103.699544 239.191337,103.583333 239.379325,103.583333 Z M240.629325,115.833333 L238.129325,115.833333 L238.129325,115.25 L240.629325,115.25 L240.629325,115.833333 Z M243.129325,114.666667 L235.629325,114.666667 L235.629325,104.75 L243.129325,104.75 L243.129325,114.666667 Z"
+                                      id="phone_hor" transform="translate(239.379325, 110.000000) rotate(-90.000000) translate(-239.379325, -110.000000) "></path>
+                            </g>
+                        </g>
+                    </svg>
+                </span>
+                    </div>
+                    <div class="pb-media-screen__item pb-media-screen__item--320" data-media="320">
+                        <span class="item__size item__size--right">320px</span>
+                        <span class="item__size item__size">320px</span>
+                <span class="item__icn">
+                    <svg width="9px" height="14px" viewBox="0 0 9 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <defs></defs>
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="-" transform="translate(-205.000000, -103.000000)" class="svg-fill" fill="#37C0FF" fill-rule="nonzero">
+                                <path d="M213.754325,103.875 C213.754325,103.875 214.066825,103 209.379325,103 C204.691825,103 205.004325,103.875 205.004325,103.875 L205.004325,116.125 C205.004325,116.125 204.691825,117 209.379325,117 C214.066825,117 213.754325,116.125 213.754325,116.125 L213.754325,103.875 Z M209.379325,103.583333 C209.567313,103.583333 209.691825,103.699544 209.691825,103.875 C209.691825,104.050456 209.567313,104.166667 209.379325,104.166667 C209.191337,104.166667 209.066825,104.050456 209.066825,103.875 C209.066825,103.699544 209.191337,103.583333 209.379325,103.583333 Z M210.629325,115.833333 L208.129325,115.833333 L208.129325,115.25 L210.629325,115.25 L210.629325,115.833333 Z M213.129325,114.666667 L205.629325,114.666667 L205.629325,104.75 L213.129325,104.75 L213.129325,114.666667 Z"
+                                      id="phone_vert"></path>
+                            </g>
+                        </g>
+                    </svg>
+                </span>
+                    </div>
+                </div>
+                <div class="pb-preview-box__wrap-iframe">
+                    <div class="pb-preview-box__inner">
+                        <iframe src="page_builder_preview.php" id="pb-preview-box__iframe" class="pb-preview-box__iframe"></iframe>
+                    </div>
+                </div>
+            </div>
+<!--End of div right-content-main content-scroll--></div>
+
+<!--End of div rightSide--></div>
+<!--End of div contentBox--></div>
+<!--End of div "bottomPart"--></div>
+    <div class="ll-popup" id="ll_popup_manage_confirm_exit">
+        <div class="ll-popup-head">Confirmation</div>
+        <div class="ll-popup-content">
+            <div class="form">
+                <div class="t-field ll-line-field">
+                    <div class="style-text" id="container_email_lock_status">
+                        Are you sure you want to exit? Any unsaved changes will be lost!
+                        <input type="hidden" id="ll_popup_manage_confirm_exit_url" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ll-popup-footer clearfix">
+            <a href="javascript:void(0)" id="ll_popup_manage_confirm_exit_cancel" class="t-btn-gray t-btn-left">Cancel</a>
+            <a href="javascript:void(0)" id="ll_popup_manage_confirm_exit_go" class="t-btn-gray">Exit</a>
+            <a href="javascript:void(0)" id="ll_popup_manage_confirm_exit_save_and_exit" class="t-btn-orange">Save and Exit</a>
+        </div>
+    </div>
+    <div class="ll-popup" id="ll_popup_edit_image_alt">
+        <div class="ll-popup-head">Image Alt-Text</div>
+        <div class="ll-popup-content">
+            <div class="form">
+                <div class="t-field ll-line-field">
+                    <div class="label"><label>Alt-Text</label></div>
+                    <input type="text" class="txt-field" name="ll_image_alt_text" value=""/>
+                </div>
+            </div>
+        </div>
+        <div class="ll-popup-footer clearfix">
+            <a href="javascript:void(0)" class="t-btn-gray ll-close-popup" id="ll_popup_edit_image_alt_cancel">Cancel</a>
+            <a href="javascript:void(0)" class="t-btn-orange ll-close-popup" id="ll_popup_edit_image_alt_save">Save</a>
+        </div>
+    </div>
+    <div class="ll-popup ll-popup-medium" id="ll_popup_edit_image_link">
+        <div class="ll-popup-head">Insert or Edit Link</div>
+        <div class="ll-popup-content">
+            <div class="form">
+                <div class="t-field ll-line-field chosen-full">
+                    <div class="label label-wide"><label>Link to</label></div>
+                    <select data-placeholder="Select Link Type" id="ll_image_link_type" name="ll_image_link_type">
+                        <option></option>
+                        <option value='url'>Web Address</option>
+                        <option value='email'>Email Address</option>
+                    </select>
+                </div>
+                <div class="t-field ll-line-field lnk-url">
+                    <div class="label label-wide"><label>Web Address (URL)</label></div>
+                    <input type="text" class="txt-field" name="ll_image_link_url" value=""/>
+                </div>
+                <div class="t-field ll-line-field lnk-url">
+                    <div class="label label-wide"><label></label></div>
+                    <div class="ll-switch switch-small">
+                        <div class="switch">
+                            <input id="ll_image_link_open_in_new_window" name="ll_image_link_open_in_new_window" checked="checked" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                            <label for="ll_image_link_open_in_new_window"></label>
+                        </div>
+                        <div class="ll-switch-lb">
+                            Open in a new window
+                        </div>
+                    </div>
+                </div>
+                <div class="t-field ll-line-field lnk-email">
+                    <div class="label label-wide"><label>Email Address</label></div>
+                    <input type="text" class="txt-field" name="ll_image_link_email" value=""/>
+                </div>
+                <div class="t-field ll-line-field lnk-email">
+                    <div class="label label-wide"><label>Message Subject</label></div>
+                    <input type="text" class="txt-field" name="ll_image_link_subject" value=""/>
+                </div>
+                <div class="t-field ll-line-field lnk-email">
+                    <div class="label label-wide"><label>Message Body</label></div>
+                    <textarea class="txt-field" name="ll_image_link_body"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="ll-popup-footer clearfix">
+            <a href="javascript:void(0)" class="t-btn-gray ll-close-popup t-btn-left" id="ll_popup_edit_image_link_remove_link">Remove Link</a>
+            <a href="javascript:void(0)" class="t-btn-gray ll-close-popup" id="ll_popup_edit_image_link_cancel">Cancel</a>
+            <a href="javascript:void(0)" class="t-btn-orange ll-close-popup" id="ll_popup_edit_image_link_save">Save</a>
+        </div>
+    </div>
+        <div class="ll-popup" id="ll_popup_insert_token">
+            <div class="ll-popup-head">Insert Fields</div>
+            <div class="ll-popup-content">
+                <div class="form">
+                    <div class="t-field ll-line-field">
+                        <div class="label"><label>Field</label></div>
+                        <select data-placeholder="Select Field" id="select_insert_ll_field" name="select_insert_ll_field">
+                            <option></option>
+							<?PHP
+                            $ll_merge_tokens_by_identifiers = lead_defined_info::get_ll_lead_fields($customerID, true);
+                            foreach($ll_merge_tokens_by_identifiers as $identifier=>$name ){
+                                echo "<option value='{$identifier}'>{$name}</option>";
+                            }
+							?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="ll-popup-footer clearfix">
+                <a href="javascript:void(0)" class="t-btn-gray ll-close-popup" id="ll_popup_insert_token_cancel">Cancel</a>
+                <a href="javascript:void(0)" class="t-btn-orange ll-close-popup" id="ll_popup_insert_token_save">Insert</a>
+            </div>
+        </div>
+<!--End of div mainWrapper--></div>
+<div id="ll-fade"></div>
+<?php
+    include_once 'header-messages.php';
+?>
+<?PHP
+	LL_Database::mysql_close ();
+	include "footer-bottom.php";
+?>
+</body>
+<script type="text/javascript">
+    ll_fade_manager.fade(true, 'load');
+</script>
+</html>

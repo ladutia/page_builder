@@ -111,3 +111,16 @@
     display: block !important;
   }
 }
+
+@media screen and (max-width: 580px) {
+  .ll-lp-popup-point{
+    margin: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .ll-lp-popup-point .ll-lp-popup-point__arrows{
+    display: none !important;
+  }
+}

@@ -5,6 +5,7 @@ var pageBuilderPreview = {
         pageBuilderPreview.initialize_forms();
         pageBuilderPreview.toggleMenuMobile();
         pageBuilderPreview.initModal();
+        pageBuilderPreview.initPointPopup();
 
         if (is_move_style_to_body) {
             $html = $('body');
@@ -242,6 +243,105 @@ var pageBuilderPreview = {
             //ll_show_error_message("Please enter your name or email");
         }
         return false;
+    },
+    initPointPopup: function(){
+        $('body').on('click', '.ll-lp-point-image', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+
+            if($(this).hasClass('ll-lp-point-image--selected')){
+                return false;
+            }
+
+            $('.ll-lp-point-image--selected').removeClass('ll-lp-point-image--selected');
+            $('.ll-lp-popup-point:visible').hide();
+
+            var idx = $(this).attr('data-idx-popup');
+            var $popup = $('.ll-lp-popup-point[data-idx='+ idx +']');
+
+            $popup.show();
+            $(this).addClass('ll-lp-point-image--selected');
+            pageBuilderPreview.positionPopupPoint($(this), $popup);
+        });
+        $('body').on('click', '.ll-lp-popup-point__close', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            $('.ll-lp-point-image--selected').removeClass('ll-lp-point-image--selected');
+            $(this).closest('.ll-lp-popup-point').hide();
+        });
+    },
+    positionPopupPoint: function($point, $popup){
+        var margin = 20;
+        var widthPoint = 30;
+        var $box= $('.pb-blocks');
+        var heightPopup = $popup.height();
+        var widthPopup = $popup.width();
+        var heightBox = $box.height();
+        var widthBox = $box.width();
+        var offsetRight = $point.offset().left + widthPoint + margin;
+        var offsetLeft = $point.offset().left - margin;
+        var offsetTop = $point.offset().top;
+        var offsetBottom = heightBox - offsetTop - widthPoint/2;
+        var position = 'right';
+        var heightContentPopup2 = $popup.find('.ll-lp-popup-point__content').outerHeight() / 2;
+
+        if(widthBox - offsetRight > widthPopup){
+            position = 'right';
+            $popup.css({
+                left: offsetRight + "px",
+                right: 'auto',
+                marginLeft: 0,
+            }).attr('data-position', position);
+        } else if(offsetLeft > widthPopup){
+            position = 'left';
+            $popup.css({
+                left: offsetLeft - widthPopup + "px",
+                right: 'auto',
+                marginLeft: 0
+            }).attr('data-position', position);
+        } else{
+            position = 'center';
+            $popup.css({
+                left: "50%",
+                marginLeft: -widthPopup/2 + 'px',
+                right: 'auto'
+            }).attr('data-position', position);
+        }
+
+        
+        var offsetY = heightContentPopup2;
+        var cssTop = 0;
+
+        if(offsetY > 50){
+            if(offsetY > offsetBottom) offsetY = offsetBottom - margin;
+            var cssTop = offsetTop - heightPopup + offsetY + widthPoint/2;
+        } else{
+            offsetY = heightPopup/2;
+            if(offsetY > offsetBottom) offsetY = offsetBottom - margin;
+            cssTop = offsetTop - offsetY + widthPoint/2;
+        }
+
+        if(cssTop <= 0) cssTop = 20;
+
+        $popup.css({
+            top: cssTop + 'px'
+        });
+        $popup.find('.ll-lp-popup-point__arrows').css({
+            top: offsetTop - cssTop + 'px'
+        });
+    },
+    resizePointPopup: function(){
+        var $point = $('.ll-lp-point-image--selected');
+        var $popup = $('.ll-lp-popup-point:visible');
+
+        if($point && $point.length && $popup && $popup.length){
+            $popup.css({
+                left: 'auto',
+                marginLeft: 0,
+                right: 'auto'
+            });
+            pageBuilderPreview.positionPopupPoint($point, $popup);
+        }
     }
 }
 $(function () {
@@ -254,5 +354,6 @@ $(function () {
         pageBuilderPreview.bgVideoYT();
         pageBuilderPreview.sliderInit();
         pageBuilderPreview.sliderResize();
+        pageBuilderPreview.resizePointPopup();
     });
 });

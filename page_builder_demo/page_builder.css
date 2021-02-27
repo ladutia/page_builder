@@ -1202,6 +1202,12 @@ list-widgets__item .item__delete:hover {
   background-position-y: 21px;
 }
 
+.list-elements__item--image-point {
+  background-image: url("../../imgs/page_builder/point.svg");
+  background-position-y: 21px;
+  background-size: 60px auto;
+}
+
 .list-elements__item-text {
   position: absolute;
   left: 0;
@@ -1469,6 +1475,10 @@ list-widgets__item .item__delete:hover {
 
 .pb-field .w50 {
   width: 60px;
+}
+
+.pb-field .w60 {
+  width: 70px;
 }
 
 .pb-field .w70 {
@@ -3386,10 +3396,12 @@ textarea.success_message, input.redirect_url, input.form_identifier{
   right: 4px;
   background: #6EB555;
 }
+.ll-switch-is,
 .ll-switch-is-hide-responsive {
   display: block;
   margin-top: 5px;
 }
+.ll-switch-is .switch-lb,
 .ll-switch-is-hide-responsive .switch-lb {
   font-size: 13px;
   display: inline-block;
@@ -3470,4 +3482,36 @@ textarea.success_message, input.redirect_url, input.form_identifier{
 }
 .pb-filed-modal-bg-opacity > .pb-right{
   margin-left: 160px;
+}
+.list-elements__item--image-point.ui-draggable-dragging,
+.list-elements__item--image-point.ui-draggable-dragging:hover{
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: 4px solid rgba(240, 139, 33, 0.7);
+  z-index: 1;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+.list-elements__item--image-point.ui-draggable-dragging .list-elements__item-text{
+  display: none;
+}
+.ll-lp-point-image .pb-widget__btn-clone,
+.ll-lp-point-image .pb-widget__btn-settings{
+  display: none;
+}
+.pb-widget--drop-point-image:before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(255, 255, 255, 0.3);
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  z-index: 2;
+  display: block!important;
 }

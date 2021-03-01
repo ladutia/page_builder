@@ -42,7 +42,9 @@ var page = {
 	ll_email_type: 1,
 	
 	is_save_and_close_after_update_event: false,
-	
+
+	gift_card_tokens:[],
+
     init: function(){
     	if(typeof ll_email_builder_step != 'undefined')
     		this.ll_email_builder_step = ll_email_builder_step;
@@ -65,6 +67,7 @@ var page = {
     	if(typeof emb_ll_email_type != 'undefined')
     		this.ll_email_type = emb_ll_email_type;
 
+		ll_combo_manager.make_combo('#select_email_preview');
 		ll_combo_manager.make_combo('#select_send_email_preview', {
 			is_auto_create_option: true,
 			no_results_text: 'Press enter to add new email'
@@ -76,6 +79,7 @@ var page = {
 		
         $('body').on('click', function(){
             $('.settings-tpl.open').removeClass('open');
+            $('.tpl-block-settings.open').removeClass('open');
         });
 		$('.step-nav-db').each(function(){
 			$(this).css('margin-left',-$(this).width()/2);
@@ -377,8 +381,9 @@ var page = {
                 if($boxImg.find('a').length > 0){
                 	var _img_html = $boxImg.find('a').html()
                 	$boxImg.html(_img_html);
-                    page.updateResizeImage($boxImg);
-                }
+					page.updateResizeImage($boxImg);
+	
+				}
 				ll_popup_manager.close('#ll_popup_edit_image_link')
     		})
     		$('#ll_popup_edit_image_link #ll_popup_edit_image_link_save').unbind('click').bind('click', function(){
@@ -411,7 +416,7 @@ var page = {
         				$boxImg.find('a').attr('href', _href)
         				$boxImg.find('a').html(_img_html)
         				ll_popup_manager.close('#ll_popup_edit_image_link')
-                        page.updateResizeImage($boxImg);
+						page.updateResizeImage($boxImg);
     				} else {
     					show_error_message("Please enter valid Email");
     					return false;
@@ -431,7 +436,7 @@ var page = {
         				$boxImg.find('a').attr('target', _target)
         				$boxImg.find('a').html(_img_html)
         				ll_popup_manager.close('#ll_popup_edit_image_link')
-                        page.updateResizeImage($boxImg);
+						page.updateResizeImage($boxImg);
     				} else {
     					show_error_message("Please enter valid URL");
     					return false;
@@ -445,7 +450,15 @@ var page = {
 		ll_combo_manager.event_on_change('#select_insert_ll_field_category', function(){
 			var select_insert_ll_field_category = ll_combo_manager.get_selected_value('#select_insert_ll_field_category');
 			$('.container_select_ll_fields').hide();
-			$('.container_ll_fields_' + select_insert_ll_field_category).show();
+			$('.ll_all_tokens_info_items').show();
+			switch (select_insert_ll_field_category){
+				case 'gift_cards_tokens':
+					$('.ll_all_tokens_info_items').hide();
+					break;
+				default:
+					$('.container_ll_fields_' + select_insert_ll_field_category).show();
+					break;
+			}
 		});
 		ll_combo_manager.trigger_event_on_change('#select_insert_ll_field_category');
 
@@ -698,42 +711,76 @@ var page = {
 			if(select_insert_ll_field_category != ''){
 				var ll_field_parent = ll_combo_manager.get_selected_value('.container_ll_fields_' + select_insert_ll_field_category + ' select.ll-field-parents');
 				var insert_ll_field = ll_combo_manager.get_selected_value('.container_ll_fields_' + select_insert_ll_field_category + ' select.ll-field-tokens');
-				if(typeof insert_ll_field != 'undefined' && insert_ll_field != ''){
-					if (select_insert_ll_field_category == 'registration_system') {
-						if(typeof ll_field_parent != 'undefined' && ll_field_parent != ''){
-							insert_ll_field = insert_ll_field.replace ('.tokenname.', '.' + ll_field_parent + '.');
-							
+				console.log(select_insert_ll_field_category);
+				if(select_insert_ll_field_category == 'gift_cards_tokens'){
+					var insert = '';
+					insert += '<div>{% if (sent_giftcard) %}</div>';
+					insert += '		<div style="text-align: center;"><span style="font-size: 18px;">{{sent_giftcard.brand_name}}</span></div>';
+					insert += '		<div style="text-align: center;">{{sent_giftcard.reward_name}}</div>';
+					insert += '		<div style="text-align: center;">';
+					insert += '			<img alt="" style="max-width: 100%;" class="giftcard-placeholder-img" src="https://t1.llanalytics.com/imgs/giftcard-placeholder.png" style="display: block; margin-left: auto; margin-right: auto;" alt="" />';
+					insert += '			<img alt="" style="max-width: 100%;" class="giftcard-img" src="{{sent_giftcard.image}}" style="display: block; margin-left: auto; margin-right: auto;" alt="" />';
+					insert += '		</div>';
+					insert += '		<div style="text-align: center;"><span style="font-size: 22px;">Amount: {{sent_giftcard.amount}}</span></div>';
+					insert += '		<div>{% if (sent_giftcard.credentials) %}</div>';
+					insert += '			<div>Credentials:</div>';
+					insert += '			<div>';
+					insert += '				<ul>';
+					insert += '					{% for credential in sent_giftcard.credentials %}';
+					insert += '						<li>{{credential.label}}: {{credential.value|raw}}</li>';// Adding "|raw" so that when it gets replaced, we  twig does not
+					insert += '					{% endfor %}';
+					insert += '				</ul>';
+					insert += '			</div>';
+					insert += '		<div>{% endif %}</div>';
+					insert += '		<div>Redemption Instructions: </div>';
+					//insert += '		<div></div>';
+					insert += '		<div>{{sent_giftcard.redemption_instructions|raw}}</div>';
+					//insert += '		<div>Description: {{sent_giftcard.description}}</div>';
+					//insert += '		<div>Short Description: {{sent_giftcard.shortDescription}}</div>';
+					insert += '		<div></div>';
+					insert += '		<div><p style="font-size: 8px!important;">Terms: {{sent_giftcard.terms|raw}}</p></div>';
+					insert += '<div>{% endif %}</div>';
+					
+					page.InsertLink(insert, false);
+					ll_popup_manager.close('#ll_popup_email_insert_token');
+				} else {
+					if (typeof insert_ll_field != 'undefined' && insert_ll_field != '') {
+						if (select_insert_ll_field_category == 'registration_system') {
+							if (typeof ll_field_parent != 'undefined' && ll_field_parent != '') {
+								insert_ll_field = insert_ll_field.replace('.tokenname.', '.' + ll_field_parent + '.');
+
+								page.InsertLink(insert_ll_field)
+								ll_popup_manager.close('#ll_popup_email_insert_token')
+							} else {
+								show_error_message('Please Select Registration System');
+							}
+						} else if (select_insert_ll_field_category == 'documentation_fields' || select_insert_ll_field_category == 'documentation_fields_last_submission') {
+							var tkn_identnfier = 'documents_set';
+							if (select_insert_ll_field_category == 'documentation_fields_last_submission') {
+								tkn_identnfier = 'documents_set_last_submission';
+							}
+
+							var document_token = insert_ll_field;
+							var insert = '';
+							insert += '{% if ( ___' + tkn_identnfier + ' and ___' + insert_ll_field + '___ ) %}\n';
+							insert += '<div>Here are the docs you requested:</div>';
+							insert += '<div>';
+							insert += '<ul>';
+							insert += '{% for document in ___' + insert_ll_field + '___ %}\n';
+							insert += '<li> <a href="{{ document.url }}">{{ document.name }}</a></li>\n';
+							insert += '{% endfor %}';
+							insert += '</ul>\n';
+							insert += '</div>';
+							insert += '{% endif %}';
+							page.InsertLink(insert);
+							ll_popup_manager.close('#ll_popup_email_insert_token');
+						} else {
 							page.InsertLink(insert_ll_field)
 							ll_popup_manager.close('#ll_popup_email_insert_token')
-						} else {
-							show_error_message ('Please Select Registration System');
 						}
-					} else if (select_insert_ll_field_category == 'documentation_fields' || select_insert_ll_field_category == 'documentation_fields_last_submission') {
-						var tkn_identnfier = 'documents_set';
-						if (select_insert_ll_field_category == 'documentation_fields_last_submission') {
-							tkn_identnfier = 'documents_set_last_submission';
-						}
-						
-						var document_token = insert_ll_field;
-						var insert = '';
-						insert += '{% if ( ___' + tkn_identnfier + ' and ___' + insert_ll_field + '___ ) %}\n';
-						insert += '<div>Here are the docs you requested:</div>';
-						insert += '<div>';
-						insert += '<ul>';
-						insert += '{% for document in ___' + insert_ll_field + '___ %}\n';
-						insert += '<li> <a href="{{ document.url }}">{{ document.name }}</a></li>\n';
-						insert += '{% endfor %}';
-						insert += '</ul>\n';
-						insert += '</div>';
-						insert += '{% endif %}';
-						page.InsertLink(insert);
-						ll_popup_manager.close('#ll_popup_email_insert_token');
 					} else {
-						page.InsertLink(insert_ll_field)
-						ll_popup_manager.close('#ll_popup_email_insert_token')
+						show_error_message('Please Select Field');
 					}
-				} else {
-					show_error_message ('Please Select Field');
 				}
 			} else {
 				show_error_message ('Please Select Field Category');
@@ -830,6 +877,12 @@ var page = {
 			$('#container_is_preview_with_mail_merge').hide ();
 			if (page.newsletterid > 0) {
 				$('#container_is_preview_with_mail_merge').show ();
+			}
+			ll_combo_manager.set_selected_value('select[name="select_email_preview"]', '');
+			if (page.newsletterid > 0) {
+				ll_combo_manager.set_selected_value('select[name="select_email_preview"]', page.newsletterid);
+			} else {
+				ll_combo_manager.set_selected_value('select[name="select_email_preview"]', page.templateid);
 			}
 			ll_popup_manager.open('#ll_popup_send_email_preview')
 		})
@@ -1164,6 +1217,9 @@ var page = {
 								} else {
 									page.prompt_as_locked();
 								}
+								if(typeof data.gift_card_tokens != 'undefined' && data.gift_card_tokens){
+									page.gift_card_tokens = data.gift_card_tokens;
+								}
 							} else {
 								page.newsletterid = 0;
 								page.templateid = 0;
@@ -1218,6 +1274,15 @@ var page = {
 				page.process_mark_as_locked();
 			}
 
+			if(page.ll_email_builder_step == 'setup_advanced'){
+				$('.tpl-block .tpl-block-controls').each (function (){
+					if(!$(this).find('.tpl-block-settings').length){
+						page.appendElementSettingsIcon($(this));
+					} else {
+						$(this).find('.tpl-block-settings').removeClass('open');
+					}
+				})
+			}
 			page.process_complete_init();
     	}
     },
@@ -1432,7 +1497,7 @@ var page = {
 	},
 	
 	font_families: [],
-	
+
 	set_and_clean_html: function(_full_html){
 		$('#container_HTML_hidden').html(_full_html)
 		
@@ -1513,8 +1578,12 @@ var page = {
 		});
 		$('#container_HTML_hidden').find('img').each(function(){
 			var src = $(this).attr('src');
-			if(!src || (src.indexOf('http://') == -1 && src.indexOf('https://') == -1)){
+			if(!src || (src.indexOf('http://') == -1 && src.indexOf('https://') == -1 && src.indexOf('%%') == -1 && src.indexOf('{{') == -1)){
 				$(this).remove();
+			} else if ($(this).hasClass ('giftcard-placeholder-img')) {
+				$(this).remove();
+			} else if ($(this).hasClass ('giftcard-img')) {
+				$(this).css('max-width', '100%');
 			} else {
 				$(this).removeAttr('img-thump-src');
 				$(this).removeAttr('img-src');
@@ -1534,7 +1603,7 @@ var page = {
 			$(this).removeAttr('data-font-names');
 		})
 		$('#container_HTML_hidden').find('.tpl-selected').removeClass('tpl-selected')
-		
+
 		/*
 		 * Emad Atya - 25-01-2015
 		 * Cleaning the white spaces from the style attribute, because when sending the email we wrap the HTML every 75 character at the nearest white space
@@ -1719,7 +1788,12 @@ var page = {
 		}
 	},
 	send_email_preview: function(){
+		var select_email_preview = ll_combo_manager.get_selected_value('#select_email_preview');
 		var select_send_email_preview = ll_combo_manager.get_selected_value('#select_send_email_preview');
+		if(!select_email_preview || !select_send_email_preview.length){
+			show_error_message('Please select emails');
+			return;
+		}
 		if(select_send_email_preview && select_send_email_preview.length > 0){
 			var send_email_preview = [];
 			$.each(select_send_email_preview, function (index, _email) {
@@ -1729,10 +1803,9 @@ var page = {
             });
 			if(send_email_preview.length > 0){
 				var ll_draft = this.collect_ll_draft();
-				
 				var _data = {};
-				_data['newsletterid'] = this.newsletterid;
-				_data['templateid'] = this.templateid;
+				_data['newsletterid'] = parseInt(this.newsletterid) ? select_email_preview : 0;
+				_data['templateid'] = parseInt(this.templateid) ? select_email_preview : 0;;
 				_data['ll_draft'] = ll_draft;
 				_data['selected_emails'] = send_email_preview;
 				_data['is_preview_with_mail_merge'] = $('#ll_popup_send_email_preview input[type="checkbox"][name=is_preview_with_mail_merge]').is(':checked') ? 1 : 0;
@@ -2169,7 +2242,8 @@ var page = {
             }).css('background-color', '#'+color);
         });
     },
-    InsertLink: function(placeholder, contentarea, editorname) {
+    InsertLink: function(placeholder, include_percentages) {
+    	var _include_percentages = (typeof include_percentages == 'undefined' || include_percentages) ? true : false;
 		var placeholder_splitted = placeholder.split ('.');
 		if (placeholder_splitted [0] == 'registration_system') {
 			if (typeof placeholder_splitted [2] != 'undefined' && placeholder_splitted [2] != '') {
@@ -2198,7 +2272,9 @@ var page = {
 				placeholder = '%%' + placeholder + '%%';
 			}
 		} else if(!placeholder_splitted [0].includes('documents_set') && !placeholder_splitted [0].includes('documents_set_last_submission')){
-			placeholder = '%%' + placeholder + '%%';
+			if (_include_percentages) {
+				placeholder = '%%' + placeholder + '%%';
+			}
 		}
 		
     	// set the default for the editor name.
@@ -2340,6 +2416,8 @@ var page = {
         		page.set_auto_save_mode_status(true);
             },
             receive: function(event, ui) {
+            	console.log(ui.item.attr('data-type'), 'data-type');
+
                 if ( ui.item.attr('data-type') == 'box-image-group' ){
                     page.updateWidthGroupColumn(ui.item);
                 }
@@ -2386,819 +2464,794 @@ var page = {
         });
         
     },
+	$item: null,
     addElementTpl: function(ui){
-		console.log(ui.item)
         if (ui.item.hasClass('eb-block-content')){
 
             var $item = ui.item;
+            this.$item = $item;
             var elementDrag = null;
             var type = '';
             var content = '';
             var dataAll = '';
-            if ( $item.hasClass('eb-block-text') || $item.hasClass('eb-block-boxed-text') || $item.hasClass('eb-block-footer') ){
-                var isBoxes = false;
-                var padding = 'padding-left:18px; padding-right: 18px; padding-top: 9px; padding-bottom: 9px;';
-                if ( $item.hasClass('eb-block-boxed-text') ){
-                    type = 'box-border-text';
-                    isBoxes = true;
-                    padding = 'padding-left:18px; padding-right: 18px; padding-top: 18px; padding-bottom: 18px;';
-                } else if( $item.hasClass('eb-block-footer') ){
-                    type = 'box-footer';
-                    isBoxes = true;
-                    padding = 'padding-left:18px; padding-right: 18px; padding-top: 18px; padding-bottom: 18px;';
-                } else {
-                    type = 'box-text';
-                }
-                if( $item.hasClass('eb-block-footer') ){
-                    dataAll = '{"fontTypeFace": "None", "fontWeight": "None", "fontSize": "None", "boxesIs": '+isBoxes+', "boxesBackgroundColor": "#f2f2f2", "boxesBorderType": "Solid", "boxesBorderWidth": 1, "boxesBorderColor": "#c9c9c9", "color": "#333333", "lineHeight": "None", "textAlign": "None", "columnSplit": 0, "columnSplitType": 0}';
-                    elementDrag = '<table style="min-width: 100%;" border="0" cellpadding="0" cellspacing="0" width="100%" class="ebTextBlock ebTextBlockFooter">'+
-                                    '<tbody class="ebTextBlockOuter">'+
-                                        '<tr>'+
-                                        	'<td valign="top" class="ebTextBlockInner">'+
-                                            	'<table style="min-width: 100%; background-color: rgb(242, 242, 242);" align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="ebTextContentContainer">'+
-                                                    '<tbody>'+
-                                                        '<tr>'+
-                                                        	"<td valign='top' class='ebTextContent' style='border-style: solid; border-width: 1px; border-color: rgb(201, 201, 201);"+padding+"'>"+
-                                                                'Copyright %%currentyear%% %%companyname%%, All rights reserved.<br><br>Our mailling address is <span style="color: #1f69ad;"><a href="#">%%companyaddress%%</a></span>'+
-                                                            '</td>'+
-                                                        '</tr>'+
-                                                    '</tbody>'+
-                                                '</table>'+
-                                            '</td>'+
-                                        '</tr>'+
-                                    '</tbody>'+
-                                '</table>';
-                } else {
-	                dataAll = '{"fontTypeFace": "None", "fontWeight": "None", "fontSize": "None", "boxesIs": '+isBoxes+', "boxesBackgroundColor": "#ffffff", "boxesBorderType": "None", "boxesBorderWidth": 0, "boxesBorderColor": "#999999", "color": "#333333", "lineHeight": "None", "textAlign": "None", "columnSplit": 0, "columnSplitType": 0}';
-	
-	                elementDrag = '<table style="min-width: 100%;" border="0" cellpadding="0" cellspacing="0" width="100%" class="ebTextBlock">'+
-	                                    '<tbody class="ebTextBlockOuter">'+
-	                                        '<tr>'+
-	                                            '<td valign="top" class="ebTextBlockInner">'+
-	                                                '<table style="min-width: 100%;" align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="ebTextContentContainer">'+
-	                                                    '<tbody>'+
-	                                                        '<tr>'+
-	                                                            "<td valign='top' class='ebTextContent' style='border: 0;"+padding+"'>"+
-	                                                                'This is a Text Block. Use this to provide text...'+
-	                                                            '</td>'+
-	                                                        '</tr>'+
-	                                                    '</tbody>'+
-	                                                '</table>'+
-	                                            '</td>'+
-	                                        '</tr>'+
-	                                    '</tbody>'+
-	                                '</table>';
-                }
-            } else if ( $item.hasClass('eb-block-divider') ){
-                type = 'box-divider';
-                dataAll = '{"backgroundColor": "#ffffff", "borderType": "Solid", "borderWidth": 1, "borderColor":"#999999", "paddingTop":"18", "paddingBottom":"18"}';
-                elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebDividerBlock" style="background-color: #ffffff;">'+
-                                    '<tbody>'+
-                                        '<tr>'+
-                                            '<td valign="top" class="ebDividerBlockInner" style="padding: 18px 0;">'+
-                                                '<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="ebDividerContent" style="border-top-width: 1px; border-top-style: solid; border-top-color: #999999;">'+
-                                                    '<tbody>'+
-                                                        '<tr>'+
-                                                            '<td>'+
-                                                            '</td>'+
-                                                        '</tr>'+
-                                                    '</tbody>'+
-                                                '</table>'+
-                                            '</td>'+
-                                        '</tr>'+
-                                    '</tbody>'+
-                                '</table>';
-            } else if( $item.hasClass('eb-block-image') ){
-                type = 'box-image';
-                dataAll = '{"align":0, "margins":0}';
-                elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageBlock">'+
-                                    '<tbody class="ebImageBlockOuter">'+
-                                        '<tr>'+
-                                           '<td valign="top" class="ebImageBlockInner" style="padding: 9px;">'+
-                                                '<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageContentContainer">'+
-                                                    '<tbody>'+
-                                                        '<tr>'+
-                                                            '<td valign="top" align="left" class="ebImageContent" style="padding: 0 9px;">'+
-                                                                '<div class="eb-upload-image">'+
-                                                                    '<img alt="" class="eb-img-upload" src="https://t1.llanalytics.com/imgs/imgs_email_builder/img_upload.jpg"/>'+
-                                                                    //'<p class="cont-drop-image">Drop an Image here</p>'+
-                                                                    //'<a href="javascript:void(0)" class="et-btn-white btn-browse-img">Browse</a>'+
-                                                                '</div>'+
-                                                            '</td>'+
-                                                        '</tr>'+
-                                                    '</tbody>'+
-                                                '</table>'+
-                                            '</td>'+
-                                        '</tr>'+
-                                    '</tbody>'+
-                                '</table>';
-            } else if($item.hasClass('eb-block-image-group')){
-                type = 'box-image-group';
-                dataAll = '{"count": 2, "layout": 0, "layoutIndex": 0}';
-                elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageBlock">'+
-                                    '<tbody class="ebImageBlockOuter">'+
-                                        '<tr>'+
-                                            '<td valign="top" class="ebImageBlockInner" style="padding: 9px;">'+
-                                                '<table align="left" dataSortId="0" style="width: 282px;" border="0" cellpadding="0" cellspacing="0" width="282px" class="ebImageContentContainer">'+
-                                                    '<tbody>'+
-                                                        '<tr>'+
-                                                            '<td valign="top" class="ebImageContent" style="padding: 0 0 0 9px;">'+
-                                                                '<div class="eb-upload-image">'+
-                                                                    '<img alt="" class="eb-img-upload" src="https://t1.llanalytics.com/imgs/imgs_email_builder/img_upload.jpg"/>'+
-                                                                    //'<p class="cont-drop-image">Drop an Image here</p>'+
-                                                                    //'<a href="javascript:void(0)" class="et-btn-white btn-browse-img">Browse</a>'+
-                                                                '</div>'+
-                                                            '</td>'+
-                                                        '</tr>'+
-                                                    '</tbody>'+
-                                                '</table>'+
-                                                '<table align="right" dataSortId="1" style="width: 282px;" border="0" cellpadding="0" cellspacing="0" width="282px" class="ebImageContentContainer">'+
-                                                    '<tbody>'+
-                                                        '<tr>'+
-                                                            '<td valign="top" class="ebImageContent" style="padding: 0 9px 0 0;">'+
-                                                                '<div class="eb-upload-image">'+
-                                                                    '<img alt="" class="eb-img-upload" src="https://t1.llanalytics.com/imgs/imgs_email_builder/img_upload.jpg"/>'+
-                                                                    //'<p class="cont-drop-image">Drop an Image here</p>'+
-                                                                    //'<a href="javascript:void(0)" class="et-btn-white btn-browse-img">Browse</a>'+
-                                                                '</div>'+
-                                                            '</td>'+
-                                                        '</tr>'+
-                                                    '</tbody>'+
-                                                '</table>'+
-                                            '</td>'+
-                                        '</tr>'+
-                                    '</tbody>'+
-                                '</table>';
-            } else if( $item.hasClass('eb-block-image-card') ){
-                type = 'box-image-card';
-                dataAll = '{"backgroundColor": "#ffffff", "borderType": "None", "borderWidth": "0", "borderColor":"#999999", "fontTypeFace": "None", "fontWeight": "None", "fontSize": "None", "color":"#333333", "lineHeight": "None", "textAlign": "None", "position": "3", "imgAlignment": "0", "margins": "0", "captionWidth":"0"}';
-                elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageBlock">'+
-                                    '<tbody class="ebImageBlockOuter">'+
-                                        '<tr>'+
-                                            '<td valign="top" class="ebImageCardBlockInner" style="padding: 9px 18px 0;">'+
-                                                '<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageContentContainer">'+
-                                                    '<tbody>'+
-                                                        '<tr>'+
-                                                            '<td valign="top" class="ebImageContent" style="">'+
-                                                                '<div class="eb-upload-image">'+
-                                                                    '<img alt="" class="eb-img-upload" src="https://t1.llanalytics.com/imgs/imgs_email_builder/img_upload.jpg"/>'+
-                                                                    //'<p class="cont-drop-image">Drop an Image here</p>'+
-                                                                    //'<a href="javascript:void(0)" class="et-btn-white btn-browse-img">Browse</a>'+
-                                                                '</div>'+
-                                                            '</td>'+
-                                                        '</tr>'+
-                                                    '</tbody>'+
-                                                '</table>'+
-                                            '</td>'+
-                                        '</tr>'+
-                                        '<tr>'+
-                                            '<td valign="top" class="ebTextContent" style="padding: 9px 18px;">'+
-                                                'Your text caption goes here'+
-                                            '</td>'+
-                                        '</tr>'+
-                                    '</tbody>'+
-                                '</table>';
-            } else if( $item.hasClass('eb-block-image-caption') ){
-                type = 'box-image-caption';
-                dataAll = '{"fontTypeFace": "None", "fontWeight": "None", "fontSize": "None", "color":"#333333", "lineHeight": "None", "textAlign": "None", "position": "3", "imgAlignment": "0", "number": "0", "captionWidth":"0"}';
-                elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageBlock">'+
-                                    '<tbody class="ebImageBlockOuter">'+
-                                        '<tr>'+
-                                            '<td valign="top" class="ebImageCardBlockInner" style="padding: 9px 18px 0;">'+
-                                                '<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageContentContainer">'+
-                                                    '<tbody>'+
-                                                        '<tr>'+
-                                                            '<td valign="top" class="ebImageContent" style="">'+
-                                                                '<div class="eb-upload-image">'+
-                                                                    '<img alt="" class="eb-img-upload" src="https://t1.llanalytics.com/imgs/imgs_email_builder/img_upload.jpg"/>'+
-                                                                    //'<p class="cont-drop-image">Drop an Image here</p>'+
-                                                                    //'<a href="javascript:void(0)" class="et-btn-white btn-browse-img">Browse</a>'+
-                                                                '</div>'+
-                                                            '</td>'+
-                                                        '</tr>'+
-                                                    '</tbody>'+
-                                                '</table>'+
-                                            '</td>'+
-                                        '</tr>'+
-                                        '<tr>'+
-                                            '<td valign="top" class="ebTextContent" style="padding: 9px 18px;">'+
-                                                ' Your text caption goes here. You can change the position of the caption and set styles in the block\'s settings tab.'+
-                                            '</td>'+
-                                        '</tr>'+
-                                    '</tbody>'+
-                                '</table>';
-            } else if( $item.hasClass('eb-block-social-share') || $item.hasClass('eb-block-social-follow') || $item.hasClass('eb-block-calendar') ){
-            	var contentToShare = 1;
-            	var _additional_social_link_part = '';
-                if ( $item.hasClass('eb-block-social-share') ){
-                	_additional_social_link_part = '%%webversion_url_encoded%%';
-                	type = 'box-social-share';
-                    var masSocialText = ['Share','Tweet','+1','Share'];
-                    var masSocialLink = ['http://www.facebook.com/sharer/sharer.php?u=','http://twitter.com/intent/tweet?text=','https://plus.google.com/share?url=','http://www.linkedin.com/shareArticle?url='];
-					dataAll = '{"containerBackground":"#ffffff", "containerPadding":"0", "containerBorderType":"None", "containerBorderWidth":"0", "containerBorderColor":"#ffffff", "btnBackground":"#fafafa", "btnBorderType":"Solid", "btnBorderWidth":"1", "btnBorderColor":"#cccccc", "btnBorderRadius":"5", "fontTypeFace": "Arial", "fontWeight":"None", "fontSize":"12", "color":"#505050", "lineHeight":"None","align": "0", "width":"1","styleIcon":"0", "layout": "1", "contentToShare":"'+contentToShare+'", "shareCustomUrl":"0", "shareLink":"", "shareDesc":""}';
-					elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebShareBlock">'+
-	                                    '<tbody class="ebShareBlockOuter">'+
-	                                        '<tr>'+
-	                                            '<td valign="top" class="ebShareBlockInner" style="padding: 0px;">'+
-	                                                '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebShareContent">'+
-	                                                    '<tbody>'+
-	                                                        '<tr>'+
-	                                                            '<td valign="top" align="left" class="ebShareContentInner"  style="padding: 0 9px;">'+
-	                                                                '<table width="auto" border="0" cellpadding="0" cellspacing="0">'+
-	                                                                    '<tbody>'+
-	                                                                        '<tr>'+
-	                                                                            '<td valign="top" class="ebShareContentItemContainer" style="padding-top: 9px; padding-right: 9px; padding-left: 9px">'+
-	                                                                            
-		                                                                            '<!--[if mso]>'+
-		                                                                            '<table align="center" border="0" cellspacing="0" cellpadding="0">'+
-		                                                                            	'<tr>'+
-	                                                                                    '<![endif]-->'+
-	
-	                                                                                    '<!--[if mso]>'+
-		                                                                            		'<td align="center" valign="top">'+
-		                                                                            '<![endif]-->'+
-		                                                                                
-		                                                                            '<table data-type-social="0" align="left" border="0" cellpadding="0" cellspacing="0">'+
-	                                                                                    '<tbody>'+
-	                                                                                        '<tr>'+
-	                                                                                            '<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 9px">'+
-	                                                                                                '<table class="ebShareContentItem" style="border-collapse: separate; background-color: rgb(250, 250, 250); border: 1px solid #cccccc; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">'+
-	                                                                                                    '<tbody>'+
-	                                                                                                        '<tr>'+
-	                                                                                                            '<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">'+
-	                                                                                                                '<table align="left" border="0" cellpadding="0" cellspacing="0" width="">'+
-	                                                                                                                    '<tbody>'+
-	                                                                                                                        '<tr>'+
-	                                                                                                                        '<td class="mcnShareIconContent" align="center" valign="middle" width="28">'+
-	                                                                                                                            '<a href="'+masSocialLink[0]+_additional_social_link_part+'" target="_blank"><img alt="" src="https://t1.llanalytics.com/imgs/imgs_email_builder/social_btns/black/fb.png" style="display:block;" class="" height="28" width="28"></a>'+
-	                                                                                                                        '</td>'+
-	                                                                                                                        '<td class="mcnShareTextContent" style="padding-left:5px;" align="left" valign="middle">'+
-	                                                                                                                            '<a href="'+masSocialLink[0]+_additional_social_link_part+'" style="color: rgb(80, 80, 80); font-size: 12px; font-weight: normal; line-height: 100%; text-align: center; text-decoration: none;" target="">'+masSocialText[0]+'</a>'+
-	                                                                                                                        '</td>'+
-	                                                                                                                        '</tr>'+
-	                                                                                                                    '</tbody>'+
-	                                                                                                                '</table>'+
-	                                                                                                           '</td>'+
-	                                                                                                        '</tr>'+
-	                                                                                                    '<tbody>'+
-	                                                                                                '</table>'+
-	                                                                                            '</td>'+
-	                                                                                        '</tr>'+
-	                                                                                    '</tbody>'+
-	                                                                                '</table>'+
-	
-		                                                                            '<!--[if mso]>'+
-				                                                                            '</td>'+
-	                                                                                '<![endif]-->'+
-	
-	                                                                                '<!--[if mso]>'+
-				                                                                            '<td align="center" valign="top">'+
-		                                                                            '<![endif]-->'+
-	                                                                                
-	                                                                                
-	                                                                                '<table data-type-social="1" align="left" border="0" cellpadding="0" cellspacing="0">'+
-	                                                                                    '<tbody>'+
-	                                                                                        '<tr>'+
-	                                                                                            '<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 9px">'+
-	                                                                                                '<table class="ebShareContentItem" style="border-collapse: separate; background-color: rgb(250, 250, 250); border: 1px solid #cccccc; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">'+
-	                                                                                                    '<tbody>'+
-	                                                                                                        '<tr>'+
-	                                                                                                            '<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">'+
-	                                                                                                                '<table align="left" border="0" cellpadding="0" cellspacing="0" width="">'+
-	                                                                                                                    '<tbody>'+
-	                                                                                                                        '<tr>'+
-	                                                                                                                        '<td class="mcnShareIconContent" align="center" valign="middle" width="28">'+
-	                                                                                                                            '<a href="'+masSocialLink[1]+_additional_social_link_part+'" target="_blank"><img alt="" src="https://t1.llanalytics.com/imgs/imgs_email_builder/social_btns/black/tw.png" style="display:block;" class="" height="28" width="28"></a>'+
-	                                                                                                                        '</td>'+
-	                                                                                                                        '<td class="mcnShareTextContent" style="padding-left:5px;" align="left" valign="middle">'+
-	                                                                                                                            '<a href="'+masSocialLink[1]+_additional_social_link_part+'" style="color: rgb(80, 80, 80); font-size: 12px; font-weight: normal; line-height: 100%; text-align: center; text-decoration: none;" target="">'+masSocialText[1]+'</a>'+
-	                                                                                                                        '</td>'+
-	                                                                                                                        '</tr>'+
-	                                                                                                                    '</tbody>'+
-	                                                                                                                '</table>'+
-	                                                                                                            '</td>'+
-	                                                                                                        '</tr>'+
-	                                                                                                    '<tbody>'+
-	                                                                                                '</table>'+
-	                                                                                            '</td>'+
-	                                                                                        '</tr>'+
-	                                                                                    '</tbody>'+
-	                                                                                '</table>'+
-	
-		                                                                            '<!--[if mso]>'+
-				                                                                            '</td>'+
-	                                                                                '<![endif]-->'+
-	
-	                                                                                '<!--[if mso]>'+
-				                                                                            '<td align="center" valign="top">'+
-		                                                                            '<![endif]-->'+
-	                                                                                
-	                                                                               '<table data-type-social="3" align="left" border="0" cellpadding="0" cellspacing="0">'+
-	                                                                                    '<tbody>'+
-	                                                                                        '<tr>'+
-	                                                                                            '<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 9px">'+
-	                                                                                                '<table class="ebShareContentItem" style="border-collapse: separate; background-color: rgb(250, 250, 250); border: 1px solid #cccccc; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">'+
-	                                                                                                    '<tbody>'+
-	                                                                                                        '<tr>'+
-	                                                                                                            '<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">'+
-	                                                                                                                '<table align="left" border="0" cellpadding="0" cellspacing="0" width="">'+
-	                                                                                                                    '<tbody>'+
-	                                                                                                                        '<tr>'+
-	                                                                                                                        '<td class="mcnShareIconContent" align="center" valign="middle" width="28">'+
-	                                                                                                                            '<a href="'+masSocialLink[3]+_additional_social_link_part+'" target="_blank"><img alt="" src="https://t1.llanalytics.com/imgs/imgs_email_builder/social_btns/black/in.png" style="display:block;" class="" height="28" width="28"></a>'+
-	                                                                                                                        '</td>'+
-	                                                                                                                        '<td class="mcnShareTextContent" style="padding-left:5px;" align="left" valign="middle">'+
-	                                                                                                                            '<a href="'+masSocialLink[3]+_additional_social_link_part+'" style="color: rgb(80, 80, 80); font-size: 12px; font-weight: normal; line-height: 100%; text-align: center; text-decoration: none;" target="">'+masSocialText[3]+'</a>'+
-	                                                                                                                        '</td>'+
-	                                                                                                                        '</tr>'+
-	                                                                                                                    '</tbody>'+
-	                                                                                                                '</table>'+
-	                                                                                                            '</td>'+
-	                                                                                                        '</tr>'+
-	                                                                                                    '<tbody>'+
-	                                                                                                '</table>'+
-	                                                                                            '</td>'+
-	                                                                                        '</tr>'+
-	                                                                                    '</tbody>'+
-	                                                                                '</table>'+
-		
-		                                                                            '<!--[if mso]>'+
-		                                                                            		'</td>'+
-	                                                                                '<![endif]-->'+
-	
-	                                                                                '<!--[if mso]>'+
-		                                                                            		'<td align="center" valign="top">'+
-		                                                                            '<![endif]-->'+
-		                                                                                
-	                                                                                '<table data-type-social="2" align="left" border="0" cellpadding="0" cellspacing="0">'+
-	                                                                                    '<tbody>'+
-	                                                                                        '<tr>'+
-	                                                                                            '<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 0">'+
-	                                                                                                '<table class="ebShareContentItem" style="border-collapse: separate; background-color: rgb(250, 250, 250); border: 1px solid #cccccc; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">'+
-	                                                                                                    '<tbody>'+
-	                                                                                                        '<tr>'+
-	                                                                                                            '<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">'+
-	                                                                                                                '<table align="left" border="0" cellpadding="0" cellspacing="0" width="">'+
-	                                                                                                                    '<tbody>'+
-	                                                                                                                        '<tr>'+
-	                                                                                                                        '<td class="mcnShareIconContent" align="center" valign="middle" width="28">'+
-	                                                                                                                            '<a href="'+masSocialLink[2]+_additional_social_link_part+'" target="_blank"><img alt="" src="https://t1.llanalytics.com/imgs/imgs_email_builder/social_btns/black/gg.png" style="display:block;" class="" height="28" width="28"></a>'+
-	                                                                                                                        '</td>'+
-	                                                                                                                        '<td class="mcnShareTextContent" style="padding-left:5px;" align="left" valign="middle">'+
-	                                                                                                                            '<a href="'+masSocialLink[2]+_additional_social_link_part+'" style="color: rgb(80, 80, 80); font-size: 12px; font-weight: normal; line-height: 100%; text-align: center; text-decoration: none;" target="">'+masSocialText[2]+'</a>'+
-	                                                                                                                        '</td>'+
-	                                                                                                                        '</tr>'+
-	                                                                                                                    '</tbody>'+
-	                                                                                                                '</table>'+
-	                                                                                                            '</td>'+
-	                                                                                                        '</tr>'+
-	                                                                                                    '<tbody>'+
-	                                                                                                '</table>'+
-	                                                                                            '</td>'+
-	                                                                                        '</tr>'+
-	                                                                                    '</tbody>'+
-	                                                                                '</table>'+
-	                                                                            	
-	                                                                                
-		                                                                            '<!--[if mso]>'+
-		                                                                                	'</td>'+
-	                                                                                    '<![endif]-->'+
-	
-	                                                                                '<!--[if mso]>'+
-		                                                                                '</tr>'+
-		                                                                            '</table>'+
-		                                                                            '<![endif]-->'+
-	                                                                                
-	                                                                                
-	                                                                            '</td>'+
-	                                                                        '</tr>'+
-	                                                                    '</tbody>'+
-	                                                                '</table>'+
-	                                                            '</td>'+
-	                                                        '</tr>'+
-	                                                    '</tbody>'+
-	                                                '</table>'+
-	                                            '</td>'+
-	                                        '</tr>'+
-	                                    '</tbody>'+
-	                                '</table>';
-                } else if ($item.hasClass('eb-block-social-follow')) {
-                    type = 'box-social-follow';
-                    contentToShare = 0;
-                    var masSocialText = ['Facebook','Twitter','Google Plus','LinkedIn'];
-                    var masSocialLink = ['http://www.facebook.com/','http://www.twitter.com/','http://plus.google.com/','http://www.linkedin.com/'];
-					dataAll = '{"containerBackground":"#ffffff", "containerPadding":"0", "containerBorderType":"None", "containerBorderWidth":"0", "containerBorderColor":"#ffffff", "btnBackground":"#ffffff", "btnBorderType":"None", "btnBorderWidth":"0", "btnBorderColor":"#ffffff", "btnBorderRadius":"5", "fontTypeFace": "Arial", "fontWeight":"None", "fontSize":"12", "color":"#505050", "lineHeight":"None","align": "0", "width":"1","styleIcon":"0", "display":"0", "layout": "2", "contentToShare":"'+contentToShare+'", "shareCustomUrl":"0", "shareLink":"", "shareDesc":""}';
-					elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebShareBlock">'+
-                                    '<tbody class="ebShareBlockOuter">'+
-                                        '<tr>'+
-                                            '<td valign="top" class="ebShareBlockInner" style="padding: 0px;">'+
-                                                '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebShareContent">'+
-                                                    '<tbody>'+
-                                                        '<tr>'+
-                                                            '<td valign="top" align="left" class="ebShareContentInner"  style="padding: 0 9px;">'+
-                                                                '<table width="auto"  border="0" cellpadding="0" cellspacing="0">'+
-                                                                    '<tbody>'+
-                                                                        '<tr>'+
-                                                                            '<td valign="top" class="ebShareContentItemContainer" style="padding-top: 9px; padding-right: 9px; padding-left: 9px">'+
-                                                                                    
-                                                                                    '<!--[if mso]>'+
-                                                                                    '<table align="center" border="0" cellspacing="0" cellpadding="0">'+
-                                                                                    '<tr>'+
-                                                                                    '<![endif]-->'+
 
-                                                                                    '<!--[if mso]>'+
-                                                                                    '<td align="center" valign="top">'+
-                                                                                    '<![endif]-->'+
-                                                                                        
-                                                                                    '<table data-type-social="0" align="left" border="0" cellpadding="0" cellspacing="0">'+
-                                                                                    '<tbody>'+
-                                                                                        '<tr>'+
-                                                                                            '<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 9px">'+
-                                                                                                '<table class="ebShareContentItem" style="border-collapse: separate; background-color: #ffffff; border: 0; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">'+
-                                                                                                    '<tbody>'+
-                                                                                                        '<tr>'+
-                                                                                                            '<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">'+
-                                                                                                                '<table align="left" border="0" cellpadding="0" cellspacing="0" width="">'+
-                                                                                                                    '<tbody>'+
-                                                                                                                        '<tr>'+
-                                                                                                                        '<td class="mcnShareIconContent" align="center" valign="middle" width="28">'+
-                                                                                                                            '<a href="'+masSocialLink[0]+'" target="_blank"><img src="https://t1.llanalytics.com/imgs/imgs_email_builder/social_btns/black/fb.png" style="display:block;" class="" height="28" width="28"></a>'+
-                                                                                                                        '</td>'+
-                                                                                                                        '</tr>'+
-                                                                                                                    '</tbody>'+
-                                                                                                                '</table>'+
-                                                                                                           '</td>'+
-                                                                                                        '</tr>'+
-                                                                                                    '<tbody>'+
-                                                                                                '</table>'+
-                                                                                            '</td>'+
-                                                                                        '</tr>'+
-                                                                                    '</tbody>'+
-                                                                                '</table>'+
-                                                                                
-                                                                                '<!--[if mso]>'+
-                                                                                '</td>'+
-                                                                                '<![endif]-->'+
+			if( $item.hasClass('eb-block-custom-element') ){
 
-                                                                                '<!--[if mso]>'+
-                                                                                '<td align="center" valign="top">'+
-                                                                                '<![endif]-->'+
-                                                                                
-                                                                                
-                                                                                '<table data-type-social="1" align="left" border="0" cellpadding="0" cellspacing="0">'+
-                                                                                    '<tbody>'+
-                                                                                        '<tr>'+
-                                                                                            '<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 9px">'+
-                                                                                                '<table class="ebShareContentItem" style="border-collapse: separate; background-color: #ffffff; border: 0; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">'+
-                                                                                                    '<tbody>'+
-                                                                                                        '<tr>'+
-                                                                                                            '<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">'+
-                                                                                                                '<table align="left" border="0" cellpadding="0" cellspacing="0" width="">'+
-                                                                                                                    '<tbody>'+
-                                                                                                                        '<tr>'+
-                                                                                                                        '<td class="mcnShareIconContent" align="center" valign="middle" width="28">'+
-                                                                                                                            '<a href="'+masSocialLink[1]+'" target="_blank"><img src="https://t1.llanalytics.com/imgs/imgs_email_builder/social_btns/black/tw.png" style="display:block;" class="" height="28" width="28"></a>'+
-                                                                                                                        '</td>'+
-                                                                                                                        '</tr>'+
-                                                                                                                    '</tbody>'+
-                                                                                                                '</table>'+
-                                                                                                            '</td>'+
-                                                                                                        '</tr>'+
-                                                                                                    '<tbody>'+
-                                                                                                '</table>'+
-                                                                                            '</td>'+
-                                                                                        '</tr>'+
-                                                                                    '</tbody>'+
-                                                                                '</table>'+
-                                                                                
-                                                                                '<!--[if mso]>'+
-                                                                                '</td>'+
-                                                                                '<![endif]-->'+
+				$(page.$item).hide();
+				ll_custom_elements_manager.open_custom_elements_popup(CUSTOM_ELEMENT_FOR_EMAIL, function (ll_custom_element) {
+					if(typeof ll_custom_element != 'undefined' && ll_custom_element){
+						content = ll_custom_element.ll_custom_element_html;
 
-                                                                                '<!--[if mso]>'+
-                                                                                '<td align="center" valign="top">'+
-                                                                                '<![endif]-->'+
-                                                                                
-                                                                               '<table data-type-social="3" align="left" border="0" cellpadding="0" cellspacing="0">'+
-                                                                                    '<tbody>'+
-                                                                                        '<tr>'+
-                                                                                            '<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 9px">'+
-                                                                                                '<table class="ebShareContentItem" style="border-collapse: separate; background-color: #ffffff; border: 0; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">'+
-                                                                                                    '<tbody>'+
-                                                                                                        '<tr>'+
-                                                                                                            '<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">'+
-                                                                                                                '<table align="left" border="0" cellpadding="0" cellspacing="0" width="">'+
-                                                                                                                    '<tbody>'+
-                                                                                                                        '<tr>'+
-                                                                                                                        '<td class="mcnShareIconContent" align="center" valign="middle" width="28">'+
-                                                                                                                            '<a href="'+masSocialLink[3]+'" target="_blank"><img src="https://t1.llanalytics.com/imgs/imgs_email_builder/social_btns/black/in.png" style="display:block;" class="" height="28" width="28"></a>'+
-                                                                                                                        '</td>'+
-                                                                                                                        '</tr>'+
-                                                                                                                    '</tbody>'+
-                                                                                                                '</table>'+
-                                                                                                            '</td>'+
-                                                                                                        '</tr>'+
-                                                                                                    '<tbody>'+
-                                                                                                '</table>'+
-                                                                                            '</td>'+
-                                                                                        '</tr>'+
-                                                                                    '</tbody>'+
-                                                                                '</table>'+
-                                                                                
-                                                                                '<!--[if mso]>'+
-                                                                                '</td>'+
-                                                                                '<![endif]-->'+
+						$(page.$item).replaceWith(content);
 
-                                                                                '<!--[if mso]>'+
-                                                                                '<td align="center" valign="top">'+
-                                                                                '<![endif]-->'+
-                                                                                
-                                                                                '<table data-type-social="2" align="left" border="0" cellpadding="0" cellspacing="0">'+
-                                                                                    '<tbody>'+
-                                                                                        '<tr>'+
-                                                                                            '<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 0">'+
-                                                                                                '<table class="ebShareContentItem" style="border-collapse: separate; background-color: #ffffff; border: 0; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">'+
-                                                                                                    '<tbody>'+
-                                                                                                        '<tr>'+
-                                                                                                            '<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">'+
-                                                                                                                '<table align="left" border="0" cellpadding="0" cellspacing="0" width="">'+
-                                                                                                                    '<tbody>'+
-                                                                                                                        '<tr>'+
-                                                                                                                        '<td class="mcnShareIconContent" align="center" valign="middle" width="28">'+
-                                                                                                                            '<a href="'+masSocialLink[2]+'" target="_blank"><img src="https://t1.llanalytics.com/imgs/imgs_email_builder/social_btns/black/gg.png" style="display:block;" class="" height="28" width="28"></a>'+
-                                                                                                                        '</td>'+
-                                                                                                                        '</tr>'+
-                                                                                                                    '</tbody>'+
-                                                                                                                '</table>'+
-                                                                                                            '</td>'+
-                                                                                                        '</tr>'+
-                                                                                                    '<tbody>'+
-                                                                                                '</table>'+
-                                                                                            '</td>'+
-                                                                                        '</tr>'+
-                                                                                    '</tbody>'+
-                                                                                '</table>'+
-                                                                                
-                                                                                
-                                                                                '<!--[if mso]>'+
-                                                                                    '</td>'+
-                                                                                    '<![endif]-->'+
+						page.appendElementSettingsIcon('.tpl-block.tpl-adding .tpl-block-controls');
+						$('.tpl-block.tpl-adding').removeClass('tpl-adding');
 
-                                                                                '<!--[if mso]>'+
-                                                                                '</tr>'+
-                                                                                '</table>'+
-                                                                                '<![endif]-->'+
-                                                                                
-                                                                                
-                                                                            '</td>'+
-                                                                        '</tr>'+
-                                                                    '</tbody>'+
-                                                                '</table>'+
-                                                            '</td>'+
-                                                        '</tr>'+
-                                                    '</tbody>'+
-                                                '</table>'+
-                                            '</td>'+
-                                        '</tr>'+
-                                    '</tbody>'+
-                                '</table>';
-            } else {
-					type = 'box-calendar';
-                    contentToShare = 0;
-                    var masSocialText = ['Google','Outlook','Yahoo!'];
-                    var masSocialLink = ['#','#','#'];
-					dataAll = '{"containerBackground":"#ffffff", "containerPadding":"0", "containerBorderType":"None", "containerBorderWidth":"0", "containerBorderColor":"#ffffff", "btnBackground":"#ffffff", "btnBorderType":"None", "btnBorderWidth":"0", "btnBorderColor":"#ffffff", "btnBorderRadius":"5", "fontTypeFace": "Arial", "fontWeight":"None", "fontSize":"12", "color":"#505050", "lineHeight":"None","align": "0", "width":"1","styleIcon":"0", "display":"0", "layout": "2", "contentToShare":"'+contentToShare+'", "shareCustomUrl":"0", "shareLink":"", "shareDesc":""}';
-					elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebShareBlock">'+
-                                    '<tbody class="ebShareBlockOuter">'+
-                                        '<tr>'+
-                                            '<td valign="top" class="ebShareBlockInner" style="padding: 0px;">'+
-                                                '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebShareContent">'+
-                                                    '<tbody>'+
-                                                        '<tr>'+
-                                                            '<td valign="top" align="left" class="ebShareContentInner"  style="padding: 0 9px;">'+
-                                                                '<table width="auto"  border="0" cellpadding="0" cellspacing="0">'+
-                                                                    '<tbody>'+
-                                                                        '<tr>'+
-                                                                            '<td valign="top" class="ebShareContentItemContainer" style="padding-top: 9px; padding-right: 9px; padding-left: 9px">'+
-                                                                                    
-                                                                                    '<!--[if mso]>'+
-                                                                                    '<table align="center" border="0" cellspacing="0" cellpadding="0">'+
-                                                                                    '<tr>'+
-                                                                                    '<![endif]-->'+
+						$('.eb-block-content.ui-draggable-dragging').remove();
 
-                                                                                    '<!--[if mso]>'+
-                                                                                    '<td align="center" valign="top">'+
-                                                                                    '<![endif]-->'+
-                                                                                        
-                                                                                    '<table data-type-social="12" align="left" border="0" cellpadding="0" cellspacing="0">'+
-                                                                                    '<tbody>'+
-                                                                                        '<tr>'+
-                                                                                            '<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 9px">'+
-                                                                                                '<table class="ebShareContentItem" style="border-collapse: separate; background-color: #ffffff; border: 0; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">'+
-                                                                                                    '<tbody>'+
-                                                                                                        '<tr>'+
-                                                                                                            '<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">'+
-                                                                                                                '<table align="left" border="0" cellpadding="0" cellspacing="0" width="">'+
-                                                                                                                    '<tbody>'+
-                                                                                                                        '<tr>'+
-                                                                                                                        '<td class="mcnShareIconContent" align="center" valign="middle" width="28">'+
-                                                                                                                            '<a href="'+masSocialLink[0]+'" target="_blank"><img src="https://t1.llanalytics.com/imgs/imgs_email_builder/calendar_btns/black/google.png" style="display:block;" class="" height="28" width="28"></a>'+
-                                                                                                                        '</td>'+
-                                                                                                                        '</tr>'+
-                                                                                                                    '</tbody>'+
-                                                                                                                '</table>'+
-                                                                                                           '</td>'+
-                                                                                                        '</tr>'+
-                                                                                                    '<tbody>'+
-                                                                                                '</table>'+
-                                                                                            '</td>'+
-                                                                                        '</tr>'+
-                                                                                    '</tbody>'+
-                                                                                '</table>'+
-                                                                                
-                                                                                '<!--[if mso]>'+
-                                                                                '</td>'+
-                                                                                '<![endif]-->'+
+						page.isElements();
 
-                                                                                '<!--[if mso]>'+
-                                                                                '<td align="center" valign="top">'+
-                                                                                '<![endif]-->'+
-                                                                                
-                                                                                
-                                                                                '<table data-type-social="13" align="left" border="0" cellpadding="0" cellspacing="0">'+
-                                                                                    '<tbody>'+
-                                                                                        '<tr>'+
-                                                                                            '<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 9px">'+
-                                                                                                '<table class="ebShareContentItem" style="border-collapse: separate; background-color: #ffffff; border: 0; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">'+
-                                                                                                    '<tbody>'+
-                                                                                                        '<tr>'+
-                                                                                                            '<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">'+
-                                                                                                                '<table align="left" border="0" cellpadding="0" cellspacing="0" width="">'+
-                                                                                                                    '<tbody>'+
-                                                                                                                        '<tr>'+
-                                                                                                                        '<td class="mcnShareIconContent" align="center" valign="middle" width="28">'+
-                                                                                                                            '<a href="'+masSocialLink[1]+'" target="_blank"><img src="https://t1.llanalytics.com/imgs/imgs_email_builder/calendar_btns/black/outlook.png" style="display:block;" class="" height="28" width="28"></a>'+
-                                                                                                                        '</td>'+
-                                                                                                                        '</tr>'+
-                                                                                                                    '</tbody>'+
-                                                                                                                '</table>'+
-                                                                                                            '</td>'+
-                                                                                                        '</tr>'+
-                                                                                                    '<tbody>'+
-                                                                                                '</table>'+
-                                                                                            '</td>'+
-                                                                                        '</tr>'+
-                                                                                    '</tbody>'+
-                                                                                '</table>'+
-                                                                                
-                                                                                '<!--[if mso]>'+
-                                                                                '</td>'+
-                                                                                '<![endif]-->'+
+					} else {
+						show_error_message('Invalid Custom Element');
+						//$(ui.item).remove();
+					}
+				}, function () {
+					$(page.$item).remove();
+				});
+			} else {
+				if ($item.hasClass('eb-block-text') || $item.hasClass('eb-block-boxed-text') || $item.hasClass('eb-block-footer')) {
+					var isBoxes = false;
+					var padding = 'padding-left:18px; padding-right: 18px; padding-top: 9px; padding-bottom: 9px;';
+					if ($item.hasClass('eb-block-boxed-text')) {
+						type = 'box-border-text';
+						isBoxes = true;
+						padding = 'padding-left:18px; padding-right: 18px; padding-top: 18px; padding-bottom: 18px;';
+					} else if ($item.hasClass('eb-block-footer')) {
+						type = 'box-footer';
+						isBoxes = true;
+						padding = 'padding-left:18px; padding-right: 18px; padding-top: 18px; padding-bottom: 18px;';
+					} else {
+						type = 'box-text';
+					}
+					if ($item.hasClass('eb-block-footer')) {
+						dataAll = '{"fontTypeFace": "None", "fontWeight": "None", "fontSize": "None", "boxesIs": ' + isBoxes + ', "boxesBackgroundColor": "#f2f2f2", "boxesBorderType": "Solid", "boxesBorderWidth": 1, "boxesBorderColor": "#c9c9c9", "color": "#333333", "lineHeight": "None", "textAlign": "None", "columnSplit": 0, "columnSplitType": 0}';
+						elementDrag = '<table style="min-width: 100%;" border="0" cellpadding="0" cellspacing="0" width="100%" class="ebTextBlock ebTextBlockFooter">' +
+							'<tbody class="ebTextBlockOuter">' +
+							'<tr>' +
+							'<td valign="top" class="ebTextBlockInner">' +
+							'<table style="min-width: 100%; background-color: rgb(242, 242, 242);" align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="ebTextContentContainer">' +
+							'<tbody>' +
+							'<tr>' +
+							"<td valign='top' class='ebTextContent' style='border-style: solid; border-width: 1px; border-color: rgb(201, 201, 201);" + padding + "'>" +
+							'Copyright %%currentyear%% %%companyname%%, All rights reserved.<br><br>Our mailling address is <span style="color: #1f69ad;"><a href="#">%%companyaddress%%</a></span>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>';
+					} else {
+						dataAll = '{"fontTypeFace": "None", "fontWeight": "None", "fontSize": "None", "boxesIs": ' + isBoxes + ', "boxesBackgroundColor": "#ffffff", "boxesBorderType": "None", "boxesBorderWidth": 0, "boxesBorderColor": "#999999", "color": "#333333", "lineHeight": "None", "textAlign": "None", "columnSplit": 0, "columnSplitType": 0}';
 
-                                                                                '<!--[if mso]>'+
-                                                                                '<td align="center" valign="top">'+
-                                                                                '<![endif]-->'+
-                                                                                
-                                                                               '<table data-type-social="16" align="left" border="0" cellpadding="0" cellspacing="0">'+
-                                                                                    '<tbody>'+
-                                                                                        '<tr>'+
-                                                                                            '<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 9px">'+
-                                                                                                '<table class="ebShareContentItem" style="border-collapse: separate; background-color: #ffffff; border: 0; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">'+
-                                                                                                    '<tbody>'+
-                                                                                                        '<tr>'+
-                                                                                                            '<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">'+
-                                                                                                                '<table align="left" border="0" cellpadding="0" cellspacing="0" width="">'+
-                                                                                                                    '<tbody>'+
-                                                                                                                        '<tr>'+
-                                                                                                                        '<td class="mcnShareIconContent" align="center" valign="middle" width="28">'+
-                                                                                                                            '<a href="'+masSocialLink[2]+'" target="_blank"><img src="https://t1.llanalytics.com/imgs/imgs_email_builder/calendar_btns/black/yahoo.png" style="display:block;" class="" height="28" width="28"></a>'+
-                                                                                                                        '</td>'+
-                                                                                                                        '</tr>'+
-                                                                                                                    '</tbody>'+
-                                                                                                                '</table>'+
-                                                                                                            '</td>'+
-                                                                                                        '</tr>'+
-                                                                                                    '<tbody>'+
-                                                                                                '</table>'+
-                                                                                            '</td>'+
-                                                                                        '</tr>'+
-                                                                                    '</tbody>'+
-                                                                                '</table>'+
-                                                                                '<!--[if mso]>'+
-                                                                                '</td>'+
-                                                                                '<![endif]-->'+
+						elementDrag = '<table style="min-width: 100%;" border="0" cellpadding="0" cellspacing="0" width="100%" class="ebTextBlock">' +
+							'<tbody class="ebTextBlockOuter">' +
+							'<tr>' +
+							'<td valign="top" class="ebTextBlockInner">' +
+							'<table style="min-width: 100%;" align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="ebTextContentContainer">' +
+							'<tbody>' +
+							'<tr>' +
+							"<td valign='top' class='ebTextContent' style='border: 0;" + padding + "'>" +
+							'This is a Text Block. Use this to provide text...' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>';
+					}
+				} else if ($item.hasClass('eb-block-divider')) {
+					type = 'box-divider';
+					dataAll = '{"backgroundColor": "#ffffff", "borderType": "Solid", "borderWidth": 1, "borderColor":"#999999", "paddingTop":"18", "paddingBottom":"18"}';
+					elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebDividerBlock" style="background-color: #ffffff;">' +
+						'<tbody>' +
+						'<tr>' +
+						'<td valign="top" class="ebDividerBlockInner" style="padding: 18px 0;">' +
+						'<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="ebDividerContent" style="border-top-width: 1px; border-top-style: solid; border-top-color: #999999;">' +
+						'<tbody>' +
+						'<tr>' +
+						'<td>' +
+						'</td>' +
+						'</tr>' +
+						'</tbody>' +
+						'</table>' +
+						'</td>' +
+						'</tr>' +
+						'</tbody>' +
+						'</table>';
+				} else if ($item.hasClass('eb-block-image')) {
+					type = 'box-image';
+					dataAll = '{"align":0, "margins":0}';
+					elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageBlock">' +
+						'<tbody class="ebImageBlockOuter">' +
+						'<tr>' +
+						'<td valign="top" class="ebImageBlockInner" style="padding: 9px;">' +
+						'<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageContentContainer">' +
+						'<tbody>' +
+						'<tr>' +
+						'<td valign="top" align="left" class="ebImageContent" style="padding: 0 9px;">' +
+						'<div class="eb-upload-image">' +
+						'<img alt="" class="eb-img-upload" src="https://t1.llanalytics.com/imgs/imgs_email_builder/img_upload.jpg"/>' +
+						//'<p class="cont-drop-image">Drop an Image here</p>'+
+						//'<a href="javascript:void(0)" class="et-btn-white btn-browse-img">Browse</a>'+
+						'</div>' +
+						'</td>' +
+						'</tr>' +
+						'</tbody>' +
+						'</table>' +
+						'</td>' +
+						'</tr>' +
+						'</tbody>' +
+						'</table>';
+				} else if ($item.hasClass('eb-block-image-group')) {
+					type = 'box-image-group';
+					dataAll = '{"count": 2, "layout": 0, "layoutIndex": 0}';
+					elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageBlock">' +
+						'<tbody class="ebImageBlockOuter">' +
+						'<tr>' +
+						'<td valign="top" class="ebImageBlockInner" style="padding: 9px;">' +
+						'<table align="left" dataSortId="0" style="width: 282px;" border="0" cellpadding="0" cellspacing="0" width="282px" class="ebImageContentContainer">' +
+						'<tbody>' +
+						'<tr>' +
+						'<td valign="top" class="ebImageContent" style="padding: 0 0 0 9px;">' +
+						'<div class="eb-upload-image">' +
+						'<img alt="" class="eb-img-upload" src="https://t1.llanalytics.com/imgs/imgs_email_builder/img_upload.jpg"/>' +
+						//'<p class="cont-drop-image">Drop an Image here</p>'+
+						//'<a href="javascript:void(0)" class="et-btn-white btn-browse-img">Browse</a>'+
+						'</div>' +
+						'</td>' +
+						'</tr>' +
+						'</tbody>' +
+						'</table>' +
+						'<table align="right" dataSortId="1" style="width: 282px;" border="0" cellpadding="0" cellspacing="0" width="282px" class="ebImageContentContainer">' +
+						'<tbody>' +
+						'<tr>' +
+						'<td valign="top" class="ebImageContent" style="padding: 0 9px 0 0;">' +
+						'<div class="eb-upload-image">' +
+						'<img alt="" class="eb-img-upload" src="https://t1.llanalytics.com/imgs/imgs_email_builder/img_upload.jpg"/>' +
+						//'<p class="cont-drop-image">Drop an Image here</p>'+
+						//'<a href="javascript:void(0)" class="et-btn-white btn-browse-img">Browse</a>'+
+						'</div>' +
+						'</td>' +
+						'</tr>' +
+						'</tbody>' +
+						'</table>' +
+						'</td>' +
+						'</tr>' +
+						'</tbody>' +
+						'</table>';
+				} else if ($item.hasClass('eb-block-image-card')) {
+					type = 'box-image-card';
+					dataAll = '{"backgroundColor": "#ffffff", "borderType": "None", "borderWidth": "0", "borderColor":"#999999", "fontTypeFace": "None", "fontWeight": "None", "fontSize": "None", "color":"#333333", "lineHeight": "None", "textAlign": "None", "position": "3", "imgAlignment": "0", "margins": "0", "captionWidth":"0"}';
+					elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageBlock">' +
+						'<tbody class="ebImageBlockOuter">' +
+						'<tr>' +
+						'<td valign="top" class="ebImageCardBlockInner" style="padding: 9px 18px 0;">' +
+						'<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageContentContainer">' +
+						'<tbody>' +
+						'<tr>' +
+						'<td valign="top" class="ebImageContent" style="">' +
+						'<div class="eb-upload-image">' +
+						'<img alt="" class="eb-img-upload" src="https://t1.llanalytics.com/imgs/imgs_email_builder/img_upload.jpg"/>' +
+						//'<p class="cont-drop-image">Drop an Image here</p>'+
+						//'<a href="javascript:void(0)" class="et-btn-white btn-browse-img">Browse</a>'+
+						'</div>' +
+						'</td>' +
+						'</tr>' +
+						'</tbody>' +
+						'</table>' +
+						'</td>' +
+						'</tr>' +
+						'<tr>' +
+						'<td valign="top" class="ebTextContent" style="padding: 9px 18px;">' +
+						'Your text caption goes here' +
+						'</td>' +
+						'</tr>' +
+						'</tbody>' +
+						'</table>';
+				} else if ($item.hasClass('eb-block-image-caption')) {
+					type = 'box-image-caption';
+					dataAll = '{"fontTypeFace": "None", "fontWeight": "None", "fontSize": "None", "color":"#333333", "lineHeight": "None", "textAlign": "None", "position": "3", "imgAlignment": "0", "number": "0", "captionWidth":"0"}';
+					elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageBlock">' +
+						'<tbody class="ebImageBlockOuter">' +
+						'<tr>' +
+						'<td valign="top" class="ebImageCardBlockInner" style="padding: 9px 18px 0;">' +
+						'<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageContentContainer">' +
+						'<tbody>' +
+						'<tr>' +
+						'<td valign="top" class="ebImageContent" style="">' +
+						'<div class="eb-upload-image">' +
+						'<img alt="" class="eb-img-upload" src="https://t1.llanalytics.com/imgs/imgs_email_builder/img_upload.jpg"/>' +
+						//'<p class="cont-drop-image">Drop an Image here</p>'+
+						//'<a href="javascript:void(0)" class="et-btn-white btn-browse-img">Browse</a>'+
+						'</div>' +
+						'</td>' +
+						'</tr>' +
+						'</tbody>' +
+						'</table>' +
+						'</td>' +
+						'</tr>' +
+						'<tr>' +
+						'<td valign="top" class="ebTextContent" style="padding: 9px 18px;">' +
+						' Your text caption goes here. You can change the position of the caption and set styles in the block\'s settings tab.' +
+						'</td>' +
+						'</tr>' +
+						'</tbody>' +
+						'</table>';
+				} else if ($item.hasClass('eb-block-social-share') || $item.hasClass('eb-block-social-follow') || $item.hasClass('eb-block-calendar')) {
+					var contentToShare = 1;
+					var _additional_social_link_part = '';
+					if ($item.hasClass('eb-block-social-share')) {
+						_additional_social_link_part = '%%webversion_url_encoded%%';
+						type = 'box-social-share';
+						var masSocialText = ['Share', 'Tweet', 'Share'];
+						var masSocialLink = ['http://www.facebook.com/sharer/sharer.php?u=', 'http://twitter.com/intent/tweet?text=', 'http://www.linkedin.com/shareArticle?url='];
+						dataAll = '{"containerBackground":"#ffffff", "containerPadding":"0", "containerBorderType":"None", "containerBorderWidth":"0", "containerBorderColor":"#ffffff", "btnBackground":"#fafafa", "btnBorderType":"Solid", "btnBorderWidth":"1", "btnBorderColor":"#cccccc", "btnBorderRadius":"5", "fontTypeFace": "Arial", "fontWeight":"None", "fontSize":"12", "color":"#505050", "lineHeight":"None","align": "0", "width":"1","styleIcon":"0", "layout": "1", "contentToShare":"' + contentToShare + '", "shareCustomUrl":"0", "shareLink":"", "shareDesc":""}';
+						elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebShareBlock">' +
+							'<tbody class="ebShareBlockOuter">' +
+							'<tr>' +
+							'<td valign="top" class="ebShareBlockInner" style="padding: 0px;">' +
+							'<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebShareContent">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td valign="top" align="left" class="ebShareContentInner"  style="padding: 0 9px;">' +
+							'<table width="auto" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td valign="top" class="ebShareContentItemContainer" style="padding-top: 9px; padding-right: 9px; padding-left: 9px">' +
 
-                                                                                '<!--[if mso]>'+
-                                                                                '</tr>'+
-                                                                                '</table>'+
-                                                                                '<![endif]-->'+
-                                                                            '</td>'+
-                                                                        '</tr>'+
-                                                                    '</tbody>'+
-                                                                '</table>'+
-                                                            '</td>'+
-                                                        '</tr>'+
-                                                    '</tbody>'+
-                                                '</table>'+
-                                            '</td>'+
-                                        '</tr>'+
-                                    '</tbody>'+
-                                '</table>';
+							'<!--[if mso]>' +
+							'<table align="center" border="0" cellspacing="0" cellpadding="0">' +
+							'<tr>' +
+							'<![endif]-->' +
+
+							'<!--[if mso]>' +
+							'<td align="center" valign="top">' +
+							'<![endif]-->' +
+
+							'<table data-type-social="0" align="left" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 9px">' +
+							'<table class="ebShareContentItem" style="border-collapse: separate; background-color: rgb(250, 250, 250); border: 1px solid #cccccc; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">' +
+							'<table align="left" border="0" cellpadding="0" cellspacing="0" width="">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td class="mcnShareIconContent" align="center" valign="middle" width="28">' +
+							'<a href="' + masSocialLink[0] + _additional_social_link_part + '" target="_blank"><img alt="" src="https://t1.llanalytics.com/imgs/imgs_email_builder/social_btns/black/fb.png" style="display:block;" class="" height="28" width="28"></a>' +
+							'</td>' +
+							'<td class="mcnShareTextContent" style="padding-left:5px;" align="left" valign="middle">' +
+							'<a href="' + masSocialLink[0] + _additional_social_link_part + '" style="color: rgb(80, 80, 80); font-size: 12px; font-weight: normal; line-height: 100%; text-align: center; text-decoration: none;" target="">' + masSocialText[0] + '</a>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'<tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+
+							'<!--[if mso]>' +
+							'</td>' +
+							'<![endif]-->' +
+
+							'<!--[if mso]>' +
+							'<td align="center" valign="top">' +
+							'<![endif]-->' +
+
+
+							'<table data-type-social="1" align="left" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 9px">' +
+							'<table class="ebShareContentItem" style="border-collapse: separate; background-color: rgb(250, 250, 250); border: 1px solid #cccccc; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">' +
+							'<table align="left" border="0" cellpadding="0" cellspacing="0" width="">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td class="mcnShareIconContent" align="center" valign="middle" width="28">' +
+							'<a href="' + masSocialLink[1] + _additional_social_link_part + '" target="_blank"><img alt="" src="https://t1.llanalytics.com/imgs/imgs_email_builder/social_btns/black/tw.png" style="display:block;" class="" height="28" width="28"></a>' +
+							'</td>' +
+							'<td class="mcnShareTextContent" style="padding-left:5px;" align="left" valign="middle">' +
+							'<a href="' + masSocialLink[1] + _additional_social_link_part + '" style="color: rgb(80, 80, 80); font-size: 12px; font-weight: normal; line-height: 100%; text-align: center; text-decoration: none;" target="">' + masSocialText[1] + '</a>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'<tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+
+							'<!--[if mso]>' +
+							'</td>' +
+							'<![endif]-->' +
+
+							'<!--[if mso]>' +
+							'<td align="center" valign="top">' +
+							'<![endif]-->' +
+
+							'<table data-type-social="2" align="left" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 9px">' +
+							'<table class="ebShareContentItem" style="border-collapse: separate; background-color: rgb(250, 250, 250); border: 1px solid #cccccc; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">' +
+							'<table align="left" border="0" cellpadding="0" cellspacing="0" width="">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td class="mcnShareIconContent" align="center" valign="middle" width="28">' +
+							'<a href="' + masSocialLink[2] + _additional_social_link_part + '" target="_blank"><img alt="" src="https://t1.llanalytics.com/imgs/imgs_email_builder/social_btns/black/in.png" style="display:block;" class="" height="28" width="28"></a>' +
+							'</td>' +
+							'<td class="mcnShareTextContent" style="padding-left:5px;" align="left" valign="middle">' +
+							'<a href="' + masSocialLink[2] + _additional_social_link_part + '" style="color: rgb(80, 80, 80); font-size: 12px; font-weight: normal; line-height: 100%; text-align: center; text-decoration: none;" target="">' + masSocialText[2] + '</a>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'<tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+
+							'<!--[if mso]>' +
+							'</td>' +
+							'<![endif]-->' +
+
+							'<!--[if mso]>' +
+							'<td align="center" valign="top">' +
+							'<![endif]-->' +
+
+
+
+							'<!--[if mso]>' +
+							'</td>' +
+							'<![endif]-->' +
+
+							'<!--[if mso]>' +
+							'</tr>' +
+							'</table>' +
+							'<![endif]-->' +
+
+
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>';
+					} else if ($item.hasClass('eb-block-social-follow')) {
+						type = 'box-social-follow';
+						contentToShare = 0;
+						var masSocialText = ['Facebook', 'Twitter', 'LinkedIn'];
+						var masSocialLink = ['http://www.facebook.com/', 'http://www.twitter.com/', 'http://www.linkedin.com/'];
+						dataAll = '{"containerBackground":"#ffffff", "containerPadding":"0", "containerBorderType":"None", "containerBorderWidth":"0", "containerBorderColor":"#ffffff", "btnBackground":"#ffffff", "btnBorderType":"None", "btnBorderWidth":"0", "btnBorderColor":"#ffffff", "btnBorderRadius":"5", "fontTypeFace": "Arial", "fontWeight":"None", "fontSize":"12", "color":"#505050", "lineHeight":"None","align": "0", "width":"1","styleIcon":"0", "display":"0", "layout": "2", "contentToShare":"' + contentToShare + '", "shareCustomUrl":"0", "shareLink":"", "shareDesc":""}';
+						elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebShareBlock">' +
+							'<tbody class="ebShareBlockOuter">' +
+							'<tr>' +
+							'<td valign="top" class="ebShareBlockInner" style="padding: 0px;">' +
+							'<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebShareContent">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td valign="top" align="left" class="ebShareContentInner"  style="padding: 0 9px;">' +
+							'<table width="auto"  border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td valign="top" class="ebShareContentItemContainer" style="padding-top: 9px; padding-right: 9px; padding-left: 9px">' +
+
+							'<!--[if mso]>' +
+							'<table align="center" border="0" cellspacing="0" cellpadding="0">' +
+							'<tr>' +
+							'<![endif]-->' +
+
+							'<!--[if mso]>' +
+							'<td align="center" valign="top">' +
+							'<![endif]-->' +
+
+							'<table data-type-social="0" align="left" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 9px">' +
+							'<table class="ebShareContentItem" style="border-collapse: separate; background-color: #ffffff; border: 0; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">' +
+							'<table align="left" border="0" cellpadding="0" cellspacing="0" width="">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td class="mcnShareIconContent" align="center" valign="middle" width="28">' +
+							'<a href="' + masSocialLink[0] + '" target="_blank"><img src="https://t1.llanalytics.com/imgs/imgs_email_builder/social_btns/black/fb.png" style="display:block;" class="" height="28" width="28"></a>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'<tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+
+							'<!--[if mso]>' +
+							'</td>' +
+							'<![endif]-->' +
+
+							'<!--[if mso]>' +
+							'<td align="center" valign="top">' +
+							'<![endif]-->' +
+
+
+							'<table data-type-social="1" align="left" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 9px">' +
+							'<table class="ebShareContentItem" style="border-collapse: separate; background-color: #ffffff; border: 0; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">' +
+							'<table align="left" border="0" cellpadding="0" cellspacing="0" width="">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td class="mcnShareIconContent" align="center" valign="middle" width="28">' +
+							'<a href="' + masSocialLink[1] + '" target="_blank"><img src="https://t1.llanalytics.com/imgs/imgs_email_builder/social_btns/black/tw.png" style="display:block;" class="" height="28" width="28"></a>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'<tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+
+							'<!--[if mso]>' +
+							'</td>' +
+							'<![endif]-->' +
+
+							'<!--[if mso]>' +
+							'<td align="center" valign="top">' +
+							'<![endif]-->' +
+
+							'<table data-type-social="2" align="left" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 9px">' +
+							'<table class="ebShareContentItem" style="border-collapse: separate; background-color: #ffffff; border: 0; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">' +
+							'<table align="left" border="0" cellpadding="0" cellspacing="0" width="">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td class="mcnShareIconContent" align="center" valign="middle" width="28">' +
+							'<a href="' + masSocialLink[2] + '" target="_blank"><img src="https://t1.llanalytics.com/imgs/imgs_email_builder/social_btns/black/in.png" style="display:block;" class="" height="28" width="28"></a>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'<tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+
+							'<!--[if mso]>' +
+							'</td>' +
+							'<![endif]-->' +
+
+							'<!--[if mso]>' +
+							'<td align="center" valign="top">' +
+							'<![endif]-->' +
+
+
+							'<!--[if mso]>' +
+							'</td>' +
+							'<![endif]-->' +
+
+							'<!--[if mso]>' +
+							'</tr>' +
+							'</table>' +
+							'<![endif]-->' +
+
+
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>';
+					} else {
+						type = 'box-calendar';
+						contentToShare = 0;
+						var masSocialText = ['Google', 'Outlook', 'Yahoo!'];
+						var masSocialLink = ['#', '#', '#'];
+						dataAll = '{"containerBackground":"#ffffff", "containerPadding":"0", "containerBorderType":"None", "containerBorderWidth":"0", "containerBorderColor":"#ffffff", "btnBackground":"#ffffff", "btnBorderType":"None", "btnBorderWidth":"0", "btnBorderColor":"#ffffff", "btnBorderRadius":"5", "fontTypeFace": "Arial", "fontWeight":"None", "fontSize":"12", "color":"#505050", "lineHeight":"None","align": "0", "width":"1","styleIcon":"0", "display":"0", "layout": "2", "contentToShare":"' + contentToShare + '", "shareCustomUrl":"0", "shareLink":"", "shareDesc":""}';
+						elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebShareBlock">' +
+							'<tbody class="ebShareBlockOuter">' +
+							'<tr>' +
+							'<td valign="top" class="ebShareBlockInner" style="padding: 0px;">' +
+							'<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebShareContent">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td valign="top" align="left" class="ebShareContentInner"  style="padding: 0 9px;">' +
+							'<table width="auto"  border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td valign="top" class="ebShareContentItemContainer" style="padding-top: 9px; padding-right: 9px; padding-left: 9px">' +
+
+							'<!--[if mso]>' +
+							'<table align="center" border="0" cellspacing="0" cellpadding="0">' +
+							'<tr>' +
+							'<![endif]-->' +
+
+							'<!--[if mso]>' +
+							'<td align="center" valign="top">' +
+							'<![endif]-->' +
+
+							'<table data-type-social="11" align="left" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 9px">' +
+							'<table class="ebShareContentItem" style="border-collapse: separate; background-color: #ffffff; border: 0; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">' +
+							'<table align="left" border="0" cellpadding="0" cellspacing="0" width="">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td class="mcnShareIconContent" align="center" valign="middle" width="28">' +
+							'<a href="' + masSocialLink[0] + '" target="_blank"><img src="https://t1.llanalytics.com/imgs/imgs_email_builder/calendar_btns/black/google.png" style="display:block;" class="" height="28" width="28"></a>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'<tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+
+							'<!--[if mso]>' +
+							'</td>' +
+							'<![endif]-->' +
+
+							'<!--[if mso]>' +
+							'<td align="center" valign="top">' +
+							'<![endif]-->' +
+
+
+							'<table data-type-social="12" align="left" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 9px">' +
+							'<table class="ebShareContentItem" style="border-collapse: separate; background-color: #ffffff; border: 0; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">' +
+							'<table align="left" border="0" cellpadding="0" cellspacing="0" width="">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td class="mcnShareIconContent" align="center" valign="middle" width="28">' +
+							'<a href="' + masSocialLink[1] + '" target="_blank"><img src="https://t1.llanalytics.com/imgs/imgs_email_builder/calendar_btns/black/outlook.png" style="display:block;" class="" height="28" width="28"></a>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'<tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+
+							'<!--[if mso]>' +
+							'</td>' +
+							'<![endif]-->' +
+
+							'<!--[if mso]>' +
+							'<td align="center" valign="top">' +
+							'<![endif]-->' +
+
+							'<table data-type-social="15" align="left" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td valign="top" class="ebShareContentItemContainer" style="padding-bottom: 9px; padding-right: 9px">' +
+							'<table class="ebShareContentItem" style="border-collapse: separate; background-color: #ffffff; border: 0; border-radius: 5px;" align="left" border="0" cellpadding="0" cellspacing="0">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td style="padding-top:5px; padding-right:9px; padding-bottom:5px; padding-left:9px;" align="left" valign="middle">' +
+							'<table align="left" border="0" cellpadding="0" cellspacing="0" width="">' +
+							'<tbody>' +
+							'<tr>' +
+							'<td class="mcnShareIconContent" align="center" valign="middle" width="28">' +
+							'<a href="' + masSocialLink[2] + '" target="_blank"><img src="https://t1.llanalytics.com/imgs/imgs_email_builder/calendar_btns/black/yahoo.png" style="display:block;" class="" height="28" width="28"></a>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'<tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+							'<!--[if mso]>' +
+							'</td>' +
+							'<![endif]-->' +
+
+							'<!--[if mso]>' +
+							'</tr>' +
+							'</table>' +
+							'<![endif]-->' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>' +
+							'</td>' +
+							'</tr>' +
+							'</tbody>' +
+							'</table>';
+					}
+				} else if ($item.hasClass('eb-block-column-2')) {
+					type = "column-2";
+					dataAll = '{"backgroundColor": "#ffffff", "borderTopType": "None", "borderTopWidth": "0", "borderTopColor": "#ffffff", "borderBottomType": "None", "borderBottomWidth": "0", "borderBottomColor": "#ffffff"}';
+					elementDrag = '<div class="template-column-2 clearfix"> <!--[if gte mso 9]> <table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;"> <tr> <td align="center" valign="top" width="300" style="width:300px;"> <![endif]--> <table class="column-wrapper" align="left" border="0" cellpadding="0" cellspacing="0" width="300"> <tbody> <tr> <td class="column-container tpl-container tpl-left-column"> <div class="eb-dragenddrop-box-text"> Drop Content Blocks Here </div> <div class="tpl-block" data-type="box-text" data-json="{&quot;fontTypeFace&quot;: &quot;None&quot;, &quot;fontWeight&quot;: &quot;None&quot;, &quot;fontSize&quot;: &quot;None&quot;, &quot;boxesIs&quot;: false, &quot;boxesBackgroundColor&quot;: &quot;#ffffff&quot;, &quot;boxesBorderType&quot;: &quot;None&quot;, &quot;boxesBorderWidth&quot;: 0, &quot;boxesBorderColor&quot;: &quot;#999999&quot;, &quot;color&quot;: &quot;#333333&quot;, &quot;lineHeight&quot;: &quot;None&quot;, &quot;textAlign&quot;: &quot;None&quot;, &quot;columnSplit&quot;: 0, &quot;columnSplitType&quot;: 0}"> <div class="tpl-block-content"> <table class="ebTextBlock" border="0" cellpadding="0" cellspacing="0" width="100%"> <tbody class="ebTextBlockOuter"> <tr> <td class="ebTextBlockInner" valign="top"> <table class="ebTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td class="ebTextContent" style="border: 0;padding-left:18px; padding-right: 18px; padding-top: 9px; padding-bottom: 9px;" valign="top"> <p class="eb-h2" style="margin-bottom: 15px; margin-top: 0;"> <span style="font-size: 20px; line-height: 23px; color: #333333; text-shadow: 0px 0px 0px #ffffff;">Left Column</span> </p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&acute;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </div> <div class="tpl-block-controls"> <a href="#" class="et-btn-white tpl-block-code"> <i></i> <span class="tpl-tooltip-btn">Code</span> </a> <a href="#" class="et-btn-white tpl-block-clone"> <i></i> <span class="tpl-tooltip-btn">Clone</span> </a> <a href="#" class="et-btn-white tpl-block-delete"> <i></i> <span class="tpl-tooltip-btn">Delete</span> </a> </div> </div> </td> </tr> </tbody> </table> <!--[if gte mso 9]> </td> <td align="center" valign="top" width="300" style="width:300px;"> <![endif]--> <table class="column-wrapper" align="right" border="0" cellpadding="0" cellspacing="0" width="300"> <tbody> <tr> <td class="column-container tpl-container tpl-right-column"> <div class="eb-dragenddrop-box-text"> Drop Content Blocks Here </div> <div class="tpl-block" data-type="box-text" data-json="{&quot;fontTypeFace&quot;: &quot;None&quot;, &quot;fontWeight&quot;: &quot;None&quot;, &quot;fontSize&quot;: &quot;None&quot;, &quot;boxesIs&quot;: false, &quot;boxesBackgroundColor&quot;: &quot;#ffffff&quot;, &quot;boxesBorderType&quot;: &quot;None&quot;, &quot;boxesBorderWidth&quot;: 0, &quot;boxesBorderColor&quot;: &quot;#999999&quot;, &quot;color&quot;: &quot;#333333&quot;, &quot;lineHeight&quot;: &quot;None&quot;, &quot;textAlign&quot;: &quot;None&quot;, &quot;columnSplit&quot;: 0, &quot;columnSplitType&quot;: 0}"> <div class="tpl-block-content"> <table class="ebTextBlock" border="0" cellpadding="0" cellspacing="0" width="100%"> <tbody class="ebTextBlockOuter"> <tr> <td class="ebTextBlockInner" valign="top"> <table class="ebTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td class="ebTextContent" style="border: 0;padding-left:18px; padding-right: 18px; padding-top: 9px; padding-bottom: 9px;" valign="top"> <p class="eb-h2" style="margin-bottom: 15px; margin-top: 0;"> <span style="font-size: 20px; line-height: 23px; color: #333333; text-shadow: 0px 0px 0px #ffffff;">Right Column</span> </p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&acute;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </div> <div class="tpl-block-controls"> <a href="#" class="et-btn-white tpl-block-code"> <i></i> <span class="tpl-tooltip-btn">Code</span> </a> <a href="#" class="et-btn-white tpl-block-clone"> <i></i> <span class="tpl-tooltip-btn">Clone</span> </a> <a href="#" class="et-btn-white tpl-block-delete"> <i></i> <span class="tpl-tooltip-btn">Delete</span> </a> </div> </div> </td> </tr> </tbody> </table> <!--[if gte mso 9]> </td> </tr> </table> <![endif]--> </div>';
+				} else if ($item.hasClass('eb-block-column-3')) {
+					type = "column-3";
+					dataAll = '{"backgroundColor": "#ffffff", "borderTopType": "None", "borderTopWidth": "0", "borderTopColor": "#ffffff", "borderBottomType": "None", "borderBottomWidth": "0", "borderBottomColor": "#ffffff"}';
+					elementDrag = '<div class="template-column-3 clearfix"><!--[if gte mso 9]><table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;"><tr><td align="center" valign="top" width="200" style="width:200px;"><![endif]--><table class="column-wrapper" align="left" border="0" cellpadding="0" cellspacing="0" width="200"><tbody><tr><td class="column-container tpl-container tpl-column-1"><div class="eb-dragenddrop-box-text">Drop Content Blocks Here</div><div class="tpl-block" data-type="box-text" data-json="{&quot;fontTypeFace&quot;: &quot;None&quot;, &quot;fontWeight&quot;: &quot;None&quot;, &quot;fontSize&quot;: &quot;None&quot;, &quot;boxesIs&quot;: false, &quot;boxesBackgroundColor&quot;: &quot;#ffffff&quot;, &quot;boxesBorderType&quot;: &quot;None&quot;, &quot;boxesBorderWidth&quot;: 0, &quot;boxesBorderColor&quot;: &quot;#999999&quot;, &quot;color&quot;: &quot;#333333&quot;, &quot;lineHeight&quot;: &quot;None&quot;, &quot;textAlign&quot;: &quot;None&quot;, &quot;columnSplit&quot;: 0, &quot;columnSplitType&quot;: 0}"><div class="tpl-block-content"><table class="ebTextBlock" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody class="ebTextBlockOuter"><tr><td class="ebTextBlockInner" valign="top"><table class="ebTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="ebTextContent" style="border: 0;padding-left:18px; padding-right: 18px; padding-top: 9px; padding-bottom: 9px;" valign="top"><p class="eb-h2" style="margin-bottom: 15px; margin-top: 0;"><span style="font-size: 20px; line-height: 23px; color: #333333; text-shadow: 0px 0px 0px #ffffff;">Left Column</span></p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&acute;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</td></tr></tbody></table></td></tr></tbody></table></div><div class="tpl-block-controls"><a href="#" class="et-btn-white tpl-block-code"><i></i><span class="tpl-tooltip-btn">Code</span></a> <a href="#" class="et-btn-white tpl-block-clone"><i></i><span class="tpl-tooltip-btn">Clone</span></a> <a href="#" class="et-btn-white tpl-block-delete"><i></i><span class="tpl-tooltip-btn">Delete</span></a></div></div></td></tr></tbody></table><!--[if gte mso 9]></td><td align="center" valign="top" width="200" style="width:200px;"><![endif]--><table class="column-wrapper" align="left" border="0" cellpadding="0" cellspacing="0" width="200"><tbody><tr><td class="column-container tpl-container tpl-column-2"><div class="eb-dragenddrop-box-text">Drop Content Blocks Here</div><div class="tpl-block" data-type="box-text" data-json="{&quot;fontTypeFace&quot;: &quot;None&quot;, &quot;fontWeight&quot;: &quot;None&quot;, &quot;fontSize&quot;: &quot;None&quot;, &quot;boxesIs&quot;: false, &quot;boxesBackgroundColor&quot;: &quot;#ffffff&quot;, &quot;boxesBorderType&quot;: &quot;None&quot;, &quot;boxesBorderWidth&quot;: 0, &quot;boxesBorderColor&quot;: &quot;#999999&quot;, &quot;color&quot;: &quot;#333333&quot;, &quot;lineHeight&quot;: &quot;None&quot;, &quot;textAlign&quot;: &quot;None&quot;, &quot;columnSplit&quot;: 0, &quot;columnSplitType&quot;: 0}"><div class="tpl-block-content"><table class="ebTextBlock" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody class="ebTextBlockOuter"><tr><td class="ebTextBlockInner" valign="top"><table class="ebTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="ebTextContent" style="border: 0;padding-left:18px; padding-right: 18px; padding-top: 9px; padding-bottom: 9px;" valign="top"><p class="eb-h2" style="margin-bottom: 15px; margin-top: 0;"><span style="font-size: 20px; line-height: 23px; color: #333333; text-shadow: 0px 0px 0px #ffffff;">Center Column</span></p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&acute;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</td></tr></tbody></table></td></tr></tbody></table></div><div class="tpl-block-controls"><a href="#" class="et-btn-white tpl-block-code"><i></i><span class="tpl-tooltip-btn">Code</span></a> <a href="#" class="et-btn-white tpl-block-clone"><i></i><span class="tpl-tooltip-btn">Clone</span></a> <a href="#" class="et-btn-white tpl-block-delete"><i></i><span class="tpl-tooltip-btn">Delete</span></a></div></div></td></tr></tbody></table><!--[if gte mso 9]></td><td align="center" valign="top" width="200" style="width:200px;"><![endif]--><table class="column-wrapper" align="left" border="0" cellpadding="0" cellspacing="0" width="200"><tbody><tr><td class="column-container tpl-container tpl-column-3"><div class="eb-dragenddrop-box-text">Drop Content Blocks Here</div><div class="tpl-block" data-type="box-text" data-json="{&quot;fontTypeFace&quot;: &quot;None&quot;, &quot;fontWeight&quot;: &quot;None&quot;, &quot;fontSize&quot;: &quot;None&quot;, &quot;boxesIs&quot;: false, &quot;boxesBackgroundColor&quot;: &quot;#ffffff&quot;, &quot;boxesBorderType&quot;: &quot;None&quot;, &quot;boxesBorderWidth&quot;: 0, &quot;boxesBorderColor&quot;: &quot;#999999&quot;, &quot;color&quot;: &quot;#333333&quot;, &quot;lineHeight&quot;: &quot;None&quot;, &quot;textAlign&quot;: &quot;None&quot;, &quot;columnSplit&quot;: 0, &quot;columnSplitType&quot;: 0}"><div class="tpl-block-content"><table class="ebTextBlock" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody class="ebTextBlockOuter"><tr><td class="ebTextBlockInner" valign="top"><table class="ebTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="ebTextContent" style="border: 0;padding-left:18px; padding-right: 18px; padding-top: 9px; padding-bottom: 9px;" valign="top"><p class="eb-h2" style="margin-bottom: 15px; margin-top: 0;"><span style="font-size: 20px; line-height: 23px; color: #333333; text-shadow: 0px 0px 0px #ffffff;">Right Column</span></p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&acute;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</td></tr></tbody></table></td></tr></tbody></table></div><div class="tpl-block-controls"><a href="#" class="et-btn-white tpl-block-code"><i></i><span class="tpl-tooltip-btn">Code</span></a> <a href="#" class="et-btn-white tpl-block-clone"><i></i><span class="tpl-tooltip-btn">Clone</span></a> <a href="#" class="et-btn-white tpl-block-delete"><i></i><span class="tpl-tooltip-btn">Delete</span></a></div></div></td></tr></tbody></table><!--[if gte mso 9]></td></tr></table><![endif]--></div>';
+				} else if ($item.hasClass('eb-block-button')) {
+					type = 'box-button';
+					dataAll = '{"buttonText":"Make Your Purchase", "url":"", "backgroundColor":"#' + LL_INSTANCE_DEFAULT_THEME_COLOR + '", "fontTypeFace": "Arial", "fontWeight": "Bold", "fontSize": "16", "color":"#ffffff", "borderWidth":1, "borderColor":"#' + LL_INSTANCE_DEFAULT_THEME_COLOR + '", "borderType":"Solid", "radius":"3", "padding":"12", "align": 1, "width":0, "vAlign":"0"}';
+					elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebButtonBlock">' +
+						'<tbody class="ebButtonBlockOuter">' +
+						'<tr>' +
+						'<td valign="top" align="center" class="ebButtonBlockInner" style="padding: 0 18px 18px;">' +
+						'<table style="border-collapse: separate !important; border: 1px solid #' + LL_INSTANCE_DEFAULT_THEME_COLOR + '; border-radius: 3px; background-color: #' + LL_INSTANCE_DEFAULT_THEME_COLOR + ';" border="0" cellpadding="0" cellspacing="0" class="ebButtonContentContainer">' +
+						'<tbody>' +
+						'<tr>' +
+						'<td valign="top" align="center" style="font-size: 16px; padding: 12px; font-family: Arial,sans-serif;" class="ebButtonContent">' +
+						'<a class="ebButton" title="Make Your Purchase" href="javascript:void(0)" target="_blank" style="font-family: Arial,sans-serif; font-weight: bold; letter-spacing: normal; line-height: 100%; text-align: center; text-decoration: none; color: rgb(255, 255, 255);">Make Your Purchase</a>' +
+						'</td>' +
+						'</tr>' +
+						'</tbody>' +
+						'</table>' +
+						'</td>' +
+						'</tr>' +
+						'</tbody>' +
+						'</table>';
+				} else if ($item.hasClass('eb-block-code')) {
+					type = 'box-code';
+					dataAll = '{}';
+					elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebTextBlock ebTextBlockCode">' +
+						'<tbody class="ebTextBlockOuter">' +
+						'<tr>' +
+						'<td valign="top" class="ebTextBlockInner" style="padding: 9px 18px;">' +
+						'<div class="eb-text">Use your own custom HTML</div>' +
+						'</td>' +
+						'</tr>' +
+						'</tbody>' +
+						'</table>';
+				} else if ($item.hasClass('eb-block-video')) {
+					type = 'box-video';
+					dataAll = '{"backgroundColor": "#ffffff", "borderType": "None", "borderWidth": "0", "borderColor":"#999999", "fontTypeFace": "None", "fontWeight": "None", "fontSize": "None", "color":"#333333", "lineHeight": "None", "textAlign": "None", "position": "3", "imgAlignment": "0", "margins": "0", "captionWidth":"0","urlVideo":""}';
+					elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageBlock">' +
+						'<tbody class="ebImageBlockOuter">' +
+						'<tr>' +
+						'<td valign="top" class="ebImageCardBlockInner" style="padding: 9px 18px 0;">' +
+						'<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageContentContainer">' +
+						'<tbody>' +
+						'<tr>' +
+						'<td valign="top" class="ebImageContent" style="">' +
+						'<div class="eb-upload-image">' +
+						'<img alt="" class="eb-img-upload" src="https://t1.llanalytics.com/imgs/imgs_email_builder/img_upload.jpg"/>' +
+						'<p>Add Video URL in editor</p>' +
+						//'<p>Add Video URL in editor, drop a preview image here</p>'+
+						//'<a href="javascript:void(0)" class="et-btn-white btn-browse-img">Browse</a>'+
+						'</div>' +
+						'</td>' +
+						'</tr>' +
+						'</tbody>' +
+						'</table>' +
+						'</td>' +
+						'</tr>' +
+						'<tr>' +
+						'<td valign="top" class="ebTextContent" style="padding: 9px 18px;">' +
+						'Your text caption goes here' +
+						'</td>' +
+						'</tr>' +
+						'</tbody>' +
+						'</table>';
 				}
-            } else if ($item.hasClass('eb-block-column-2')){
-				type="column-2";
-				dataAll = '{"backgroundColor": "#ffffff", "borderTopType": "None", "borderTopWidth": "0", "borderTopColor": "#ffffff", "borderBottomType": "None", "borderBottomWidth": "0", "borderBottomColor": "#ffffff"}';
-				elementDrag = '<div class="template-column-2 clearfix"> <!--[if gte mso 9]> <table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;"> <tr> <td align="center" valign="top" width="300" style="width:300px;"> <![endif]--> <table class="column-wrapper" align="left" border="0" cellpadding="0" cellspacing="0" width="300"> <tbody> <tr> <td class="column-container tpl-container tpl-left-column"> <div class="eb-dragenddrop-box-text"> Drop Content Blocks Here </div> <div class="tpl-block" data-type="box-text" data-json="{&quot;fontTypeFace&quot;: &quot;None&quot;, &quot;fontWeight&quot;: &quot;None&quot;, &quot;fontSize&quot;: &quot;None&quot;, &quot;boxesIs&quot;: false, &quot;boxesBackgroundColor&quot;: &quot;#ffffff&quot;, &quot;boxesBorderType&quot;: &quot;None&quot;, &quot;boxesBorderWidth&quot;: 0, &quot;boxesBorderColor&quot;: &quot;#999999&quot;, &quot;color&quot;: &quot;#333333&quot;, &quot;lineHeight&quot;: &quot;None&quot;, &quot;textAlign&quot;: &quot;None&quot;, &quot;columnSplit&quot;: 0, &quot;columnSplitType&quot;: 0}"> <div class="tpl-block-content"> <table class="ebTextBlock" border="0" cellpadding="0" cellspacing="0" width="100%"> <tbody class="ebTextBlockOuter"> <tr> <td class="ebTextBlockInner" valign="top"> <table class="ebTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td class="ebTextContent" style="border: 0;padding-left:18px; padding-right: 18px; padding-top: 9px; padding-bottom: 9px;" valign="top"> <p class="eb-h2" style="margin-bottom: 15px; margin-top: 0;"> <span style="font-size: 20px; line-height: 23px; color: #333333; text-shadow: 0px 0px 0px #ffffff;">Left Column</span> </p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&acute;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </div> <div class="tpl-block-controls"> <a href="#" class="et-btn-white tpl-block-code"> <i></i> <span class="tpl-tooltip-btn">Code</span> </a> <a href="#" class="et-btn-white tpl-block-clone"> <i></i> <span class="tpl-tooltip-btn">Clone</span> </a> <a href="#" class="et-btn-white tpl-block-delete"> <i></i> <span class="tpl-tooltip-btn">Delete</span> </a> </div> </div> </td> </tr> </tbody> </table> <!--[if gte mso 9]> </td> <td align="center" valign="top" width="300" style="width:300px;"> <![endif]--> <table class="column-wrapper" align="right" border="0" cellpadding="0" cellspacing="0" width="300"> <tbody> <tr> <td class="column-container tpl-container tpl-right-column"> <div class="eb-dragenddrop-box-text"> Drop Content Blocks Here </div> <div class="tpl-block" data-type="box-text" data-json="{&quot;fontTypeFace&quot;: &quot;None&quot;, &quot;fontWeight&quot;: &quot;None&quot;, &quot;fontSize&quot;: &quot;None&quot;, &quot;boxesIs&quot;: false, &quot;boxesBackgroundColor&quot;: &quot;#ffffff&quot;, &quot;boxesBorderType&quot;: &quot;None&quot;, &quot;boxesBorderWidth&quot;: 0, &quot;boxesBorderColor&quot;: &quot;#999999&quot;, &quot;color&quot;: &quot;#333333&quot;, &quot;lineHeight&quot;: &quot;None&quot;, &quot;textAlign&quot;: &quot;None&quot;, &quot;columnSplit&quot;: 0, &quot;columnSplitType&quot;: 0}"> <div class="tpl-block-content"> <table class="ebTextBlock" border="0" cellpadding="0" cellspacing="0" width="100%"> <tbody class="ebTextBlockOuter"> <tr> <td class="ebTextBlockInner" valign="top"> <table class="ebTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td class="ebTextContent" style="border: 0;padding-left:18px; padding-right: 18px; padding-top: 9px; padding-bottom: 9px;" valign="top"> <p class="eb-h2" style="margin-bottom: 15px; margin-top: 0;"> <span style="font-size: 20px; line-height: 23px; color: #333333; text-shadow: 0px 0px 0px #ffffff;">Right Column</span> </p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&acute;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </div> <div class="tpl-block-controls"> <a href="#" class="et-btn-white tpl-block-code"> <i></i> <span class="tpl-tooltip-btn">Code</span> </a> <a href="#" class="et-btn-white tpl-block-clone"> <i></i> <span class="tpl-tooltip-btn">Clone</span> </a> <a href="#" class="et-btn-white tpl-block-delete"> <i></i> <span class="tpl-tooltip-btn">Delete</span> </a> </div> </div> </td> </tr> </tbody> </table> <!--[if gte mso 9]> </td> </tr> </table> <![endif]--> </div>';
-			} else if ($item.hasClass('eb-block-column-3')) {
-				type = "column-3";
-				dataAll = '{"backgroundColor": "#ffffff", "borderTopType": "None", "borderTopWidth": "0", "borderTopColor": "#ffffff", "borderBottomType": "None", "borderBottomWidth": "0", "borderBottomColor": "#ffffff"}';
-				elementDrag = '<div class="template-column-3 clearfix"><!--[if gte mso 9]><table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;"><tr><td align="center" valign="top" width="200" style="width:200px;"><![endif]--><table class="column-wrapper" align="left" border="0" cellpadding="0" cellspacing="0" width="200"><tbody><tr><td class="column-container tpl-container tpl-column-1"><div class="eb-dragenddrop-box-text">Drop Content Blocks Here</div><div class="tpl-block" data-type="box-text" data-json="{&quot;fontTypeFace&quot;: &quot;None&quot;, &quot;fontWeight&quot;: &quot;None&quot;, &quot;fontSize&quot;: &quot;None&quot;, &quot;boxesIs&quot;: false, &quot;boxesBackgroundColor&quot;: &quot;#ffffff&quot;, &quot;boxesBorderType&quot;: &quot;None&quot;, &quot;boxesBorderWidth&quot;: 0, &quot;boxesBorderColor&quot;: &quot;#999999&quot;, &quot;color&quot;: &quot;#333333&quot;, &quot;lineHeight&quot;: &quot;None&quot;, &quot;textAlign&quot;: &quot;None&quot;, &quot;columnSplit&quot;: 0, &quot;columnSplitType&quot;: 0}"><div class="tpl-block-content"><table class="ebTextBlock" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody class="ebTextBlockOuter"><tr><td class="ebTextBlockInner" valign="top"><table class="ebTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="ebTextContent" style="border: 0;padding-left:18px; padding-right: 18px; padding-top: 9px; padding-bottom: 9px;" valign="top"><p class="eb-h2" style="margin-bottom: 15px; margin-top: 0;"><span style="font-size: 20px; line-height: 23px; color: #333333; text-shadow: 0px 0px 0px #ffffff;">Left Column</span></p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&acute;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</td></tr></tbody></table></td></tr></tbody></table></div><div class="tpl-block-controls"><a href="#" class="et-btn-white tpl-block-code"><i></i><span class="tpl-tooltip-btn">Code</span></a> <a href="#" class="et-btn-white tpl-block-clone"><i></i><span class="tpl-tooltip-btn">Clone</span></a> <a href="#" class="et-btn-white tpl-block-delete"><i></i><span class="tpl-tooltip-btn">Delete</span></a></div></div></td></tr></tbody></table><!--[if gte mso 9]></td><td align="center" valign="top" width="200" style="width:200px;"><![endif]--><table class="column-wrapper" align="left" border="0" cellpadding="0" cellspacing="0" width="200"><tbody><tr><td class="column-container tpl-container tpl-column-2"><div class="eb-dragenddrop-box-text">Drop Content Blocks Here</div><div class="tpl-block" data-type="box-text" data-json="{&quot;fontTypeFace&quot;: &quot;None&quot;, &quot;fontWeight&quot;: &quot;None&quot;, &quot;fontSize&quot;: &quot;None&quot;, &quot;boxesIs&quot;: false, &quot;boxesBackgroundColor&quot;: &quot;#ffffff&quot;, &quot;boxesBorderType&quot;: &quot;None&quot;, &quot;boxesBorderWidth&quot;: 0, &quot;boxesBorderColor&quot;: &quot;#999999&quot;, &quot;color&quot;: &quot;#333333&quot;, &quot;lineHeight&quot;: &quot;None&quot;, &quot;textAlign&quot;: &quot;None&quot;, &quot;columnSplit&quot;: 0, &quot;columnSplitType&quot;: 0}"><div class="tpl-block-content"><table class="ebTextBlock" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody class="ebTextBlockOuter"><tr><td class="ebTextBlockInner" valign="top"><table class="ebTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="ebTextContent" style="border: 0;padding-left:18px; padding-right: 18px; padding-top: 9px; padding-bottom: 9px;" valign="top"><p class="eb-h2" style="margin-bottom: 15px; margin-top: 0;"><span style="font-size: 20px; line-height: 23px; color: #333333; text-shadow: 0px 0px 0px #ffffff;">Center Column</span></p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&acute;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</td></tr></tbody></table></td></tr></tbody></table></div><div class="tpl-block-controls"><a href="#" class="et-btn-white tpl-block-code"><i></i><span class="tpl-tooltip-btn">Code</span></a> <a href="#" class="et-btn-white tpl-block-clone"><i></i><span class="tpl-tooltip-btn">Clone</span></a> <a href="#" class="et-btn-white tpl-block-delete"><i></i><span class="tpl-tooltip-btn">Delete</span></a></div></div></td></tr></tbody></table><!--[if gte mso 9]></td><td align="center" valign="top" width="200" style="width:200px;"><![endif]--><table class="column-wrapper" align="left" border="0" cellpadding="0" cellspacing="0" width="200"><tbody><tr><td class="column-container tpl-container tpl-column-3"><div class="eb-dragenddrop-box-text">Drop Content Blocks Here</div><div class="tpl-block" data-type="box-text" data-json="{&quot;fontTypeFace&quot;: &quot;None&quot;, &quot;fontWeight&quot;: &quot;None&quot;, &quot;fontSize&quot;: &quot;None&quot;, &quot;boxesIs&quot;: false, &quot;boxesBackgroundColor&quot;: &quot;#ffffff&quot;, &quot;boxesBorderType&quot;: &quot;None&quot;, &quot;boxesBorderWidth&quot;: 0, &quot;boxesBorderColor&quot;: &quot;#999999&quot;, &quot;color&quot;: &quot;#333333&quot;, &quot;lineHeight&quot;: &quot;None&quot;, &quot;textAlign&quot;: &quot;None&quot;, &quot;columnSplit&quot;: 0, &quot;columnSplitType&quot;: 0}"><div class="tpl-block-content"><table class="ebTextBlock" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody class="ebTextBlockOuter"><tr><td class="ebTextBlockInner" valign="top"><table class="ebTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="ebTextContent" style="border: 0;padding-left:18px; padding-right: 18px; padding-top: 9px; padding-bottom: 9px;" valign="top"><p class="eb-h2" style="margin-bottom: 15px; margin-top: 0;"><span style="font-size: 20px; line-height: 23px; color: #333333; text-shadow: 0px 0px 0px #ffffff;">Right Column</span></p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&acute;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</td></tr></tbody></table></td></tr></tbody></table></div><div class="tpl-block-controls"><a href="#" class="et-btn-white tpl-block-code"><i></i><span class="tpl-tooltip-btn">Code</span></a> <a href="#" class="et-btn-white tpl-block-clone"><i></i><span class="tpl-tooltip-btn">Clone</span></a> <a href="#" class="et-btn-white tpl-block-delete"><i></i><span class="tpl-tooltip-btn">Delete</span></a></div></div></td></tr></tbody></table><!--[if gte mso 9]></td></tr></table><![endif]--></div>';
-			} else if( $item.hasClass('eb-block-button') ){
-                type = 'box-button';
-                dataAll = '{"buttonText":"Make Your Purchase", "url":"", "backgroundColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "fontTypeFace": "Arial", "fontWeight": "Bold", "fontSize": "16", "color":"#ffffff", "borderWidth":1, "borderColor":"#'+LL_INSTANCE_DEFAULT_THEME_COLOR+'", "borderType":"Solid", "radius":"3", "padding":"12", "align": 1, "width":0, "vAlign":"0"}';
-                elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebButtonBlock">'+
-                                    '<tbody class="ebButtonBlockOuter">'+
-                                        '<tr>'+
-                                            '<td valign="top" align="center" class="ebButtonBlockInner" style="padding: 0 18px 18px;">'+
-                                                '<table style="border-collapse: separate !important; border: 1px solid #'+LL_INSTANCE_DEFAULT_THEME_COLOR+'; border-radius: 3px; background-color: #'+LL_INSTANCE_DEFAULT_THEME_COLOR+';" border="0" cellpadding="0" cellspacing="0" class="ebButtonContentContainer">'+
-                                                    '<tbody>'+
-                                                        '<tr>'+
-                                                            '<td valign="top" align="center" style="font-size: 16px; padding: 12px; font-family: Arial,sans-serif;" class="ebButtonContent">'+
-                                                                '<a class="ebButton" title="Make Your Purchase" href="javascript:void(0)" target="_blank" style="font-family: Arial,sans-serif; font-weight: bold; letter-spacing: normal; line-height: 100%; text-align: center; text-decoration: none; color: rgb(255, 255, 255);">Make Your Purchase</a>'+
-                                                            '</td>'+
-                                                        '</tr>'+
-                                                    '</tbody>'+
-                                                '</table>'+
-                                            '</td>'+
-                                        '</tr>'+
-                                    '</tbody>'+
-                                '</table>';
-            } else if( $item.hasClass('eb-block-code') ){
-                type = 'box-code';
-                dataAll = '{}';
-                elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebTextBlock ebTextBlockCode">'+
-					                '<tbody class="ebTextBlockOuter">'+
-					                    '<tr>'+
-					                        '<td valign="top" class="ebTextBlockInner" style="padding: 9px 18px;">'+
-					                            '<div class="eb-text">Use your own custom HTML</div>'+
-					                        '</td>'+
-					                    '</tr>'+
-					                '</tbody>'+
-					           '</table>';
-            } else if( $item.hasClass('eb-block-video') ){
-                type = 'box-video';
-                dataAll = '{"backgroundColor": "#ffffff", "borderType": "None", "borderWidth": "0", "borderColor":"#999999", "fontTypeFace": "None", "fontWeight": "None", "fontSize": "None", "color":"#333333", "lineHeight": "None", "textAlign": "None", "position": "3", "imgAlignment": "0", "margins": "0", "captionWidth":"0","urlVideo":""}';
-                elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageBlock">'+
-                                    '<tbody class="ebImageBlockOuter">'+
-                                        '<tr>'+
-                                            '<td valign="top" class="ebImageCardBlockInner" style="padding: 9px 18px 0;">'+
-                                                '<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageContentContainer">'+
-                                                    '<tbody>'+
-                                                        '<tr>'+
-                                                            '<td valign="top" class="ebImageContent" style="">'+
-                                                                '<div class="eb-upload-image">'+
-                                                                    '<img alt="" class="eb-img-upload" src="https://t1.llanalytics.com/imgs/imgs_email_builder/img_upload.jpg"/>'+
-                                                                    '<p>Add Video URL in editor</p>'+
-                                                                    //'<p>Add Video URL in editor, drop a preview image here</p>'+
-                                                                    //'<a href="javascript:void(0)" class="et-btn-white btn-browse-img">Browse</a>'+
-                                                                '</div>'+
-                                                            '</td>'+
-                                                        '</tr>'+
-                                                    '</tbody>'+
-                                                '</table>'+
-                                            '</td>'+
-                                        '</tr>'+
-                                        '<tr>'+
-                                            '<td valign="top" class="ebTextContent" style="padding: 9px 18px;">'+
-                                                'Your text caption goes here'+
-                                            '</td>'+
-                                        '</tr>'+
-                                    '</tbody>'+
-                                '</table>';
-            }
-            
-            content =   "<div class='tpl-block tpl-selected tpl-adding' data-type='"+type+"' data-json='"+dataAll+"'>"+
-                                '<div class="tpl-block-content">'
-                                    +elementDrag+
-                                '</div>'+
-                                '<div class="tpl-block-controls">'+
-                                    '<a href="javascript:void(0)" class="et-btn-white tpl-block-code"><i></i><span class="tpl-tooltip-btn">Code</span></a>'+
-                                    ' <a href="javascript:void(0)" class="et-btn-white tpl-block-clone"><i></i><span class="tpl-tooltip-btn">Clone</span></a>'+
-                                    ' <a href="javascript:void(0)" class="et-btn-white tpl-block-delete"><i></i><span class="tpl-tooltip-btn">Delete</span></a>'+
-                                '</div>'+
-                            '</div>';
-                    
-            $(ui.item).replaceWith(content);
 
-			if ($item.hasClass('eb-block-column-2') || $item.hasClass('eb-block-column-3')){
-				page.sortableElements($('.tpl-block.tpl-adding .tpl-container'));
+				content =   "<div class='tpl-block tpl-selected tpl-adding' data-type='"+type+"' data-json='"+dataAll+"'>"+
+					'<div class="tpl-block-content">'
+					+elementDrag+
+					'</div>'+
+					'<div class="tpl-block-controls">'+
+					'<a href="javascript:void(0)" class="et-btn-white tpl-block-code"><i></i><span class="tpl-tooltip-btn">Code</span></a>'+
+					' <a href="javascript:void(0)" class="et-btn-white tpl-block-clone"><i></i><span class="tpl-tooltip-btn">Clone</span></a>'+
+					' <a href="javascript:void(0)" class="et-btn-white tpl-block-delete"><i></i><span class="tpl-tooltip-btn">Delete</span></a>'+
+					'</div>'+
+					'</div>';
+
+				$(ui.item).replaceWith(content);
+
+				if ($item.hasClass('eb-block-column-2') || $item.hasClass('eb-block-column-3')){
+					page.sortableElements($('.tpl-block.tpl-adding .tpl-container'));
+				}
+
+				page.appendElementSettingsIcon('.tpl-block.tpl-adding .tpl-block-controls');
+				$('.tpl-block.tpl-adding').removeClass('tpl-adding');
+
+				$('.eb-block-content.ui-draggable-dragging').remove();
+
+				page.isElements();
+
 			}
-
-			$('.tpl-block.tpl-adding').removeClass('tpl-adding');
-
-            $('.eb-block-content.ui-draggable-dragging').remove();
-            
-            page.isElements();
         }
     },
     editor_set_content: function(_selector, _content, _enfore_clear_undo){
@@ -3470,7 +3523,7 @@ var page = {
         $('#templateContainer').on('click','.tpl-block-code', function(e){
             e.preventDefault();
             e.stopPropagation();
-            var $tpl = $(this).parents('.tpl-block');
+            var $tpl = $(this).closest('.tpl-block');
             $tpl.addClass('tpl-selected').siblings('.tpl-block').removeClass('tpl-selected');
             $('.eb-right-panel-slide.active').removeClass('active').css({left: '589px'}).hide();
             $('.wrap-panels-el').css('z-index','-1');
@@ -3478,7 +3531,23 @@ var page = {
             page.tplCode.tplCodeAdd($tpl);
             page.tplCode.tplCodeAction();
         });
+		$('#templateContainer').on('click','.tpl-block-settings', function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			/*$('.tpl-block-settings').removeClass('open');*/
+			$(this).toggleClass('open');
+			return false;
+		});
+		$('#templateContainer').on('click','.save-as-custom-elements', function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			$('#container_HTML_hidden_1').html($(this).closest('.tpl-block')[0].outerHTML);
+			$('#container_HTML_hidden_1 .tpl-selected').removeClass('tpl-selected');
+			ll_custom_elements_manager.open(0,CUSTOM_ELEMENT_FOR_EMAIL, $('#container_HTML_hidden_1').html());
+			return false;
+		});
     },
+
     tplCode:{
         editor: null,
         tplBox: null, 
@@ -3493,14 +3562,20 @@ var page = {
             page.tplCode.tplBox.removeClass('tpl-selected');
             page.tplCode.tplBox.find('.tpl-block-content').html(html);
             page.tplCode.removeTplCode();
+			page.updateResizeImage(page.tplCode.tplBox.find('.ebImageContent'));
         },
         removeTplCode: function(){
             $('.eb-show-code-tpl-block').remove();
         },
         tplCodeAdd: function($tpl){
             var codeHtml = $tpl.find('.tpl-block-content').html();
+            var maxWidthBlock = 'max-width:' + $tpl.css('width');
             page.tplCode.tplBox = $tpl;
-            $tpl.after('<div class="eb-show-code-tpl-block"><a href="javascript:void(0)" class="eb-close-code-tpl">Save & Close</a><div class="eb-code-html"><textarea id="eb-code-html" name="eb-code">'+codeHtml+'</textarea></div></div>');
+            $tpl.after('<div class="eb-show-code-tpl-block" style="'+maxWidthBlock+'"><a href="javascript:void(0)" class="eb-close-code-tpl">Save & Close</a><div class="eb-code-html"><textarea id="eb-code-html" name="eb-code">'+codeHtml+'</textarea></div></div>');
+
+			$('.eb-show-code-tpl-block').off('click').on('click', function (e) {
+				e.stopPropagation();
+			});
 
             CodeMirror.commands.autocomplete = function(cm) {
                 cm.showHint({hint: CodeMirror.hint.anyword});
@@ -3799,7 +3874,7 @@ var page = {
                 $('.eb-wrap-layout-social').hide();
                 $('.eb-wrap-layout-social.iconAndTextShare').show().find('li').removeClass('selected').eq(opt.layout).addClass('selected');
             }
-            
+
             page.updateSocialGroupHtml();
             page.countGroupSocial();
             /*
@@ -3900,7 +3975,6 @@ var page = {
 		        } else{
 		            type = $('.eb-right-panel-slide.active').attr('id');
 		        }
-		        
 		        if (typeof type != 'undefined' && type){
 			        if ($tplType == 'box-border-text' || $tplType == 'box-footer'){
 			            $tplType = 'box-text';
@@ -3908,7 +3982,7 @@ var page = {
 			        
 			        if ( type.substr(3) ==  $tplType){
 			            console.log('Update TPL: ' + $tplType);
-			            
+
 			            if ($tplType == 'box-text' || $tplType == 'box-border-text'|| $tplType == 'box-footer'){
 			                $tpl.find('.ebTextContent').eq(0).html(page.editor_get_content('editor-box-text'));
 			                if(opt.columnSplit == 1){
@@ -3930,7 +4004,9 @@ var page = {
 			                $tpl.find('.ebTextBlockInner').html(html);
 			            } else if ( $tplType == 'box-video'){
 			                $tpl.find('.ebTextContent').eq(0).html(page.editor_get_content('editor-box-text-video'));
-			            }
+			            } else if($tplType == 'custom-element'){
+
+						}
 			            
 			        } else if ( type.substr(3) == 'page-design' )  {
 			            console.log('Page Design Update');
@@ -6245,6 +6321,7 @@ var page = {
 		var $clone = $block.clone();
 		$block.after($clone);
 		if(isColumns) page.sortableElements($clone.find('.tpl-container'));
+		page.updateResizeImage($clone.find('.ebImageContent'));
 	},
     updateColorElTpl: function(el, hex){
         var $tpl = $('.tpl-block.tpl-selected');
@@ -6797,9 +6874,9 @@ var page = {
 	            //$(this).height (_rel_height)
 				$(this).css('max-width', _rel_width + 'px');
 				$(this).attr('width', _rel_width);
-
-                if($(this).attr('maxWidth') !== _rel_width)
-                    page.updateResizeImage($boxImg);
+				if($(this).attr('maxWidth') !== _rel_width) {
+					page.updateResizeImage($boxImg);
+				}
             }
         })
         
@@ -6811,17 +6888,28 @@ var page = {
     },
 	
 	initUIResizeImage: function(){
-		$('.ebImageContent > img, .ebImageContent > .ui-wrapper > img, .ebImageContent > a > img, .ebImageContent > a > .ui-wrapper > img').each(function(){
+		//$('.ebImageContent > img, .ebImageContent > .ui-wrapper > img').each(function(){
+		$('.ebImageContent > img, .ebImageContent > .ui-wrapper > img, .ebImageContent > a > img, .ebImageContent > a > .ui-wrapper > img').on('load', function(){
+			
 			var $imgBox = $(this).closest('.ebImageContent');
 			page.updateResizeImage($imgBox);
-            /*page.resetUIResizeImage($imgBox.parent());
+			/*
+			page.resetUIResizeImage($imgBox.parent());
 			
 			var currentWidth = $imgBox.find('img').attr('width');
-			//var maxWidthImg = $imgBox.find('img').attr('rewidth');
-			var maxWidthImg = $imgBox.width();
+			var maxWidthImg = $imgBox.find('img').attr('rewidth');
+			//var maxWidthImg = $imgBox.width();
 			
-			page.resizeImage($imgBox, maxWidthImg, currentWidth);*/
+			page.resizeImage($imgBox, maxWidthImg, currentWidth);
+			*/
 		});
+		/*
+		$('.ebImageContent > img, .ebImageContent > .ui-wrapper > img, .ebImageContent > a > img, .ebImageContent > a > .ui-wrapper > img').each(function(){
+			
+			var $imgBox = $(this).closest('.ebImageContent');
+			page.updateResizeImage($imgBox);
+		});
+		*/
 	},
 	resizeImage: function ($boxs, maxWidthImg, currentWidth){
 		$boxs.each(function(){
@@ -6850,7 +6938,6 @@ var page = {
 				$img.attr('rewidth', maxWidthImg);
 			
 			$img.attr('maxWidth', maxWidthImg);
-			
 		});
 	},
 	updateResizeImage: function($box){
@@ -6879,6 +6966,12 @@ var page = {
 			if( boxImgWidth < widthImg){
 				widthImg = boxImgWidth;
 				maxWidthImg = boxImgWidth;
+			}
+			
+			if(widthImg == 0) {
+				widthImg = currentWidth;
+				naturalWidth = currentWidth;
+				maxWidthImg = currentWidth;
 			}
 			
 			if(currentWidth < widthImg)
@@ -7371,7 +7464,7 @@ var page = {
         var $tpl = $('.tpl-block.tpl-selected');
         var type = $tpl.attr('data-type');
         var html = '';
-        
+
         if ( $tpl.find('.ebImageContent').find('img').length ){
             var $img = $tpl.find('.ebImageContent').find('img');
             var big_img_src = $img.attr('src');
@@ -8044,33 +8137,32 @@ var page = {
 			var textDefault = 'Facebook';
             
             if ( $tpl.attr('data-type') == 'box-social-follow' ){
-                optionsFollow = '<option value="6">YouTube</option>'+
-                                '<option value="7">Instagram</option>'+
-                                '<option value="8">Vimeo</option>'+
-                                '<option value="9">RSS</option>'+
-                                '<option value="10">Email</option>'+
-                                '<option value="11">Website</option>';
+                optionsFollow = '<option value="5">YouTube</option>'+
+                                '<option value="6">Instagram</option>'+
+                                '<option value="7">Vimeo</option>'+
+                                '<option value="8">RSS</option>'+
+                                '<option value="9">Email</option>'+
+                                '<option value="10">Website</option>';
             } else if ( $tpl.attr('data-type') == 'box-calendar' ){
 				isCalendar = true;
-				indexIcon = 12;
+				indexIcon = 11;
 				labelDefault = 'Google Calendar URL';
 				urlDefault = '#';
 				textDefault = 'Google Calendar';
-                optionsCalendar = '<option value="12">Google</option>'+
-                                '<option value="13">Outlook</option>'+
-                                '<option value="14">Outlook Online</option>'+
-                                '<option value="15">iCalendar</option>'+
-                                '<option value="16">Yahoo!</option>';
+                optionsCalendar = '<option value="11">Google</option>'+
+                                '<option value="12">Outlook</option>'+
+                                '<option value="13">Outlook Online</option>'+
+                                '<option value="14">iCalendar</option>'+
+                                '<option value="15">Yahoo!</option>';
             } else {
-                optionsShare = '<option value="5">Forward to Friend</option>';
+                optionsShare = '<option value="4">Forward to Friend</option>';
             }
 
 			if ( !isCalendar ){
 				optionsSocial = '<option value="0">Facebook</option>'+
 								'<option value="1">Twitter</option>'+
-								'<option value="2">Google +1</option>'+
-								'<option value="3">LinkedIn</option>'+
-								'<option value="4">Pinterest</option>';
+								'<option value="2">LinkedIn</option>'+
+								'<option value="3">Pinterest</option>';
 			}
 			
             $('.eb-list-group-social').append('<li class="item-social clearfix" idx="0"  datasortid="'+$('.eb-list-group-social').children('li').length+'">'+
@@ -8132,7 +8224,7 @@ var page = {
             var typeIcon = $li.attr('idx');
             var $table = $tpl.find('.ebShareContentItemContainer:first').children('table').eq( $li.attr('datasortid') );
             var val = $(this).val();
-            var masDefaultFollowText = ['Facebook','Twitter','Google Plus','LinkedIn','Pinterest','Forward to Friend','YouTube','Instagram','Vimeo','RSS','Email','Website','Google Calendar','Outlook','Outlook Online','iCalendar','Yahoo! Calendar'];
+            var masDefaultFollowText = ['Facebook','Twitter','LinkedIn','Pinterest','Forward to Friend','YouTube','Instagram','Vimeo','RSS','Email','Website','Google Calendar','Outlook','Outlook Online','iCalendar','Yahoo! Calendar'];
             
             if(val == ''){
                 val = masDefaultFollowText[typeIcon];
@@ -8218,7 +8310,7 @@ var page = {
             $box.addClass('eb-one-item');
         }
         if ( $tpl.attr('data-type') == 'box-social-follow' ){
-            if ($box.children('li').length < 11){
+            if ($box.children('li').length < 10){
                 $btn.show();
             } else{
                 $btn.hide();
@@ -8230,7 +8322,7 @@ var page = {
                 $btn.hide();
             }
         } else{
-            if ($box.children('li').length < 6){
+            if ($box.children('li').length < 5){
                 $btn.show();
             } else{
                 $btn.hide();
@@ -8252,15 +8344,15 @@ var page = {
         var $tpl = $('.tpl-block.tpl-selected');
         var $li = $el.parent();
         var $table = $tpl.find('.ebShareContentItemContainer:first').children('table').eq( $li.attr('datasortid') );
-        var masIcon = ['fb.png','tw.png','gg.png','in.png','pinterest.png','forward.png','youtube.png','inst.png','vimeo.png','rss.png','email.png','website.png','google.png','outlook.png','outlook_online.png','icalendar.png','yahoo.png'];
-        var masTextLabel =['Facebook Page URL','Twitter URL or Username','Google Plus Profile URL','LinkedIn Profile URL','Pinterest Board URL','Friend Profile URL','YouTube Channel URL','Instagram Profile URL','Vimeo URL','RSS URL','Email Address','Page URL','Google Calendar','Outlook','Outlook Online','iCalendar','Yahoo! Calendar'];
-        var masDefaultFollowText = ['Facebook','Twitter','Google Plus','LinkedIn','Pinterest','Forward to Friend','YouTube','Instagram','Vimeo','RSS','Email','Website','Google Calendar','Outlook','Outlook Online','iCalendar','Yahoo! Calendar'];
-        var masDefaultShareText = ['Share','Tweet','+1','Share','Pin','Forward'];
-        var masDefaultShareUrl = ['http://www.facebook.com/sharer/sharer.php?u=','http://twitter.com/intent/tweet?text=','https://plus.google.com/share?url=','http://www.linkedin.com/shareArticle?url=','https://www.pinterest.com/pin/find/?url=','mailto:?body='];
-        var masDefaultFollowUrl = ['http://www.facebook.com/','http://www.twitter.com/','http://plus.google.com/','http://www.linkedin.com/','http://www.pinterest.com/','','http://www.youtube.com/','http://instagram.com/','https://vimeo.com/','http://www.yourfeedurl.com/','mailto:your@email.com','http://www.yourwebsite.com/','#','#','#','#','#','#','#','#'];
+        var masIcon = ['fb.png','tw.png','in.png','pinterest.png','forward.png','youtube.png','inst.png','vimeo.png','rss.png','email.png','website.png','google.png','outlook.png','outlook_online.png','icalendar.png','yahoo.png'];
+        var masTextLabel =['Facebook Page URL','Twitter URL or Username','LinkedIn Profile URL','Pinterest Board URL','Friend Profile URL','YouTube Channel URL','Instagram Profile URL','Vimeo URL','RSS URL','Email Address','Page URL','Google Calendar','Outlook','Outlook Online','iCalendar','Yahoo! Calendar'];
+        var masDefaultFollowText = ['Facebook','Twitter','LinkedIn','Pinterest','Forward to Friend','YouTube','Instagram','Vimeo','RSS','Email','Website','Google Calendar','Outlook','Outlook Online','iCalendar','Yahoo! Calendar'];
+        var masDefaultShareText = ['Share','Tweet','Share','Pin','Forward'];
+        var masDefaultShareUrl = ['http://www.facebook.com/sharer/sharer.php?u=','http://twitter.com/intent/tweet?text=','http://www.linkedin.com/shareArticle?url=','https://www.pinterest.com/pin/find/?url=','mailto:?body='];
+        var masDefaultFollowUrl = ['http://www.facebook.com/','http://www.twitter.com/','http://www.linkedin.com/','http://www.pinterest.com/','','http://www.youtube.com/','http://instagram.com/','https://vimeo.com/','http://www.yourfeedurl.com/','mailto:your@email.com','http://www.yourwebsite.com/','#','#','#','#','#','#','#','#'];
         var $boxFields = $li.find('.eb-fields-social');
 
-        $li.find('.eb-icon-social').removeClass('eb-icon-0 eb-icon-1 eb-icon-2 eb-icon-3 eb-icon-4 eb-icon-5 eb-icon-6 eb-icon-7 eb-icon-8 eb-icon-9 eb-icon-10 eb-icon-11 eb-icon-12 eb-icon-13 eb-icon-14 eb-icon-15 eb-icon-16').addClass('eb-icon-'+val);
+        $li.find('.eb-icon-social').removeClass('eb-icon-0 eb-icon-1 eb-icon-2 eb-icon-3 eb-icon-4 eb-icon-5 eb-icon-6 eb-icon-7 eb-icon-8 eb-icon-9 eb-icon-10 eb-icon-11 eb-icon-12 eb-icon-13 eb-icon-14 eb-icon-15').addClass('eb-icon-'+val);
         $li.attr('idx', val);
         $table.attr('data-type-social',val);
         if ( $tpl.attr('data-type') == 'box-social-follow' || $tpl.attr('data-type') == 'box-calendar'){
@@ -8282,7 +8374,7 @@ var page = {
         var $tpl = $('.tpl-block.tpl-selected');
         var opt = $tpl.data('json');
         var $table = $tpl.find('.ebShareContentItemContainer:first').children('table');
-        var masDefaultShareUrl = ['http://www.facebook.com/sharer/sharer.php?u=','http://twitter.com/intent/tweet?text=','https://plus.google.com/share?url=','http://www.linkedin.com/shareArticle?url=','https://www.pinterest.com/pin/find/?url=','mailto:?body='];
+        var masDefaultShareUrl = ['http://www.facebook.com/sharer/sharer.php?u=','http://twitter.com/intent/tweet?text=','http://www.linkedin.com/shareArticle?url=','https://www.pinterest.com/pin/find/?url=','mailto:?body='];
         var href = '';
         var customLink = '';
         var customDesc = '';
@@ -8305,15 +8397,13 @@ var page = {
                 } else {
                     href = masDefaultShareUrl[1];
                 }
-                
+
             } else if (type == '2'){
                 href = masDefaultShareUrl[2] + customLink
             } else if (type == '3'){
                 href = masDefaultShareUrl[3] + customLink + '&mini=true&title=' + customDesc;
             } else if (type == '4'){
                 href = masDefaultShareUrl[4] + customLink;
-            } else if (type == '5'){
-                href = masDefaultShareUrl[5] + customLink;
             }
             $(this).find('a').attr('href', href);
         });
@@ -8340,34 +8430,33 @@ var page = {
 		var optionsCalendar = '';
         var isFollow =  false;
 		var isCalendar =  false;
-        var masDefaultFollowText = ['Facebook','Twitter','Google Plus','LinkedIn','Pinterest','Forward to Friend','YouTube','Instagram','Vimeo','RSS','Email','Website','Google Calendar','Outlook','Outlook Online','iCalendar','Yahoo! Calendar'];
+        var masDefaultFollowText = ['Facebook','Twitter','LinkedIn','Pinterest','Forward to Friend','YouTube','Instagram','Vimeo','RSS','Email','Website','Google Calendar','Outlook','Outlook Online','iCalendar','Yahoo! Calendar'];
         
         
         if ( $tpl.attr('data-type') == 'box-social-follow' ){
             isFollow = true;
-            optionsFollow = '<option value="6">YouTube</option>'+
-                            '<option value="7">Instagram</option>'+
-                            '<option value="8">Vimeo</option>'+
-                            '<option value="9">RSS</option>'+
-                            '<option value="10">Email</option>'+
-                            '<option value="11">Website</option>';
+            optionsFollow = '<option value="5">YouTube</option>'+
+                            '<option value="6">Instagram</option>'+
+                            '<option value="7">Vimeo</option>'+
+                            '<option value="8">RSS</option>'+
+                            '<option value="9">Email</option>'+
+                            '<option value="10">Website</option>';
         } else if ( $tpl.attr('data-type') == 'box-calendar' ){
 			isCalendar = true;
-			optionsCalendar = '<option value="12">Google</option>'+
-                            '<option value="13">Outlook</option>'+
-                            '<option value="14">Outlook Online</option>'+
-                            '<option value="15">iCalendar</option>'+
-                            '<option value="16">Yahoo!</option>';
+			optionsCalendar = '<option value="11">Google</option>'+
+                            '<option value="12">Outlook</option>'+
+                            '<option value="13">Outlook Online</option>'+
+                            '<option value="14">iCalendar</option>'+
+                            '<option value="15">Yahoo!</option>';
         } else {
-            optionsShare = '<option value="5">Forward to Friend</option>';
+            optionsShare = '<option value="4">Forward to Friend</option>';
         }
 		
 		if( !isCalendar ){
 			optionsSocial = '<option value="0">Facebook</option>'+
 							'<option value="1">Twitter</option>'+
-							'<option value="2">Google +1</option>'+
-							'<option value="3">LinkedIn</option>'+
-							'<option value="4">Pinterest</option>';
+							'<option value="2">LinkedIn</option>'+
+							'<option value="3">Pinterest</option>';
 		}
 		
         $('.eb-list-group-social li').remove();
@@ -8379,7 +8468,7 @@ var page = {
             var $text = $btn.find('.mcnShareTextContent a');
             var link = '';
             var text = '';
-            var masTextLabel =['Facebook Page URL','Twitter URL or Username','Google Plus Profile URL','LinkedIn Profile URL','Pinterest Board URL','Friend Profile URL','YouTube Channel URL','Instagram Profile URL','Vimeo URL','RSS URL','Email Address','Page URL', 'Google Calendar URL', 'Outlook URL', 'Outlook Online URL', 'iCalendar URL', 'Yahoo! Calendar URL'];
+            var masTextLabel =['Facebook Page URL','Twitter URL or Username','LinkedIn Profile URL','Pinterest Board URL','Friend Profile URL','YouTube Channel URL','Instagram Profile URL','Vimeo URL','RSS URL','Email Address','Page URL', 'Google Calendar URL', 'Outlook URL', 'Outlook Online URL', 'iCalendar URL', 'Yahoo! Calendar URL'];
             
             if($url.length){
                 link = $url.attr('href');
@@ -8388,7 +8477,7 @@ var page = {
             if($text.length){
                 link = $text.attr('href');
                 text = $text.text();
-            }           
+            }
             $('.eb-list-group-social').append('<li class="item-social clearfix" idx="'+type+'" datasortid="'+i+'">'+
                                     '<a href="javascript:void(0);" class="et-btn-white eb-btn-delete-elm"><i class="icn"></i></a>'+
                                     '<a href="javascript:void(0);" class="et-btn-white eb-btn-move-elm"><i class="icn"></i></a>'+
@@ -8427,8 +8516,8 @@ var page = {
         var $tpl = $('.tpl-block.tpl-selected');
         var opt = $tpl.data('json');
         var $el = $tpl.find('.ebShareContentItemContainer:first').children('table');
-        var masIcon = ['fb.png','tw.png','gg.png','in.png','pinterest.png','forward.png','youtube.png','inst.png','vimeo.png','rss.png','email.png','website.png','google.png','outlook.png','outlook_online.png','icalendar.png','yahoo.png'];
-        var masDefaultFollowText = ['Facebook','Twitter','Google Plus','LinkedIn','Pinterest','Forward to Friend','YouTube','Instagram','Vimeo','RSS','Email','Website','Google Calendar','Outlook','Outlook Online','iCalendar','Yahoo! Calendar'];
+        var masIcon = ['fb.png','tw.png','in.png','pinterest.png','forward.png','youtube.png','inst.png','vimeo.png','rss.png','email.png','website.png','google.png','outlook.png','outlook_online.png','icalendar.png','yahoo.png'];
+        var masDefaultFollowText = ['Facebook','Twitter','LinkedIn','Pinterest','Forward to Friend','YouTube','Instagram','Vimeo','RSS','Email','Website','Google Calendar','Outlook','Outlook Online','iCalendar','Yahoo! Calendar'];
         var link = '';
         var imgSrc = '';
         var id = '';
@@ -9239,6 +9328,17 @@ var page = {
 		condition = condition + '{% endif %}';
 		page.active_html_editor.execCommand('mceInsertContent', false, condition);
 		ll_popup_manager.close('#ll_popup_email_insert_condition');
+	},
+
+	appendElementSettingsIcon: function (container) {
+		var _html = '';
+		_html += '<div class="tpl-block-settings">';
+		_html += '	<a href="javascript:void(0);" class="et-btn-white"> <i class="icn"></i></a>';
+		_html += '	<ul class="tpl-block-settings-ul">';
+		_html += '		<li><a href="javascript:void(0);" class="save-as-custom-elements">Save as Custom Element</a></li>';
+		_html += '	</ul>';
+		_html += '</div>';
+		$(container).append(_html);
 	}
 };
 
@@ -9268,6 +9368,12 @@ var tinymceOpts = {
     //fontsize_formats: '1pt 2pt 3pt 4pt 5pt 6pt 7pt 8pt 9pt 10pt 11pt 12pt 13pt 14pt 15pt 16pt 17pt 18pt 19pt 20pt 21pt 22pt 23pt 24pt 25pt 26pt 27pt 28pt 29pt 30pt 31pt 32pt 33pt 34pt 35pt 36pt 37pt 38pt 39pt 40pt 41pt 42pt 43pt 44pt 45pt 46pt 47pt 48pt 49pt 50pt 51pt 52pt 53pt 54pt 55pt 56pt 57pt 58pt 59pt 60pt 61pt 62pt 63pt 64pt',
 	//fontsize_formats: "8px 10px 12px 14px 18px 24px 36px",
 	fontsize_formats: "8px 10px 12px 14px 16px 18px 20px 22px 24px 26px 30px 36px",
+	formats: {
+		aligncenter: {selector: 'img', block: 'div', styles: {textAlign: 'center'}},
+		alignright: {selector: 'img', block: 'div', styles: {textAlign: 'right'}},
+		alignleft: {selector: 'img', block: 'div', styles: {textAlign: 'left'}},
+		alignfull: {selector: 'img', block: 'div', styles: {textAlign: 'full'}},
+	},
 	
     entity_encoding : "raw",
     setup: function(editor) {

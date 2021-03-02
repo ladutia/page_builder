@@ -728,6 +728,45 @@ var ll_theme_manager = {
     hex2rgba: function(c, a) {
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(c);
         return result ? 'rgba(' + parseInt(result[1], 16) + ',' + parseInt(result[2], 16) + ',' + parseInt(result[3], 16) + ',' + a / 100 + ')' : 'transparent';
+    },
+    accordionSection: function(){
+        var $sections = $('.accordion-section');
+
+        if($sections.length){
+            $sections.on('click', '.accordion-section__title', function(){
+                $(this).closest('.accordion-section').toggleClass('accordion-section--open');
+                isAllExpandColapseSection($(this).closest('.accordion-section__wrap').find('.accordion-section__btn-show-hide-all-section'));
+            });
+
+            if($('.accordion-section__btn-show-hide-all-section').length){
+                $('.accordion-section__wrap .accordion-section__btn-show-hide-all-section').on('click', function(){
+                    expandColapseSection($(this));
+                });
+            }
+        }
+
+        function isAllExpandColapseSection($btn){
+            var $wrap = $btn.closest('.accordion-section__wrap');
+            var countAccordions = $wrap.find('.accordion-section').length;
+            var countAccordionsOpen  = $wrap.find('.accordion-section.accordion-section--open').length;
+
+            if(countAccordions == countAccordionsOpen) {
+                $btn.text('Collapse All');
+            } else{
+                $btn.text('Expand All');
+            }
+        }
+        function expandColapseSection($btn){
+            var $accordions = $('.accordion-section');
+            
+            if($btn.text() == 'Expand All'){
+                $btn.text('Collapse All');
+                $accordions.addClass('accordion-section--open');
+            } else{
+                $btn.text('Expand All');
+                $accordions.removeClass('accordion-section--open');
+            }
+        }
     }
 };
 var ll_svgs_manager = {
@@ -878,6 +917,7 @@ if (typeof ll_external_page_applying_theme == 'undefined' || !ll_external_page_a
 	    });
 	    ll_theme_manager.left_navigate();
 	    ll_svgs_manager.initiate();
+        ll_theme_manager.accordionSection();
 	});
 }
 function process_convert_grid_master_checkboxes(_grid){

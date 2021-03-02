@@ -254,116 +254,152 @@ include_once 'Util/SetAccountConfigurationVariables.php';
             <div class="tab-content-page__inner setup-tab">
                 <div class="left-column">
                     <!--<div class="defautl-h">General Configuration</div>-->
-                    <div class="h3 ll_std_tooltip event-field" style="display: none"
-                         title="Selecting an Event connects the Event and Activation together. This allows you to use the Event's data capture form with your Activation. ">
-                        Which Event do you want to use this activation with?</div>
-                    <div class="t-field event-field" style="display: none">
-                        <select class="textField" id="ll_activation_event_id">
-                            <option value="0">--- Select Event ---</option>
-                            <?php
-                            if(! empty($ll_events)){
-                                foreach($ll_events as $form_id=>$form){
-                                    $selected = $form_id == $ll_activation->event_id ? 'selected' : '';
-                                    echo "<option value='{$form_id}' {$selected}>{$form->name}</option>";
-                                }
-                            }
-                            ?>
-                        </select>
+
+                    <!-- TEMPLATE ACCORDION SECTION-->
+                    <!-- 
+                    <div class="accordion-section__wrap">
+                        <div class="accordion-section__btn-show-hide-all-section">Expand All</div>
+                        <div class="accordion-section accordion-section--open">
+                            <div class="accordion-section__title">
+                                <span class="accordion-section__title-text">Section 1</span>
+                                <span class="accordion-section__arrow"></span>
+                            </div>
+                            <div class="accordion-section__content">
+                                //CONTENT
+                            </div>
+                        </div>
                     </div>
-                    <?php
-                    if(! empty($stations)){ ?>
-                    <div class="h3 event-elements">Which Station do you want to use this activation at?</div>
-                        <div class="t-field event-elements">
-                            <select class="textField" id="ll_activation_event_station_id">
-                                <option value="0">--- Select Station ---</option>
+                    -->
+                    <div class="accordion-section__wrap">
+                        <div class="accordion-section__btn-show-hide-all-section">Expand All</div>
+                        <div class="accordion-section">
+                            <div class="accordion-section__title">
+                                <span>Section 1</span>
+                                <span class="accordion-section__arrow"></span>
+                            </div>
+                            <div class="accordion-section__content">
+                                <div class="h3 ll_std_tooltip event-field" style="display: none"
+                                     title="Selecting an Event connects the Event and Activation together. This allows you to use the Event's data capture form with your Activation. ">
+                                    Which Event do you want to use this activation with?</div>
+                                <div class="t-field event-field" style="display: none">
+                                    <select class="textField" id="ll_activation_event_id">
+                                        <option value="0">--- Select Event ---</option>
+                                        <?php
+                                        if(! empty($ll_events)){
+                                            foreach($ll_events as $form_id=>$form){
+                                                $selected = $form_id == $ll_activation->event_id ? 'selected' : '';
+                                                echo "<option value='{$form_id}' {$selected}>{$form->name}</option>";
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
                                 <?php
-                                foreach($stations as $station){
-                                    echo "<option value='{$station['station_id']}'>{$station['station_name']}</option>";
-                                } ?>
-                            </select>
-                        </div>
-                    <?php }?>
-                    <div class="h3 capture-before-or-after ll_std_tooltip event-elements"
-                         title="Choosing before shows the lead capture form before the activation. Choosing after shows the lead capture form after the activation. It's typical to show the form before the activation to ensure you're capturing the lead. Otherwise, the lead could play the game and then choose to not fill out the form."
-                         style="display: none">Show lead capture form before or after the activation?
-                    </div>
-                    <div class="t-field capture-before-or-after event-elements" style="display: none">
-                        <div class="t-radio">
-                            <label>
-                                <i class="icn-radio"></i>
-                                <input type="radio" name="capture_form_before_or_after" value="<?php echo LL_Activations_Manager::LL_ACTIVATION_CAPTURE_FORM_BEFORE;?>" checked="checked" > Before
-                            </label>
-                        </div>
-                        <div class="t-radio">
-                            <label>
-                                <i class="icn-radio"></i>
-                                <input type="radio" name="capture_form_before_or_after" value="<?php echo LL_Activations_Manager::LL_ACTIVATION_CAPTURE_FORM_AFTER;?>" > After
-                            </label>
-                        </div>
-                    </div>
+                                if(! empty($stations)){ ?>
+                                <div class="h3 event-elements">Which Station do you want to use this activation at?</div>
+                                    <div class="t-field event-elements">
+                                        <select class="textField" id="ll_activation_event_station_id">
+                                            <option value="0">--- Select Station ---</option>
+                                            <?php
+                                            foreach($stations as $station){
+                                                echo "<option value='{$station['station_id']}'>{$station['station_name']}</option>";
+                                            } ?>
+                                        </select>
+                                    </div>
+                                <?php }?>
+                                <div class="h3 capture-before-or-after ll_std_tooltip event-elements"
+                                     title="Choosing before shows the lead capture form before the activation. Choosing after shows the lead capture form after the activation. It's typical to show the form before the activation to ensure you're capturing the lead. Otherwise, the lead could play the game and then choose to not fill out the form."
+                                     style="display: none">Show lead capture form before or after the activation?
+                                </div>
+                                <div class="t-field capture-before-or-after event-elements" style="display: none">
+                                    <div class="t-radio">
+                                        <label>
+                                            <i class="icn-radio"></i>
+                                            <input type="radio" name="capture_form_before_or_after" value="<?php echo LL_Activations_Manager::LL_ACTIVATION_CAPTURE_FORM_BEFORE;?>" checked="checked" > Before
+                                        </label>
+                                    </div>
+                                    <div class="t-radio">
+                                        <label>
+                                            <i class="icn-radio"></i>
+                                            <input type="radio" name="capture_form_before_or_after" value="<?php echo LL_Activations_Manager::LL_ACTIVATION_CAPTURE_FORM_AFTER;?>" > After
+                                        </label>
+                                    </div>
+                                </div>
 
-                    <div class="h3 skip-capture-step-field ll_std_tooltip"
-                         title="Commonly used when more than one Activation/Game is associated with an Event. When enabled, if an Activation/Game capture form has already been submitted then the player will not see the capture form again on subsequent Activations/Games associated with the same Event. They will only experience the Activation/Game play.  "
-                         style="display: none">Skip capture step for duplicate submissions
-                    </div>
-                    <div class="t-field skip-capture-step-field" style="display: none">
-                        <div class="ll-switch switch-small inline">
-                            <div class="switch">
-                                <input id="skip_capture_step_on_duplicate_submissions" name="skip_capture_step_on_duplicate_submissions" class="cmn-toggle cmn-toggle-round" type="checkbox" >
-                                <label for="skip_capture_step_on_duplicate_submissions"></label>
-                            </div>
-                            <div class="ll-switch-lb">
-                            </div>
-                        </div>
-                    </div>
+                                <div class="h3 skip-capture-step-field ll_std_tooltip"
+                                     title="Commonly used when more than one Activation/Game is associated with an Event. When enabled, if an Activation/Game capture form has already been submitted then the player will not see the capture form again on subsequent Activations/Games associated with the same Event. They will only experience the Activation/Game play.  "
+                                     style="display: none">Skip capture step for duplicate submissions
+                                </div>
+                                <div class="t-field skip-capture-step-field" style="display: none">
+                                    <div class="ll-switch switch-small inline">
+                                        <div class="switch">
+                                            <input id="skip_capture_step_on_duplicate_submissions" name="skip_capture_step_on_duplicate_submissions" class="cmn-toggle cmn-toggle-round" type="checkbox" >
+                                            <label for="skip_capture_step_on_duplicate_submissions"></label>
+                                        </div>
+                                        <div class="ll-switch-lb">
+                                        </div>
+                                    </div>
+                                </div>
 
-                    <div class="h3" style="display: none;">Which Activation do you want to use?</div>
-                    <div class="t-field" style="display: none;">
-                        <select class="textField" id="ll_activation_identifier_id">
-                            <option value="">--- Select Activation ---</option>
-                            <?php
-                            /*foreach ($ll_activation_identifiers as $ll_activation_identifier){
-                                echo "<option value='{$ll_activation_identifier->ll_activation_identifier_id}'>{$ll_activation_identifier->ll_activation_identifier_name}</option>";
-                            }*/
-                            ?>
-                        </select>
-                    </div>
-                    <div class="h3 event-elements">Play Restrictions:</div>
-                    <div class="t-field event-elements">
-                        <div class="t-radio">
-                            <label class="ll_std_tooltip"
-                                   title="The user is allowed this many game plays across all activations associated with the Event. This total applies to any activation that has the Event Group setting enabled.">
-                                <i class="icn-radio"></i>
-                                <input type="radio" name="play_restriction" value="1"  > Event Group:
-                            </label>
+                                <div class="h3" style="display: none;">Which Activation do you want to use?</div>
+                                <div class="t-field" style="display: none;">
+                                    <select class="textField" id="ll_activation_identifier_id">
+                                        <option value="">--- Select Activation ---</option>
+                                        <?php
+                                        /*foreach ($ll_activation_identifiers as $ll_activation_identifier){
+                                            echo "<option value='{$ll_activation_identifier->ll_activation_identifier_id}'>{$ll_activation_identifier->ll_activation_identifier_name}</option>";
+                                        }*/
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="h3 event-elements">Play Restrictions:</div>
+                                <div class="t-field event-elements">
+                                    <div class="t-radio">
+                                        <label class="ll_std_tooltip"
+                                               title="The user is allowed this many game plays across all activations associated with the Event. This total applies to any activation that has the Event Group setting enabled.">
+                                            <i class="icn-radio"></i>
+                                            <input type="radio" name="play_restriction" value="1"  > Event Group:
+                                        </label>
+                                    </div>
+                                    <input type="number" id="max_group_plays" class="txt-field txt-field-tiny" style="margin-left: 20px;">
+                                </div>
+                                <div class="t-field event-elements">
+                                    <div class="t-radio">
+                                        <label class="ll_std_tooltip"
+                                               title="Limits the number of times this activation can be played. Empty or 0 is unlimited.">
+                                            <i class="icn-radio"></i>
+                                            <input type="radio" name="play_restriction" value="0" checked="checked">Individual:
+                                        </label>
+                                    </div>
+                                    <input type="number" id="max_individual_plays" class="txt-field txt-field-tiny" style="margin-left: 38px;">
+                                </div>
+                            </div>
                         </div>
-                        <input type="number" id="max_group_plays" class="txt-field txt-field-tiny" style="margin-left: 20px;">
-                    </div>
-                    <div class="t-field event-elements">
-                        <div class="t-radio">
-                            <label class="ll_std_tooltip"
-                                   title="Limits the number of times this activation can be played. Empty or 0 is unlimited.">
-                                <i class="icn-radio"></i>
-                                <input type="radio" name="play_restriction" value="0" checked="checked">Individual:
-                            </label>
+                        
+                        <div class="accordion-section accordion-section--open">
+                            <div class="accordion-section__title">
+                                <span>Section 2</span>
+                                <span class="accordion-section__arrow"></span>
+                            </div>
+                            <div class="accordion-section__content">
+                                <div class="h3 ll_std_tooltip" title="Changes the background color of the button on the lead capture screen.">Submit Button Background Color</div>
+                                <div class="t-field">
+                                    <div class="wrap-color">
+                                        <div id="submit_button_background_color" style="background-color: #2BA01B;" class="color-box" data-color-start="2BA01B"></div>
+                                    </div>
+                                </div>
+                                <div class="h3 ll_std_tooltip" title="Changes the color of the text on the button shown on the lead capture screen.">Submit Button Text Color</div>
+                                <div class="t-field">
+                                    <div class="wrap-color">
+                                        <div id="submit_button_text_color" style="background-color: #FFFFFF;" class="color-box" data-color-start="FFFFFF"></div>
+                                    </div>
+                                </div>
+                                <div class="h3 ll_std_tooltip" title="Text shown on the button at the bottom of the lead capture screen.">Submit Button Text</div>
+                                <div class="t-field">
+                                    <input id="submit_button_text" type="text" class="txt-field"/>
+                                </div>
+                            </div>
                         </div>
-                        <input type="number" id="max_individual_plays" class="txt-field txt-field-tiny" style="margin-left: 38px;">
-                    </div>
-                    <div class="h3 ll_std_tooltip" title="Changes the background color of the button on the lead capture screen.">Submit Button Background Color</div>
-                    <div class="t-field">
-                        <div class="wrap-color">
-                            <div id="submit_button_background_color" style="background-color: #2BA01B;" class="color-box" data-color-start="2BA01B"></div>
-                        </div>
-                    </div>
-                    <div class="h3 ll_std_tooltip" title="Changes the color of the text on the button shown on the lead capture screen.">Submit Button Text Color</div>
-                    <div class="t-field">
-                        <div class="wrap-color">
-                            <div id="submit_button_text_color" style="background-color: #FFFFFF;" class="color-box" data-color-start="FFFFFF"></div>
-                        </div>
-                    </div>
-                    <div class="h3 ll_std_tooltip" title="Text shown on the button at the bottom of the lead capture screen.">Submit Button Text</div>
-                    <div class="t-field">
-                        <input id="submit_button_text" type="text" class="txt-field"/>
                     </div>
                     <div class="winners_info" style="display: none;" >
 

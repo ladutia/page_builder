@@ -5878,3 +5878,57 @@ img[name=qr_webview_portal_url]{
 #ll-common-editor-popup {
     width: 800px;
 }
+.accordion-section{
+    margin-bottom: 20px;
+}
+.accordion-section__title{
+  position: relative;
+  font-size: 26px;
+  line-height: 36px;
+  padding-bottom: 6px;
+  padding-right: 26px;
+  cursor: pointer;
+  min-width: 200px;
+  max-width: 100%;
+  font-weight: 600;
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: border-box;
+}
+.accordion-section__title:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  height: 2px;
+  background: #f08b21;
+}
+.accordion-section__arrow{
+    display: inline-block;
+    vertical-align: top;
+    border-top: 6px solid #727272;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    margin: 16px 8px 0 8px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.accordion-section--open .accordion-section__arrow{
+    border-top: 0;
+    border-bottom: 6px solid #727272;
+}
+.accordion-section__content{
+    display: none;
+}
+.accordion-section--open .accordion-section__content{
+    display: block;
+}
+.accordion-section__btn-show-hide-all-section{
+    color: #f08b21;
+    cursor: pointer;
+    margin-bottom: 10px;
+    display: inline-block;
+    vertical-align: top;
+}

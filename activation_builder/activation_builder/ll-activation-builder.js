@@ -21,7 +21,7 @@ var ll_activation_builder = {
 
         ll_activation_templates.capture_screen_builder = ll_activation_builder;
 
-        var idForm = $('.tabs-nav li.selected').attr('id-form');
+        var idForm = $('.tabs-pages li.selected').attr('id-form');
         $('.settings-tpl .capture-screen, .settings-tpl .leaderboard').hide();
         switch (idForm) {
             case 'capture-screen':
@@ -109,7 +109,7 @@ var ll_activation_builder = {
                     ll_theme_manager.checkboxRadioButtons.check('input[name=webview_success_action_type][value=start_over]', true);
                 }
             }
-            //ll_activation_builder.resizeTabs();
+            ll_activation_builder.resizeTabs();
 
             if($.inArray( LL_ACTIVATION_RESULT_TYPE_PRESENTS_ID , values ) != -1){
                 $('.prizes-elements').show();
@@ -209,7 +209,7 @@ var ll_activation_builder = {
         $('.load-activation-templates').on('click', function(e){
             e.stopPropagation();
             var template_for = 0 ;
-            var idForm = $('.tabs-nav li.selected').attr('id-form');
+            var idForm = $('.tabs-pages li.selected').attr('id-form');
             switch (idForm) {
                 case 'capture-screen':
                     template_for = LL_ACTIVATION_TEMPLATE_FOR_CAPTURE_SCREEN;
@@ -238,7 +238,7 @@ var ll_activation_builder = {
         $('.save-activation-template').on('click', function(e){
             e.stopPropagation();
             var template_for = 0 ;
-            var idForm = $('.tabs-nav li.selected').attr('id-form');
+            var idForm = $('.tabs-pages li.selected').attr('id-form');
             switch (idForm) {
                 case 'capture-screen':
                     template_for = LL_ACTIVATION_TEMPLATE_FOR_CAPTURE_SCREEN;
@@ -257,7 +257,7 @@ var ll_activation_builder = {
         $('.reset-activation-template').on('click', function(e){
             e.stopPropagation();
             var template_for = 0 ;
-            var idForm = $('.tabs-nav li.selected').attr('id-form');
+            var idForm = $('.tabs-pages li.selected').attr('id-form');
             switch (idForm) {
                 case 'capture-screen':
                     template_for = LL_ACTIVATION_TEMPLATE_FOR_CAPTURE_SCREEN;
@@ -291,7 +291,7 @@ var ll_activation_builder = {
             $(this).addClass('selected').siblings('li').removeClass('selected');
             $(this).parents('.tabs-editor').find('.wrap-tabs-content .tab-content').hide().eq(index).show();
         });
-        $(".tabs-nav li").on("click", function() {
+        $(".tabs-pages li").on("click", function() {
             var $this = $(this);
             var idForm = $this.attr('id-form');
             if (!$this.hasClass("selected")) {
@@ -1060,8 +1060,7 @@ var ll_activation_builder = {
         return html;
     },
     resizeColumn: function() {
-        var navParent = $('.tabs-nav-parent');
-        var widthBody = $("body").width() - parseInt(navParent.css('padding-left')) - parseInt(navParent.css('padding-right'));
+        var widthBody = $("body").width();
         var $colRight = $(".tab-content-page[id-form=capture-screen] .tool-col");
         var defaultWidth = widthBody / 2;
 
@@ -1099,9 +1098,9 @@ var ll_activation_builder = {
         });
     },
     resizeTabs: function(){
-        var tabsCount = $('.activation-designer .tabs-nav li[id-form]:visible').length;
+        var tabsCount = $('.activation-designer .tabs-pages li[id-form]:visible').length;
         var tabWidth = 100 / tabsCount;
-        $('.activation-designer .tabs-nav li[id-form]').css('width', tabWidth+'%');
+        $('.activation-designer .tabs-pages li[id-form]').css('width', tabWidth+'%');
     },
     populate_identifier: function(ll_identifier){
 
@@ -1137,7 +1136,7 @@ var ll_activation_builder = {
             if(typeof ll_identifier.show_winners_info != "undefined" && parseInt(ll_identifier.show_winners_info)){
             }
 
-            //ll_activation_builder.resizeTabs();
+            ll_activation_builder.resizeTabs();
         }
     },
     draw_configuration: function(ll_identifier, _callback){
@@ -5229,49 +5228,10 @@ var ll_activation_builder = {
             });
         }
     },
-    tabs_nav: function(){
-        $('.tabs-nav__toggle').on('click', function(){
-            var $container = $(this).closest('.tabs-nav-parent');
-            var $nav = $('.tabs-nav');
-
-            if($container.hasClass('tabs-nav-open')){
-                $nav.animate({
-                    left: "-250px"
-                }, 400);
-                $container.removeClass('tabs-nav-open');
-            } else{
-                $nav.animate({
-                    left: "0"
-                }, 400);
-                $container.addClass('tabs-nav-open');
-            }
-        });
-
-        $('.tabs-nav__toggle-pin').on('click', function(){
-            var $toggle = $(this);
-            var $container = $toggle.closest('.tabs-nav-parent');
-            var $nav = $('.tabs-nav');
-
-            if($container.hasClass('tabs-nav-pin')){
-                $container.removeClass('tabs-nav-pin').addClass('tabs-nav-unpin');
-                $nav.css({
-                    left: ''
-                });
-                $container.removeClass('tabs-nav-open');
-                ll_tooltip_update('.tabs-nav__toggle-pin','Unpin Menu');
-            } else{
-                $container.removeClass('tabs-nav-unpin').addClass('tabs-nav-pin');
-                ll_tooltip_update('.tabs-nav__toggle-pin','Pin Menu');
-            }
-
-            ll_activation_builder.resizeColumn();
-        });
-    }
 };
 
 $(document).ready(function () {
     ll_activation_builder.init();
-    //ll_activation_builder.resizeTabs();
+    ll_activation_builder.resizeTabs();
     ll_activation_builder.colorBox();
-    ll_activation_builder.tabs_nav();
 });

@@ -3,14 +3,15 @@
   padding: 0;
   margin: 0;
   height: 100% !important;
-  background: #ffffff;
-  overflow-x: hidden;
+
 }
 .activation-designer #mainWrapper,
 .leaderboard-designer #mainWrapper{
   height: 100%;
-  padding-top: 50px;
-  box-sizing: border-box;
+}
+.activation-designer,
+.leaderboard-designer {
+  background: #ffffff;
 }
 .et-top-header .h-edit-text {
   position: relative;
@@ -37,7 +38,6 @@
   background: #323232;
   z-index: 3;
   position: relative;
-  margin-top: -50px;
 }
 .db-btn-white {
   height: 30px;
@@ -270,18 +270,12 @@
 }
 #custom-activation-designer-page,
 #custom-leaderboard-designer-page{
-  height: 100%;
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
+  bottom: 0;
   overflow: hidden;
-  padding: 20px;
-  background-color: #f7f7f7;
-  box-sizing: border-box;
-}
-#custom-activation-designer-page.tabs-nav-unpin,
-#custom-leaderboard-designer-page.tabs-nav-unpin{
-  padding-left: 290px;
-}
-.tabs-pages{
-  display: none;
 }
 .tabs-pages ul{
   background: #f9f9f9;
@@ -322,108 +316,10 @@
   background: #fb920c;
   border-radius: 4px 4px 0 0;
 }
-.tabs-nav{
-  position: absolute;
-  left: 0;
-  top: 50px;
-  bottom: 0;
-  width: 250px;
-  z-index: 1;
-  left: -250px;
-  border: 1px solid #e5e5e5;
-  background-color: #ffffff;
-  box-sizing: border-box;
-}
-.tabs-nav-unpin .tabs-nav{
-  left: 20px;
-  top: 70px;
-  bottom: 20px;
-  border-radius: 5px;
-}
-.tabs-nav__title{
-  font-weight: 600;
-  color: #333333;
-  padding: 15px;
-}
-.tabs-nav__toggle-pin{
-  width: 24px;
-  height: 24px;
-  position: absolute;
-  opacity: 0.5;
-  top: 5px;
-  right: 5px;
-  cursor: pointer;
-  border-radius: 50%;
-}
-.tabs-nav__toggle-pin:hover{
-  background-color: #f7f7f7;
-  opacity: 1;
-}
-.tabs-nav__toggle-pin svg{
-  margin: 3px;
-}
-.tabs-nav-pin .tabs-nav__toggle-pin svg{
-  fill: #333333;
-}
-.tabs-nav__toggle{
-  width: 36px;
-  height: 40px;
-  border: 1px solid #cc7a23;
-  border-radius: 0 4px 4px 0;
-  background-color: #ff982b;
-  cursor: pointer;
-  position: absolute;
-  right: -36px;
-  top: 20%;
-  background-image: url('../imgs/tabs_nav.svg');
-  background-repeat: no-repeat;
-  background-size: 20px auto;
-  background-position: center center;
-  box-sizing: border-box;
-}
-.tabs-nav__toggle:hover{
-  background-color: #ffab52;
-}
-.tabs-nav-unpin .tabs-nav__toggle{
-  display: none;
-}
-.tabs-nav ul li{
-  width: 230px;
-  border-radius: 0 30px 30px 0;
-  line-height: 20px;
-  cursor: pointer;
-  padding: 15px;
-  box-sizing: border-box;
-}
-.tabs-nav ul li:hover{
-  background-color: #fafafa;
-}
-.tabs-nav ul li.selected{
-  background-color: #f7f7f7;
-}
-.tabs-nav ul li > span{
-  width: 18px;
-  height: 18px;
-  border: 1px solid #333333;
-  background-color: #ffffff;
-  font-weight: 600;
-  text-align: center;
-  font-size: 9px;
-  line-height: 18px;
-  display: inline-block;
-  vertical-align: top;
-  margin: 1px 10px 0 0;
-  border-radius: 50%;
-  box-sizing: border-box;
-}
 .tab-content-page {
   display: none;
   height: 100%;
   padding: 0;
-  margin-bottom: 20px;
-  border: 1px solid #e5e5e5;
-  background-color: #ffffff;
-  border-radius: 5px;
   overflow-y: auto;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1011,15 +907,14 @@
 
 .right-panel-slide,
 .right-panel-slide-leaderboard{
-  position: fixed;
-  top: 50px;
+  position: absolute;
+  top: 0;
   right: -592px;
   width: 592px;
   border-left: 1px solid #c8c8c8;
   bottom: 0;
   display: none;
   background: #ffffff;
-  z-index: 2;
   box-sizing: border-box;
 }
 .right-panel-slide__close,
@@ -1636,33 +1531,16 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 .builder-leadboard .leadboard__column-left {
   border-right: 2px dashed #9d9d9d;
 }
-.columns-tab {
+.setup-tab {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
 }
-.columns-tab .left-column {
+.setup-tab .left-column {
   width: 50%;
-  box-sizing: border-box;
-  padding-right: 5px;
 }
-.columns-tab .right-column {
+.setup-tab .right-column {
   width: 50%;
-  box-sizing: border-box;
-  padding-left: 5px;
-}
-@media screen and (max-width: 1280px) {
-  .tabs-nav-unpin .columns-tab{
-    display: block;
-  }
-  .tabs-nav-unpin .columns-tab .left-column {
-    width: 100%;
-    padding-right: 0;
-  }
-  .tabs-nav-unpin .columns-tab .right-column {
-    width: 100%;
-    padding-left: 0;
-  }
 }
 #custom-activation-designer-page .defautl-h ,
 #custom-leaderboard-designer-page .defautl-h {

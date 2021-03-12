@@ -78,7 +78,7 @@ var ll_leaderboard_builder = {
             $(this).parents('.tabs-editor').find('.wrap-tabs-content .tab-content').hide().eq(index).show();
         });
 
-        $(".tabs-pages li").on("click", function() {
+        $(".tabs-nav li").on("click", function() {
             var $this = $(this);
             var idForm = $this.attr('id-form');
             if (!$this.hasClass("selected")) {
@@ -2011,13 +2011,51 @@ var ll_leaderboard_builder = {
         ll_leaderboard_builder.isRemoveAsset($wrap);
 
     },
+
+    tabs_nav: function(){
+        $('.tabs-nav__toggle').on('click', function(){
+            var $container = $(this).closest('.tabs-nav-parent');
+            var $nav = $('.tabs-nav');
+
+            if($container.hasClass('tabs-nav-open')){
+                $nav.animate({
+                    left: "-250px"
+                }, 400);
+                $container.removeClass('tabs-nav-open');
+            } else{
+                $nav.animate({
+                    left: "0"
+                }, 400);
+                $container.addClass('tabs-nav-open');
+            }
+        });
+
+        $('.tabs-nav__toggle-pin').on('click', function(){
+            var $toggle = $(this);
+            var $container = $toggle.closest('.tabs-nav-parent');
+            var $nav = $('.tabs-nav');
+
+            if($container.hasClass('tabs-nav-pin')){
+                $container.removeClass('tabs-nav-pin').addClass('tabs-nav-unpin');
+                $nav.css({
+                    left: ''
+                });
+                $container.removeClass('tabs-nav-open');
+                ll_tooltip_update('.tabs-nav__toggle-pin','Unpin Menu');
+            } else{
+                $container.removeClass('tabs-nav-unpin').addClass('tabs-nav-pin');
+                ll_tooltip_update('.tabs-nav__toggle-pin','Pin Menu');
+            }
+        });
+    }
 };
 
 $(document).ready(function () {
 
     if($('.leaderboard-designer').length){
         ll_leaderboard_builder.init();
-        ll_leaderboard_builder.resizeTabs();
+        //ll_leaderboard_builder.resizeTabs();
+        ll_leaderboard_builder.tabs_nav();
     }
     ll_leaderboard_builder.init_content();
 });

@@ -964,7 +964,7 @@ if(false){
         </div>
     </div>
 </div>
-<div class="unsplash-right-panel-leaderboard">
+<div class="unsplash-right-panel-leaderboard" style="display: none;">
     <div class="title">Free Images (Unsplash)
         <a href="javascript:void(0);" class="t-btn-gray" id="close_unsplash-right-panel">Close</a></div>
     <div class="conetnt" type-action="screensaver">

@@ -248,9 +248,26 @@ include_once 'Util/SetAccountConfigurationVariables.php';
             <li id-form="leaderboard" <?php if($step == 'leaderboard'){ echo 'class="selected"';}?>  style="display: none;">(3) Leaderboard</li>
         </ul>
     </div>
-    <div id="custom-activation-designer-page" class="custom-activation-page">
+    <div id="custom-activation-designer-page" class="custom-activation-page tabs-nav-unpin tabs-nav-parent">
+        <div class="tabs-nav">
+            <div class="tabs-nav__toggle-pin ll_std_tooltip" title="Unpin Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#fb8f04"><path d="M16 5h.99L17 3H7v2h1v7l-2 2v2h5v6l1 1 1-1v-6h5v-2l-2-2V5z"></path><path fill="none" d="M0 0h24v24H0z"></path></svg>
+            </div>
+            <div class="tabs-nav__toggle"></div>
+            <div class="tabs-nav__title">Create New Event</div>
+            <ul>
+                <li id-form="setup" <?php if($step == 'setup'){ echo 'class="selected"';}?>><span>1</span>Setup</li>
+                <li id-form="capture-screen"  <?php if($step == 'capture-screen'){ echo 'class="selected"';}?>><span>2</span>Capture Form</li>
+                <!--<li ><span>3</span>Settings</li>
+                <li><span>4</span>Scoring</li>
+                <li><span>5</span>Rewards</li>
+                <li><span>6</span>Style</li>
+                <li><span>7</span>Messaging</li>-->
+                <li id-form="leaderboard" <?php if($step == 'leaderboard'){ echo 'class="selected"';}?>  style="display: none;"><span>3</span>Leaderboard</li>
+            </ul>
+        </div>
         <div class="tab-content-page setup-content" <?php if($step == 'setup'){ echo 'style="display:block"'; } else { echo 'style="display:none"'; }?> id-form="setup">
-            <div class="tab-content-page__inner setup-tab">
+            <div class="tab-content-page__inner setup-tab columns-tab">
                 <div class="left-column">
                     <!--<div class="defautl-h">General Configuration</div>-->
                     <div class="h3 ll_std_tooltip event-field" style="display: none"

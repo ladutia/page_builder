@@ -187,9 +187,20 @@ include_once 'Util/SetAccountConfigurationVariables.php';
             <li id-form="leaderboard" <?php if($step == 'leaderboard'){ echo 'class="selected"';}?>>(2) Leaderboard</li>
         </ul>
     </div>
-    <div id="custom-leaderboard-designer-page" class="custom-leaderboard-page">
+    <div id="custom-leaderboard-designer-page" class="custom-leaderboard-page tabs-nav-unpin tabs-nav-parent">
+        <div class="tabs-nav">
+            <div class="tabs-nav__toggle-pin ll_std_tooltip" title="Unpin Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#fb8f04"><path d="M16 5h.99L17 3H7v2h1v7l-2 2v2h5v6l1 1 1-1v-6h5v-2l-2-2V5z"></path><path fill="none" d="M0 0h24v24H0z"></path></svg>
+            </div>
+            <div class="tabs-nav__toggle"></div>
+            <div class="tabs-nav__title">Create New Event</div>
+            <ul>
+                <li id-form="setup" <?php if($step == 'setup'){ echo 'class="selected"';}?> ><span>1</span>Setup</li>
+                <li id-form="leaderboard" <?php if($step == 'leaderboard'){ echo 'class="selected"';}?>><span>2</span>Leaderboard</li>
+            </ul>
+        </div>
         <div class="tab-content-page setup-content" <?php if($step == 'setup'){ echo 'style="display:block"'; } else { echo 'style="display:none"'; }?> id-form="setup">
-            <div class="tab-content-page__inner setup-tab">
+            <div class="tab-content-page__inner setup-tab columns-tab">
                 <div class="left-column">
                     <div class="defautl-h ll_std_tooltip" title="Three operating modes control how your Global Leaderboard should work. Initial Points uses the first points earned from each Activation/Game played. Highest Points uses the highest points earned from each Activations/Games played. All Points uses points from every Activation/Game played, including points from playing the same Activation/Game more than once. Note, for all Leaderboard Modes the total points earned per game play is the sum of Game Points plus Prize Points.">Leaderboard Mode</div>
                     <div class="t-field">

@@ -1114,15 +1114,15 @@ var pageBuilder = {
         pageBuilder.active_html_editor.execCommand('mceInsertContent', false, placeholder);
     },
     initMoreEvents: function () {
-        $('.pb-widget:not(.pb-widget--svg):not(.pb-widget--icon):not(.pb-widget--field):not(.pb-widget--video):not(.pb-widget--button):not(.pb-widget--code)').each(function (){
+        /*$('.pb-widget:not(.pb-widget--svg):not(.pb-widget--icon):not(.pb-widget--field):not(.pb-widget--video):not(.pb-widget--button):not(.pb-widget--code)').each(function (){
             pageBuilder.dropFreeImages($(this));
         });
 
         $('.pb-widget.pb-widget--image, .pb-widget--image-group, .pb-widget--text-column-with-image, .pb-widget--image-caption-1, .pb-widget--image-caption-2, .pb-widget--columns-caption, .pb-widget--slideshow').each(function (){
             pageBuilder.dropPointImages($(this));
-        });
+        });*/
 
-        pageBuilder.globalBackGroundSetFreeImages();
+        //pageBuilder.globalBackGroundSetFreeImages();
         pageBuilder.updateInlineCss('button');
         pageBuilder.updateInlineCss('link');
         $('.pb-widget, .pb-load-image').removeClass('.ui-droppable');
@@ -1139,8 +1139,8 @@ var pageBuilder = {
             pageBuilder.initEditorInline();
         }
     },
-    dropPointImages: function ($el) {
-        var $el = $el || $('.pb-widget.pb-widget--image, .pb-widget--image-group, .pb-widget--text-column-with-image, .pb-widget--image-caption-1, .pb-widget--image-caption-2, .pb-widget--columns-caption, .pb-widget--slideshow');
+    dropPointImages: function () {
+        var $el = $('.pb-widget.pb-widget--image, .pb-widget--image-group, .pb-widget--text-column-with-image, .pb-widget--image-caption-1, .pb-widget--image-caption-2, .pb-widget--columns-caption, .pb-widget--slideshow');
         $el.each(function () {
             var $boxs = $(this).find('.pb-load-image');
             $boxs.each(function(){
@@ -1194,7 +1194,22 @@ var pageBuilder = {
         $('.list-elements__item--image-point:not(.ui-draggable)').draggable({
             helper: 'clone',
             cursorAt: {top: 15, left: 15},
-            appendTo: '.page-builder-editor'
+            appendTo: '.page-builder-editor',
+            start: function (event, ui) {
+                pageBuilder.destroyFreeImages();
+                pageBuilder.destroyPointImages();
+                pageBuilder.dropPointImages();
+            }
+        });
+    },
+    destroyPointImages: function(){
+        var $el = $el || $('.pb-widget.pb-widget--image, .pb-widget--image-group, .pb-widget--text-column-with-image, .pb-widget--image-caption-1, .pb-widget--image-caption-2, .pb-widget--columns-caption, .pb-widget--slideshow');
+        $el.each(function () {
+            var $boxs = $(this).find('.pb-load-images');
+            $boxs.each(function(){
+                if($(this).hasClass('ui-droppable'))
+                    $(this).droppable('destroy');
+            });
         });
     },
     setContentPoint: function(val){
@@ -1205,7 +1220,7 @@ var pageBuilder = {
         var idx = $('.pb-widget--selected').attr('data-idx');
         return $('.ll-lp-popup-point[data-idx='+ idx +']').find('.ll-lp-popup-point__html').html();
     },
-    globalBackGroundSetFreeImages: function(){
+    /*globalBackGroundSetFreeImages: function(){
         $('#pb-template').droppable(
             { accept: '.list-free-images > ul > li', hoverClass: 'pb-widget--drop-free-image', greedy: true },
             {
@@ -1223,11 +1238,10 @@ var pageBuilder = {
                 }
             }
         );
-    },
-    dropFreeImages: function ($el) {
-        var $el = $el || $('#pb-template, .pb-widget:not(.pb-widget--svg):not(.pb-widget--icon):not(.pb-widget--field):not(.pb-widget--video):not(.pb-widget--button):not(.pb-widget--code)');
-        $el.each(function () {
-            var type = $el.data('type');
+    },*/
+    dropFreeImages: function () {
+        var $el = $('#pb-template, .pb-widget:not(.pb-widget--svg):not(.pb-widget--icon):not(.pb-widget--field):not(.pb-widget--video):not(.pb-widget--button):not(.pb-widget--code)');
+        $el.add($el.find('.pb-load-image')).each(function () {
             /*$el.find('.pb-load-image').droppable(
              { accept: '.list-free-images > ul > li', hoverClass: 'pb-widget--drop-free-image', greedy: true },
              {
@@ -1243,13 +1257,14 @@ var pageBuilder = {
              }
              }
              });*/
-            $el.add($el.find('.pb-load-image')).droppable(
+            $(this).droppable(
                 { accept: '.list-free-images > ul > li', hoverClass: 'pb-widget--drop-free-image', greedy: true },
                 {
                     drop: function (event, ui) {
                         var url = $(ui.helper).attr('data-url');
                         if ($(this).hasClass('pb-load-image')) {
-
+                            var type = $(this).closest('.pb-widget').data('type');
+                            console.log('type:', type);
                             if (type != 'slideshow' && type != 'vertical-slideshow') {
                                 $imgBoxTpl = $(this);
                                 $imgBoxTpl.find('img.pb-img').attr('src', url);
@@ -1270,6 +1285,10 @@ var pageBuilder = {
                             $tpl.attr('data-json', JSON.stringify(opt));
                         }
                         $('.pb-widget--drop-free-image').removeClass('pb-widget--drop-free-image');
+                        if($(this).attr('id') == 'pb-template'){
+                            $('.pb-box-btn-upload-bg-image--global').removeClass('pb-box-btn-upload-bg-image--none');
+                            $('.pb-box-btn-upload-bg-image--global').find('.pb-unload-bg-image__title').text(url);
+                        }
                         pageBuilder.updateHistory();
                     }
                 });
@@ -1288,7 +1307,12 @@ var pageBuilder = {
         $('.list-free-images > ul > li:not(.ui-draggable)').draggable({
             helper: 'clone',
             appendTo: '.page-builder-editor',
-            refreshPositions: true
+            refreshPositions: true,
+            start: function (event, ui) {
+                pageBuilder.destroyFreeImages();
+                pageBuilder.destroyPointImages();
+                pageBuilder.dropFreeImages();
+            }
         });
     },
     dragableElements: function () {
@@ -1303,6 +1327,13 @@ var pageBuilder = {
             },
             connectToSortable: ".pb-blocks, .pb-layout-grid__cell, .pb-container-grid, .pb-form-grid",
             refreshPositions: true
+        });
+    },
+    destroyFreeImages: function(){
+        var $el = $el || $('#pb-template, .pb-widget:not(.pb-widget--svg):not(.pb-widget--icon):not(.pb-widget--field):not(.pb-widget--video):not(.pb-widget--button):not(.pb-widget--code)');
+        $el.add($el.find('.pb-load-image')).each(function () {
+            if($(this).hasClass('ui-droppable'))
+                $(this).droppable('destroy');
         });
     },
     dragDropElements: function () {
@@ -2771,13 +2802,14 @@ var pageBuilder = {
             if (type === 'text' || type === 'text-column-with-image' || type === 'image-caption-1' || type === 'image-caption-2' || type === 'two-text-columns' || type === 'columns-caption' || type === 'vertical-form' || type === 'horizontal-form') {
                 pageBuilder.initEditorInline();
             }
+            /*
             if (type !== 'svg' && type !== 'field' && type !== 'video' && type !== 'button' && type !== 'code' && type !== 'icon'){
                 pageBuilder.dropFreeImages($this);
             }
 
             if (type === 'image' || type === 'image-group' || type === 'text-column-with-image' || type === 'image-caption-1' || type === 'image-caption-2' || type === 'pb-widget--columns-caption' || type === 'slideshow'){
                 pageBuilder.dropPointImages($this);
-            }
+            }*/
         });
         $('.pb-widget--init').removeClass('pb-widget--init');
     },
@@ -6323,7 +6355,7 @@ var pageBuilder = {
                 pageBuilder.setSortIdImageGroup();
             }
         }).disableSelection();
-        this.dropFreeImages();
+        //this.dropFreeImages();
     },
     setCountImageGroup: function () {
         var $tpl = $('.pb-widget--selected');

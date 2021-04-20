@@ -247,10 +247,10 @@ var LandingPageBuilder = {
 
         this.populate_draft_settings(landing_page_draft);
 
-        $('.pb-widget:not(.pb-widget--svg):not(.pb-widget--icon):not(.pb-widget--field):not(.pb-widget--video):not(.pb-widget--button):not(.pb-widget--code)').each(function (){
+        /*$('.pb-widget:not(.pb-widget--svg):not(.pb-widget--icon):not(.pb-widget--field):not(.pb-widget--video):not(.pb-widget--button):not(.pb-widget--code)').each(function (){
             pageBuilder.dropFreeImages($(this));
         });
-        pageBuilder.globalBackGroundSetFreeImages();
+        pageBuilder.globalBackGroundSetFreeImages();*/
         pageBuilder.dragableElements();
         pageBuilder.draggableFreeImages();
         pageBuilder.colorBox();

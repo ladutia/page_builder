@@ -4471,6 +4471,9 @@ var pageBuilder = {
             $('#pointModalBgColor').colpickSetColor(opt.modalBgColor, true).css('background-color', opt.modalBgColor);
             $('#pointBgColor').colpickSetColor(opt.bgColor, true).css('background-color', opt.bgColor);
 
+            if(opt.pointType == 'undefined') opt.pointType = 0;
+            ll_combo_manager.set_selected_value('#pointType', opt.pointType);
+
             ll_combo_manager.set_selected_value('#btnPointBorderType', opt.btnBorderType);
             $('#btnPointBorderWidth').val(opt.btnBorderWidth);
             $('#btnPointBorderRadius').val(opt.btnRadius);
@@ -5800,6 +5803,39 @@ var pageBuilder = {
             $tpl.attr('data-json', JSON.stringify(opt));
             pageBuilder.setNewActionHistory();
         });
+        $('#pointType').change(function () {
+            getTplOpt();
+            opt.pointType = $(this).val();
+            pageBuilder.setPointType($tpl, opt.pointType);
+            $tpl.attr('data-json', JSON.stringify(opt));
+            pageBuilder.setNewActionHistory();
+        });
+    },
+    setPointType: function($tpl, type){
+        var opt = $tpl.data('json');
+        var $html = $tpl.find('.ll-lp-point-image__inner');
+
+        $tpl.removeClass('ll-lp-point-image__type-1 ll-lp-point-image__type-2 ll-lp-point-image__type-3 ll-lp-point-image__type-4');
+        $tpl.addClass('ll-lp-point-image__type-'+ (parseInt(type) + 1));
+
+        if(type == '1' || type == '2'){
+            $html.html('<div class="ll-lp-point-icon"><div class="ll-lp-point-icon__line-1"></div><div class="ll-lp-point-icon__line-2"></div></div>');
+            opt.bgColor = '#333333';
+        } else if(type == '3'){
+            $html.html('<div class="ll-lp-point-icon"><div class="ll-lp-point-icon__dot"></div></div>');
+            opt.bgColor = '#fb8f04';
+            $tpl.css('borderColor', opt.bgColor);
+        } else{
+            $html.html('');
+            $tpl.css('borderColor', 'rgba(255,255,255, 0.5)');
+            opt.bgColor = '#ffffff';
+        }
+
+        $('#pointBgColor').colpickSetColor(opt.bgColor, true).css('background-color', opt.bgColor);
+
+        $tpl.attr('data-json', JSON.stringify(opt));
+        pageBuilder.setNewActionHistory();
+
     },
     currentPointPopup: function($tpl) {
         return $('.ll-lp-popup-point[data-idx=' + $tpl.attr('data-idx') + ']');
@@ -6194,7 +6230,17 @@ var pageBuilder = {
         } else if (id == 'pointBgColor') {
             opt.bgColor = '#' + hex;
 
-            $tpl.css('border-color', 'rgba('+ rgb.r +', ' + rgb.g +', '+ rgb.b +', 0.5');
+            opt.pointType = opt.pointType || 0;
+
+            if(opt.pointType == '1' || opt.pointType == '2'){
+                $tpl.find('.ll-lp-point-icon').css('backgroundColor', opt.bgColor);
+            } else if(opt.pointType == '3'){
+                $tpl.css('border-color', opt.bgColor);
+                $tpl.find('.ll-lp-point-icon__dot').css('backgroundColor', opt.bgColor);
+            } else{
+                $tpl.css('border-color', 'rgba('+ rgb.r +', ' + rgb.g +', '+ rgb.b +', 0.5');
+            }
+            
             $tpl.attr('data-json', JSON.stringify(opt));
         }
 

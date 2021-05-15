@@ -1153,6 +1153,103 @@ grammarly-btn > div{
   border-radius: 50%;
   box-sizing: border-box;
 }
+.ll-lp-point-image__type-2{
+
+}
+.ll-lp-point-image__type-3{
+  
+}
+.ll-lp-point-image__type-4{
+  
+}
+.ll-lp-point-icon{
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -11px;
+  margin-top: -11px;
+  border-radius: 50%;
+}
+.ll-lp-point-image__type-2 .ll-lp-point-icon,
+.ll-lp-point-image__type-3 .ll-lp-point-icon{
+  background-color: #333;
+}
+.ll-lp-point-image__type-4 .ll-lp-point-icon{
+  background-color: transparent;
+}
+.ll-lp-point-image__type-2{
+  border-color: #fff!important;
+}
+.ll-lp-point-icon__line-1{
+  width: 2px;
+  height: 12px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -6px;
+  margin-left: -1px;
+  background-color: #fff;
+}
+
+.ll-lp-point-icon__line-2{
+  width: 12px;
+  height: 2px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -1px;
+  margin-left: -6px;
+  background-color: #fff;
+}
+.ll-lp-point-image__type-3{
+  width: 24px;
+  height: 24px;
+  border-color: rgba(255,255,255, 0.5)!important;
+}
+.ll-lp-point-image__type-3 .ll-lp-point-icon{
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+}
+.ll-lp-point-image__type-3 .ll-lp-point-icon__line-1{
+  width: 2px;
+  height: 12px;
+  margin-top: -6px;
+  margin-left: -1px;
+}
+.ll-lp-point-image__type-3 .ll-lp-point-icon__line-2{
+  width: 12px;
+  height: 2px;
+  margin-top: -1px;
+  margin-left: -6px;
+}
+.ll-lp-point-image__type-4{
+  border-width: 2px;
+}
+.ll-lp-point-image__type-4 .ll-lp-point-icon{
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  margin-top: -5px;
+  background-color: #fff;
+}
+.ll-lp-point-icon__dot{
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -4px;
+  margin-left: -4px;
+  background-color: #fb8f04;
+  border-radius: 50%;
+}
+.ll-lp-popup-point img{
+  max-width: 100%;
+}
 .ll-pulsetrigger {
   -webkit-animation:ownpulse 3s cubic-bezier(.19,1,.22,1) infinite both;
   -o-animation:ownpulse 3s cubic-bezier(.19,1,.22,1) infinite both;
@@ -1200,9 +1297,6 @@ grammarly-btn > div{
   max-width: 350px;
   box-shadow: 0 0 5px 0 rgba(0,0,0,.3);
   display: none;
-}
-.ll-lp-popup-point img{
-  max-width: 100%;
 }
 .ll-lp-popup-point__close{
   width: 30px;

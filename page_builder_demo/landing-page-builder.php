@@ -80,6 +80,19 @@ $supported_calendar_timezones = ll_emails_manager::get_calendar_timezones();
 
 $time_zone_info = ll_users::get_user_time_zone_info($userID);
 
+$DEVICE_FORMS_PERMISSION = ll_customer_applications::is_has_permission_for_application ( $customerID, ll_applications::$DEVICE_FORMS, true );
+$ACTIVATIONS_PERMISSION = ll_customer_applications::is_has_permission_for_application ( $customerID, ll_applications::$ACTIVATIONS, true );
+
+$ll_activations = $ll_leaderboards = $ll_events = array();
+
+if($ACTIVATIONS_PERMISSION){
+    $ll_activations = (new ll_activations())->get_per_customer($customerID, true);
+    $ll_leaderboards = (new ll_leaderboards())->get_per_customer($customerID, true, array('type'=>LL_Leaderboards_Manager::TYPE_GLOBAL));
+}
+if($DEVICE_FORMS_PERMISSION){
+    $ll_events = form::get_device_forms_by_customer_id($customerID, $userID, true);
+}
+
 include_once 'Util/SetAccountConfigurationVariables.php';
 ?>
 <?php include 'meta-doctype.php'; ?>
@@ -565,9 +578,7 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                                          data-type="video">
                                                         <div class="list-elements__item-text">Video</div>
                                                     </div>
-													<div class="list-elements__item list-elements__item--image-point
-                                                    " draggable="true" data-parent="list-elements--multimedia" data-idx="7"
-                                                         data-type="image-point">
+                                                    <div class="list-elements__item list-elements__item--image-point" draggable="true" data-parent="list-elements--multimedia" data-idx="7" data-type="image-point">
                                                         <div class="list-elements__item-text">Image Point</div>
                                                     </div>
                                                 </div>
@@ -1427,6 +1438,240 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                                             <label for="switch-isMobile-container"></label>
                                                         </div>
                                                         <div class="switch-lb">Show on Mobile</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pb-settings-panel" id="pb-panel__point">
+                                <div class="pb-settings-panel__header">
+                                    <span class="pb-settings-panel__header-text">Image Point</span>
+                                    <a href="javascript:void(0);" class="pb-settings-panel__savecancel">Save</a>
+                                </div>
+                                <div class="pb-settings-panel__content">
+                                    <div class="pb-wrap-tabs-panel">
+                                        <div class="pb-tabs-panel">
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--content pb-tabs-panel__tab--selected">
+                                                <i class="icn"></i>
+                                                Content
+                                            </div>
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--style pb-tabs-panel__tab--selected">
+                                                <i class="icn"></i>
+                                                Style
+                                            </div>
+                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--settings">
+                                                <i class="icn"></i>
+                                                Settings
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>Image</label>
+                                                <div class="pb-right ">
+                                                    <div class="pb-right__inner pb-box-btn-upload-bg-image pb-box-btn-upload-bg-image--none pb-box-btn-upload-bg-image--point">
+                                                        <a href="javascript:void(0);" class="t-btn-gray pb-btn-upload-bg-image">Upload Image</a>
+                                                        <div class="pb-unload-bg-image">
+                                                            <span class="pb-unload-bg-image__title">icon svg</span>
+                                                            <span class="pb-unload-bg-image__remove"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <label>HTML</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-editor-point-content"></div>
+                                                </div>
+                                            </div>
+                                            <div class="list-elements__h">Button</div>
+                                            <div class="pb-field pb-field--vertical">
+                                                <div class="pb-right__inner">
+                                                    <div class="ll-switch ll-switch-is">
+                                                        <div class="switch switch-small">
+                                                            <input id="switch-isShowBtnPoint" name="switch-isShowBtnPoint" checked value="on" class="switch-isShowBtnPoint cmn-toggle cmn-toggle-round" type="checkbox">
+                                                            <label for="switch-isShowBtnPoint"></label>
+                                                        </div>
+                                                        <div class="switch-lb">Show on Popup</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical image_point_button_fields">
+                                                <label>Button Text</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <input type="text" class="txt-field" id="btnPointText" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field pb-field--vertical image_point_button_fields" id="button_url">
+                                                <label class="btn_text">Web Address (URL)</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner wFull">
+                                                        <input type="text" class="txt-field" id="btnPointUrl" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field">
+                                                <label>Point Color</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner w40">
+                                                        <div class="wrap-color">
+                                                            <div id="pointBgColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pb-field">
+                                                <label>Modal Background</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner w40">
+                                                        <label>Color</label>
+                                                        <div class="wrap-color">
+                                                            <div id="pointModalBgColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list-elements__h">Button</div>
+                                            <div>
+                                                <div class="pb-field">
+                                                    <label>Background Color</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner w40">
+                                                            <div class="wrap-color">
+                                                                <div id="btnPointBackground" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field">
+                                                    <label>Border</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner wFull">
+                                                            <label class="pb-label--left">Type</label>
+                                                            <select id="btnPointBorderType">
+                                                                <option value="None">None</option>
+                                                                <option value="Solid" selected="selected">Solid</option>
+                                                                <option value="Dashed">Dashed</option>
+                                                                <option value="Dotted">Dotted</option>
+                                                                <option value="Double">Double</option>
+                                                                <option value="Groove">Groove</option>
+                                                                <option value="Ridge">Ridge</option>
+                                                                <option value="Inset">Inset</option>
+                                                                <option value="Outset">Outset</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="pb-wrap-right">
+                                                            <div class="pb-right__inner w40">
+                                                                <label>Width</label>
+                                                                <input type="text" class="txt-field touch-spin" id="btnPointBorderWidth" />
+                                                            </div>
+                                                            <div class="pb-right__inner w40">
+                                                                <label>Color</label>
+                                                                <div class="wrap-color">
+                                                                    <div id="btnPointBorderColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field">
+                                                    <label>Border Radius</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner w40">
+                                                            <input type="text" class="txt-field touch-spin" id="btnPointBorderRadius" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field">
+                                                    <label>Font</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner wFull">
+                                                            <label class="pb-label--left">Typeface</label>
+                                                            <select id="btnPointTypeFace" class="cf-select-font-name">
+                                                                <option standard_font='1' value="None">None</option>
+                                                                <option standard_font='1' value="Arial">Arial</option>
+                                                                <option standard_font='1' value="Comic Sans MS">Comic Sans MS</option>
+                                                                <option standard_font='1' value="Courier New">Courier New</option>
+                                                                <option standard_font='1' value="Georgia">Georgia</option>
+                                                                <option standard_font='1' value="Lucida Sans Unicode">Lucida</option>
+                                                                <option standard_font='1' value="Roboto">Roboto</option>
+                                                                <option standard_font='1' value="Tahoma">Tahoma</option>
+                                                                <option standard_font='1' value="Times New Roman">Times New Roman</option>
+                                                                <option standard_font='1' value="Trebuchet MS">Trebuchet MS</option>
+                                                                <option standard_font='1' value="Verdana">Verdana</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="pb-wrap-right">
+                                                            <div class="pb-right__inner wFull">
+                                                                <label class="pb-label--left">Weight</label>
+                                                                <select id="btnPointWeight">
+                                                                    <option value="None">None</option>
+                                                                    <option value="Normal">Normal</option>
+                                                                    <option value="Bold">Bold</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pb-wrap-right">
+                                                            <div class="pb-right__inner w75">
+                                                                <label class="pb-label--left">Size</label>
+                                                                <select id="btnPointSize">
+                                                                    <option value="None">None</option>
+                                                                    <option value="9">9px</option>
+                                                                    <option value="10">10px</option>
+                                                                    <option value="11">11px</option>
+                                                                    <option value="12">12px</option>
+                                                                    <option value="13">13px</option>
+                                                                    <option value="14" selected>14px</option>
+                                                                    <option value="16">16px</option>
+                                                                    <option value="18">18px</option>
+                                                                    <option value="20">20px</option>
+                                                                    <option value="24">24px</option>
+                                                                    <option value="30">30px</option>
+                                                                    <option value="36">36px</option>
+                                                                    <option value="48">48px</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="pb-right__inner w40">
+                                                                <label>Color</label>
+                                                                <div class="wrap-color">
+                                                                    <div id="btnPointTextColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field">
+                                                    <label>Padding</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner w50">
+                                                            <label class="pb-label--left">Left/Right</label>
+                                                            <input type="text" class="txt-field touch-spin" id="btnPointPaddingX" />
+                                                        </div>
+                                                        <div class="pb-right__inner w50">
+                                                            <label class="pb-label--left">Top/Bottom</label>
+                                                            <input type="text" class="txt-field touch-spin" id="btnPointPaddingY" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-tabs-panel__content">
+                                            <div class="pb-field">
+                                                <label>Point Position</label>
+                                                <div class="pb-right">
+                                                    <div class="pb-right__inner w60">
+                                                        <label class="pb-label--left">Left (%)</label>
+                                                        <input type="text" class="txt-field touch-spin-decimals-2" id="pointPositionLeft" />
+                                                    </div>
+                                                    <div class="pb-right__inner w60">
+                                                        <label class="pb-label--left">Top (%)</label>
+                                                        <input type="text" class="txt-field touch-spin-decimals-2" id="pointPositionTop" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -4155,17 +4400,6 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="pb-field pb-field--vertical" id="button_link_to">
-                                                    <label>Link To</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner wFull">
-                                                            <select id="btnLinkTo">
-                                                                <option value="url">Web Address</option>
-                                                                <option value="email">Email Address</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <div class="pb-field pb-field--vertical" id="button_view">
                                                     <label>View</label>
                                                     <div class="pb-right">
@@ -4177,6 +4411,72 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                                             </select>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="pb-field pb-field--vertical pb-field-modal-content pb-modal-settings" id="modalContent">
+                                                    <label>Modal Content</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner wFull">
+                                                            <select class="pb-modal-content">
+                                                                <option value="html">HTML</option>
+                                                                <option value="iframe">iFrame</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="pb-field pb-field--vertical" id="button_link_to">
+                                                    <label>Link To</label>
+                                                    <div class="pb-right">
+                                                        <div class="pb-right__inner wFull">
+                                                            <select id="btnLinkTo">
+                                                                <option value="url">Web Address</option>
+                                                                <option value="email">Email Address</option>
+                                                                <?php if($ACTIVATIONS_PERMISSION){?>
+                                                                    <option value="leaderboard">Leaderboard</option>
+                                                                    <option value="activation">Activation</option>
+                                                                <?php }?>
+                                                                <?php if($DEVICE_FORMS_PERMISSION){?>
+                                                                    <option value="event">Event</option>
+                                                                <?php }?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pb-field pb-field--vertical" id="button_asset" style="display: none;">
+                                                    <label class="lbl_asset">Asset</label>
+                                                    <span class="span_ll_activations" style="display: none;">
+                                                        <select id="lp_ll_activations">
+                                                            <option value="">--- Select Activation ---</option>
+                                                            <?php
+                                                                foreach($ll_activations as $ll_activation){
+                                                                    echo "<option value='{$ll_activation->ll_activation_id}'>{$ll_activation->ll_activation_name}</option>";
+                                                                }
+                                                            ?>
+                                                        </select>
+                                                    </span>
+                                                    <span class="span_ll_leaderboards"  style="display: none;">
+                                                        <select id="lp_ll_leaderboards">
+                                                            <option value="">--- Select Leaderboard ---</option>
+                                                            <?php
+                                                                foreach($ll_leaderboards as $ll_leaderboard){
+                                                                    echo "<option value='{$ll_leaderboard->ll_leaderboard_id}'>{$ll_leaderboard->ll_leaderboard_name}</option>";
+                                                                }
+                                                            ?>
+                                                        </select>
+                                                    </span>
+                                                    <span class="span_ll_events" style="display: none;">
+                                                        <select id="lp_ll_events">
+                                                            <option value="">--- Select Event ---</option>
+                                                            <?php
+                                                            foreach($ll_events as $ll_event){
+                                                                echo "<option value='{$ll_event->ll_leaderboard_id}'>{$ll_event->ll_leaderboard_name}</option>";
+                                                            }
+                                                            foreach($ll_events as $ll_event){
+                                                                echo "<option value='{$ll_event->id}'>{$ll_event->name}</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </span>
                                                 </div>
                                                 <div class="pb-field pb-field--vertical" id="button_url">
                                                     <label class="btn_text">Web Address (URL)</label>
@@ -4219,17 +4519,6 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                                             <div class="pb-right__inner pb-field-px">
                                                                 <input type="text" class="txt-field touch-spin modalBgOpacity" />
                                                                 <span class="pb-field-px__label">%</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="pb-field pb-field--vertical pb-field-modal-content">
-                                                        <label>Content</label>
-                                                        <div class="pb-right">
-                                                            <div class="pb-right__inner wFull">
-                                                                <select class="pb-modal-content">
-                                                                    <option value="html">HTML</option>
-                                                                    <option value="iframe">iFrame</option>
-                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -6929,240 +7218,6 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                                             <label for="switch-isMobile-nav-item"></label>
                                                         </div>
                                                         <div class="switch-lb">Show on Mobile</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pb-settings-panel" id="pb-panel__point">
-                                <div class="pb-settings-panel__header">
-                                    <span class="pb-settings-panel__header-text">Image Point</span>
-                                    <a href="javascript:void(0);" class="pb-settings-panel__savecancel">Save</a>
-                                </div>
-                                <div class="pb-settings-panel__content">
-                                    <div class="pb-wrap-tabs-panel">
-                                        <div class="pb-tabs-panel">
-                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--content pb-tabs-panel__tab--selected">
-                                                <i class="icn"></i>
-                                                Content
-                                            </div>
-                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--style pb-tabs-panel__tab--selected">
-                                                <i class="icn"></i>
-                                                Style
-                                            </div>
-                                            <div class="pb-tabs-panel__tab pb-tabs-panel__tab--settings">
-                                                <i class="icn"></i>
-                                                Settings
-                                            </div>
-                                        </div>
-                                        <div class="pb-tabs-panel__content">
-                                            <div class="pb-field pb-field--vertical">
-                                                <label>Image</label>
-                                                <div class="pb-right ">
-                                                    <div class="pb-right__inner pb-box-btn-upload-bg-image pb-box-btn-upload-bg-image--none pb-box-btn-upload-bg-image--point">
-                                                        <a href="javascript:void(0);" class="t-btn-gray pb-btn-upload-bg-image">Upload Image</a>
-                                                        <div class="pb-unload-bg-image">
-                                                            <span class="pb-unload-bg-image__title">icon svg</span>
-                                                            <span class="pb-unload-bg-image__remove"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="pb-field pb-field--vertical">
-                                                <label>HTML</label>
-                                                <div class="pb-right">
-                                                    <div class="pb-editor-point-content"></div>
-                                                </div>
-                                            </div>
-                                            <div class="list-elements__h">Button</div>
-                                            <div class="pb-field pb-field--vertical">
-                                                <label>Button Text</label>
-                                                <div class="pb-right">
-                                                    <div class="pb-right__inner wFull">
-                                                        <input type="text" class="txt-field" id="btnPointText" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="pb-field pb-field--vertical" id="button_url">
-                                                <label class="btn_text">Web Address (URL)</label>
-                                                <div class="pb-right">
-                                                    <div class="pb-right__inner wFull">
-                                                        <input type="text" class="txt-field" id="btnPointUrl" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="pb-tabs-panel__content">
-                                            <div class="pb-field">
-                                                <label>Point Color</label>
-                                                <div class="pb-right">
-                                                    <div class="pb-right__inner w40">
-                                                        <div class="wrap-color">
-                                                            <div id="pointBgColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="pb-field">
-                                                <label>Modal Background</label>
-                                                <div class="pb-right">
-                                                    <div class="pb-right__inner w40">
-                                                        <label>Color</label>
-                                                        <div class="wrap-color">
-                                                            <div id="pointModalBgColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="list-elements__h">Button</div>
-                                            <div>
-                                                <div class="pb-field">
-                                                    <label>Background Color</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner w40">
-                                                            <div class="wrap-color">
-                                                                <div id="btnPointBackground" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field">
-                                                    <label>Border</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner wFull">
-                                                            <label class="pb-label--left">Type</label>
-                                                            <select id="btnPointBorderType">
-                                                                <option value="None">None</option>
-                                                                <option value="Solid" selected="selected">Solid</option>
-                                                                <option value="Dashed">Dashed</option>
-                                                                <option value="Dotted">Dotted</option>
-                                                                <option value="Double">Double</option>
-                                                                <option value="Groove">Groove</option>
-                                                                <option value="Ridge">Ridge</option>
-                                                                <option value="Inset">Inset</option>
-                                                                <option value="Outset">Outset</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="pb-wrap-right">
-                                                            <div class="pb-right__inner w40">
-                                                                <label>Width</label>
-                                                                <input type="text" class="txt-field touch-spin" id="btnPointBorderWidth" />
-                                                            </div>
-                                                            <div class="pb-right__inner w40">
-                                                                <label>Color</label>
-                                                                <div class="wrap-color">
-                                                                    <div id="btnPointBorderColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field">
-                                                    <label>Border Radius</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner w40">
-                                                            <input type="text" class="txt-field touch-spin" id="btnPointBorderRadius" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field">
-                                                    <label>Font</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner wFull">
-                                                            <label class="pb-label--left">Typeface</label>
-                                                            <select id="btnPointTypeFace" class="cf-select-font-name">
-                                                                <option standard_font='1' value="None">None</option>
-                                                                <option standard_font='1' value="Arial">Arial</option>
-                                                                <option standard_font='1' value="Comic Sans MS">Comic Sans MS</option>
-                                                                <option standard_font='1' value="Courier New">Courier New</option>
-                                                                <option standard_font='1' value="Georgia">Georgia</option>
-                                                                <option standard_font='1' value="Lucida Sans Unicode">Lucida</option>
-                                                                <option standard_font='1' value="Roboto">Roboto</option>
-                                                                <option standard_font='1' value="Tahoma">Tahoma</option>
-                                                                <option standard_font='1' value="Times New Roman">Times New Roman</option>
-                                                                <option standard_font='1' value="Trebuchet MS">Trebuchet MS</option>
-                                                                <option standard_font='1' value="Verdana">Verdana</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="pb-wrap-right">
-                                                            <div class="pb-right__inner wFull">
-                                                                <label class="pb-label--left">Weight</label>
-                                                                <select id="btnPointWeight">
-                                                                    <option value="None">None</option>
-                                                                    <option value="Normal">Normal</option>
-                                                                    <option value="Bold">Bold</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="pb-wrap-right">
-                                                            <div class="pb-right__inner w75">
-                                                                <label class="pb-label--left">Size</label>
-                                                                <select id="btnPointSize">
-                                                                    <option value="None">None</option>
-                                                                    <option value="9">9px</option>
-                                                                    <option value="10">10px</option>
-                                                                    <option value="11">11px</option>
-                                                                    <option value="12">12px</option>
-                                                                    <option value="13">13px</option>
-                                                                    <option value="14" selected>14px</option>
-                                                                    <option value="16">16px</option>
-                                                                    <option value="18">18px</option>
-                                                                    <option value="20">20px</option>
-                                                                    <option value="24">24px</option>
-                                                                    <option value="30">30px</option>
-                                                                    <option value="36">36px</option>
-                                                                    <option value="48">48px</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="pb-right__inner w40">
-                                                                <label>Color</label>
-                                                                <div class="wrap-color">
-                                                                    <div id="btnPointTextColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="pb-field">
-                                                    <label>Padding</label>
-                                                    <div class="pb-right">
-                                                        <div class="pb-right__inner w50">
-                                                            <label class="pb-label--left">Left/Right</label>
-                                                            <input type="text" class="txt-field touch-spin" id="btnPointPaddingX" />
-                                                        </div>
-                                                        <div class="pb-right__inner w50">
-                                                            <label class="pb-label--left">Top/Bottom</label>
-                                                            <input type="text" class="txt-field touch-spin" id="btnPointPaddingY" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="pb-tabs-panel__content">
-                                            <div class="pb-field">
-                                                <label>Point Position</label>
-                                                <div class="pb-right">
-                                                    <div class="pb-right__inner w60">
-                                                        <label class="pb-label--left">Left (%)</label>
-                                                        <input type="text" class="txt-field touch-spin-decimals-2" id="pointPositionLeft" />
-                                                    </div>
-                                                    <div class="pb-right__inner w60">
-                                                        <label class="pb-label--left">Top (%)</label>
-                                                        <input type="text" class="txt-field touch-spin-decimals-2" id="pointPositionTop" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="pb-field pb-field--vertical">
-                                                <label>Button Options</label>
-                                                <div class="pb-right__inner">
-                                                    <div class="ll-switch ll-switch-is">
-                                                        <div class="switch switch-small">
-                                                            <input id="switch-isShowBtnPoint" name="switch-isShowBtnPoint" checked value="on" class="switch-isShowBtnPoint cmn-toggle cmn-toggle-round" type="checkbox">
-                                                            <label for="switch-isShowBtnPoint"></label>
-                                                        </div>
-                                                        <div class="switch-lb">Show on Popup</div>
                                                     </div>
                                                 </div>
                                             </div>

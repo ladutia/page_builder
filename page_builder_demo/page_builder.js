@@ -80,7 +80,7 @@ var pageBuilder = {
 
             opt.btnLinkto = ll_combo_manager.get_selected_value('select#btnLinkTo');
             var url = opt.url;
-            $('label.btn_text').text('Web Address (URL)');
+            /*$('label.btn_text').text('Web Address (URL)');
             if (opt.btnLinkto == 'email') {
                 url = 'mailto:' + opt.url;
                 $('label.btn_text').text('Email Address');
@@ -88,6 +88,46 @@ var pageBuilder = {
                 $('#button_view').hide();
             } else{
                 $('#button_view').show();
+            }*/
+            $('#button_asset, .span_ll_leaderboards, .span_ll_activations, .span_ll_events').hide();
+            $('#button_view').hide();
+            switch (opt.btnLinkto){
+                case 'url':
+                    $('label.btn_text').text('Web Address (URL)');
+                    $('#button_view').show();
+                    break;
+                case 'email':
+                    url = 'mailto:' + opt.url;
+                    $('label.btn_text').text('Email Address');
+                    opt.btnView = "same";
+                    break;
+                case 'leaderboard':
+                    $('label.lbl_asset').text('Leaderboard');
+                    $('label.btn_text').text('Leaderboard (URL)');
+                    $('#button_asset .span_ll_leaderboards').show();
+                    $('#button_asset').show();
+                    $('#btnUrl').val('').change();
+                    opt.btnLinkto = 'url';
+                    $('#button_view').show();
+                    break;
+                case 'activation':
+                    $('label.lbl_asset').text('Activation');
+                    $('label.btn_text').text('Activation (URL)');
+                    $('#button_asset .span_ll_activations').show();
+                    $('#button_asset').show();
+                    $('#btnUrl').val('').change();
+                    opt.btnLinkto = 'url';
+                    $('#button_view').show();
+                    break;
+                case 'event':
+                    $('label.lbl_asset').text('Event');
+                    $('label.btn_text').text('Event (URL)');
+                    $('#button_asset .span_ll_events').show();
+                    $('#button_asset').show();
+                    $('#btnUrl').val('').change();
+                    opt.btnLinkto = 'url';
+                    $('#button_view').show();
+                    break;
             }
 
             ll_combo_manager.set_selected_value('select#btnView', opt.btnView);
@@ -98,25 +138,73 @@ var pageBuilder = {
             $tpl.attr('data-json', JSON.stringify(opt));
         });
 
+        ll_combo_manager.event_on_change('select#lp_ll_activations', function () {
+            var ll_activation_id = parseInt(ll_combo_manager.get_selected_value($(this)));
+            $('#btnUrl,.pb-modal-iframe-url').val('').change();
+            if(ll_activation_id) {
+                ll_activations_manager.load_activation_webview_portal_url(ll_activation_id, 0, function (response){
+                    if(typeof response.without_capture_webview_portal_url != 'undefined' && response.without_capture_webview_portal_url) {
+                        $('#btnUrl,.pb-modal-iframe-url').val(response.without_capture_webview_portal_url).change();
+                    }
+                });
+            }
+        });
+        ll_combo_manager.event_on_change('select#lp_ll_leaderboards', function () {
+            var ll_leaderboard_id = parseInt(ll_combo_manager.get_selected_value($(this)));
+            $('#btnUrl,.pb-modal-iframe-url').val('').change();
+            if(ll_leaderboard_id) {
+                ll_leaderboards_manager.load(ll_leaderboard_id, function (response){
+                    if(typeof response.ll_leaderboard != 'undefined' && response.ll_leaderboard) {
+                        if (typeof response.ll_leaderboard.launch_url != 'undefined' && response.ll_leaderboard.launch_url) {
+                            $('#btnUrl,.pb-modal-iframe-url').val(response.ll_leaderboard.launch_url).change();
+                        }
+                    }
+                });
+            }
+        });
+        ll_combo_manager.event_on_change('select#lp_ll_events', function () {
+            var ll_event_id = parseInt(ll_combo_manager.get_selected_value($(this)));
+            $('#btnUrl,.pb-modal-iframe-url').val('').change();
+            if(ll_event_id) {
+                ll_activations_manager.load_event_webview_portal_url(ll_event_id, 0, function (response){
+                    if(typeof response.webview_portal_url != 'undefined' && response.webview_portal_url) {
+                        $('#btnUrl,.pb-modal-iframe-url').val(response.webview_portal_url).change();
+                    }
+                });
+            }
+        });
+
         ll_combo_manager.event_on_change('select#btnView', function () {
             var $tpl = $('.pb-widget--selected');
             var opt = $tpl.data('json');
             var $btn = $tpl.find('.pb-btn');
             var $fieldUrl =  $('#button_url');
+            var $fieldLinkTo =  $('#button_link_to');
+            var $fieldAssetTo =  $('#button_asset');
             var $settings = $('.pb-settings-panel:visible');
 
             opt.btnView = ll_combo_manager.get_selected_value('select#btnView');
 
+            var btnLinkTo = ll_combo_manager.get_selected_value('select#btnLinkTo');
+
             if(opt.btnView == "same"){
                 $btn.attr('target', "_self");
                 $fieldUrl.show();
+                $fieldLinkTo.show();
                 $settings.find('.pb-modal-settings').hide();
+                if(btnLinkTo == 'leaderboard' || btnLinkTo == 'activation' || btnLinkTo == 'event'){
+                    $fieldAssetTo.show();
+                }
             }
 
             if(opt.btnView == "tab"){
                 $btn.attr('target', "_blank");
                 $fieldUrl.show();
+                $fieldLinkTo.show();
                 $settings.find('.pb-modal-settings').hide();
+                if(btnLinkTo == 'leaderboard' || btnLinkTo == 'activation' || btnLinkTo == 'event'){
+                    $fieldAssetTo.show();
+                }
             }
 
             if(opt.btnView == "modal"){
@@ -325,6 +413,7 @@ var pageBuilder = {
                 $settings.find('.pb-field-modal-iframe-url').hide();
                 $settings.find('.pb-field-modal-iframe-loading').hide();
                 $settings.find('.pb-field-modal-html').show();
+                $settings.find('#button_link_to,#button_asset').hide();
                 editor.setContent(content);
                 pageBuilder.setContentModal(content);
             } else{
@@ -333,6 +422,10 @@ var pageBuilder = {
                 $settings.find('.pb-field-modal-html').hide();
                 $settings.find('.pb-field-modal-iframe-url').show().find('.pb-modal-iframe-url').val(opt.modalIFrameUrl);
                 $settings.find('.pb-field-modal-iframe-loading').show();
+                ll_combo_manager.set_selected_value('.pb-settings-panel:visible select#btnLinkTo', 'url');
+                ll_combo_manager.event_on_change('#btnLinkTo');
+
+                $settings.find('#button_link_to').show();
                 if(typeof opt.modalIFrameLoading == 'undefined'){
                     opt.modalIFrameLoading = 'popup';
                 }
@@ -1158,24 +1251,24 @@ var pageBuilder = {
 
                                 var dataJson = '{"backgroundImageUrl":"", "isShowBtn":"false", "modalBgColor":"#fefefe", "bgColor":"#ffffff", "btnText":"", "btnUrl":"", "btnBackgroundColor":"#fb8f04", "btnBorderColor":"#fb8f04", "btnColor":"#ffffff", "btnBorderType":"Solid", "btnBorderWidth":"1", "btnRadius":"0", "btnFontTypeFace":"Arial", "btnFontWeight":"Normal", "btnFontSize":"14", "btnPaddingX":"5", "btnPaddingY":"5", "positionLeft":"'+left.toFixed(2)+'", "positionTop":"'+top.toFixed(2)+'"}';
                                 $box.append("<div class='ll-lp-point-image pb-widget--init ll-pulsetrigger pb-widget pb-widget--point' data-json='" + dataJson + "' data-type='point' style='left: "+ left.toFixed(2) +"%; top: "+ top.toFixed(2) +"%;'><div class='ll-lp-point-image__inner'></div><div class='pb-widget__btn-remove'></div></div>");
-                                
+
                                 var $initWidget = $('.ll-lp-point-image.pb-widget--init');
                                 var idx = pageBuilder.getIdxWidget($initWidget);
 
                                 $('#pb-template').append(
                                     '<div class="ll-lp-popup-point hideBtnPoint" data-idx="'+idx+'">'+
-                                        '<div class="ll-lp-popup-point__close"></div>'+
-                                        '<div class="ll-lp-popup-point__arrows">'+
-                                            '<div class="ll-lp-popup-point__arrow-left"></div>'+
-                                            '<div class="ll-lp-popup-point__arrow-right"></div>'+
-                                        '</div>'+
-                                        '<div class="ll-lp-popup-point__image"></div>'+
-                                        '<div class="ll-lp-popup-point__content">'+
-                                            '<div class="ll-lp-popup-point__html"></div>'+
-                                            '<div class="ll-lp-popup-point__wrap-button">'+
-                                                '<a href="#" target="_blank"></a>'+
-                                            '</div>'+
-                                        '</div>'+
+                                    '<div class="ll-lp-popup-point__close"></div>'+
+                                    '<div class="ll-lp-popup-point__arrows">'+
+                                    '<div class="ll-lp-popup-point__arrow-left"></div>'+
+                                    '<div class="ll-lp-popup-point__arrow-right"></div>'+
+                                    '</div>'+
+                                    '<div class="ll-lp-popup-point__image"></div>'+
+                                    '<div class="ll-lp-popup-point__content">'+
+                                    '<div class="ll-lp-popup-point__html"></div>'+
+                                    '<div class="ll-lp-popup-point__wrap-button">'+
+                                    '<a href="#" target="_blank"></a>'+
+                                    '</div>'+
+                                    '</div>'+
                                     '</div>');
                                 $initWidget.attr('data-idx', idx);
                                 $initWidget.attr('data-idx-popup', idx);
@@ -1242,6 +1335,8 @@ var pageBuilder = {
     dropFreeImages: function () {
         var $el = $('#pb-template, .pb-widget:not(.pb-widget--svg):not(.pb-widget--icon):not(.pb-widget--field):not(.pb-widget--video):not(.pb-widget--button):not(.pb-widget--code)');
         $el.add($el.find('.pb-load-image')).each(function () {
+            var type = $el.data('type');
+            var $this = $(this);
             /*$el.find('.pb-load-image').droppable(
              { accept: '.list-free-images > ul > li', hoverClass: 'pb-widget--drop-free-image', greedy: true },
              {
@@ -1264,7 +1359,6 @@ var pageBuilder = {
                         var url = $(ui.helper).attr('data-url');
                         if ($(this).hasClass('pb-load-image')) {
                             var type = $(this).closest('.pb-widget').data('type');
-                            console.log('type:', type);
                             if (type != 'slideshow' && type != 'vertical-slideshow') {
                                 $imgBoxTpl = $(this);
                                 $imgBoxTpl.find('img.pb-img').attr('src', url);
@@ -1272,7 +1366,7 @@ var pageBuilder = {
                                 $imgBoxTpl.removeAttr('image-inserted-by-media-manager');
                             }
                         } else {
-                            var $tpl = $el;
+                            var $tpl = $this;
                             var opt = $tpl.data('json');
                             opt.backgroundImageUrl = url;
                             if ($tpl.hasClass('pb-widget--calendar') || $tpl.hasClass('pb-widget--social-share') || $tpl.hasClass('pb-widget--social-follow')) {
@@ -2802,11 +2896,9 @@ var pageBuilder = {
             if (type === 'text' || type === 'text-column-with-image' || type === 'image-caption-1' || type === 'image-caption-2' || type === 'two-text-columns' || type === 'columns-caption' || type === 'vertical-form' || type === 'horizontal-form') {
                 pageBuilder.initEditorInline();
             }
-            /*
-            if (type !== 'svg' && type !== 'field' && type !== 'video' && type !== 'button' && type !== 'code' && type !== 'icon'){
+            /*if (type !== 'svg' && type !== 'field' && type !== 'video' && type !== 'button' && type !== 'code' && type !== 'icon'){
                 pageBuilder.dropFreeImages($this);
             }
-
             if (type === 'image' || type === 'image-group' || type === 'text-column-with-image' || type === 'image-caption-1' || type === 'image-caption-2' || type === 'pb-widget--columns-caption' || type === 'slideshow'){
                 pageBuilder.dropPointImages($this);
             }*/
@@ -3005,10 +3097,10 @@ var pageBuilder = {
 
         var _html = '';
         _html += '<div class="pb-widget__btn-settings pb-widget__btn-settings_icn">';
-        _html += '	<a href="javascript:void(0);" > <i class="icn"></i></a>';
-        _html += '	<ul class="pb-widget__btn-settings-ul">';
-        _html += '		<li><a href="javascript:void(0);" class="save-as-custom-elements">Save as Custom Element</a></li>';
-        _html += '	</ul>';
+        _html += '  <a href="javascript:void(0);" > <i class="icn"></i></a>';
+        _html += '  <ul class="pb-widget__btn-settings-ul">';
+        _html += '      <li><a href="javascript:void(0);" class="save-as-custom-elements">Save as Custom Element</a></li>';
+        _html += '  </ul>';
         _html += '</div>';
 
         $($widget).append(_html);
@@ -3307,7 +3399,7 @@ var pageBuilder = {
                     } else{
                         pageBuilder.setContentModal(editor.getContent());
                     }
-                    
+
                     pageBuilder.setNewActionHistory();
                 });
             },
@@ -4363,11 +4455,13 @@ var pageBuilder = {
 
             editor.setContent(content);
 
-            if (opt.isShowBtn == true || opt.isShowBtn == "true" || opt.isShowBtn === undefined)
+            if (opt.isShowBtn == true || opt.isShowBtn == "true" || opt.isShowBtn === undefined) {
                 $('.switch-isShowBtnPoint').val('on').attr('checked', true);
-            else
+                $('.image_point_button_fields').show();
+            } else {
                 $('.switch-isShowBtnPoint').val('off').removeAttr('checked');
-
+                $('.image_point_button_fields').hide();
+            }
             $('#btnPointText').val(opt.btnText);
             $('#btnPointUrl').val(opt.btnUrl);
 
@@ -4376,7 +4470,7 @@ var pageBuilder = {
             $('#btnPointTextColor').colpickSetColor(opt.btnColor, true).css('background-color', opt.btnColor);
             $('#pointModalBgColor').colpickSetColor(opt.modalBgColor, true).css('background-color', opt.modalBgColor);
             $('#pointBgColor').colpickSetColor(opt.bgColor, true).css('background-color', opt.bgColor);
-            
+
             ll_combo_manager.set_selected_value('#btnPointBorderType', opt.btnBorderType);
             $('#btnPointBorderWidth').val(opt.btnBorderWidth);
             $('#btnPointBorderRadius').val(opt.btnRadius);
@@ -5509,6 +5603,11 @@ var pageBuilder = {
 
             val ? $popup.removeClass('hideBtnPoint') : $popup.addClass('hideBtnPoint');
 
+            if (val){
+                $('.image_point_button_fields').show();
+            } else {
+                $('.image_point_button_fields').hide();
+            }
             opt.isShowBtn = val;
             $tpl.attr('data-json', JSON.stringify(opt));
             pageBuilder.setNewActionHistory();
@@ -5532,7 +5631,7 @@ var pageBuilder = {
             var $popup = pageBuilder.currentPointPopup($tpl);
 
             $popup.find('.ll-lp-popup-point__wrap-button a').attr('href', val);
-            
+
             opt.btnUrl = val;
             $tpl.attr('data-json', JSON.stringify(opt));
             pageBuilder.setNewActionHistory();
@@ -5675,7 +5774,7 @@ var pageBuilder = {
         $('#pointPositionLeft').change(function () {
             getTplOpt();
             opt.positionLeft = $(this).val();
-            
+
             if (opt.positionLeft === '') {
                 $tpl.css('left', '1%');
                 opt.positionLeft = '1';
@@ -5689,7 +5788,7 @@ var pageBuilder = {
         $('#pointPositionTop').change(function () {
             getTplOpt();
             opt.positionTop = $(this).val();
-            
+
 
             if (opt.positionTop === '') {
                 $tpl.css('top', '1%');
@@ -5702,8 +5801,8 @@ var pageBuilder = {
             pageBuilder.setNewActionHistory();
         });
     },
-    currentPointPopup: function($tpl){
-        return $('.ll-lp-popup-point[data-idx='+ $tpl.attr('data-idx') +']');
+    currentPointPopup: function($tpl) {
+        return $('.ll-lp-popup-point[data-idx=' + $tpl.attr('data-idx') + ']');
     },
     updateGlobalOptions: function () {
         var $tpl = $('#pb-template');
@@ -6192,6 +6291,7 @@ var pageBuilder = {
                 $imgBoxTpl.removeAttr('image-inserted-by-media-manager');
                 $imgBoxPanel.find('.pb-image__icn, .pb-image__meta').remove();
                 $imgBoxPanel.append(pageBuilder.addHTMLImage($tpl, indexImg, false));
+                $imgBoxTpl.find('.ll-lp-point-image').remove();
             }
         }
 
@@ -8034,7 +8134,9 @@ var pageBuilder = {
             $('.pb-preview-box .pb-media-screen .pb-media-screen__item--full').trigger('click');
             pageBuilder.iframePreviewContent.find("body").html($html);
             pageBuilder.iframePreviewContent.find("a").each(function () {
-                $(this).attr('href', 'javascript:void(0);');
+                if($(this).attr('target') != '_blank'){
+                    $(this).attr('href', 'javascript:void(0);');
+                }
             });
             pageBuilder.resetStyleHTML(pageBuilder.iframePreviewContent.find("body"), true);
         }

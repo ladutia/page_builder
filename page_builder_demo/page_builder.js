@@ -1235,15 +1235,16 @@ var pageBuilder = {
     dropPointImages: function () {
         var $el = $('.pb-widget.pb-widget--image, .pb-widget--image-group, .pb-widget--text-column-with-image, .pb-widget--image-caption-1, .pb-widget--image-caption-2, .pb-widget--columns-caption, .pb-widget--slideshow');
         $el.each(function () {
-            var $boxs = $(this).find('.pb-load-image');
+            var $boxs = $(this).find('.swiper-slide > .pb-load-image, .pb-wrap-image');
             $boxs.each(function(){
                 $(this).droppable(
                     { accept: '.list-elements__item--image-point', hoverClass: 'pb-widget--drop-point-image', greedy: true },
                     {
                         drop: function (event, ui) {
+                            var $parent = $(this).closest('.pb-load-image');
                             var $box = $(this);
 
-                            if (!$box.hasClass('pb-load-image--none')) {
+                            if (!$parent.hasClass('pb-load-image--none')) {
                                 var widthBox = $box.width();
                                 var heightBox = $box.height();
                                 var left = (event.pageX - $(event.target).offset().left) / widthBox * 100;
@@ -1298,7 +1299,7 @@ var pageBuilder = {
     destroyPointImages: function(){
         var $el = $el || $('.pb-widget.pb-widget--image, .pb-widget--image-group, .pb-widget--text-column-with-image, .pb-widget--image-caption-1, .pb-widget--image-caption-2, .pb-widget--columns-caption, .pb-widget--slideshow');
         $el.each(function () {
-            var $boxs = $(this).find('.pb-load-images');
+            var $boxs = $(this).find('.swiper-slide > .pb-load-image, .pb-wrap-image');
             $boxs.each(function(){
                 if($(this).hasClass('ui-droppable'))
                     $(this).droppable('destroy');
@@ -1358,13 +1359,18 @@ var pageBuilder = {
                     drop: function (event, ui) {
                         var url = $(ui.helper).attr('data-url');
                         if ($(this).hasClass('pb-load-image')) {
-                            var type = $(this).closest('.pb-widget').data('type');
+                            var $imgBoxTpl = $(this);
+                            var type = $imgBoxTpl.closest('.pb-widget').data('type');
+
                             if (type != 'slideshow' && type != 'vertical-slideshow') {
-                                $imgBoxTpl = $(this);
                                 $imgBoxTpl.find('img.pb-img').attr('src', url);
-                                $imgBoxTpl.removeClass('pb-load-image--none');
-                                $imgBoxTpl.removeAttr('image-inserted-by-media-manager');
+                            } else{
+                                $imgBoxTpl.css('background-image', 'url(' + url +')');
+                                $imgBoxTpl.attr('img-src', url);
                             }
+
+                            $imgBoxTpl.removeClass('pb-load-image--none');
+                            $imgBoxTpl.removeAttr('image-inserted-by-media-manager');
                         } else {
                             var $tpl = $this;
                             var opt = $tpl.data('json');
@@ -1832,7 +1838,7 @@ var pageBuilder = {
             dataJson = '{"backgroundColor":"#ffffff", "backgroundImageUrl":"", "textAlign":"0", "width":"100%","maxWidth":"100%", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0", "background_transparent":1}';
             html = "<div class='pb-widget pb-widget--init pb-widget--image' data-type='" + type + "' data-json='" + dataJson + "'>" +
                 '<div class="pb-widget__content">' +
-                '<div class="pb-load-image pb-load-image--none"><img src="//:0"/ class="pb-img"></div>' +
+                '<div class="pb-load-image pb-load-image--none"><span class="pb-wrap-image"><img src="//:0"/ class="pb-img"><span></div>' +
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel(type) +
@@ -1842,8 +1848,8 @@ var pageBuilder = {
             dataJson = '{"backgroundColor":"#ffffff", "backgroundImageUrl":"", "count":"2", "layout":"0", "layoutIndex":"0", "width":"100%","maxWidth":"1000px", "marginLeft":"auto", "marginRight":"auto", "marginTop":"0", "marginBottom":"0", "paddingLeft":"0", "paddingRight":"0", "paddingTop":"0", "paddingBottom":"0", "background_transparent":1}';
             html = "<div class='pb-widget pb-widget--init pb-widget--image-group' data-type='" + type + "' data-json='" + dataJson + "'>" +
                 '<div class="pb-widget__content pb-wrap-image-group--0-0 pb-clearfix">' +
-                '<div class="pb-load-image pb-load-image--none"><img src="//:0"/ class="pb-img"></div>' +
-                '<div class="pb-load-image pb-load-image--none"><img src="//:0"/ class="pb-img"></div>' +
+                '<div class="pb-load-image pb-load-image--none"><span class="pb-wrap-image"><img src="//:0"/ class="pb-img"><span></div>' +
+                '<div class="pb-load-image pb-load-image--none"><span class="pb-wrap-image"><img src="//:0"/ class="pb-img"><span></div>' +
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
                 pageBuilder.getWidgetHTMLLabel(type) +
@@ -1871,14 +1877,14 @@ var pageBuilder = {
             html = "<div class='pb-widget pb-widget--init pb-widget--text-column-with-image' data-type='" + type + "' data-json='" + dataJson + "'>" +
                 '<div class="pb-widget__content pb-text-column-with-image pb-clearfix">' +
                 '<div class="pb-column-1">' +
-                '<div class="pb-load-image pb-load-image--none"><img src="//:0" class="pb-img"></div>' +
+                '<div class="pb-load-image pb-load-image--none"><span class="pb-wrap-image"><img src="//:0"/ class="pb-img"><span></div>' +
                 '<div class="pb-editable">' +
                 '<h2 style="font-size: 30px; line-height: 125%; padding:0; margin: 0 0 15px 0;">Some Header</h2>' +
                 '<div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</div>' +
                 '</div>' +
                 '</div>' +
                 '<div class="pb-column-2">' +
-                '<div class="pb-load-image pb-load-image--none"><img src="//:0"/ class="pb-img"></div>' +
+                '<div class="pb-load-image pb-load-image--none"><span class="pb-wrap-image"><img src="//:0"/ class="pb-img"><span></div>' +
                 '<div class="pb-editable">' +
                 '<h2 style="font-size: 30px;  line-height: 125%; padding:0; margin: 0 0 15px 0;">Some Header</h2>' +
                 '<div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</div>' +
@@ -1894,7 +1900,7 @@ var pageBuilder = {
             html = "<div class='pb-widget pb-widget--init pb-widget--image-caption-1' data-type='" + type + "' data-json='" + dataJson + "'>" +
                 '<div class="pb-widget__content pb-image-caption-1 pb-clearfix">' +
                 '<div class="pb-column-1">' +
-                '<div class="pb-load-image pb-load-image--none"><img src="//:0"/ class="pb-img"></div>' +
+                '<div class="pb-load-image pb-load-image--none"><span class="pb-wrap-image"><img src="//:0"/ class="pb-img"><span></div>' +
                 '</div>' +
                 '<div class="pb-column-2">' +
                 '<div class="pb-editable">' +
@@ -1918,7 +1924,7 @@ var pageBuilder = {
                 '</div>' +
                 '</div>' +
                 '<div class="pb-column-2">' +
-                '<div class="pb-load-image pb-load-image--none"><img src="//:0"/ class="pb-img"></div>' +
+                '<div class="pb-load-image pb-load-image--none"><span class="pb-wrap-image"><img src="//:0"/ class="pb-img"><span></div>' +
                 '</div>' +
                 '</div>' +
                 pageBuilder.getWidgetHTMLPlaceholder() +
@@ -1959,14 +1965,14 @@ var pageBuilder = {
                 '</div>' +
                 '<div class="pb-wrap-columns pb-clearfix">' +
                 '<div class="pb-column-1">' +
-                '<div class="pb-load-image pb-load-image--none"><img src="//:0"/ class="pb-img"></div>' +
+                '<div class="pb-load-image pb-load-image--none"><span class="pb-wrap-image"><img src="//:0"/ class="pb-img"><span></div>' +
                 '<div class="pb-editable">' +
                 '<h4 style="font-size: 18px; line-height: 125%; padding:0; margin: 0 0 15px 0;">Some Header</h4>' +
                 '<div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</div>' +
                 '</div>' +
                 '</div>' +
                 '<div class="pb-column-2">' +
-                '<div class="pb-load-image pb-load-image--none"><img src="//:0"/ class="pb-img"></div>' +
+                '<div class="pb-load-image pb-load-image--none"><span class="pb-wrap-image"><img src="//:0"/ class="pb-img"><span></div>' +
                 '<div class="pb-editable">' +
                 '<h4 style="font-size: 18px; line-height: 125%; padding:0; margin: 0 0 15px 0;">Some Header</h4>' +
                 '<div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</div>' +
@@ -7351,7 +7357,7 @@ var pageBuilder = {
         $list.html('');
 
         for (i = 0; i < opt.count; i++) {
-            var $imgs = $tpl.find('.pb-load-image').eq(i).children('img');
+            var $imgs = $tpl.find('.swiper-slide > .pb-load-image, .pb-wrap-image').eq(i).children('img');
 
             if ($imgs.length) {
                 var htmlImage = pageBuilder.addHTMLImage($tpl, i);

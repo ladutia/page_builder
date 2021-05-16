@@ -1153,15 +1153,6 @@ grammarly-btn > div{
   border-radius: 50%;
   box-sizing: border-box;
 }
-.ll-lp-point-image__type-2{
-
-}
-.ll-lp-point-image__type-3{
-  
-}
-.ll-lp-point-image__type-4{
-  
-}
 .ll-lp-point-icon{
   width: 22px;
   height: 22px;
@@ -1370,4 +1361,9 @@ grammarly-btn > div{
   text-align: center;
   display: block;
   margin-top: 14px;
+}
+.pb-wrap-image{
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
 }

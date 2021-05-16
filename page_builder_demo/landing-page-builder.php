@@ -1537,19 +1537,6 @@ include_once 'Util/SetAccountConfigurationVariables.php';
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="pb-field">
-                                                <label>Type</label>
-                                                <div class="pb-right">
-                                                    <div class="pb-right__inner wFull">
-                                                         <select id="pointType">
-                                                            <option value="0" selected="selected">Type 1</option>
-                                                            <option value="1">Type 2</option>
-                                                            <option value="2">Type 3</option>
-                                                            <option value="3">Type 4</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="list-elements__h">Button</div>
                                             <div>
                                                 <div class="pb-field">

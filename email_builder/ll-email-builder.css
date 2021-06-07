@@ -1,7 +1,7 @@
 #bodyTable{
     line-height: normal;
 }
-#bodyTable ul { 
+#bodyTable ul:not(.tpl-block-settings-ul) {
     list-style:disc outside none;
     display: block;
     margin-top: 1em;
@@ -907,7 +907,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#55a03b', end
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('imgs/imgs_email_builder/icn_settings_btn.png') no-repeat center center;
+    background: url('imgs/svgs/gear.svg') no-repeat center center;
 }
 .settings-tpl > ul{
     position: absolute;
@@ -1319,6 +1319,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#55a03b', end
 .eb-block-column-3{
     background-image: url('imgs/page_builder/three_column_grid.svg');
     background-position: center 8px;
+}
+.eb-block-custom-element{
+    background-image: url('imgs/page_builder/custom-element.svg');
+    background-position: center 12px;
 }
 .eb-email-design-box{
     color: #999999;
@@ -1977,6 +1981,13 @@ select.eb-w160{
 .tpl-block-controls > a.tpl-block-code > i{
     background-image: url('imgs/imgs_email_builder/icn_code_show.png');
 }
+/*.tpl-block-controls > a.tpl-block-settings > i{
+    background-image: url('imgs/imgs_email_builder/icn_settings.png');
+}
+.tpl-block-controls > a.tpl-block-settings {
+    margin-left: 5px;
+}*/
+
 .tpl-block-controls > a > span.tpl-tooltip-btn{
     position: absolute;
     left: 50%;
@@ -3203,33 +3214,30 @@ select.eb-w160{
     background-image: url('imgs/imgs_email_builder/social_btns/color/tw.png');
 }
 .eb-list-group-social > li .eb-icon-social.eb-icon-2{
-    background-image: url('imgs/imgs_email_builder/social_btns/color/gg.png');
-}
-.eb-list-group-social > li .eb-icon-social.eb-icon-3{
     background-image: url('imgs/imgs_email_builder/social_btns/color/in.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-4{
+.eb-list-group-social > li .eb-icon-social.eb-icon-3{
     background-image: url('imgs/imgs_email_builder/social_btns/color/pinterest.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-5{
+.eb-list-group-social > li .eb-icon-social.eb-icon-4{
     background-image: url('imgs/imgs_email_builder/social_btns/color/forward.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-6{
+.eb-list-group-social > li .eb-icon-social.eb-icon-5{
     background-image: url('imgs/imgs_email_builder/social_btns/color/youtube.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-7{
+.eb-list-group-social > li .eb-icon-social.eb-icon-6{
     background-image: url('imgs/imgs_email_builder/social_btns/color/inst.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-8{
+.eb-list-group-social > li .eb-icon-social.eb-icon-7{
     background-image: url('imgs/imgs_email_builder/social_btns/color/vimeo.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-9{
+.eb-list-group-social > li .eb-icon-social.eb-icon-8{
     background-image: url('imgs/imgs_email_builder/social_btns/color/rss.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-10{
+.eb-list-group-social > li .eb-icon-social.eb-icon-9{
     background-image: url('imgs/imgs_email_builder/social_btns/color/email.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-11{
+.eb-list-group-social > li .eb-icon-social.eb-icon-10{
     background-image: url('imgs/imgs_email_builder/social_btns/color/website.png');
 }
 .eb-wrap-social-network .eb-social-list{
@@ -3412,49 +3420,46 @@ select.eb-w160{
     background-image: url('imgs/imgs_email_builder/social_btns/color/tw.png');
 }
 .eb-list-group-social > li .eb-icon-social.eb-icon-2{
-    background-image: url('imgs/imgs_email_builder/social_btns/color/gg.png');
-}
-.eb-list-group-social > li .eb-icon-social.eb-icon-3{
     background-image: url('imgs/imgs_email_builder/social_btns/color/in.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-4{
+.eb-list-group-social > li .eb-icon-social.eb-icon-3{
     background-image: url('imgs/imgs_email_builder/social_btns/color/pinterest.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-5{
+.eb-list-group-social > li .eb-icon-social.eb-icon-4{
     background-image: url('imgs/imgs_email_builder/social_btns/color/forward.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-6{
+.eb-list-group-social > li .eb-icon-social.eb-icon-5{
     background-image: url('imgs/imgs_email_builder/social_btns/color/youtube.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-7{
+.eb-list-group-social > li .eb-icon-social.eb-icon-6{
     background-image: url('imgs/imgs_email_builder/social_btns/color/inst.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-8{
+.eb-list-group-social > li .eb-icon-social.eb-icon-7{
     background-image: url('imgs/imgs_email_builder/social_btns/color/vimeo.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-9{
+.eb-list-group-social > li .eb-icon-social.eb-icon-8{
     background-image: url('imgs/imgs_email_builder/social_btns/color/rss.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-10{
+.eb-list-group-social > li .eb-icon-social.eb-icon-9{
     background-image: url('imgs/imgs_email_builder/social_btns/color/email.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-11{
+.eb-list-group-social > li .eb-icon-social.eb-icon-10{
     background-image: url('imgs/imgs_email_builder/social_btns/color/website.png');
 }
 
-.eb-list-group-social > li .eb-icon-social.eb-icon-12{
+.eb-list-group-social > li .eb-icon-social.eb-icon-11{
     background-image: url('imgs/imgs_email_builder/calendar_btns/color/google.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-13{
+.eb-list-group-social > li .eb-icon-social.eb-icon-12{
     background-image: url('imgs/imgs_email_builder/calendar_btns/color/outlook.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-14{
+.eb-list-group-social > li .eb-icon-social.eb-icon-13{
     background-image: url('imgs/imgs_email_builder/calendar_btns/color/outlook_online.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-15{
+.eb-list-group-social > li .eb-icon-social.eb-icon-14{
     background-image: url('imgs/imgs_email_builder/calendar_btns/color/icalendar.png');
 }
-.eb-list-group-social > li .eb-icon-social.eb-icon-16{
+.eb-list-group-social > li .eb-icon-social.eb-icon-15{
     background-image: url('imgs/imgs_email_builder/calendar_btns/color/yahoo.png');
 }
 .eb-wrap-social-network .eb-social-list{
@@ -3774,7 +3779,6 @@ body.email-builder h4{
 }
 .eb-clear-line > span{
 	font-size: 11px;
-	color: #1f69ad;
 	cursor: pointer;
 }
 .wrap-btn-update-calendar-email,
@@ -3798,4 +3802,78 @@ body.email-builder h4{
 }
 .field-calendar-email .t-wrap-field-col > div.t-field-col-2{
 	padding-left: 5px;
+}
+.tpl-block-settings{
+    float: right;
+    margin-right: 7px;
+    margin-left: 5px;
+    position: relative;
+}
+.tpl-block-settings > a.et-btn-white{
+    width: 30px;
+    height: 30px;
+    display: block;
+    padding: 0;
+    min-width: 0;
+    position: relative;
+}
+.tpl-block-settings.open > a.et-btn-white{
+
+}
+.tpl-block-settings > a.et-btn-white .icn{
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(imgs/imgs_email_builder/icn-save-btn.png) no-repeat center center;
+    background-size: 20px 20px;
+}
+.tpl-block-settings > ul{
+    position: absolute;
+    top: 31px;
+    right: 0;
+    width: 200px;
+    padding: 4px 0 9px 0;
+    border: 1px solid #acacac;
+    background: #ffffff;
+    overflow: hidden;
+    display: none;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.tpl-block-settings.open > ul{
+    display: block;
+}
+.tpl-block-settings > ul li{
+    margin-bottom:0px;
+}
+.tpl-block-settings > ul li a:link,
+.tpl-block-settings > ul li a:visited,
+.tpl-block-settings > ul li a{
+    font-size: 14px;
+    line-height: 17px;
+    display: block;
+    padding: 7px 15px;
+    color: #000000;
+    text-decoration: none;
+    font-weight:normal;
+    cursor: pointer;
+}
+.tpl-block-settings > ul li a:hover{
+    text-decoration: none;
+    background: #f2f2f2;
+}
+
+.save-as-custom-elements{
+    color: #000000 !important;
+    font-weight: 400;
+    text-decoration: none !important;
 }

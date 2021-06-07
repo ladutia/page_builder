@@ -715,6 +715,15 @@ var page = {
 				if(select_insert_ll_field_category == 'gift_cards_tokens'){
 					var insert = '';
 					insert += '<div>{% if (sent_giftcard) %}</div>';
+					insert += '		<div style="text-align: center;">';
+					insert += '			<strong>';
+					insert += '				<span style="font-size: 16px;">';
+					insert += '					{{sent_giftcard.custom_message|raw}}';
+					insert += '				</span>';
+					insert += '			</strong>';
+					insert += '		</div>';
+					insert += '		<div style="text-align: center;">';
+					insert += '		</div>';
 					insert += '		<div style="text-align: center;"><span style="font-size: 18px;">{{sent_giftcard.brand_name}}</span></div>';
 					insert += '		<div style="text-align: center;">{{sent_giftcard.reward_name}}</div>';
 					insert += '		<div style="text-align: center;">';
@@ -3559,15 +3568,15 @@ var page = {
         },
         tplCodeSave: function($link){
             var html = page.tplCode.editor.getValue();
-            var type = page.tplCode.tplBox.attr('data-type');
-            var isColumns = type === "column-2" || type === "column-3";
-
-            page.tplCode.tplBox.removeClass('tpl-selected');
+			var type = page.tplCode.tplBox.attr('data-type');
+			var isColumns = type === "column-2" || type === "column-3";
+	
+			page.tplCode.tplBox.removeClass('tpl-selected');
             page.tplCode.tplBox.find('.tpl-block-content').html(html);
             page.tplCode.removeTplCode();
-
-            if(isColumns) page.sortableElements(page.tplCode.tplBox.find('.tpl-container'));
-
+	
+			if(isColumns) page.sortableElements(page.tplCode.tplBox.find('.tpl-container'));
+	
 			page.updateResizeImage(page.tplCode.tplBox.find('.ebImageContent'));
         },
         removeTplCode: function(){

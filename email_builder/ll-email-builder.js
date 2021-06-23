@@ -2644,7 +2644,7 @@ var page = {
 						'</table>';
 				} else if ($item.hasClass('eb-block-image-card')) {
 					type = 'box-image-card';
-					dataAll = '{"backgroundColor": "#ffffff", "borderType": "None", "borderWidth": "0", "borderColor":"#999999", "fontTypeFace": "None", "fontWeight": "None", "fontSize": "None", "color":"#333333", "lineHeight": "None", "textAlign": "None", "position": "3", "imgAlignment": "0", "margins": "0", "captionWidth":"0"}';
+					dataAll = '{"backgroundColor": "#ffffff", "borderType": "None", "borderWidth": "0", "borderColor":"#999999", "fontTypeFace": "None", "fontWeight": "None", "fontSize": "None", "color":"#333333", "lineHeight": "None", "textAlign": "None", "position": "3", "imgAlignment": "0", "margins": "0", "captionWidth":"0", "buttonText":"Learn More", "buttonUrl":"", "buttonBackgroundColor":"#' + LL_INSTANCE_DEFAULT_THEME_COLOR + '", "buttonFontTypeFace": "Arial", "buttonFontWeight": "Bold", "buttonFontSize": "12", "buttonColor":"#ffffff", "buttonBorderWidth":1, "buttonBorderColor":"#' + LL_INSTANCE_DEFAULT_THEME_COLOR + '", "buttonBorderType":"Solid", "buttonRadius":"3", "buttonPadding":"5", "buttonAlign": 1, "buttonWidth":0, "buttonPos":1, "buttonVissible":0}';
 					elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageBlock">' +
 						'<tbody class="ebImageBlockOuter">' +
 						'<tr>' +
@@ -2673,7 +2673,7 @@ var page = {
 						'</table>';
 				} else if ($item.hasClass('eb-block-image-caption')) {
 					type = 'box-image-caption';
-					dataAll = '{"fontTypeFace": "None", "fontWeight": "None", "fontSize": "None", "color":"#333333", "lineHeight": "None", "textAlign": "None", "position": "3", "imgAlignment": "0", "number": "0", "captionWidth":"0"}';
+					dataAll = '{"fontTypeFace": "None", "fontWeight": "None", "fontSize": "None", "color":"#333333", "lineHeight": "None", "textAlign": "None", "position": "3", "imgAlignment": "0", "number": "0", "captionWidth":"0", "buttonText":"Learn More", "buttonUrl":"", "buttonBackgroundColor":"#' + LL_INSTANCE_DEFAULT_THEME_COLOR + '", "buttonFontTypeFace": "Arial", "buttonFontWeight": "Bold", "buttonFontSize": "12", "buttonColor":"#ffffff", "buttonBorderWidth":1, "buttonBorderColor":"#' + LL_INSTANCE_DEFAULT_THEME_COLOR + '", "buttonBorderType":"Solid", "buttonRadius":"3", "buttonPadding":"5", "buttonAlign": 1, "buttonWidth":0, "buttonPos":1, "buttonVissible":0}';
 					elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebImageBlock">' +
 						'<tbody class="ebImageBlockOuter">' +
 						'<tr>' +
@@ -3728,6 +3728,48 @@ var page = {
             page.optionsDropdownImage();
             page.updateImageEdge($('#image-edge-card'));
             page.startCountImgOne();
+
+            //button
+            var $panel = $('#eb-box-image-card');
+            var $boxBtnLearnMore = $panel.find('.eb-btn-learn-more');
+
+            if (typeof opt.buttonVissible != 'undefined') {
+                $boxBtnLearnMore.show();
+                if(opt.buttonVissible){
+                    ll_theme_manager.checkboxRadioButtons.check($('#has-button-card'),true);
+                    $panel.find('.eb-btn-learn-more-settings').show();
+                } else {
+                    ll_theme_manager.checkboxRadioButtons.check($('#has-button-card'),false);
+                    $panel.find('.eb-btn-learn-more-settings').hide();
+                }
+                    
+                $panel.find('.button_text').val(opt.buttonText);
+                $('#buttonLearnMoreCardBackground').colpickSetColor(opt.buttonBackgroundColor, true).css('background-color', opt.buttonBackgroundColor);
+                $('#buttonLearnMoreCardBorderColor').colpickSetColor(opt.buttonBorderColor, true).css('background-color', opt.buttonBorderColor);
+                $('#buttonLearnMoreCardTextColor').colpickSetColor(opt.buttonColor, true).css('background-color', opt.buttonColor);
+                $('#buttonLearnMoreCardBorderWidth').val(opt.buttonBorderWidth);
+                ll_combo_manager.set_selected_value('#buttonLearnMoreCardBorderType', opt.buttonBorderType);
+                $('#buttonLearnMoreCardRadius').val(opt.buttonRadius);
+                $('#buttonLearnMoreCardPadding').val(opt.buttonPadding);
+                if (opt.buttonUrl.indexOf ('mailto:') != -1) {
+                    ll_combo_manager.set_selected_value('#eb-box-image-card .button_link_to', 'mail');
+                    $panel.find('.button_url').val(opt.buttonUrl.replace ('mailto:', ''));
+                } else {
+                    ll_combo_manager.set_selected_value('#eb-box-image-card .button_link_to', 'url');
+                    $panel.find('.button_url').val(opt.buttonUrl);
+                }
+                ll_combo_manager.trigger_event_on_change('#eb-box-image-card .button_link_to');
+                
+                ll_combo_manager.set_selected_value('#buttonLearnMoreCardTypeFace', opt.buttonFontTypeFace);
+                ll_combo_manager.set_selected_value('#buttonLearnMoreCardWeight', opt.buttonFontWeight);
+                ll_combo_manager.set_selected_value('#buttonLearnMoreCardSize', opt.buttonFontSize);
+                ll_combo_manager.set_selected_value('#buttonLearnMoreCardAlign', opt.buttonAlign);
+                ll_combo_manager.set_selected_value('#buttonLearnMoreCardWidth', opt.buttonWidth);
+                ll_combo_manager.set_selected_value('#buttonLearnMoreCardPos', opt.buttonPos);
+            } else{
+                $boxBtnLearnMore.hide();
+                $panel.find('.eb-btn-learn-more-settings').hide();
+            }
             
         } else if(type == 'box-image-caption'){
             
@@ -3754,6 +3796,49 @@ var page = {
     		
             page.optionsDropdownImage();
             page.startCountImgOne();
+
+            //button
+            var $panel = $('#eb-box-image-card');
+            var $boxBtnLearnMore = $panel.find('.eb-btn-learn-more');
+
+            if (typeof opt.buttonVissible != 'undefined') {
+                var $panel = $('#eb-box-image-caption');
+                if(opt.buttonVissible){
+                    ll_theme_manager.checkboxRadioButtons.check($('#has-button-caption'),true);
+                    $panel.find('.eb-btn-learn-more-settings').show();
+                } else {
+                    ll_theme_manager.checkboxRadioButtons.check($('#has-button-caption'),false);
+                    $panel.find('.eb-btn-learn-more-settings').hide();
+                }
+                    
+                $panel.find('.button_text').val(opt.buttonText);
+                $('#buttonLearnMoreCaptionBackground').colpickSetColor(opt.buttonBackgroundColor, true).css('background-color', opt.buttonBackgroundColor);
+                $('#buttonLearnMoreCaptionBorderColor').colpickSetColor(opt.buttonBorderColor, true).css('background-color', opt.buttonBorderColor);
+                $('#buttonLearnMoreCaptionTextColor').colpickSetColor(opt.buttonColor, true).css('background-color', opt.buttonColor);
+                $('#buttonLearnMoreCaptionBorderWidth').val(opt.buttonBorderWidth);
+                ll_combo_manager.set_selected_value('#buttonLearnMoreCaptionBorderType', opt.buttonBorderType);
+                $('#buttonLearnMoreCaptionRadius').val(opt.buttonRadius);
+                $('#buttonLearnMoreCaptionPadding').val(opt.buttonPadding);
+                if (opt.buttonUrl.indexOf ('mailto:') != -1) {
+                    ll_combo_manager.set_selected_value('#eb-box-image-caption .button_link_to', 'mail');
+                    $panel.find('.button_url').val(opt.buttonUrl.replace ('mailto:', ''));
+                } else {
+                    ll_combo_manager.set_selected_value('#eb-box-image-caption .button_link_to', 'url');
+                    $panel.find('.button_url').val(opt.buttonUrl);
+                }
+                ll_combo_manager.trigger_event_on_change('#eb-box-image-caption .button_link_to');
+                
+                ll_combo_manager.set_selected_value('#buttonLearnMoreCaptionTypeFace', opt.buttonFontTypeFace);
+                ll_combo_manager.set_selected_value('#buttonLearnMoreCaptionWeight', opt.buttonFontWeight);
+                ll_combo_manager.set_selected_value('#buttonLearnMoreCaptionSize', opt.buttonFontSize);
+                ll_combo_manager.set_selected_value('#buttonLearnMoreCaptionAlign', opt.buttonAlign);
+                ll_combo_manager.set_selected_value('#buttonLearnMoreCaptionWidth', opt.buttonWidth);
+                ll_combo_manager.set_selected_value('#buttonLearnMoreCaptionPos', opt.buttonPos);
+
+            } else{
+                boxBtnLearnMore.hide();
+                $panel.find('.eb-btn-learn-more-settings').hide();
+            }
             
         } else if(type == 'box-button'){
             $('#buttonText').val(opt.buttonText);
@@ -4750,72 +4835,72 @@ var page = {
         });
         
         /*Buttons*/
-		ll_combo_manager.event_on_change('#button_link_to', function(){
+		ll_combo_manager.event_on_change('.button_link_to', function(){
             updateInfElTpl();
-            
-            $('#label_btn_link_to').html ('Web Address (URL)');
-			var button_link_to = ll_combo_manager.get_selected_value('#button_link_to');
+            var panelId = '#' + $(this).closest('.eb-right-panel-slide').attr('id');
+            $(panelId + ' .label_btn_link_to').html ('Web Address (URL)');
+			var button_link_to = ll_combo_manager.get_selected_value(panelId + ' .button_link_to');
 			
-			$('#container_button_lp').hide ();
-			$('#container_button_trackable_content').hide ();
+			$(panelId + ' .container_button_lp').hide ();
+			$(panelId + ' .container_button_trackable_content').hide ();
 			switch (button_link_to) {
 				case 'url':
-					$('#buttonUrl').trigger ('change')
+					$(panelId + ' .button_url').trigger ('change')
 					break;
 				case 'mail':
-		            $('#label_btn_link_to').html ('Email Address');
-					$('#buttonUrl').trigger ('change')
+		            $(panelId + ' .label_btn_link_to').html ('Email Address');
+					$(panelId + ' .button_url').trigger ('change')
 					break;
 				case 'lp':
-		            $('#label_btn_link_to').html ('Landing Page URL');
-					$('#container_button_lp').show ();
+		            $(panelId + ' .label_btn_link_to').html ('Landing Page URL');
+					$(panelId + ' .container_button_lp').show ();
 		            page.process_load_landing_pages(function (){
 		            	if (page.landing_pages.length > 0) {
-		            		ll_combo_manager.clear_all('#select_button_landing_page');
-	            			ll_combo_manager.add_option('#select_button_landing_page', '', '')
+		            		ll_combo_manager.clear_all('.select_button_landing_page');
+	            			ll_combo_manager.add_option('.select_button_landing_page', '', '')
 		            		for (var i in page.landing_pages){
 		            			var lp = page.landing_pages [i];
-		            			ll_combo_manager.add_option('#select_button_landing_page', lp.url, lp.name)
+		            			ll_combo_manager.add_option('.select_button_landing_page', lp.url, lp.name)
 		            		}
 		            	}
 		            });
 					break;
 				case 'content':
-		            $('#label_btn_link_to').html ('Content URL');
-					$('#container_button_trackable_content').show ();
+		            $(panelId + ' .label_btn_link_to').html ('Content URL');
+					$(panelId + ' .container_button_trackable_content').show ();
 
 		            page.process_load_files(function (){
 		            	if (page.files.length > 0) {
-		            		ll_combo_manager.clear_all('#select_button_file');
-	            			ll_combo_manager.add_option('#select_button_file', '', '')
+		            		ll_combo_manager.clear_all('.select_button_file');
+	            			ll_combo_manager.add_option('.select_button_file', '', '')
 		            		for (var i in page.files){
 		            			var file = page.files [i];
-		            			ll_combo_manager.add_option('#select_button_file', file.url, file.name)
+		            			ll_combo_manager.add_option('.select_button_file', file.url, file.name)
 		            		}
 		            	}
 		            });
 					break;
 			}
 		});
-		ll_combo_manager.event_on_change('#select_button_landing_page', function(){
+		ll_combo_manager.event_on_change('.select_button_landing_page', function(){
             updateInfElTpl();
-            
-			var url = ll_combo_manager.get_selected_value('#select_button_landing_page');
+            var panelId = '#' + $(this).closest('.eb-right-panel-slide').attr('id');
+			var url = ll_combo_manager.get_selected_value(panelId + ' .select_button_landing_page');
 			if (url && url != '') {
-				$('#buttonUrl').val (url)
-				$('#buttonUrl').trigger ('change')
+				$(panelId + ' .button_url').val (url)
+				$(panelId + ' .button_url').trigger ('change')
 			}
 		});
-		ll_combo_manager.event_on_change('#select_button_file', function(){
+		ll_combo_manager.event_on_change('.select_button_file', function(){
             updateInfElTpl();
-            
-			var url = ll_combo_manager.get_selected_value('#select_button_file');
+            var panelId = '#' + $(this).closest('.eb-right-panel-slide').attr('id');
+			var url = ll_combo_manager.get_selected_value(panelId + ' .select_button_file');
 			if (url && url != '') {
-				$('#buttonUrl').val (url)
-				$('#buttonUrl').trigger ('change')
+				$(panelId + ' .button_url').val (url)
+				$(panelId + ' .button_url').trigger ('change')
 			}
 		});
-        $('#buttonText').on('keyup change', function(){
+        $('.button_text').on('keyup change', function(){
             updateInfElTpl();
             opt.buttonText = $(this).val();
             $tpl.find('.ebButton').text(opt.buttonText);
@@ -4823,22 +4908,36 @@ var page = {
             $tpl.find('.ebButton').attr('title', opt.buttonText);
             $tpl.attr('data-json', JSON.stringify( opt ));
         });
-        $('#buttonUrl').on('keyup change', function(){
+        $('.button_url').on('keyup change', function(){
             updateInfElTpl();
-			var button_link_to = ll_combo_manager.get_selected_value('#button_link_to');
+            var panelId = $(this).closest('.eb-right-panel-slide').attr('id');
+			var button_link_to = ll_combo_manager.get_selected_value('#' + panelId + ' .button_link_to');
+            var val = $(this).val();
 			if (button_link_to == 'mail') {
-	            opt.url = 'mailto:' + $(this).val();
+                val = 'mailto:' + val;
+                if(panelId == 'eb-box-button')
+                    opt.url = val;
+                else
+                    opt.buttonUrl = val;
 			} else {
-	            opt.url = $(this).val();
+                if(panelId == 'eb-box-button')
+                    opt.url = val;
+                else
+                    opt.buttonUrl = val;
 			}
-            $tpl.find('.ebButton').attr('href',opt.url);
+            $tpl.find('.ebButton').attr('href',val);
             $tpl.attr('data-json', JSON.stringify( opt ));
         });
-        $('#buttonTypeFace').change(function(){
+        $('#buttonTypeFace, #buttonLearnMoreCaptionTypeFace, #buttonLearnMoreCardTypeFace').change(function(){
             updateInfElTpl();
-            opt.fontTypeFace = $(this).val();
-            page.update_font_family ($tpl.find('.ebButtonContent'), opt.fontTypeFace, $(this));
-            page.update_font_family ($tpl.find('.ebButtonContent .ebButton'), opt.fontTypeFace, $(this));
+            var panelId = $(this).closest('.eb-right-panel-slide').attr('id');
+            var val = $(this).val();
+            if(panelId == 'eb-box-button')
+                opt.fontTypeFace = val;
+            else
+                opt.buttonFontTypeFace = val;
+            page.update_font_family ($tpl.find('.ebButtonContent'), val, $(this));
+            page.update_font_family ($tpl.find('.ebButtonContent .ebButton'), val, $(this));
             /*
             if(opt.fontTypeFace == "None"){
                 $tpl.find('.ebButtonContent').css('font-family','');
@@ -4850,58 +4949,90 @@ var page = {
             */
             $tpl.attr('data-json', JSON.stringify( opt ));
         });
-        $('#buttonWeight').change(function(){
+        $('#buttonWeight, #buttonLearnMoreCaptionWeight, #buttonLearnMoreCardWeight').change(function(){
             updateInfElTpl();
+            var panelId = $(this).closest('.eb-right-panel-slide').attr('id');
             var val = $(this).val();
-            opt.fontWeight = val;
+            if(panelId == 'eb-box-button')
+                opt.fontWeight = val;
+            else
+                opt.buttonFontWeight = val;
             if (val == 'None'){
                 $tpl.find('.ebButton').css('font-weight','');
             } else{
-                $tpl.find('.ebButton').css('font-weight',opt.fontWeight);
+                $tpl.find('.ebButton').css('font-weight',val);
             }
             
             $tpl.attr('data-json', JSON.stringify( opt ));
         });
-        $('#buttonSize').change(function(){
+        $('#buttonSize, #buttonLearnMoreCaptionSize, #buttonLearnMoreCardSize').change(function(){
             updateInfElTpl();
-            opt.fontSize = $(this).val();
-            $tpl.find('.ebButtonContent').css('font-size',opt.fontSize + 'px');
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
-        $('#buttonBorderWidth').on('change', function () {
-            updateInfElTpl();
-            opt.borderWidth = $(this).val();
-            $tpl.find('.ebButtonContentContainer').css('border-width',opt.borderWidth + 'px');
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
-        $('#buttonBorderType').change(function(){
-            updateInfElTpl();
+            var panelId = $(this).closest('.eb-right-panel-slide').attr('id');
             var val = $(this).val();
-            opt.boxesBorderType = val;
+            if(panelId == 'eb-box-button')
+                opt.fontSize = val
+            else
+                opt.buttonFontSize  = val;
+            $tpl.find('.ebButtonContent').css('font-size',val + 'px');
+            $tpl.attr('data-json', JSON.stringify( opt ));
+        });
+        $('#buttonBorderWidth, #buttonLearnMoreCaptionBorderWidth, #buttonLearnMoreCardBorderWidth').on('change', function () {
+            updateInfElTpl();
+            var panelId = $(this).closest('.eb-right-panel-slide').attr('id');
+            var val = $(this).val();
+            if(panelId == 'eb-box-button')
+                opt.borderWidth = val
+            else
+                opt.buttonBorderWidth = val;
+            $tpl.find('.ebButtonContentContainer').css('border-width',val + 'px');
+            $tpl.attr('data-json', JSON.stringify( opt ));
+        });
+        $('#buttonBorderType, #buttonLearnMoreCaptionBorderType, #buttonLearnMoreCardBorderType').change(function(){
+            updateInfElTpl();
+            var panelId = $(this).closest('.eb-right-panel-slide').attr('id');
+            var val = $(this).val();
+            if(panelId == 'eb-box-button')
+                opt.borderType = val;
+            else
+                opt.buttonBorderType = val;
             if (val == 'None'){
                 $tpl.find('.ebButtonContentContainer').css('border-style','');
             } else{
-                $tpl.find('.ebButtonContentContainer').css('border-style',opt.boxesBorderType.toLowerCase());
+                $tpl.find('.ebButtonContentContainer').css('border-style',val.toLowerCase());
             }
             $tpl.attr('data-json', JSON.stringify( opt ));
         });
-        $('#buttonRadius').on('change', function () {
+        $('#buttonRadius, #buttonLearnMoreCaptionRadius, #buttonLearnMoreCardRadius').on('change', function () {
             updateInfElTpl();
-            opt.radius = $(this).val();
-            $tpl.find('.ebButtonContentContainer').css('border-radius',opt.radius + 'px');
+            var panelId = $(this).closest('.eb-right-panel-slide').attr('id');
+            var val = $(this).val();
+            if(panelId == 'eb-box-button')
+                opt.radius = val;
+            else
+                opt.buttonRadius = val;
+            $tpl.find('.ebButtonContentContainer').css('border-radius',val + 'px');
             $tpl.attr('data-json', JSON.stringify( opt ));
         });
-        $('#buttonPadding').on('change', function () {
+        $('#buttonPadding, #buttonLearnMoreCaptionPadding, #buttonLearnMoreCardPadding').on('change', function () {
             updateInfElTpl();
-            opt.padding = $(this).val();
-            $tpl.find('.ebButtonContent').css('padding',opt.padding + 'px');
+            var panelId = $(this).closest('.eb-right-panel-slide').attr('id');
+            var val = $(this).val();
+            if(panelId == 'eb-box-button')
+                opt.padding = val;
+            else
+                opt.buttonPadding = val;
+            $tpl.find('.ebButtonContent').css('padding',val + 'px');
             $tpl.attr('data-json', JSON.stringify( opt ));
         });
-        $('#buttonAlign').on('change', function () {
+        $('#buttonAlign, #buttonLearnMoreCaptionAlign, #buttonLearnMoreCardAlign').on('change', function () {
             updateInfElTpl();
             var val = $(this).val();
             var $el = $tpl.find('.ebButtonBlockInner');
-            opt.align = val;
+            var panelId = $(this).closest('.eb-right-panel-slide').attr('id');
+            if(panelId == 'eb-box-button')
+                opt.align = val;
+            else
+                opt.buttonAlign = val;
             if (val == 0){
                 $el.attr('align','left').find('td').attr('align','left');
             } else if ( val == 1 ){
@@ -4926,16 +5057,26 @@ var page = {
             }
             $tpl.attr('data-json', JSON.stringify( opt ));
         });
-        $('#buttonWidth').on('change', function () {
+        $('#buttonWidth, #buttonLearnMoreCaptionWidth, #buttonLearnMoreCardWidth').on('change', function () {
             updateInfElTpl();
             var val = $(this).val();
             var $el = $tpl.find('.ebButtonContentContainer');
-            opt.width = val;
+            var panelId = $(this).closest('.eb-right-panel-slide').attr('id');
+            if(panelId == 'eb-box-button')
+                opt.width = val;
+            else
+                opt.buttonWidth = val;
             if (val == 0){
                 $el.attr('width','');
             } else if ( val == 1 ){
                 $el.attr('width','100%');
             }
+            $tpl.attr('data-json', JSON.stringify( opt ));
+        });
+        $('#buttonLearnMoreCaptionPos, #buttonLearnMoreCardPos').change(function(){
+            updateInfElTpl();
+            opt.buttonPos = $(this).val();
+            page.captionPosition(opt.position);
             $tpl.attr('data-json', JSON.stringify( opt ));
         });
         
@@ -5163,6 +5304,15 @@ var page = {
             opt.number = val;
             $tpl.attr('data-json', JSON.stringify( opt ));
             page.updateColumnEditorCaption(opt);
+        });
+
+
+        $('#has-button-caption, #has-button-card').change(function(){
+            updateInfElTpl();
+            var val = $(this).is(':checked') ? 1 : 0;
+            opt.buttonVissible = val;
+            $tpl.attr('data-json', JSON.stringify( opt ));
+            page.updateHTMLBtnLearnMore($tpl, opt, $(this));
         });
         
         $('#pageBorderWidth').on('change', function () {
@@ -6342,7 +6492,8 @@ var page = {
         var $tpl = $('.tpl-block.tpl-selected');
         var opt = $tpl.data('json');
         var id = $(el).attr('id');
-        
+        var val = '#' + hex;
+        var panelId = $(el).closest('.eb-right-panel-slide').attr('id');
         if( id == 'boxTextColor' ){
             opt.color = '#' + hex;
             $tpl.find('.ebTextContent').css('color', opt.color);
@@ -6363,17 +6514,26 @@ var page = {
             opt.borderColor = '#' + hex;
             $tpl.find('.ebDividerContent').css('border-color', opt.borderColor);
             $tpl.attr('data-json', JSON.stringify( opt ));
-        } else if ( id == 'buttonBackground' ){
-            opt.backgroundColor = '#' + hex;
-            $tpl.find('.ebButtonContentContainer').css('background-color', opt.backgroundColor);
+        } else if ( id == 'buttonBackground' || id == 'buttonLearnMoreCaptionBackground'  || id == 'buttonLearnMoreCardBackground'){
+            if(panelId == 'eb-box-button')
+                opt.backgroundColor = val;
+            else
+                opt.buttonBackgroundColor = val;
+            $tpl.find('.ebButtonContentContainer').css('background-color', val);
             $tpl.attr('data-json', JSON.stringify( opt ));
-        } else if ( id == 'buttonBorderColor' ){
-            opt.borderColor = '#' + hex;
-            $tpl.find('.ebButtonContentContainer').css('border-color', opt.borderColor);
+        } else if ( id == 'buttonBorderColor' || id == 'buttonLearnMoreCaptionBorderColor'  || id == 'buttonLearnMoreCardBorderColor' ){
+            if(panelId == 'eb-box-button')
+                opt.borderColor = val
+            else
+                opt.buttonBorderColor = val;
+            $tpl.find('.ebButtonContentContainer').css('border-color', val);
             $tpl.attr('data-json', JSON.stringify( opt ));
-        } else if ( id == 'buttonTextColor' ){
-            opt.color = '#' + hex;
-            $tpl.find('.ebButton').css('color', opt.color);
+        } else if ( id == 'buttonTextColor' || id == 'buttonLearnMoreCaptionTextColor'  || id == 'buttonLearnMoreCardTextColor' ){
+            if(panelId == 'eb-box-button')
+                opt.color = val;
+            else
+                opt.buttonColor = val;
+            $tpl.find('.ebButton').css('color', val);
             $tpl.attr('data-json', JSON.stringify( opt ));
         } else if (id == 'cardBackground'){
             opt.backgroundColor = '#' + hex;
@@ -7571,18 +7731,32 @@ var page = {
         var content = '';
         var content2 = '';
         var ofNumberSelect = ofNumberSelect || false;
+        var btnHTMLLearnMore = $tpl.find('.ebButtonLearnMore').html() || '';
+        var buttonPos = null;
         $tpl.find('.ebTextContent').each(function(){
             textContent.push($(this).html());
         });
         $tpl.find('.ebImageCardBlockInner').each(function(){
             imgContent.push($(this).html());
         });
+
+        if(btnHTMLLearnMore) btnHTMLLearnMore = '<tr class="ebButtonLearnMore">' + btnHTMLLearnMore + '</tr>';
+        
+        if(typeof opt.buttonPos != 'undefined') buttonPos = opt.buttonPos;
+        
         if( opt.position == 0 ){
             //left
             content = '<tr><td>';
             content += '<table class="ebTableImg" align="right" border="0" cellpadding="0" cellspacing="0" width="69%"><tbody><tr><td class="ebImageCardBlockInner" style="padding: 9px 18px 9px 0;" valign="top">'+imgContent[0]+'</td></tr></tbody></table>';
-            content += '<table class="ebTableText" align="left" border="0" cellpadding="0" cellspacing="0" width="31%"><tbody><tr><td class="ebTextContent" style="padding: 9px 0 9px 18px;" valign="top">'+textContent[0]+'</td></tr></tbody></table>';
+            content += '<table class="ebTableText" align="left" border="0" cellpadding="0" cellspacing="0" width="31%"><tbody><tr><td class="ebTextContent" style="padding: 9px 0 9px 18px;" valign="top">'+textContent[0]+'</td></tr>';
+            
+            if(buttonPos == 1) content += btnHTMLLearnMore;
+            
+            content += '</tbody></table>';
             content += '</td></tr>';
+
+            if(buttonPos == 0) content += btnHTMLLearnMore;
+
             if ( opt.number == 1 ){
                 content2 = '<tr><td>';
                 content2 += '<table class="ebTableText" align="left" border="0" cellpadding="0" cellspacing="0" width="31%"><tbody><tr><td class="ebTextContent" style="padding: 9px 9px 9px 18px;" valign="top">'+textContent[1]+'</td></tr></tbody></table>';
@@ -7598,6 +7772,7 @@ var page = {
             content += '<tr>';
             content += '<td class="ebImageCardBlockInner" style="padding: 0 18px 9px;" valign="top">'+imgContent[0]+'</td>';
             content += '</tr>';
+            content += btnHTMLLearnMore;
             
             if ( opt.number == 1 ){
                 content2 = '<tr>';
@@ -7612,8 +7787,14 @@ var page = {
             //right
             content = '<tr><td>';
             content += '<table class="ebTableImg" align="left" border="0" cellpadding="0" cellspacing="0" width="69%"><tbody><tr><td class="ebImageCardBlockInner" style="padding: 9px 0 9px 18px;" valign="top">'+imgContent[0]+'</td></tr></tbody></table>';
-            content += '<table class="ebTableText" align="right" border="0" cellpadding="0" cellspacing="0" width="31%"><tbody><tr><td class="ebTextContent" style="padding: 9px 18px 9px 0;" valign="top">'+textContent[0]+'</td></tr></tbody></table>';
+            content += '<table class="ebTableText" align="right" border="0" cellpadding="0" cellspacing="0" width="31%"><tbody><tr><td class="ebTextContent" style="padding: 9px 18px 9px 0;" valign="top">'+textContent[0]+'</td></tr>';
+            
+            if(buttonPos == 1) content += btnHTMLLearnMore;
+            
+            content += '</tbody></table>';
             content += '</td></tr>';
+
+            if(buttonPos == 0) content += btnHTMLLearnMore;
             
             if ( opt.number == 1 ){
                 content2 = '<tr><td>';
@@ -7630,6 +7811,7 @@ var page = {
             content += '<tr>';
             content += '<td class="ebTextContent" style="padding: 9px 18px 9px;" valign="top">'+textContent[0]+'</td>';
             content += '</tr>';
+            content += btnHTMLLearnMore;
             
             if ( opt.number == 1 ){
                 content2 = '<tr>';
@@ -7650,6 +7832,7 @@ var page = {
         } else {
             page.optionsDropdownImage(true);
         }
+        if(btnHTMLLearnMore) page.updatePaddingLayoutBtnLearnMore($tpl, opt);
         page.updateStyleCaptionImage();
     },
 	callCaptionWidthImg: function(){
@@ -7952,6 +8135,40 @@ var page = {
         var $tpl = $('.tpl-block.tpl-selected');
         var $col = $tpl.find('.ebImageBlock');
         $col.eq(1).remove();
+    },
+    //Btn Learn More/Caption/Card
+    updateHTMLBtnLearnMore: function($tpl, opt, $toggle){
+        var $panel = $toggle.closest('.eb-right-panel-slide');
+        var $boxSettings = $panel.find('.eb-btn-learn-more-settings');
+        opt.buttonVissible == 1 ? $boxSettings.show() : $boxSettings.hide();
+        page.updatePositionBtnLearnMore($tpl, opt);
+    },
+    updatePositionBtnLearnMore: function($tpl, opt){
+        var isHTMLBtn = $tpl.find('.ebButtonLearnMore').length;
+        var html = '<tr class="ebButtonLearnMore"><td class="ebButtonLearnMoreOuter">' + page.getHTMLBtnLearnMore() +'</td></tr>';
+        if(!isHTMLBtn && opt.buttonVissible){
+            if((opt.position == 0 || opt.position == 2) && opt.buttonPos == 1) {
+                $tpl.find('.ebTableText > tbody').append(html);
+            } else{
+                $tpl.find('.ebImageBlockOuter').append(html);
+            }
+        } else if(!opt.buttonVissible){
+            $tpl.find('.ebButtonLearnMore').remove();
+        }
+        page.updatePaddingLayoutBtnLearnMore($tpl, opt);
+    },
+    updatePaddingLayoutBtnLearnMore: function($tpl, opt){
+        var $box = $tpl.find('.ebButtonBlockInner');
+        if(opt.position == 0  && opt.buttonPos == 1){
+            $box.css('padding', '0px 0px 9px 18px');
+        } else if(opt.position == 2 && opt.buttonPos == 1){
+            $box.css('padding', '0px 18px 9px 0px');
+        } else{
+            $box.css('padding', '9px 18px 18px');
+        }
+    },
+    getHTMLBtnLearnMore: function(){
+        return '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebButtonBlock"><tbody class="ebButtonBlockOuter"><tr><td valign="top" align="center" class="ebButtonBlockInner" style="padding: 0 18px 18px;"><table style="border-collapse: separate !important; border: 1px solid #fb8f04; border-radius: 3px; background-color: #fb8f04;" border="0" cellpadding="0" cellspacing="0" class="ebButtonContentContainer"><tbody><tr><td valign="top" align="center" style="font-size: 12px; padding: 5px; font-family: Arial,sans-serif;" class="ebButtonContent"><a class="ebButton" title="Lean More" href="" target="_blank" style="font-family: Arial,sans-serif; font-weight: bold; letter-spacing: normal; line-height: 100%; text-align: center; text-decoration: none; color: rgb(255, 255, 255);">Learn More</a></td></tr></tbody></table></td></tr></tbody></table>';
     },
     updateVideoImg: function(link){
         var indexStart;
@@ -9316,7 +9533,100 @@ var page = {
 					padding: '0px',
 				});
 			}
-		}
+		} else if ( type == 'btnLearnMoreBgColor' ){
+            if ( typeTpl == 'box-image-card'){
+                $('#buttonLearnMoreCardBackground').colpickSetColor(LL_INSTANCE_DEFAULT_THEME_COLOR, true).css('background-color', '#'+LL_INSTANCE_DEFAULT_THEME_COLOR);
+            } else if ( typeTpl == 'box-image-caption' ){
+                $('#buttonLearnMoreCaptionBackground').colpickSetColor(LL_INSTANCE_DEFAULT_THEME_COLOR, true).css('background-color', '#'+LL_INSTANCE_DEFAULT_THEME_COLOR); 
+            }
+
+            $tpl.find('.ebButtonContentContainer').css('background-color','#'+LL_INSTANCE_DEFAULT_THEME_COLOR);
+            opt.buttonBackgroundColor = '#'+LL_INSTANCE_DEFAULT_THEME_COLOR;
+        } else if ( type == 'btnLearnMoreBorder' ){
+            if ( typeTpl == 'box-image-card'){
+                $('#buttonLearnMoreCardBorderType option[value="Solid"]').attr('selected', true);
+                $("#buttonLearnMoreCardBorderType").trigger('liszt:updated');
+                
+                $('#buttonLearnMoreCardBorderWidth').val('1');
+                
+                $('#buttonLearnMoreCardBorderColor').colpickSetColor(LL_INSTANCE_DEFAULT_THEME_COLOR, true).css('background-color', '#'+LL_INSTANCE_DEFAULT_THEME_COLOR);
+            } else if ( typeTpl == 'box-image-caption' ){
+                $('#buttonLearnMoreCaptionBorderType option[value="Solid"]').attr('selected', true);
+                $("#buttonLearnMoreCaptionBorderType").trigger('liszt:updated');
+                
+                $('#buttonLearnMoreCaptionBorderWidth').val('1');
+                
+                $('#buttonLearnMoreCaptionBorderColor').colpickSetColor(LL_INSTANCE_DEFAULT_THEME_COLOR, true).css('background-color', '#'+LL_INSTANCE_DEFAULT_THEME_COLOR);
+            }
+
+            opt.buttonBorderType = 'Solid';
+            opt.buttonBorderWidth = '1';
+            opt.buttonBorderColor = '#'+LL_INSTANCE_DEFAULT_THEME_COLOR;
+            
+            $tpl.find('.ebButtonContentContainer').css({
+                border: '1px solid #'+LL_INSTANCE_DEFAULT_THEME_COLOR,
+            });
+        } else if ( type == 'btnLearnMoreRadius' ){
+            if ( typeTpl == 'box-image-card'){
+                $('#buttonLearnMoreCardRadius').val('3');
+            } else if ( typeTpl == 'box-image-caption' ){
+                $('#buttonLearnMoreCaptionRadius').val('3');
+            }
+
+            opt.buttonRadius = '3'; 
+                
+            $tpl.find('.ebButtonContentContainer').css({
+                borderRadius: '3px',
+            });
+        } else if ( type == 'btnLearnMoreFont' ){
+            if ( typeTpl == 'box-image-card'){
+                $('#buttonLearnMoreCardTypeFace option[value="Arial"]').attr('selected', true);
+                $("#buttonLearnMoreCardTypeFace").trigger('liszt:updated');
+                
+                $('#buttonLearnMoreCardWeight option[value="Bold"]').attr('selected', true);
+                $("#buttonLearnMoreCardWeight").trigger('liszt:updated');
+                
+                $('#buttonLearnMoreCardSize option[value="12"]').attr('selected', true);
+                $("#buttonLearnMoreCardSize").trigger('liszt:updated');
+
+                $('#buttonLearnMoreCardTextColor').colpickSetColor('ffffff', true).css('background-color', '#ffffff');
+            } else if ( typeTpl == 'box-image-caption' ){
+                $('#buttonLearnMoreCaptionTypeFace option[value="Arial"]').attr('selected', true);
+                $("#buttonLearnMoreCaptionTypeFace").trigger('liszt:updated');
+                
+                $('#buttonLearnMoreCaptionWeight option[value="Bold"]').attr('selected', true);
+                $("#buttonLearnMoreCaptionWeight").trigger('liszt:updated');
+                
+                $('#buttonLearnMoreCaptionSize option[value="12"]').attr('selected', true);
+                $("#buttonLearnMoreCaptionSize").trigger('liszt:updated');
+
+                $('#buttonLearnMoreCaptionTextColor').colpickSetColor('ffffff', true).css('background-color', '#ffffff');
+            }
+
+            opt.buttonColor = '#ffffff';
+            opt.buttonFontTypeFace = 'Arial';
+            opt.buttonFontWeight = 'Bold';
+            opt.buttonFontSize = '12';
+            
+            $tpl.find('.ebButtonContent, .ebButton').css({
+                color: '#ffffff',
+                fontSize: '12px',
+                fontWeight: 'Bold',
+                fontFamily: 'Arial, sans-serif'
+            });
+        } else if ( type == 'btnLearnMorePadding' ){
+            if ( typeTpl == 'box-image-card'){
+                $('#buttonLearnMoreCardPadding').val('5');            
+            } else if ( typeTpl == 'box-image-caption' ){
+                $('#buttonLearnMoreCaptionPadding').val('5');
+            }
+
+            opt.buttonPadding = '5';
+            
+            $tpl.find('.ebButtonContent').css({
+                padding: '5px',
+            });
+        }
 		
 		$tpl.attr('data-json', JSON.stringify( opt ));
 	},

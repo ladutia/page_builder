@@ -1898,6 +1898,66 @@ echo PAGE_TITLE;
 												</div>
 											</li>
 										</ul>
+										<div class="eb-btn-learn-more">
+											<div class="wrap-switchs">              
+												<div class="ll-switch switch-small">
+													<div class="switch-lb">Has Button</div>
+													<div class="switch">
+														<input id="has-button-card" name="has-button-card" class="cmn-toggle cmn-toggle-round" type="checkbox">
+														<label for="has-button-card"></label>
+													</div>
+												</div>         
+											</div>
+											<div class="eb-btn-learn-more-settings">
+												<div class="eb-field">
+													<label>Button Text</label>
+													<div class="eb-right">
+														<div class="eb-inner-field">
+															<input type="text" class="txt_field button_text" value="Learn More"/>
+														</div>
+													</div>
+												</div>
+												<div class="eb-field">
+													<label>Link To</label>
+													<div class="eb-right">
+														<div class="eb-inner-field">
+															<select class="eb-w160 button_link_to">
+																<option value="url">Web Address</option>
+																<option value="mail">Email Address</option>
+																<?php if (ll_customer_applications::is_has_permission_for_application ( $customerID, ll_applications::$LANDING_PAGES )) {?>
+																<option value="lp">Landing Page</option>
+																<?php }?>
+																<?php if (ll_customer_applications::is_has_permission_for_application ( $customerID, ll_applications::$CONTENT_MANAGEMENT )) {?>
+																<option value="content">Trackable Content</option>
+																<?php }?>
+															</select>
+														</div>
+														<?php if (ll_customer_applications::is_has_permission_for_application ( $customerID, ll_applications::$LANDING_PAGES )) {?>
+														<div class="eb-inner-field container_button_lp" style="display: none">
+															<select class="eb-w160 select_button_landing_page" data-placeholder="Select Landing Page">
+																<option></option>
+															</select>
+														</div>
+														<?php }?>
+														<?php if (ll_customer_applications::is_has_permission_for_application ( $customerID, ll_applications::$CONTENT_MANAGEMENT )) {?>
+														<div class="eb-inner-field container_button_trackable_content" style="display: none">
+															<select class="eb-w160 select_button_file" data-placeholder="Select File">
+																<option></option>
+															</select>
+														</div>
+														<?php }?>
+													</div>
+												</div>
+												<div class="eb-field">
+													<label class="label_btn_link_to">Web Address (URL)</label>
+													<div class="eb-right">
+														<div class="eb-inner-field">
+															<input type="text" class="txt_field button_url" />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 										<div class="eb-editor-text">
 											<textarea id="editor-box-text-card"></textarea>
 										</div>
@@ -2008,6 +2068,104 @@ echo PAGE_TITLE;
 												</div>
 											</div>
 										</div>
+										<div class="eb-btn-learn-more-settings">
+											<div class="eb-design-head">Button</div>
+											<div class="eb-field">
+												<label>Background Color  <span class="eb-clear-line" data-type="btnLearnMoreBgColor"><span class="pr-lbl-link">Clear</span></span></label>
+												<div class="eb-right">
+													<div class="eb-inner-field">
+														<div class="wrap-color">
+															<div id="buttonLearnMoreCardBackground" style="background-color: #<?php echo $theme_color;?>;" class="color-box" data-color-start="<?php echo $theme_color;?>"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="eb-field">
+												<label>Border  <span class="eb-clear-line" data-type="btnLearnMoreBorder"><span class="pr-lbl-link">Clear</span></span></label>
+												<div class="eb-right">
+													<div class="eb-inner-field">
+														<label>Type</label>
+														<select class="eb-w160" id="buttonLearnMoreCardBorderType">
+															<option value="None">None</option>
+															<option value="Solid" selected>Solid</option>
+															<option value="Dashed">Dashed</option>
+															<option value="Dotted">Dotted</option>
+															<option value="Double">Double</option>
+															<option value="Groove">Groove</option>
+															<option value="Ridge">Ridge</option>
+															<option value="Inset">Inset</option>
+															<option value="Outset">Outset</option>
+														</select>
+													</div>
+													<div class="eb-inner-field">
+														<input id="buttonLearnMoreCardBorderWidth" type="text" class="txt_field touch-spin eb-field-small" value="1"/>
+													</div>
+													<div class="eb-inner-field">
+														<div class="wrap-color">
+															<div id="buttonLearnMoreCardBorderColor" style="background-color: #<?php echo $theme_color;?>;" class="color-box" data-color-start="<?php echo $theme_color;?>"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="eb-field">
+												<label>Border Radius  <span class="eb-clear-line" data-type="btnLearnMoreRadius"><span class="pr-lbl-link">Clear</span></span></label>
+												<div class="eb-right">
+													<div class="eb-inner-field">
+														<input id="buttonLearnMoreCardRadius" type="text" class="txt_field touch-spin eb-field-small" value="3"/>
+													</div>
+												</div>
+											</div>
+											<div class="eb-field">
+												<label>Font  <span class="eb-clear-line" data-type="btnLearnMoreFont"><span class="pr-lbl-link">Clear</span></span></label>
+												<div class="eb-right">
+													<div class="eb-inner-field">
+														<label>Typeface</label>
+														<select class="eb-w130 dropdown-select-font-name cf-select-font-name" id="buttonLearnMoreCardTypeFace">
+															<?php 
+															foreach ($supported_fonts as $supported_item){
+																echo "<option standard_font='1' value='{$supported_item['value']}'>{$supported_item['label']}</option>";
+															}
+															?>
+														</select>
+													</div>
+													<div class="eb-inner-field">
+														<label>Weight</label>
+														<select class="eb-w130" id="buttonLearnMoreCardWeight">
+															<?php 
+															foreach ($supported_font_weights as $supported_item){
+																$selected = $supported_item['default'] ? "selected='selected'" : '';
+																echo "<option value='{$supported_item['value']}' {$selected}>{$supported_item['label']}</option>";
+															}
+															?>
+														</select>
+													</div>
+													<div class="eb-inner-field">
+														<label>Size</label>
+														<select class="eb-w70" id="buttonLearnMoreCardSize">
+															<?php 
+															foreach ($supported_font_sizes as $supported_item){
+																$selected = $supported_item['value'] == 16 ? "selected='selected'" : '';
+																echo "<option value='{$supported_item['value']}' {$selected}>{$supported_item['label']}</option>";
+															}
+															?>
+														</select>
+													</div>
+													<div class="eb-inner-field">
+														<div class="wrap-color">
+															<div id="buttonLearnMoreCardTextColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="eb-field">
+												<label>Padding  <span class="eb-clear-line" data-type="btnLearnMorePadding"><span class="pr-lbl-link">Clear</span></span></label>
+												<div class="eb-right">
+													<div class="eb-inner-field">
+														<input id="buttonLearnMoreCardPadding" type="text" class="txt_field touch-spin eb-field-small" value="12"/>
+													</div>
+												</div>
+											</div>
+										</div>
 										<div class="wrap-btn-clear-all">
 											<a href="javascript:void(0)" class="t-btn-gray t-btn-big">Clear All</a>
 										</div>
@@ -2061,6 +2219,43 @@ echo PAGE_TITLE;
 												</div>
 											</div>
 										</div>
+										<div class="eb-btn-learn-more-settings">
+											<div class="eb-design-head">Button</div>
+											<div class="eb-field eb-field-bttn-learn-more-pos">
+												<label>Position</label>
+												<div class="eb-right">
+													<div class="eb-inner-field">
+														<select class="eb-w130" id="buttonLearnMoreCardPos">
+															<option value="0">Outside</option>
+															<option value="1" selected>Inside</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="eb-field">
+												<label>Horizontal Align</label>
+												<div class="eb-right">
+													<div class="eb-inner-field">
+														<select class="eb-w130" id="buttonLearnMoreCardAlign">
+															<option value="0">Left</option>
+															<option value="1" selected>Center</option>
+															<option value="2" >Right</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="eb-field">
+												<label>Width</label>
+												<div class="eb-right">
+													<div class="eb-inner-field">
+														<select class="eb-w130" id="buttonLearnMoreCardWidth">
+															<option value="0">Fit To Text</option>
+															<option value="1">Full width</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -2103,6 +2298,66 @@ echo PAGE_TITLE;
 															</div>
 														</li>
 													</ul>
+													<div class="eb-btn-learn-more">
+														<div class="wrap-switchs">              
+															<div class="ll-switch switch-small">
+																<div class="switch-lb">Has Button</div>
+																<div class="switch">
+																	<input id="has-button-caption" name="has-button-caption" class="cmn-toggle cmn-toggle-round" type="checkbox">
+																	<label for="has-button-caption"></label>
+																</div>
+															</div>         
+														</div>
+														<div class="eb-btn-learn-more-settings">
+															<div class="eb-field">
+																<label>Button Text</label>
+																<div class="eb-right">
+																	<div class="eb-inner-field">
+																		<input type="text" class="txt_field button_text" value="Learn More"/>
+																	</div>
+																</div>
+															</div>
+															<div class="eb-field">
+																<label>Link To</label>
+																<div class="eb-right">
+																	<div class="eb-inner-field">
+																		<select class="eb-w160 button_link_to">
+																			<option value="url">Web Address</option>
+																			<option value="mail">Email Address</option>
+																			<?php if (ll_customer_applications::is_has_permission_for_application ( $customerID, ll_applications::$LANDING_PAGES )) {?>
+																			<option value="lp">Landing Page</option>
+																			<?php }?>
+																			<?php if (ll_customer_applications::is_has_permission_for_application ( $customerID, ll_applications::$CONTENT_MANAGEMENT )) {?>
+																			<option value="content">Trackable Content</option>
+																			<?php }?>
+																		</select>
+																	</div>
+																	<?php if (ll_customer_applications::is_has_permission_for_application ( $customerID, ll_applications::$LANDING_PAGES )) {?>
+																	<div class="eb-inner-field container_button_lp" style="display: none">
+																		<select class="eb-w160 select_button_landing_page" data-placeholder="Select Landing Page">
+																			<option></option>
+																		</select>
+																	</div>
+																	<?php }?>
+																	<?php if (ll_customer_applications::is_has_permission_for_application ( $customerID, ll_applications::$CONTENT_MANAGEMENT )) {?>
+																	<div class="eb-inner-field container_button_trackable_content" style="display: none">
+																		<select class="eb-w160 select_button_file" data-placeholder="Select File">
+																			<option></option>
+																		</select>
+																	</div>
+																	<?php }?>
+																</div>
+															</div>
+															<div class="eb-field">
+																<label class="label_btn_link_to">Web Address (URL)</label>
+																<div class="eb-right">
+																	<div class="eb-inner-field">
+																		<input type="text" class="txt_field button_url" />
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
 													<div class="eb-editor-text">
 														<textarea id="editor-box-text-caption"></textarea>
 													</div>
@@ -2197,6 +2452,104 @@ echo PAGE_TITLE;
 												</div>
 											</div>
 										</div>
+										<div class="eb-btn-learn-more-settings">
+											<div class="eb-design-head">Button</div>
+											<div class="eb-field">
+												<label>Background Color  <span class="eb-clear-line" data-type="btnLearnMoreBgColor"><span class="pr-lbl-link">Clear</span></span></label>
+												<div class="eb-right">
+													<div class="eb-inner-field">
+														<div class="wrap-color">
+															<div id="buttonLearnMoreCaptionBackground" style="background-color: #<?php echo $theme_color;?>;" class="color-box" data-color-start="<?php echo $theme_color;?>"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="eb-field">
+												<label>Border  <span class="eb-clear-line" data-type="btnLearnMoreBorder"><span class="pr-lbl-link">Clear</span></span></label>
+												<div class="eb-right">
+													<div class="eb-inner-field">
+														<label>Type</label>
+														<select class="eb-w160" id="buttonLearnMoreCaptionBorderType">
+															<option value="None">None</option>
+															<option value="Solid" selected>Solid</option>
+															<option value="Dashed">Dashed</option>
+															<option value="Dotted">Dotted</option>
+															<option value="Double">Double</option>
+															<option value="Groove">Groove</option>
+															<option value="Ridge">Ridge</option>
+															<option value="Inset">Inset</option>
+															<option value="Outset">Outset</option>
+														</select>
+													</div>
+													<div class="eb-inner-field">
+														<input id="buttonLearnMoreCaptionBorderWidth" type="text" class="txt_field touch-spin eb-field-small" value="1"/>
+													</div>
+													<div class="eb-inner-field">
+														<div class="wrap-color">
+															<div id="buttonLearnMoreCaptionBorderColor" style="background-color: #<?php echo $theme_color;?>;" class="color-box" data-color-start="<?php echo $theme_color;?>"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="eb-field">
+												<label>Border Radius  <span class="eb-clear-line" data-type="btnLearnMoreRadius"><span class="pr-lbl-link">Clear</span></span></label>
+												<div class="eb-right">
+													<div class="eb-inner-field">
+														<input id="buttonLearnMoreCaptionRadius" type="text" class="txt_field touch-spin eb-field-small" value="3"/>
+													</div>
+												</div>
+											</div>
+											<div class="eb-field">
+												<label>Font  <span class="eb-clear-line" data-type="btnLearnMoreFont"><span class="pr-lbl-link">Clear</span></span></label>
+												<div class="eb-right">
+													<div class="eb-inner-field">
+														<label>Typeface</label>
+														<select class="eb-w130 dropdown-select-font-name cf-select-font-name" id="buttonLearnMoreCaptionTypeFace">
+															<?php 
+															foreach ($supported_fonts as $supported_item){
+																echo "<option standard_font='1' value='{$supported_item['value']}'>{$supported_item['label']}</option>";
+															}
+															?>
+														</select>
+													</div>
+													<div class="eb-inner-field">
+														<label>Weight</label>
+														<select class="eb-w130" id="buttonLearnMoreCaptionWeight">
+															<?php 
+															foreach ($supported_font_weights as $supported_item){
+																$selected = $supported_item['default'] ? "selected='selected'" : '';
+																echo "<option value='{$supported_item['value']}' {$selected}>{$supported_item['label']}</option>";
+															}
+															?>
+														</select>
+													</div>
+													<div class="eb-inner-field">
+														<label>Size</label>
+														<select class="eb-w70" id="buttonLearnMoreCaptionSize">
+															<?php 
+															foreach ($supported_font_sizes as $supported_item){
+																$selected = $supported_item['value'] == 16 ? "selected='selected'" : '';
+																echo "<option value='{$supported_item['value']}' {$selected}>{$supported_item['label']}</option>";
+															}
+															?>
+														</select>
+													</div>
+													<div class="eb-inner-field">
+														<div class="wrap-color">
+															<div id="buttonLearnMoreCaptionTextColor" style="background-color: #ffffff;" class="color-box" data-color-start="ffffff"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="eb-field">
+												<label>Padding  <span class="eb-clear-line" data-type="btnLearnMorePadding"><span class="pr-lbl-link">Clear</span></span></label>
+												<div class="eb-right">
+													<div class="eb-inner-field">
+														<input id="buttonLearnMoreCaptionPadding" type="text" class="txt_field touch-spin eb-field-small" value="12"/>
+													</div>
+												</div>
+											</div>
+										</div>
 										<div class="wrap-btn-clear-all">
 											<a href="javascript:void(0)" class="t-btn-gray t-btn-big">Clear All</a>
 										</div>
@@ -2240,6 +2593,43 @@ echo PAGE_TITLE;
 												</div>
 											</div>
 										</div>
+										<div class="eb-btn-learn-more-settings">
+											<div class="eb-design-head">Button</div>
+											<div class="eb-field eb-field-bttn-learn-more-pos">
+												<label>Position</label>
+												<div class="eb-right">
+													<div class="eb-inner-field">
+														<select class="eb-w130" id="buttonLearnMoreCaptionPos">
+															<option value="0">Outside</option>
+															<option value="1" selected>Inside</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="eb-field">
+												<label>Horizontal Align</label>
+												<div class="eb-right">
+													<div class="eb-inner-field">
+														<select class="eb-w130" id="buttonLearnMoreCaptionAlign">
+															<option value="0">Left</option>
+															<option value="1" selected>Center</option>
+															<option value="2" >Right</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="eb-field">
+												<label>Width</label>
+												<div class="eb-right">
+													<div class="eb-inner-field">
+														<select class="eb-w130" id="buttonLearnMoreCaptionWidth">
+															<option value="0">Fit To Text</option>
+															<option value="1">Full width</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
 										<!-- 
 										<div class="eb-field">
 											<label>Number Of Images</label>
@@ -2278,7 +2668,7 @@ echo PAGE_TITLE;
 											<label>Button Text</label>
 											<div class="eb-right">
 												<div class="eb-inner-field">
-													<input id="buttonText" type="text" class="txt_field" value="Make Your Purchase"/>
+													<input id="buttonText" type="text" class="txt_field button_text" value="Make Your Purchase"/>
 												</div>
 											</div>
 										</div>
@@ -2286,7 +2676,7 @@ echo PAGE_TITLE;
 											<label>Link To</label>
 											<div class="eb-right">
 												<div class="eb-inner-field">
-													<select class="eb-w160" id="button_link_to">
+													<select class="eb-w160 button_link_to" id="button_link_to">
 														<option value="url">Web Address</option>
 														<option value="mail">Email Address</option>
 														<?php if (ll_customer_applications::is_has_permission_for_application ( $customerID, ll_applications::$LANDING_PAGES )) {?>
@@ -2298,15 +2688,15 @@ echo PAGE_TITLE;
 													</select>
 												</div>
 												<?php if (ll_customer_applications::is_has_permission_for_application ( $customerID, ll_applications::$LANDING_PAGES )) {?>
-												<div class="eb-inner-field" id="container_button_lp" style="display: none">
-													<select class="eb-w160" data-placeholder="Select Landing Page" id="select_button_landing_page">
+												<div class="eb-inner-field container_button_lp" id="container_button_lp" style="display: none">
+													<select class="eb-w160 select_button_landing_page" data-placeholder="Select Landing Page" id="select_button_landing_page">
 														<option></option>
 													</select>
 												</div>
 												<?php }?>
 												<?php if (ll_customer_applications::is_has_permission_for_application ( $customerID, ll_applications::$CONTENT_MANAGEMENT )) {?>
-												<div class="eb-inner-field" id="container_button_trackable_content" style="display: none">
-													<select class="eb-w160" data-placeholder="Select File" id="select_button_file">
+												<div class="eb-inner-field container_button_trackable_content" id="container_button_trackable_content" style="display: none">
+													<select class="eb-w160 select_button_file" data-placeholder="Select File" id="select_button_file">
 														<option></option>
 													</select>
 												</div>
@@ -2314,10 +2704,10 @@ echo PAGE_TITLE;
 											</div>
 										</div>
 										<div class="eb-field">
-											<label id="label_btn_link_to">Web Address (URL)</label>
+											<label id="label_btn_link_to" class="label_btn_link_to">Web Address (URL)</label>
 											<div class="eb-right">
 												<div class="eb-inner-field">
-													<input id="buttonUrl" type="text" class="txt_field" />
+													<input id="buttonUrl" type="text" class="txt_field button_url" />
 												</div>
 											</div>
 										</div>

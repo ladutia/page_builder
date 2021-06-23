@@ -1461,6 +1461,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#55a03b', end
     padding: 3px 15px 0;
     display: none;
 }
+.tab-content .eb-design-head,
 .eb-slide-box-content .eb-design-head{
     font-size: 16px;
     line-height: 19px;
@@ -3876,4 +3877,16 @@ body.email-builder h4{
     color: #000000 !important;
     font-weight: 400;
     text-decoration: none !important;
+}
+.eb-btn-learn-more{
+    padding: 15px;
+    border-bottom: 1px solid #d9d9d9;
+}
+.eb-btn-learn-more .wrap-switchs .switch-lb {
+    display: inline-block;
+    vertical-align: top;
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+    margin-right: 6px;
 }

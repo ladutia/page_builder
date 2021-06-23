@@ -620,14 +620,6 @@ var page = {
 			formatTime:'h:i A',
 			step: 5
 		});
-        ll_date_picker_manager.make_picker ('#countdown-end-date-time', {
-            timepicker: true,
-            startDate: new Date(),
-            minDate: false,
-            format: 'Y-m-d H:i:00',
-            formatTime:'h:i A',
-            step: 10
-        });
 		//ll_date_picker_manager.event_on_change('#start-datetime-calendar-email', function () {
 		$('#start-datetime-calendar-email').bind ('change', function (){
 			var startDate = ll_date_picker_manager.get_selected_date_text('#start-datetime-calendar-email');
@@ -3242,27 +3234,7 @@ var page = {
 						'</tr>' +
 						'</tbody>' +
 						'</table>';
-				} else if ($item.hasClass('eb-block-countdown')) {
-                    type = 'box-countdown';
-                    dataAll = '{"align":1, "template":"1", "name":"Untitled timer", "timeEnd":"", "timeZone":"", "fontFamily":"ArialUnicode", "colorPrimary":"2C66B4", "colorText":"343634", "colorBg":"E3E8EE", "boxBg":"#E3E8EE", "fontSize":"38", "day":"1", "lang":"en", "expiredMesOn":"0", "expiredMes":"This offer has expired", "labels":"0", "days":"Days", "hours":"Hours", "minutes":"Minutes", "seconds":"Seconds"}';
-                    elementDrag = '<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ebCountdownBlock" style="background-color: #E3E8EE; padding: 9px;">' +
-                        '<tbody>' +
-                        '<tr>' +
-                        '<td align="center" class="ebCountdownBlockInner">' +
-                        '<table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 400px;" class="ebCountdownContent">' +
-                        '<tbody>' +
-                        '<tr>' +
-                        '<td valign="top">' +
-                        '<img alt="" style="display:inline-block!important;width:90%!important;max-width:544px!important;" border="0" src="imgs/imgs_email_builder/countdown.gif"/>' +
-                        '</td>' +
-                        '</tr>' +
-                        '</tbody>' +
-                        '</table>' +
-                        '</td>' +
-                        '</tr>' +
-                        '</tbody>' +
-                        '</table>';
-                }
+				}
 
 				content =   "<div class='tpl-block tpl-selected tpl-adding' data-type='"+type+"' data-json='"+dataAll+"'>"+
 					'<div class="tpl-block-content">'
@@ -3992,38 +3964,7 @@ var page = {
 			$("#column3BorderBottomType").trigger('liszt:updated');
 			$('#column3BorderBottomWidth').val(opt.borderBottomWidth);
 			$('#column3BorderBottomColor').colpickSetColor(opt.borderBottomColor, true).css('background-color', opt.borderBottomColor);
-		} else if(type == 'box-countdown'){
-            $('#countdownBackgroundBox').colpickSetColor(opt.boxBg, true).css('background-color', opt.boxBg);
-            $('#countdownBackground').colpickSetColor("#" + opt.colorBg, true).css('background-color', "#" + opt.colorBg);
-            $('#countdownPrimaryColor').colpickSetColor("#" + opt.colorPrimary, true).css('background-color', "#" + opt.colorPrimary);
-            $('#countdownTextColor').colpickSetColor("#" + opt.colorText, true).css('background-color', "#" + opt.colorText);
-            ll_combo_manager.set_selected_value('#countdownTemplate', opt.template);
-            $('#countdownName').val(opt.name);
-            $('#countdown-end-date-time').val(opt.timeEnd);
-            ll_combo_manager.set_selected_value('#countdowmTimezone', opt.timeZone);
-            ll_combo_manager.set_selected_value('#countdownLabels', opt.labels);
-            if(opt.labels == 1){
-                $('.countdown-custom-labels').removeClass('countdown-custom-labels--hide');
-            } else{
-                $('.countdown-custom-labels').addClass('countdown-custom-labels--hide');
-            }
-            ll_combo_manager.set_selected_value('#countdownLabelsLeng', opt.lang);
-            $('#countdownCustomDays').val(opt.days);
-            $('#countdownCustomHours').val(opt.hours);
-            $('#countdownCustomMinutes').val(opt.minutes);
-            $('#countdownCustomSeconds').val(opt.seconds);
-            ll_combo_manager.set_selected_value('#countdownTypeFace', opt.fontFamily);
-            ll_combo_manager.set_selected_value('#countdownFontSize', opt.fontSize);
-            ll_combo_manager.set_selected_value('#countdownAlign', opt.align);
-            ll_combo_manager.set_selected_value('#countdownIsDays', opt.day);
-            ll_combo_manager.set_selected_value('#countdownAfterCount', opt.expiredMesOn);
-            if(opt.expiredMesOn == 1){
-                $('.countdown-field-after-count').removeClass('countdown-field-after-count--hide');
-            } else{
-                $('.countdown-field-after-count').addClass('countdown-field-after-count--hide');
-            }
-            $('#countdownExpiredMessage').val(opt.expiredMes);
-        }
+		}
 		if( $('.wrap-tabs-content:visible').find('.eb-editor-text').length ){
 			page.resizeTinymce();
 		}
@@ -6387,116 +6328,6 @@ var page = {
 			$tpl.css('border-bottom-width',opt.borderBottomWidth + 'px');
 			$tpl.attr('data-json', JSON.stringify( opt ));
 		});
-
-        //Countdown
-        $('#countdown-end-date-time').bind ('change', function (){
-            var timeEnd = ll_date_picker_manager.get_selected_date_text('#countdown-end-date-time');
-            updateInfElTpl();
-            opt.timeEnd = timeEnd;
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
-        $('#countdownTemplate').on('change', function () {
-            updateInfElTpl();
-            opt.template = $(this).val();
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
-        $('#countdownName').on('change', function () {
-            updateInfElTpl();
-            opt.name = $(this).val();
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
-        $('#countdowmTimezone').on('change', function () {
-            updateInfElTpl();
-            opt.timeZone = $(this).val();
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
-        $('#countdownLabelsLeng').on('change', function () {
-            updateInfElTpl();
-            opt.lang = $(this).val();
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
-        $('#countdownLabels').on('change', function () {
-            updateInfElTpl();
-            opt.labels = $(this).val();
-            if(opt.labels == 1){
-                $('.countdown-custom-labels').removeClass('countdown-custom-labels--hide');
-            } else{
-                $('.countdown-custom-labels').addClass('countdown-custom-labels--hide');
-            }
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
-        $('#countdownLabelsLeng').on('change', function () {
-            updateInfElTpl();
-            opt.lang = $(this).val();
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
-        $('#countdownCustomDays').on('change', function () {
-            updateInfElTpl();
-            opt.days = $(this).val();
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
-        $('#countdownCustomHours').on('change', function () {
-            updateInfElTpl();
-            opt.hours = $(this).val();
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
-        $('#countdownCustomMinutes').on('change', function () {
-            updateInfElTpl();
-            opt.minutes = $(this).val();
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
-        $('#countdownCustomSeconds').on('change', function () {
-            updateInfElTpl();
-            opt.seconds = $(this).val();
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
-        $('#countdownTypeFace').on('change', function () {
-            updateInfElTpl();
-            opt.fontFamily = $(this).val();
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
-        $('#countdownFontSize').on('change', function () {
-            updateInfElTpl();
-            opt.fontSize = $(this).val();
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
-        $('#countdownAlign').on('change', function () {
-            updateInfElTpl();
-            var val = $(this).val();
-
-            if (val == 0){
-                val = 'left';
-            } else if(val == 1){
-                val = 'center';
-            } else if (val == 2){
-                val = 'right';
-            }
-
-            opt.align = val;
-
-            $tpl.find('.ebCountdownBlockInner').attr('align', opt.align);
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
-        $('#countdownIsDays').on('change', function () {
-            updateInfElTpl();
-            opt.day = $(this).val();
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
-        $('#countdownAfterCount').on('change', function () {
-            updateInfElTpl();
-            opt.expiredMesOn = $(this).val();
-            if(opt.expiredMesOn == 1){
-                $('.countdown-field-after-count').removeClass('countdown-field-after-count--hide');
-            } else{
-                $('.countdown-field-after-count').addClass('countdown-field-after-count--hide');
-            }
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
-        $('#countdownExpiredMessage').on('change', function () {
-            updateInfElTpl();
-            opt.expiredMes = $(this).val();
-            $tpl.attr('data-json', JSON.stringify( opt ));
-        });
     },
 	elementsClone: function($btn){
 		var $block = $btn.closest('.tpl-block');
@@ -6849,20 +6680,7 @@ var page = {
 			opt.borderBottomColor = '#' + hex;
 			$tpl.css('border-bottom-color', opt.borderBottomColor);
 			$tpl.attr('data-json', JSON.stringify(opt));
-		} else if ( id == 'countdownBackgroundBox') {
-            opt.boxBg = '#' + hex;
-            $tpl.find('.ebCountdownBlock').css('backgroundColor', opt.boxBg);
-            $tpl.attr('data-json', JSON.stringify(opt));
-        } else if ( id == 'countdownBackground') {
-            opt.colorBg = hex;
-            $tpl.attr('data-json', JSON.stringify(opt));
-        } else if ( id == 'countdownPrimaryColor') {
-            opt.colorPrimary = hex;
-            $tpl.attr('data-json', JSON.stringify(opt));
-        } else if ( id == 'countdownTextColor') {
-            opt.colorText = hex;
-            $tpl.attr('data-json', JSON.stringify(opt));
-        }
+		}
     },
     heightBodyTable: function(){
         //$('#bodyTable').css('height',$('#container_designer_html').height());

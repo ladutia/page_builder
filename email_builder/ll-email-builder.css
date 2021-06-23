@@ -3281,10 +3281,6 @@ select.eb-w160{
 .eb-content-to-share{
     margin-bottom: 15px;
 }
-
-.eb-content-countdown .chzn-container-single .chzn-search input,
-.eb-content-countdown .chzn-drop,
-.eb-content-countdown .chzn-container-single,
 .calendarTimezone .chzn-container-single .chzn-search input,
 .calendarTimezone .chzn-drop,
 .calendarTimezone .chzn-container-single,
@@ -3489,22 +3485,18 @@ select.eb-w160{
 .eb-fields-social{
     padding-top: 5px;
 }
-.eb-content-countdown .t-field,
 .eb-wrap-social-network .t-field{
     margin-bottom: 0;
     margin-top: 10px;
 }
-.eb-content-countdown .t-field .label,
 .eb-wrap-social-network .t-field .label{
     margin-bottom: 4px;
 }
-.eb-content-countdown .t-field .label > label,
 .eb-wrap-social-network .t-field .label > label{
     font-size: 14px;
     line-height: 17px; 
     color: #333333;
 }
-.eb-content-countdown .t-field .txt-field,
 .eb-wrap-social-network .t-field .txt-field{
     width: 100%;
 }
@@ -3795,11 +3787,9 @@ body.email-builder h4{
 	padding-top: 15px;
 	text-align: center;
 }
-.eb-tpl-columns,
 .field-calendar-email{
 	margin-bottom: 15px;
 }
-.eb-tpl-columns .t-wrap-field-col > div,
 .field-calendar-email .t-wrap-field-col > div{
 	width: 50%;
 	float: left;
@@ -3807,11 +3797,9 @@ body.email-builder h4{
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 }
-.eb-tpl-columns .t-wrap-field-col > div.t-field-col-1,
 .field-calendar-email .t-wrap-field-col > div.t-field-col-1{
 	padding-right: 5px;
 }
-.eb-tpl-columns .t-wrap-field-col > div.t-field-col-2,
 .field-calendar-email .t-wrap-field-col > div.t-field-col-2{
 	padding-left: 5px;
 }
@@ -3888,19 +3876,4 @@ body.email-builder h4{
     color: #000000 !important;
     font-weight: 400;
     text-decoration: none !important;
-}
-.eb-content-countdown{
-    padding: 15px;
-}
-#countdownExpiredMessage{
-    max-width: 152px;
-}
-.eb-countdown-generation{
-    position: relative;
-    padding-top: 15px;
-    text-align: center;
-}
-.countdown-field-after-count--hide,
-.countdown-custom-labels--hide{
-    display: none;
 }
